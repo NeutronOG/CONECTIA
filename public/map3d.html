@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mapa 3D Conectia</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080b14; overflow: hidden; width: 100vw; height: 100vh; }
+  canvas { display: block; }
+  #loading {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: #080b14; color: #94a3b8; font-family: sans-serif; font-size: 14px;
+    flex-direction: column; gap: 12px; z-index: 99;
+  }
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid #1e293b;
+    border-top-color: #eab308; border-radius: 50%; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="loading"><div class="spinner"></div><span>Cargando mapa 3D...</span></div>
+<script src="/three.min.js"></script>
+<script>
+// ── Minimal OrbitControls (inline, no CDN) ────────────────────────────────────
+THREE.OrbitControls = function(camera, domElement) {
+  this.camera = camera;
+  this.domElement = domElement;
+  this.enabled = true;
+  this.enableDamping = true;
+  this.dampingFactor = 0.06;
+  this.autoRotate = true;
+  this.autoRotateSpeed = 0.5;
+  this.minDistance = 5;
+  this.maxDistance = 60;
+  this.minPolarAngle = 0;
+  this.maxPolarAngle = Math.PI / 2;
+
+  var scope = this;
+  var spherical = new THREE.Spherical();
+  var sphericalDelta = new THREE.Spherical();
+  var target = new THREE.Vector3();
+  var rotateStart = new THREE.Vector2();
+  var rotateEnd = new THREE.Vector2();
+  var rotateDelta = new THREE.Vector2();
+  var scale = 1;
+  var isPointerDown = false;
+
+  // Init spherical from camera
+  var offset = camera.position.clone().sub(target);
+  spherical.setFromVector3(offset);
+
+  function getAutoRotateAngle() {
+    return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
+  }
+
+  this.update = function() {
+    if (scope.autoRotate && !isPointerDown) {
+      sphericalDelta.theta -= getAutoRotateAngle();
+    }
+    spherical.theta += sphericalDelta.theta;
+    spherical.phi += sphericalDelta.phi;
+    spherical.phi = Math.max(scope.minPolarAngle, Math.min(scope.maxPolarAngle, spherical.phi));
+    spherical.radius *= scale;
+    spherical.radius = Math.max(scope.minDistance, Math.min(scope.maxDistance, spherical.radius));
+
+    if (scope.enableDamping) {
+      sphericalDelta.theta *= (1 - scope.dampingFactor);
+      sphericalDelta.phi *= (1 - scope.dampingFactor);
+    } else {
+      sphericalDelta.set(0, 0, 0);
+    }
+    scale = 1;
+
+    var offset2 = new THREE.Vector3().setFromSpherical(spherical);
+    camera.position.copy(target).add(offset2);
+    camera.lookAt(target);
+  };
+
+  // Mouse / touch events
+  domElement.addEventListener('pointerdown', function(e) {
+    isPointerDown = true;
+    rotateStart.set(e.clientX, e.clientY);
+  });
+  domElement.addEventListener('pointermove', function(e) {
+    if (!isPointerDown) return;
+    rotateEnd.set(e.clientX, e.clientY);
+    rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(0.005);
+    sphericalDelta.theta -= rotateDelta.x;
+    sphericalDelta.phi -= rotateDelta.y;
+    rotateStart.copy(rotateEnd);
+  });
+  domElement.addEventListener('pointerup', function() { isPointerDown = false; });
+  domElement.addEventListener('pointerleave', function() { isPointerDown = false; });
+  domElement.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    scale *= e.deltaY > 0 ? 1.1 : 0.9;
+  }, { passive: false });
+};
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+window.addEventListener('load', function() {
+  if (typeof THREE === 'undefined') {
+    document.getElementById('loading').innerHTML = '<span style="color:#ef4444">Error: Three.js no cargó</span>';
+    return;
+  }
+  document.getElementById('loading').style.display = 'none';
+  initScene();
+});
+
+function initScene() {
+  var EDIFICIOS = [
+    { id:1,  nombre:"Torre Conectia Campestre",     zona:"Campestre",     tipo:"Departamentos de Lujo",   disponibles:12, total:48, precioDesde:"$4,200,000", pisos:18, hex:"#eab308", x:100, z:80,  w:55, d:45, h:130 },
+    { id:2,  nombre:"Residencial La Valenciana", zona:"La Valenciana", tipo:"Casas Residenciales",     disponibles:8,  total:32, precioDesde:"$3,800,000", pisos:3,  hex:"#10b981", x:230, z:60,  w:75, d:55, h:28  },
+    { id:3,  nombre:"Gran Jardín Tower",         zona:"Gran Jardín",   tipo:"Departamentos",           disponibles:24, total:80, precioDesde:"$2,900,000", pisos:22, hex:"#3b82f6", x:380, z:85,  w:50, d:42, h:155 },
+    { id:4,  nombre:"Puerta Plata Residencial",  zona:"Puerta Plata",  tipo:"Casas Premium",           disponibles:5,  total:20, precioDesde:"$5,500,000", pisos:2,  hex:"#f97316", x:510, z:65,  w:85, d:65, h:22  },
+    { id:5,  nombre:"Mayorazgo Business",        zona:"Mayorazgo",     tipo:"Oficinas",                disponibles:18, total:40, precioDesde:"$3,100,000", pisos:12, hex:"#8b5cf6", x:175, z:195, w:60, d:50, h:95  },
+    { id:6,  nombre:"San Isidro Park",           zona:"San Isidro",    tipo:"Departamentos",           disponibles:30, total:60, precioDesde:"$2,500,000", pisos:14, hex:"#ef4444", x:335, z:200, w:55, d:45, h:108 },
+    { id:7,  nombre:"El Refugio Towers",         zona:"El Refugio",    tipo:"Penthouse",               disponibles:6,  total:24, precioDesde:"$6,800,000", pisos:20, hex:"#14b8a6", x:465, z:185, w:48, d:40, h:145 },
+    { id:8,  nombre:"Cañada Lofts",             zona:"La Cañada",     tipo:"Lofts Modernos",          disponibles:14, total:36, precioDesde:"$1,900,000", pisos:8,  hex:"#f43f5e", x:85,  z:285, w:65, d:48, h:70  },
+    { id:9,  nombre:"Centro Histórico Plaza",   zona:"Centro",        tipo:"Locales Comerciales",     disponibles:9,  total:30, precioDesde:"$2,200,000", pisos:5,  hex:"#d946ef", x:270, z:300, w:80, d:60, h:50  },
+    { id:10, nombre:"Conectia Select Tower",        zona:"Campestre",     tipo:"Departamentos Premium",   disponibles:3,  total:16, precioDesde:"$8,900,000", pisos:28, hex:"#eab308", x:415, z:290, w:45, d:38, h:185 }
+  ];
+
+  var SCALE = 0.045, OX = 320, OZ = 190;
+
+  // Renderer
+  var renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  document.body.appendChild(renderer.domElement);
+
+  // Scene
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x080b14);
+  scene.fog = new THREE.Fog(0x080b14, 22, 58);
+
+  // Camera
+  var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 200);
+  camera.position.set(0, 18, 28);
+  camera.lookAt(0, 0, 0);
+
+  // Controls
+  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0x334155, 1.5));
+  var sun = new THREE.DirectionalLight(0xffffff, 2.5);
+  sun.position.set(12, 22, 12);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.near = 0.5; sun.shadow.camera.far = 80;
+  sun.shadow.camera.left = -25; sun.shadow.camera.right = 25;
+  sun.shadow.camera.top = 25; sun.shadow.camera.bottom = -25;
+  sun.shadow.bias = -0.001;
+  scene.add(sun);
+  var bl = new THREE.PointLight(0x3b82f6, 2, 30); bl.position.set(-12, 8, -12); scene.add(bl);
+  var gl = new THREE.PointLight(0xeab308, 1.5, 25); gl.position.set(12, 5, 12); scene.add(gl);
+
+  // Ground
+  var gnd = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshStandardMaterial({ color: 0x0a0f1e, roughness: 1 }));
+  gnd.rotation.x = -Math.PI / 2; gnd.receiveShadow = true; scene.add(gnd);
+  var grid = new THREE.GridHelper(60, 60, 0x1e293b, 0x1e293b); grid.position.y = 0.01; scene.add(grid);
+
+  // Building helpers
+  function box(w, h, d, color, rough, metal, opacity) {
+    var geo = new THREE.BoxGeometry(w, h, d);
+    var mat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(color),
+      roughness: rough !== undefined ? rough : 0.5,
+      metalness: metal !== undefined ? metal : 0.1,
+      transparent: opacity !== undefined && opacity < 1,
+      opacity: opacity !== undefined ? opacity : 1
+    });
+    var m = new THREE.Mesh(geo, mat);
+    m.castShadow = true; m.receiveShadow = true;
+    return m;
+  }
+
+  function skyscraper(w, h, d, hex) {
+    var g = new THREE.Group();
+    var pod = box(w*1.15, h*0.04, d*1.15, 0x0f172a, 0.8); pod.position.y = h*0.02; g.add(pod);
+    var tower = box(w, h*0.92, d, hex, 0.15, 0.6, 0.9); tower.position.y = h*0.04 + (h*0.92)/2; g.add(tower);
+    var bands = Math.min(16, Math.floor(h/0.6));
+    for (var i = 0; i < bands; i++) {
+      var b = box(w*1.04, 0.025, d*1.04, 0xe2e8f0, 0.1, 0.9); b.position.y = h*0.06 + i*0.6; g.add(b);
+    }
+    var spireGeo = new THREE.CylinderGeometry(0.02, 0.07, h*0.12, 8);
+    var spireMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: new THREE.Color(0xef4444), emissiveIntensity: 0.7 });
+    var spire = new THREE.Mesh(spireGeo, spireMat); spire.position.y = h*0.96 + h*0.06; g.add(spire);
+    return g;
+  }
+
+  function villa(w, h, d, hex) {
+    var g = new THREE.Group();
+    var plat = box(w*1.2, 0.08, d*1.2, 0xd1d5db, 0.9); plat.position.y = 0.04; g.add(plat);
+    var body = box(w*0.85, h, d*0.8, hex, 0.4); body.position.set(-w*0.05, 0.08+h/2, -d*0.05); g.add(body);
+    var roof = box(w*1.05, 0.07, d*0.95, 0x1e293b, 0.8); roof.position.set(-w*0.05, 0.08+h+0.035, -d*0.05); g.add(roof);
+    var pool = box(w*0.45, 0.1, d*0.35, 0x38bdf8, 0.05, 0, 0.85); pool.position.set(w*0.28, 0.09, d*0.28); g.add(pool);
+    return g;
+  }
+
+  function midrise(w, h, d, hex) {
+    var g = new THREE.Group();
+    var base = box(w, h*0.18, d, 0x1e293b, 0.7); base.position.y = (h*0.18)/2; g.add(base);
+    var main = box(w*0.78, h*0.82, d*0.78, hex, 0.2, 0.5, 0.9); main.position.set(-w*0.08, h*0.18+(h*0.82)/2, -d*0.08); g.add(main);
+    var sec = box(w*0.45, h*0.58, d*0.88, 0xf1f5f9, 0.7); sec.position.set(w*0.22, h*0.18+(h*0.58)/2, 0); g.add(sec);
+    var slabs = Math.max(1, Math.floor((h*0.58)/0.65));
+    for (var i = 0; i < slabs; i++) {
+      var s = box(w*0.5, 0.04, d*0.92, 0x94a3b8); s.position.set(w*0.22, h*0.18+i*0.65, 0); g.add(s);
+    }
+    var green = box(w*0.78, 0.06, d*0.78, 0x10b981, 0.9); green.position.set(-w*0.08, h+0.03, -d*0.08); g.add(green);
+    return g;
+  }
+
+  // Place buildings
+  var buildingGroups = [], glowMeshes = [];
+  EDIFICIOS.forEach(function(ed) {
+    var w = ed.w*SCALE, h = ed.h*SCALE, d = ed.d*SCALE;
+    var px = (ed.x - OX)*SCALE, pz = (ed.z - OZ)*SCALE;
+    var bg = ed.pisos >= 15 ? skyscraper(w,h,d,ed.hex) : ed.pisos <= 3 ? villa(w,h,d,ed.hex) : midrise(w,h,d,ed.hex);
+    bg.position.set(px+w/2, 0, pz+d/2);
+    bg.userData = { id: ed.id, ed: ed };
+    scene.add(bg); buildingGroups.push(bg);
+
+    var gGeo = new THREE.PlaneGeometry(w*3, d*3);
+    var gMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(ed.hex), transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+    var gMesh = new THREE.Mesh(gGeo, gMat);
+    gMesh.rotation.x = -Math.PI/2; gMesh.position.set(px+w/2, 0.02, pz+d/2);
+    scene.add(gMesh); glowMeshes.push({ id: ed.id, mesh: gMesh });
+  });
+
+  // Raycasting
+  var raycaster = new THREE.Raycaster(), mouse = new THREE.Vector2();
+  var hoveredId = null, selectedId = null;
+
+  function allMeshes() {
+    var arr = [];
+    buildingGroups.forEach(function(g) { g.traverse(function(c) { if (c.isMesh) arr.push(c); }); });
+    return arr;
+  }
+  function getId(hit) {
+    var o = hit.object;
+    for (var i = 0; i < 6; i++) { if (o.userData && o.userData.id) return o.userData.id; if (o.parent) o = o.parent; else break; }
+    return null;
+  }
+  function sendMsg(type, id) {
+    var ed = id ? EDIFICIOS.find(function(e) { return e.id === id; }) : null;
+    try { window.parent.postMessage({ type: type, id: id, edificio: ed }, '*'); } catch(e) {}
+  }
+
+  renderer.domElement.addEventListener('mousemove', function(e) {
+    var r = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((e.clientX - r.left) / r.width)*2 - 1;
+    mouse.y = -((e.clientY - r.top) / r.height)*2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    var hits = raycaster.intersectObjects(allMeshes());
+    if (hits.length) {
+      var id = getId(hits[0]);
+      if (id && id !== hoveredId) { hoveredId = id; renderer.domElement.style.cursor = 'pointer'; controls.autoRotate = false; sendMsg('hover', id); }
+    } else {
+      if (hoveredId !== null) { hoveredId = null; renderer.domElement.style.cursor = 'grab'; if (!selectedId) controls.autoRotate = true; sendMsg('hover', null); }
+    }
+  });
+  renderer.domElement.addEventListener('click', function() {
+    raycaster.setFromCamera(mouse, camera);
+    var hits = raycaster.intersectObjects(allMeshes());
+    if (hits.length) {
+      var id = getId(hits[0]);
+      if (id) { selectedId = selectedId === id ? null : id; controls.autoRotate = !selectedId; sendMsg('select', selectedId); }
+    } else { selectedId = null; controls.autoRotate = true; sendMsg('select', null); }
+  });
+
+  window.addEventListener('message', function(e) {
+    var d = e.data || {};
+    if (d.type === 'selectById') { selectedId = d.id || null; controls.autoRotate = !selectedId; }
+  });
+
+  // Animate
+  var clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    glowMeshes.forEach(function(item) {
+      var active = item.id === hoveredId || item.id === selectedId;
+      item.mesh.material.opacity += ((active ? 0.4 : 0) - item.mesh.material.opacity) * 0.12;
+    });
+    buildingGroups.forEach(function(g) {
+      var active = g.userData.id === hoveredId || g.userData.id === selectedId;
+      g.position.y += ((active ? 0.35 : 0) - g.position.y) * 0.1;
+    });
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+}
+</script>
+</body>
+</html>

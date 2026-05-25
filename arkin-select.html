@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectia Select</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            width: 100vw;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #f5f5f5 0%, #ffffff 50%, #fafafa 100%);
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-section {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: transparent;
+            overflow: visible;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 60px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-divider {
+            width: 2px;
+            height: 50px;
+            background-color: #000000;
+        }
+
+        .logo-select {
+            font-weight: 300;
+            font-size: 52px;
+            letter-spacing: 1px;
+        }
+
+        .buildings-container {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @media print {
+            body {
+                background: linear-gradient(to bottom, #f5f5f5 0%, #ffffff 50%, #fafafa 100%);
+            }
+            
+            .buildings-container {
+                opacity: 0.12;
+            }
+            
+            .contract-content {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            
+            .footer {
+                page-break-before: avoid;
+            }
+        }
+
+        .building {
+            position: absolute;
+            bottom: -100px;
+        }
+
+        .building-box {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .face {
+            position: absolute;
+        }
+
+        .face-front {
+            background: #e8e8e8;
+        }
+
+        .face-right {
+            background: #d0d0d0;
+            transform-origin: left;
+            transform: rotateY(-60deg);
+        }
+
+        .face-top {
+            background: #f5f5f5;
+            transform-origin: bottom;
+            transform: rotateX(30deg);
+        }
+
+        .face-lime {
+            background: #d8e89f;
+        }
+
+        .building-1 {
+            left: 2%;
+            bottom: 0;
+        }
+
+        .building-1 .building-box {
+            width: 100px;
+            height: 450px;
+        }
+
+        .building-1 .face-front {
+            width: 60px;
+            height: 450px;
+            background: #c8c8c8;
+        }
+
+        .building-1 .face-right {
+            width: 60px;
+            height: 450px;
+            left: 60px;
+            background: #d8e89f;
+        }
+
+        .building-1 .face-top {
+            width: 60px;
+            height: 60px;
+            top: 0;
+            background: #e8f5b0;
+        }
+
+        .building-2 {
+            left: 10%;
+            bottom: 0;
+        }
+
+        .building-2 .building-box {
+            width: 130px;
+            height: 280px;
+        }
+
+        .building-2 .face-front {
+            width: 80px;
+            height: 280px;
+            background: #f0f0f0;
+        }
+
+        .building-2 .face-right {
+            width: 80px;
+            height: 280px;
+            left: 80px;
+            background: #d8d8d8;
+        }
+
+        .building-3 {
+            left: 18%;
+            bottom: 0;
+        }
+
+        .building-3 .building-box {
+            width: 110px;
+            height: 350px;
+        }
+
+        .building-3 .face-front {
+            width: 70px;
+            height: 350px;
+            background: #e5e5e5;
+        }
+
+        .building-3 .face-right {
+            width: 70px;
+            height: 350px;
+            left: 70px;
+            background: #cdcdcd;
+        }
+
+        .building-4 {
+            left: 26%;
+            bottom: 0;
+        }
+
+        .building-4 .building-box {
+            width: 140px;
+            height: 580px;
+        }
+
+        .building-4 .face-front {
+            width: 90px;
+            height: 580px;
+            background: #ececec;
+        }
+
+        .building-4 .face-right {
+            width: 90px;
+            height: 580px;
+            left: 90px;
+            background: #d4d4d4;
+        }
+
+        .building-5 {
+            left: 34%;
+            bottom: 0;
+        }
+
+        .building-5 .building-box {
+            width: 120px;
+            height: 420px;
+        }
+
+        .building-5 .face-front {
+            width: 75px;
+            height: 420px;
+            background: #e8e8e8;
+        }
+
+        .building-5 .face-right {
+            width: 75px;
+            height: 420px;
+            left: 75px;
+            background: #d0d0d0;
+        }
+
+        .building-6 {
+            left: 42%;
+            bottom: 0;
+        }
+
+        .building-6 .building-box {
+            width: 125px;
+            height: 380px;
+        }
+
+        .building-6 .face-front {
+            width: 78px;
+            height: 380px;
+            background: #f2f2f2;
+        }
+
+        .building-6 .face-right {
+            width: 78px;
+            height: 380px;
+            left: 78px;
+            background: #dadada;
+        }
+
+        .building-7 {
+            left: 50%;
+            bottom: 0;
+        }
+
+        .building-7 .building-box {
+            width: 135px;
+            height: 500px;
+        }
+
+        .building-7 .face-front {
+            width: 85px;
+            height: 500px;
+            background: #c5c5c5;
+        }
+
+        .building-7 .face-right {
+            width: 85px;
+            height: 500px;
+            left: 85px;
+            background: #d8e89f;
+        }
+
+        .building-8 {
+            left: 58%;
+            bottom: 0;
+        }
+
+        .building-8 .building-box {
+            width: 115px;
+            height: 320px;
+        }
+
+        .building-8 .face-front {
+            width: 72px;
+            height: 320px;
+            background: #e0e0e0;
+        }
+
+        .building-8 .face-right {
+            width: 72px;
+            height: 320px;
+            left: 72px;
+            background: #c8c8c8;
+        }
+
+        .building-9 {
+            left: 66%;
+            bottom: 0;
+        }
+
+        .building-9 .building-box {
+            width: 125px;
+            height: 400px;
+        }
+
+        .building-9 .face-front {
+            width: 78px;
+            height: 400px;
+            background: #e8e8e8;
+        }
+
+        .building-9 .face-right {
+            width: 78px;
+            height: 400px;
+            left: 78px;
+            background: #d0d0d0;
+        }
+
+        .building-10 {
+            left: 74%;
+            bottom: 0;
+        }
+
+        .building-10 .building-box {
+            width: 110px;
+            height: 360px;
+        }
+
+        .building-10 .face-front {
+            width: 70px;
+            height: 360px;
+            background: #f0f0f0;
+        }
+
+        .building-10 .face-right {
+            width: 70px;
+            height: 360px;
+            left: 70px;
+            background: #d8d8d8;
+        }
+
+        .building-11 {
+            left: 82%;
+            bottom: 0;
+        }
+
+        .building-11 .building-box {
+            width: 130px;
+            height: 480px;
+        }
+
+        .building-11 .face-front {
+            width: 82px;
+            height: 480px;
+            background: #c0c0c0;
+        }
+
+        .building-11 .face-right {
+            width: 82px;
+            height: 480px;
+            left: 82px;
+            background: #d8e89f;
+        }
+
+        .building-12 {
+            left: 91%;
+            bottom: 0;
+        }
+
+        .building-12 .building-box {
+            width: 120px;
+            height: 340px;
+        }
+
+        .building-12 .face-front {
+            width: 75px;
+            height: 340px;
+            background: #e5e5e5;
+        }
+
+        .building-12 .face-right {
+            width: 75px;
+            height: 340px;
+            left: 75px;
+            background: #cdcdcd;
+        }
+
+        .info-section {
+            text-align: center;
+            padding: 20px 35px;
+            background: transparent;
+        }
+
+        .director-name {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            margin-bottom: 2px;
+            letter-spacing: 0.3px;
+        }
+
+        .director-title {
+            font-size: 9px;
+            font-weight: 400;
+            color: #333333;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .director-title span {
+            font-weight: 700;
+        }
+
+        .divider {
+            width: 250px;
+            height: 1px;
+            background-color: #000000;
+            margin: 10px auto 0;
+        }
+
+        .contract-content {
+            width: 100%;
+            max-width: 900px;
+            padding: 50px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 10;
+            position: relative;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .contract-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-subtitle {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 40px;
+        }
+
+        .contract-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .clause-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .contract-text {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #333333;
+            text-align: justify;
+            margin-bottom: 12px;
+        }
+
+        .contract-list {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .contract-list li {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #333333;
+            margin-bottom: 8px;
+        }
+
+        .signature-section {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .signature-box {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .signature-line {
+            border-top: 2px solid #000000;
+            margin-bottom: 10px;
+            padding-top: 5px;
+        }
+
+        .signature-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #1a1a1a;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            width: 100%;
+        }
+
+        .footer-item {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .footer-item.email {
+            font-weight: 300;
+        }
+
+        .footer-item.website {
+            font-weight: 700;
+        }
+
+        .footer-item.phone {
+            font-weight: 400;
+        }
+
+        .footer-icon {
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .home-icon {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ffffff;
+            border-radius: 3px;
+            position: relative;
+            background: transparent;
+        }
+
+        .home-icon::before {
+            content: '';
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 7px solid #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 48px;
+            }
+
+            .logo-select {
+                font-size: 42px;
+            }
+
+            .logo-divider {
+                height: 40px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 20px;
+            }
+
+            .footer-item {
+                font-size: 12px;
+            }
+
+            .building {
+                transform: scale(0.6);
+                transform-origin: bottom left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <div class="logo-container">
+                <div class="logo">
+                    <span>conectia</span>
+                    <div class="logo-divider"></div>
+                    <span class="logo-select">select.</span>
+                </div>
+            </div>
+
+            <div class="buildings-container">
+            <div class="building building-1">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-2">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-3">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-4">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-5">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-6">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-7">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-8">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-9">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-10">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-11">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+
+            <div class="building building-12">
+                <div class="building-box">
+                    <div class="face face-front"></div>
+                    <div class="face face-right"></div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="contract-content">
+            <h1 class="contract-title">Contrato Individual de Trabajo por Tiempo Indefinido</h1>
+            <h2 class="contract-subtitle">CONECTIA SELECT WEB Y APP</h2>
+
+            <p class="contract-text">QUE CELEBRAN, por una parte CONECTIA SELECT WEB Y APP, a quien en lo sucesivo se le denominará "LA EMPRESA", y por la otra parte ________________________________________________, a quien en lo sucesivo se le denominará "EL TRABAJADOR", al tenor de las siguientes declaraciones y cláusulas, de conformidad con la Ley Federal del Trabajo.</p>
+
+            <div class="contract-section">
+                <h3 class="section-title">Declaraciones</h3>
+                
+                <h4 class="clause-title">I. Declara "LA EMPRESA":</h4>
+                <p class="contract-text">Ser una sociedad legalmente constituida conforme a las leyes mexicanas, dedicada a la comercialización, promoción, intermediación y gestión de bienes inmuebles bajo la marca CONECTIA SELECT WEB Y APP.</p>
+                <p class="contract-text">Contar con infraestructura tecnológica, CRM propietario, herramientas digitales, inteligencia artificial, contenido audiovisual, cartera de clientes y estrategias comerciales propias.</p>
+                <p class="contract-text">Tener interés en contratar a "EL TRABAJADOR" por tiempo indefinido bajo subordinación laboral.</p>
+
+                <h4 class="clause-title">II. Declara "EL TRABAJADOR":</h4>
+                <p class="contract-text">Tener capacidad legal para obligarse.</p>
+                <p class="contract-text">Contar con los conocimientos y habilidades necesarios para el puesto.</p>
+                <p class="contract-text">Aceptar prestar sus servicios personales subordinados a "LA EMPRESA".</p>
+                <p class="contract-text">Reconocer que la información, clientes, procesos, software y estrategias pertenecen exclusivamente a "LA EMPRESA".</p>
+            </div>
+
+            <div class="contract-section">
+                <h3 class="section-title">Cláusulas</h3>
+
+                <h4 class="clause-title">Primera. Objeto</h4>
+                <p class="contract-text">"EL TRABAJADOR" prestará sus servicios como ASESOR INMOBILIARIO, realizando actividades de promoción, intermediación, captación, negociación y cierre de operaciones inmobiliarias, así como el seguimiento integral de cada operación hasta su conclusión formal y cobro efectivo.</p>
+
+                <h4 class="clause-title">Segunda. Lugar y Jornada</h4>
+                <p class="contract-text">Lugar de trabajo: modalidad presencial, remota o mixta.</p>
+                <p class="contract-text">Domicilio de referencia: León, Guanajuato.</p>
+                <p class="contract-text">La jornada se sujetará a la Ley Federal del Trabajo.</p>
+
+                <h4 class="clause-title">Tercera. Ingreso y Comisiones</h4>
+                <p class="contract-text">La relación será exclusivamente comisionista, sin salario base fijo.</p>
+                <p class="contract-text">Las comisiones constituyen la única contraprestación económica por los servicios prestados.</p>
+                <p class="contract-text">Las comisiones se generarán únicamente cuando la operación esté firmada y efectivamente cobrada.</p>
+                <p class="contract-text">El pago se realizará mediante transferencia dentro de 3 a 5 días hábiles posteriores al cobro.</p>
+                <p class="contract-text">En ausencia de operaciones cobradas, no existirá obligación de pago para LA EMPRESA.</p>
+
+                <h4 class="clause-title">Cuarta. Capacitación</h4>
+                <p class="contract-text">LA EMPRESA proporcionará capacitación continua en procesos inmobiliarios, marketing, herramientas tecnológicas y normatividad aplicable.</p>
+
+                <h4 class="clause-title">Quinta. Herramientas</h4>
+                <p class="contract-text">Se otorgará acceso a:</p>
+                <ul class="contract-list">
+                    <li>Plataforma tecnológica CONECTIA SELECT WEB Y APP</li>
+                    <li>CRM y automatizaciones</li>
+                    <li>Asistente virtual</li>
+                    <li>Soporte administrativo y legal</li>
+                    <li>Espacio de oficina y recursos comerciales</li>
+                </ul>
+                <p class="contract-text">Dichas herramientas no constituyen salario ni prestación laboral.</p>
+
+                <h4 class="clause-title">Sexta. Confidencialidad</h4>
+                <p class="contract-text">EL TRABAJADOR se obliga a no divulgar ni utilizar información confidencial durante la relación laboral ni después de su terminación.</p>
+                <p class="contract-text">Incluye:</p>
+                <ul class="contract-list">
+                    <li>Clientes y prospectos</li>
+                    <li>Bases de datos y CRM</li>
+                    <li>Estrategias comerciales</li>
+                    <li>Software y procesos</li>
+                    <li>Documentación interna</li>
+                </ul>
+                <p class="contract-text">El incumplimiento dará lugar a rescisión inmediata y responsabilidad legal.</p>
+
+                <h4 class="clause-title">Séptima. Uso Obligatorio del CRM</h4>
+                <p class="contract-text">EL TRABAJADOR se obliga a registrar en el CRM de LA EMPRESA todos los prospectos, propiedades, seguimientos y operaciones.</p>
+                <p class="contract-text">Cualquier cliente no registrado en el sistema se presumirá propiedad de LA EMPRESA si fue contactado durante la relación laboral.</p>
+                <p class="contract-text">La omisión de registro podrá considerarse falta grave.</p>
+
+                <h4 class="clause-title">Octava. Exclusividad en Intermediación Inmobiliaria</h4>
+                <p class="contract-text">EL TRABAJADOR desarrollará actividades inmobiliarias exclusivamente a través de CONECTIA SELECT WEB Y APP.</p>
+                <p class="contract-text">No podrá:</p>
+                <ul class="contract-list">
+                    <li>Trabajar con otras inmobiliarias</li>
+                    <li>Captar clientes fuera de CONECTIA</li>
+                    <li>Crear estructuras paralelas</li>
+                    <li>Comercializar propiedades fuera del sistema</li>
+                </ul>
+
+                <h4 class="clause-title">Novena. Propiedad de Clientes</h4>
+                <p class="contract-text">Toda cartera, prospecto u operación generada pertenece exclusivamente a LA EMPRESA.</p>
+                <p class="contract-text">Toda relación comercial generada durante la vigencia del contrato se presumirá derivada de LA EMPRESA salvo prueba en contrario.</p>
+
+                <h4 class="clause-title">Décima. Propiedad de Medios de Contacto</h4>
+                <p class="contract-text">Los números telefónicos, cuentas de WhatsApp, correos electrónicos y redes sociales utilizados para actividades comerciales serán considerados herramientas de trabajo.</p>
+                <p class="contract-text">La cartera generada a través de dichos medios pertenece exclusivamente a LA EMPRESA.</p>
+
+                <h4 class="clause-title">Décima Primera. Propiedad Intelectual</h4>
+                <p class="contract-text">Todo software, sistemas, bases de datos, procesos y desarrollos tecnológicos son propiedad exclusiva de LA EMPRESA aun cuando EL TRABAJADOR haya participado en su creación.</p>
+
+                <h4 class="clause-title">Décima Segunda. Operaciones Fuera de la Empresa</h4>
+                <p class="contract-text">EL TRABAJADOR se obliga a registrar y realizar a través de CONECTIA SELECT WEB Y APP toda operación inmobiliaria derivada de clientes, prospectos o contactos obtenidos durante la relación laboral.</p>
+                <p class="contract-text">En caso de realizar operaciones fuera de LA EMPRESA deberá pagar una pena convencional de $50,000.00 MXN por cada operación realizada.</p>
+                <p class="contract-text">La pena convencional será exigible sin necesidad de acreditar daños.</p>
+
+                <h4 class="clause-title">Décima Tercera. Reglamentos Internos</h4>
+                <p class="contract-text">LA EMPRESA podrá establecer políticas comerciales y procedimientos obligatorios.</p>
+                <p class="contract-text">Su incumplimiento podrá dar lugar a sanciones administrativas o suspensión de accesos.</p>
+
+                <h4 class="clause-title">Décima Cuarta. Devolución de Accesos</h4>
+                <p class="contract-text">Al terminar la relación laboral EL TRABAJADOR deberá:</p>
+                <ul class="contract-list">
+                    <li>Entregar accesos</li>
+                    <li>Eliminar información confidencial</li>
+                    <li>Entregar contraseñas</li>
+                    <li>Entregar documentos</li>
+                </ul>
+
+                <h4 class="clause-title">Décima Quinta. Terminación</h4>
+                <p class="contract-text">La relación podrá concluir por:</p>
+                <ul class="contract-list">
+                    <li>Artículo 47 LFT</li>
+                    <li>Renuncia</li>
+                    <li>Mutuo acuerdo</li>
+                </ul>
+
+                <h4 class="clause-title">Décima Sexta. No Competencia Posterior</h4>
+                <p class="contract-text">Durante 24 meses posteriores el trabajador no podrá:</p>
+                <ul class="contract-list">
+                    <li>Desviar clientes</li>
+                    <li>Comercializar propiedades captadas</li>
+                    <li>Usar información confidencial</li>
+                    <li>Trabajar con clientes de CONECTIA</li>
+                </ul>
+                <p class="contract-text">Penalización mínima: $50,000 MXN por incumplimiento</p>
+
+                <h4 class="clause-title">Décima Séptima. Protección de Marca</h4>
+                <p class="contract-text">EL TRABAJADOR se obliga a no realizar actos que dañen la reputación o imagen comercial de CONECTIA SELECT WEB Y APP.</p>
+
+                <h4 class="clause-title">Décima Octava. Deslinde de Responsabilidad</h4>
+                <p class="contract-text">LA EMPRESA actúa únicamente como plataforma tecnológica e intermediación.</p>
+                <p class="contract-text">No será responsable por:</p>
+                <ul class="contract-list">
+                    <li>Fraudes</li>
+                    <li>Robos</li>
+                    <li>Lesiones</li>
+                    <li>Delitos</li>
+                    <li>Incumplimientos</li>
+                </ul>
+
+                <h4 class="clause-title">Décima Novena. Responsabilidad sobre Información</h4>
+                <p class="contract-text">La información de los inmuebles será responsabilidad del asesor o propietario que registre la propiedad.</p>
+                <p class="contract-text">Quien registre deberá:</p>
+                <ul class="contract-list">
+                    <li>Tener autorización</li>
+                    <li>Garantizar veracidad</li>
+                    <li>Cumplir leyes</li>
+                    <li>Cumplir normativa fiscal</li>
+                    <li>Cumplir protección de datos</li>
+                </ul>
+                <p class="contract-text">Deberá sacar en paz y a salvo a LA EMPRESA.</p>
+
+                <h4 class="clause-title">Vigésima. Jurisdicción</h4>
+                <p class="contract-text">Las partes se someten a los tribunales de Guanajuato.</p>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <p class="contract-text" style="text-align: center; margin-bottom: 5px;">León, Guanajuato a ____ de __________ 2026</p>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">La Empresa</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">El Trabajador</p>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">Testigo</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">Testigo</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="info-section">
+                <div class="director-name" style="color: #ffffff;">Lic. Elizabeth Lazarini Gamboa</div>
+                <div class="director-title" style="color: #cccccc;">DIRECTORA GENERAL - <span>CONECTIA SELECT</span></div>
+                <div class="divider" style="background-color: #ffffff;"></div>
+            </div>
+            <div class="footer-contact">
+                <div class="footer-item email">conectiaselect@gmail.com</div>
+                <div class="footer-item website">www.conectiaselect.com</div>
+                <div class="footer-item phone">477 475 6951</div>
+                <div class="footer-icon">
+                    <div class="home-icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

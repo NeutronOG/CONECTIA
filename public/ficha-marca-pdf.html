@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Marca - CONECTIA SELECT</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.25in;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #CDD2D7;
+      color: #3F3F3F;
+      font-size: 8pt;
+      line-height: 1.3;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    .container {
+      max-width: 7.5in;
+      margin: 0 auto;
+      background: #CDD2D7;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* Header */
+    .header {
+      background: #E8FF50;
+      padding: 16px;
+      text-align: center;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .logo-box {
+      background: #E8FF50;
+      padding: 10px 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .logo-text {
+      font-size: 20pt;
+      font-weight: 700;
+      color: #3F3F3F;
+      letter-spacing: 0.5px;
+    }
+    
+    .logo-text span {
+      font-weight: 300;
+    }
+    
+    .tagline {
+      font-size: 6pt;
+      color: #3F3F3F;
+      margin-top: 2px;
+      letter-spacing: 0.3px;
+    }
+    
+    /* Content */
+    .content {
+      padding: 10px 12px;
+    }
+    
+    /* Intro */
+    .intro {
+      background: linear-gradient(135deg, rgba(232,255,80,0.12), rgba(232,255,80,0.04));
+      padding: 8px 10px;
+      border-radius: 8px;
+      border-left: 3px solid #E8FF50;
+      margin-bottom: 8px;
+    }
+    
+    .intro h2 {
+      font-size: 10pt;
+      color: #3F3F3F;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+    
+    .intro p {
+      font-size: 7.5pt;
+      color: #3F3F3F;
+      line-height: 1.35;
+    }
+    
+    .gold { color: #E8FF50; font-weight: 700; }
+    .bold { font-weight: 600; }
+    
+    /* Section Title */
+    .section-title {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #3F3F3F;
+      text-align: center;
+      margin: 8px 0 6px 0;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 7px 8px;
+      border-radius: 6px;
+      border-top: 2px solid #E8FF50;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    
+    .feature-card h3 {
+      font-size: 7.5pt;
+      color: #3F3F3F;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+    
+    .feature-card p {
+      font-size: 6.5pt;
+      color: #3F3F3F;
+      line-height: 1.3;
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      background: linear-gradient(135deg, #28282D, #3F3F3F, #28282D);
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .stat-item .number {
+      font-size: 13pt;
+      font-weight: 700;
+      color: #E8FF50;
+    }
+    
+    .stat-item .label {
+      font-size: 5.5pt;
+      color: #bbb;
+    }
+    
+    /* Process */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+    
+    .process-step {
+      background: linear-gradient(135deg, rgba(232,255,80,0.12), rgba(232,255,80,0.04));
+      padding: 7px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 20px;
+      height: 20px;
+      background: #E8FF50;
+      color: #3F3F3F;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 8pt;
+      margin: 0 auto 3px;
+    }
+    
+    .process-step h3 {
+      font-size: 7pt;
+      color: #3F3F3F;
+      margin-bottom: 1px;
+      font-weight: 700;
+    }
+    
+    .process-step p {
+      font-size: 6pt;
+      color: #3F3F3F;
+    }
+    
+    /* Guarantee */
+    .guarantee {
+      background: linear-gradient(135deg, #E8FF50, #F0FF80, #E8FF50);
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .guarantee h2 {
+      font-size: 9pt;
+      color: #3F3F3F;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+    
+    .guarantee p {
+      font-size: 6.5pt;
+      color: #3F3F3F;
+    }
+    
+    /* Contact */
+    .contact {
+      background: #28282D;
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    .contact h2 {
+      font-size: 9pt;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    
+    .contact-items {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-item {
+      background: rgba(255,255,255,0.1);
+      padding: 3px 6px;
+      border-radius: 12px;
+      font-size: 6pt;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    
+    .contact-item.highlight {
+      background: #E8FF50;
+      color: #3F3F3F;
+      font-weight: 700;
+    }
+    
+    /* Colors */
+    .colors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    
+    .color-item {
+      background: white;
+      padding: 4px;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    
+    .color-box {
+      height: 16px;
+      border-radius: 3px;
+      margin-bottom: 2px;
+    }
+    
+    .color-box.gold { background: #E8FF50; }
+    .color-box.yellow { background: #E8FF50; }
+    .color-box.graphite { background: #28282D; }
+    .color-box.beige { background: #CDD2D7; border: 1px solid #999; }
+    
+    .color-item .name {
+      font-size: 6pt;
+      font-weight: 700;
+      color: #3F3F3F;
+    }
+    
+    .color-item .hex {
+      font-size: 5pt;
+      color: #666;
+    }
+    
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(232,255,80,0.3);
+      padding-top: 6px;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #3F3F3F;
+      margin-bottom: 1px;
+    }
+    
+    .footer-logo span {
+      font-weight: 300;
+    }
+    
+    .footer p {
+      font-size: 5.5pt;
+      color: #3F3F3F;
+    }
+    
+    /* Print button - hide on print */
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #E8FF50;
+      color: #3F3F3F;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    
+    .print-btn:hover {
+      background: #F0FF80;
+    }
+    
+    @media print {
+      .print-btn {
+        display: none;
+      }
+      
+      body {
+        background: white;
+      }
+      
+      .container {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="print-btn" onclick="window.print()">🖨️ Imprimir / PDF</button>
+  
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-box">
+        <div class="logo-text">conectia|<span>select.</span></div>
+        <div class="tagline">MANUAL DE MARCA</div>
+      </div>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+      <!-- Intro -->
+      <div class="intro">
+        <h2>La Plataforma Inmobiliaria del Futuro</h2>
+        <p><span class="gold">CONECTIA SELECT</span> combina <span class="bold">inteligencia artificial, marketing digital agresivo y tecnología 360°</span> para vender tu propiedad más rápido y al mejor precio.</p>
+      </div>
+      
+      <!-- Features -->
+      <div class="section-title">🚀 Nuestros Factores Diferenciadores</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>IA + Big Data</h3>
+          <p>Valoración inteligente con <span class="bold">análisis de mercado en tiempo real</span>. Precio óptimo basado en datos.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Tours 360° Inmersivos</h3>
+          <p>Tecnología de <span class="bold">realidad virtual</span> que permite visitas desde cualquier lugar del mundo.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Marketing Multicanal</h3>
+          <p><span class="bold">+50,000 impresiones</span> en la primera semana. Facebook, Instagram, Google Ads.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Producción Premium</h3>
+          <p>Fotografía profesional, video drone y <span class="bold">staging digital</span> incluido.</p>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="number">24/7</div>
+          <div class="label">Asistente IA</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">360°</div>
+          <div class="label">Tours Virtuales</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">+10</div>
+          <div class="label">Canales Ads</div>
+        </div>
+      </div>
+      
+      <!-- Process -->
+      <div class="section-title">⚡ Proceso Rápido y Efectivo</div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <h3>Valuación IA</h3>
+          <p>Precio óptimo en 24h</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <h3>Producción 360°</h3>
+          <p>Fotos + Tour virtual</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <h3>Marketing Masivo</h3>
+          <p>+50k impresiones/semana</p>
+        </div>
+      </div>
+      
+      <!-- Guarantee -->
+      <div class="guarantee">
+        <h2>💯 Garantía de Resultados</h2>
+        <p><span class="bold">30 días</span> para ver resultados tangibles o ajustamos la estrategia sin costo adicional.</p>
+      </div>
+      
+      <!-- Contact -->
+      <div class="contact">
+        <h2>📞 Contáctanos</h2>
+        <div class="contact-items">
+          <div class="contact-item">📱 +52 1 477 475 6951</div>
+          <div class="contact-item">📧 hola@conectia.mx</div>
+          <div class="contact-item highlight">📍 León, GTO</div>
+        </div>
+      </div>
+      
+      <!-- Colors -->
+      <div class="section-title">🎨 Identidad Visual</div>
+      <div class="colors-grid">
+        <div class="color-item">
+          <div class="color-box gold"></div>
+          <div class="name">Canary</div>
+          <div class="hex">#E8FF50</div>
+        </div>
+        <div class="color-item">
+          <div class="color-box yellow"></div>
+          <div class="name">Primary</div>
+          <div class="hex">#E8FF50</div>
+        </div>
+        <div class="color-item">
+          <div class="color-box graphite"></div>
+          <div class="name">Shark</div>
+          <div class="hex">#28282D</div>
+        </div>
+        <div class="color-item">
+          <div class="color-box beige"></div>
+          <div class="name">Iron</div>
+          <div class="hex">#CDD2D7</div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-logo">conectia|<span>select.</span></div>
+        <p>Tu socio inmobiliario de confianza • © 2025 CONECTIA SELECT</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

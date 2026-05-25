@@ -1,0 +1,516 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Cormorant Garamond - Títulos elegantes */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* Montserrat - Interfaz moderna */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Helvetica Neue Extended';
+  src: url('/fonts/HelveticaNeue-Extended.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* CONECTIA - Paleta de marca oficial */
+  --background: #EAE4DD;
+  --foreground: #1D1F24;
+  --card: #FFFFFF;
+  --card-foreground: #1D1F24;
+  --popover: #FFFFFF;
+  --popover-foreground: #1D1F24;
+  --primary: #1F313A;
+  --primary-foreground: #EAE4DD;
+  --secondary: #C78F7B;
+  --secondary-foreground: #1D1F24;
+  --muted: #F5F2EB;
+  --muted-foreground: #5C5654;
+  --accent: #8278BD;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C78F7B;
+  --destructive-foreground: #FFFFFF;
+  --border: #D9D2C2;
+  --input: #D9D2C2;
+  --ring: #1F313A;
+  --chart-1: #1F313A;
+  --chart-2: #C78F7B;
+  --chart-3: #8278BD;
+  --chart-4: #EAE4DD;
+  --chart-5: #1D1F24;
+  --radius: 0.625rem;
+  --sidebar: #FDFBF7;
+  --sidebar-foreground: #2E2B2A;
+  --sidebar-primary: #C28C6A;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #F5F2EB;
+  --sidebar-accent-foreground: #2E2B2A;
+  --sidebar-border: #D9D2C2;
+  --sidebar-ring: #C28C6A;
+
+  /* CONECTIA - Paleta de marca oficial */
+  --conectia-primary: #1F313A;         /* Azul petróleo */
+  --conectia-primary-dark: #152229;  /* Azul petróleo oscuro */
+  --conectia-secondary: #C78F7B;     /* Arcilla rosada */
+  --conectia-accent: #8278BD;        /* Lila humo */
+  --conectia-surface: #EAE4DD;       /* Marfil humo - Fondo */
+  --conectia-surface-container: #F5F2EB;  /* Contenedor claro */
+  --conectia-surface-high: #FFFFFF;  /* Blanco puro */
+  --conectia-on-surface: #1D1F24;    /* Grafito profundo - Texto */
+  --conectia-on-surface-variant: #5C5654; /* Texto secundario */
+
+  /* CONECTIA Fonts - Branding oficial */
+  --font-conectia: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-titles: 'Cormorant Garamond', Georgia, serif;
+
+  /* Alias cobre — mapea a arcilla rosada */
+  --conectia-gold: #C78F7B;
+}
+
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-mono: ui-monospace, monospace;
+  /* Cormorant Garamond para títulos elegantes */
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  /* CONECTIA Brand Fonts */
+  --font-conectia: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-titles: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* CONECTIA custom color variables */
+  --color-conectia-primary: var(--conectia-primary);
+  --color-conectia-primary-dark: var(--conectia-primary-dark);
+  --color-conectia-secondary: var(--conectia-secondary);
+  --color-conectia-accent: var(--conectia-accent);
+  --color-conectia-surface: var(--conectia-surface);
+  --color-conectia-surface-container: var(--conectia-surface-container);
+  --color-conectia-surface-high: var(--conectia-surface-high);
+  --color-conectia-on-surface: var(--conectia-on-surface);
+  --color-conectia-on-surface-variant: var(--conectia-on-surface-variant);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html, body {
+    background-color: #EAE4DD !important;
+    color: #1D1F24 !important;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+  }
+}
+
+/* Utility classes para branding CONECTIA (paleta cálida) */
+@layer utilities {
+  /* conectia-gold ahora mapea al terracota/cobre principal */
+  .text-conectia-gold { color: var(--conectia-primary); }
+  .bg-conectia-gold { background-color: var(--conectia-primary); }
+  .ring-conectia-gold { --tw-ring-color: var(--conectia-primary); }
+  .border-conectia-gold { border-color: var(--conectia-primary); }
+  .shadow-conectia-gold\/20 { --tw-shadow-color: color-mix(in srgb, var(--conectia-primary) 20%, transparent); }
+
+  .text-conectia-primary { color: var(--conectia-primary); }
+  .bg-conectia-primary { background-color: var(--conectia-primary); }
+  .text-conectia-primary-dark { color: var(--conectia-primary-dark); }
+  .bg-conectia-primary-dark { background-color: var(--conectia-primary-dark); }
+  .text-conectia-secondary { color: var(--conectia-secondary); }
+  .bg-conectia-secondary { background-color: var(--conectia-secondary); }
+  .text-conectia-accent { color: var(--conectia-accent); }
+  .bg-conectia-accent { background-color: var(--conectia-accent); }
+  .text-conectia-surface { color: var(--conectia-surface); }
+  .bg-conectia-surface { background-color: var(--conectia-surface); }
+  .bg-conectia-surface-container { background-color: var(--conectia-surface-container); }
+  .bg-conectia-surface-high { background-color: var(--conectia-surface-high); }
+  .text-on-surface { color: var(--conectia-on-surface); }
+  .text-on-surface-variant { color: var(--conectia-on-surface-variant); }
+  .border-conectia-primary { border-color: var(--conectia-primary); }
+  .border-conectia-secondary { border-color: var(--conectia-secondary); }
+  .border-conectia-accent { border-color: var(--conectia-accent); }
+
+  /* CONECTIA Font utilities - Branding oficial */
+  .font-conectia { font-family: var(--font-conectia); }
+  .font-conectia-light { font-family: var(--font-conectia); font-weight: 300; }
+  .font-conectia-regular { font-family: var(--font-conectia); font-weight: 400; }
+  .font-conectia-bold { font-family: var(--font-conectia); font-weight: 700; }
+  
+  /* Títulos elegantes con Cormorant Garamond */
+  .font-titles { font-family: var(--font-titles); }
+  .font-titles-light { font-family: var(--font-titles); font-weight: 300; }
+  .font-titles-regular { font-family: var(--font-titles); font-weight: 400; }
+  .font-titles-medium { font-family: var(--font-titles); font-weight: 500; }
+  .font-titles-semibold { font-family: var(--font-titles); font-weight: 600; }
+  .font-titles-bold { font-family: var(--font-titles); font-weight: 700; }
+  .font-titles-italic { font-family: var(--font-titles); font-style: italic; }
+  
+  /* Interfaz con Montserrat */
+  .font-ui { font-family: var(--font-montserrat), 'Montserrat', sans-serif; }
+  .font-ui-light { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 300; }
+  .font-ui-medium { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 500; }
+  .font-ui-semibold { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 600; }
+  .font-ui-bold { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 700; }
+
+  /* Glass effects con paleta cálida */
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.05);
+  }
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(245, 242, 235, 0.6) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Adding advanced animations for liquid glass and neumorphism effects */
+@layer utilities {
+  /* Floating animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Slide up animations */
+  .animate-slide-up {
+    animation: slide-up 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .animate-slide-up-delayed {
+    animation: slide-up 1s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Gradient animations */
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 3s ease infinite;
+  }
+
+  .animate-gradient-shift {
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+
+  /* Bounce subtle */
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+
+  /* Pulse subtle */
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+
+  /* Scroll indicator */
+  .animate-scroll-indicator {
+    animation: scroll-indicator 2s ease-in-out infinite;
+  }
+
+  /* Fade-in and slide-down animations for dynamic island */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.4s ease-out forwards;
+  }
+}
+
+/* Keyframe definitions for all custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slide-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+@keyframes bounce-subtle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+  }
+}
+
+@keyframes scroll-indicator {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glass morphism and neumorphism utility classes */
+@layer utilities {
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .glass-morphism-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .neumorphism-light {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 20px 20px 60px #d1d5db, -20px -20px 60px #ffffff;
+  }
+
+  .neumorphism-inset {
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    box-shadow: inset 20px 20px 60px #d1d5db, inset -20px -20px 60px #ffffff;
+  }
+
+  .liquid-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .liquid-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    animation: liquid-rotate 3s linear infinite;
+  }
+}
+
+@keyframes liquid-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Safe Area Insets para iPhone Dynamic Island */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-area-top {
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+  }
+  
+  .mobile-menu-expanded {
+    padding-top: max(1.5rem, env(safe-area-inset-top)) !important;
+  }
+}
+
+/* Walkthrough Guide Animations */
+@keyframes pulse-highlight {
+  0%, 100% {
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85), 0 0 40px 15px rgba(255, 215, 0, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.85), 0 0 60px 25px rgba(255, 215, 0, 0.9);
+    transform: scale(1.005);
+  }
+}

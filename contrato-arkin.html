@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contrato de Prestación de Servicios - CONECTIA SELECT</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; color: #28282D; line-height: 1.75; background: #CDD2D7; min-height: 100vh; }
+  .page { max-width: 210mm; margin: 0 auto; background: #ffffff; position: relative; box-shadow: 0 25px 50px -12px rgba(40, 40, 45, 0.25); }
+  .content { padding: 07mm 12mm 25mm 12mm; position: relative; z-index: 2; }
+  .document-header { text-align: center; margin: 40px 0 20px; position: relative; }
+  .doc-title { font-size: 24px; font-weight: 700; color: #28282D; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; position: relative; }
+  .doc-title::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: linear-gradient(90deg, transparent, #E8FF50, transparent); }
+  .contract-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 20px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border: 2px solid #E8FF50; border-radius: 12px; margin: 30px 0 10px; }
+  .contract-detail { text-align: center; }
+  .contract-detail strong { color: #28282D; font-size: 12px; display: block; margin-bottom: 5px; }
+  .contract-detail span { background: linear-gradient(135deg, #E8FF50, #d4e847); color: #28282D; padding: 8px 16px; border-radius: 25px; font-size: 11px; font-weight: 700; display: inline-block; box-shadow: 0 4px 12px rgba(232, 255, 80, 0.4); }
+  .intro-text { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border: 1px solid #CDD2D7; border-left: 4px solid #E8FF50; border-radius: 12px; padding: 25px; margin: 30px 0; text-align: justify; font-size: 12px; line-height: 1.8; box-shadow: 0 4px 6px -1px rgba(40, 40, 45, 0.1); }
+  .section-title { font-size: 15px; font-weight: 700; color: #28282D; margin: 30px 0 20px 0; padding: 15px 0 15px 60px; background: linear-gradient(135deg, rgba(232, 255, 80, 0.15) 0%, transparent 100%); border-left: 5px solid #E8FF50; border-radius: 0 8px 8px 0; position: relative; counter-increment: section; }
+  .section-title::before { content: counter(section, decimal-leading-zero); position: absolute; left: -3px; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; background: linear-gradient(135deg, #E8FF50, #d4e847); color: #28282D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; box-shadow: 0 6px 12px rgba(232, 255, 80, 0.5); border: 3px solid #fff; }
+  body { counter-reset: section; }
+  .parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
+  .party-card { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border: 2px solid #CDD2D7; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(40, 40, 45, 0.08); position: relative; }
+  .party-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #E8FF50, #d4e847, #E8FF50); }
+  .party-role { background: linear-gradient(135deg, #28282D, #3a3a40); color: #E8FF50; font-size: 11px; font-weight: 600; padding: 8px 20px; border-radius: 20px; display: inline-block; margin-bottom: 15px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .party-name { font-size: 16px; font-weight: 700; color: #28282D; margin-bottom: 8px; }
+  .party-id { font-size: 11px; color: #6b7280; font-weight: 500; }
+  .content-section { margin: 25px 0; }
+  .content-section p { text-align: justify; margin-bottom: 15px; }
+  .highlight-simple { font-weight: 700; color: #28282D; text-decoration: underline; text-decoration-color: #E8FF50; text-underline-offset: 2px; text-decoration-thickness: 2px; }
+  .obligations-list { background: #fafafa; border-radius: 12px; padding: 20px; margin: 15px 0; border-left: 4px solid #E8FF50; }
+  .obligations-title { font-weight: 600; color: #28282D; margin-bottom: 12px; font-size: 12px; }
+  ul { list-style: none; padding: 0; }
+  li { position: relative; padding-left: 25px; margin: 10px 0; line-height: 1.6; text-align: justify; }
+  li::before { content: '▶'; position: absolute; left: 0; color: #E8FF50; font-size: 10px; top: 2px; filter: drop-shadow(0 0 2px rgba(232, 255, 80, 0.5)); }
+  .legal-box { background: linear-gradient(135deg, #fffef0 0%, #fffce0 100%); border: 1px solid #E8FF50; border-left: 6px solid #E8FF50; border-radius: 12px; padding: 20px; margin: 15px 0; box-shadow: 0 4px 6px rgba(232, 255, 80, 0.15); }
+  .legal-title { font-weight: 700; color: #28282D; font-size: 12px; margin-bottom: 8px; }
+  .legal-description { font-size: 11px; line-height: 1.6; color: #4b5563; margin-bottom: 8px; text-align: justify; }
+  .signature-section { margin-top: 40px; padding-top: 30px; border-top: 3px solid #CDD2D7; position: relative; }
+  .signature-section::before { content: ''; position: absolute; top: -1.5px; left: 50%; transform: translateX(-50%); width: 100px; height: 3px; background: linear-gradient(90deg, transparent, #E8FF50, transparent); }
+  .signature-date { text-align: center; background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%); border: 2px solid #E8FF50; border-radius: 12px; padding: 20px; margin: 25px 0; font-weight: 600; color: #28282D; font-size: 12px; }
+  .signatures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 40px; }
+  .signature-box { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border: 2px solid #CDD2D7; border-radius: 16px; padding: 30px 20px; text-align: center; position: relative; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 25px rgba(40, 40, 45, 0.1); }
+  .signature-box::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #E8FF50, #d4e847, #E8FF50); border-radius: 18px; z-index: -1; opacity: 0.2; }
+  .signature-line { border-top: 2px solid #28282D; margin: 30px 0 15px; position: relative; }
+  .signature-line::before { content: '✓'; position: absolute; right: 0; top: -12px; background: #E8FF50; color: #28282D; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; box-shadow: 0 2px 8px rgba(232, 255, 80, 0.5); }
+  .signer-name { font-size: 14px; font-weight: 700; color: #28282D; margin-bottom: 8px; }
+  .signer-role { font-size: 11px; color: #6b7280; line-height: 1.4; }
+  .electronic-notice { background: linear-gradient(135deg, #fffef0 0%, #fffce0 100%); border: 2px solid #E8FF50; border-left: 6px solid #E8FF50; border-radius: 12px; padding: 25px; margin-top: 30px; text-align: center; box-shadow: 0 4px 6px rgba(232, 255, 80, 0.2); }
+  .electronic-notice p { color: #28282D; font-size: 12px; font-weight: 500; margin: 0; line-height: 1.6; text-align: justify; }
+  .conectia-logo-header { text-align: center; margin-bottom: 20px; }
+  .conectia-logo-text { 
+    display: inline-block;
+    background: #E8FF50;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #28282D;
+    letter-spacing: -1px;
+    box-shadow: 0 4px 12px rgba(232, 255, 80, 0.4);
+  }
+  .conectia-logo-text .brand { font-weight: 900; }
+  .conectia-logo-text .separator { margin: 0 8px; font-weight: 300; }
+  .conectia-logo-text .select { font-weight: 300; }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; }
+    .content { padding: 07mm 12mm 20mm 12mm; }
+    .section-title { margin: 25px 0 15px 0; }
+    .content-section, .obligations-list, .legal-box, p { orphans: 2; widows: 2; }
+    .legal-box { margin: 10px 0; }
+    .signature-section { margin-top: 30px; padding-top: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="content">
+    <div class="conectia-logo-header">
+      <div class="conectia-logo-text">
+        <span class="brand">conectia</span><span class="separator">|</span><span class="select">select.</span>
+      </div>
+    </div>
+    <div class="document-header">
+      <h1 class="doc-title">Contrato de Prestación de Servicios</h1>
+      <div class="contract-info">
+        <div class="contract-detail">
+          <strong>Número de Contrato</strong>
+          <span id="numero-contrato">CT-2025-001</span>
+        </div>
+        <div class="contract-detail">
+          <strong>Fecha de Emisión</strong>
+          <span id="fecha-emision">17 de noviembre de 2025</span>
+        </div>
+      </div>
+    </div>
+    <div class="intro-text">
+      Entre los suscritos, a saber, <strong id="contratante-nombre">NOMBRE DEL CONTRATANTE</strong>, identificado con documento número <strong id="contratante-id">000000000</strong>, en adelante denominado <em>"El Contratante"</em>, y <strong id="contratista-nombre">CONECTIA SELECT</strong>, identificado con documento número <strong id="contratista-id">000000000</strong>, en adelante denominado <em>"El Contratista"</em>, quienes conjuntamente se denominarán <em>"Las Partes"</em>, hemos convenido en celebrar el presente contrato de prestación de servicios profesionales, de conformidad con las siguientes cláusulas y condiciones:
+    </div>
+    <h2 class="section-title">Identificación de las Partes Contratantes</h2>
+    <div class="parties-grid">
+      <div class="party-card">
+        <div class="party-role">Contratante</div>
+        <div class="party-name" id="contratante-nombre-card">NOMBRE DEL CONTRATANTE</div>
+        <div class="party-id">Doc. No. <span id="contratante-id-card">000000000</span></div>
+      </div>
+      <div class="party-card">
+        <div class="party-role">Contratista</div>
+        <div class="party-name" id="contratista-nombre-card">CONECTIA SELECT</div>
+        <div class="party-id">Doc. No. <span id="contratista-id-card">000000000</span></div>
+      </div>
+    </div>
+    <h2 class="section-title">Objeto y Alcance del Contrato</h2>
+    <div class="content-section">
+      <p>El presente contrato tiene por objeto la prestación por parte del Contratista al Contratante del siguiente servicio:
+        <span class="highlight-simple" id="servicio-descripcion">Servicios de asesoría inmobiliaria integral</span>, conforme a los términos, condiciones y especificaciones técnicas establecidas en este documento contractual.
+      </p>
+    </div>
+    <h2 class="section-title">Plazo de Ejecución y Vigencia</h2>
+    <div class="content-section">
+      <p>El plazo de duración y vigencia del presente contrato será de
+        <span class="highlight-simple" id="duracion-meses">6</span> meses calendario, iniciando el día
+        <strong id="plazo-inicio">17 de noviembre de 2025</strong> y concluyendo el día <strong id="plazo-fin">17 de mayo de 2026</strong>, pudiendo ser
+        prorrogado por mutuo acuerdo escrito entre las partes contratantes.
+      </p>
+    </div>
+    <h2 class="section-title">Valor Contractual y Modalidad de Pago</h2>
+    <div class="content-section">
+      <p>El valor total a cancelar por los servicios objeto de este contrato asciende a la suma de
+        <span class="highlight-simple"><span id="precio-monto">$0.00</span> <span id="precio-moneda">USD</span></span>.
+      </p>
+      <p>El Contratante se compromete a cancelar la totalidad del precio acordado al Contratista mediante transferencia bancaria o el mecanismo de pago que las partes acuerden por escrito.</p>
+    </div>
+    <h2 class="section-title">Obligaciones y Responsabilidades</h2>
+    <div class="obligations-list">
+      <div class="obligations-title">Obligaciones del Contratista:</div>
+      <ul>
+        <li>Prestar los servicios objeto de este contrato con la máxima diligencia profesional, manteniendo autonomía técnica y administrativa completa.</li>
+        <li>Desarrollar todas sus actividades profesionales sin generar vínculo laboral alguno con el Contratante.</li>
+        <li>Entregar oportunamente los resultados, productos y entregables derivados del servicio en los términos, calidad y plazos previamente convenidos.</li>
+        <li>Mantener absoluta confidencialidad sobre la información privilegiada a la que tenga acceso durante la ejecución contractual.</li>
+      </ul>
+    </div>
+    <div class="obligations-list">
+      <div class="obligations-title">Obligaciones del Contratante:</div>
+      <ul>
+        <li>Realizar oportunamente el pago acordado por los servicios prestados, conforme al cronograma establecido.</li>
+        <li>Suministrar toda la información, documentación y recursos necesarios para la correcta prestación del servicio.</li>
+        <li>Respetar íntegramente la autonomía técnica, profesional y administrativa del Contratista.</li>
+        <li>Brindar el soporte y colaboración requeridos para el cumplimiento exitoso del objeto contractual.</li>
+      </ul>
+    </div>
+    <h2 class="section-title">Protección de Datos Personales</h2>
+    <div class="content-section">
+      <p>En estricto cumplimiento de la <strong>Ley 1581 de 2012</strong> sobre protección de datos personales y demás normativa aplicable, las Partes se obligan a:</p>
+      <ul style="margin-top: 12px;">
+        <li>Obtener la autorización expresa e inequívoca para el tratamiento de datos personales recolectados durante la ejecución contractual, informando finalidades y derechos del titular.</li>
+        <li>Garantizar los derechos de los titulares (acceso, rectificación, actualización y supresión) y habilitar canales efectivos para su ejercicio.</li>
+        <li>Implementar medidas técnicas, administrativas y jurídicas para asegurar la confidencialidad, integridad y disponibilidad de la información.</li>
+        <li>Notificar y gestionar incidentes de seguridad de acuerdo con la regulación aplicable y las mejores prácticas.</li>
+      </ul>
+    </div>
+    <h2 class="section-title">Marco Normativo y Legal Aplicable</h2>
+    <div class="legal-box">
+      <div class="legal-title">Ley 1581 de 2012 — Protección de Datos Personales</div>
+      <div class="legal-description">Régimen general del tratamiento de datos personales: autorización, finalidades, derechos del titular y medidas de seguridad.</div>
+    </div>
+    <div class="legal-box">
+      <div class="legal-title">Ley 527 de 1999 — Comercio Electrónico y Firmas Digitales</div>
+      <div class="legal-description">Reconoce validez jurídica y fuerza probatoria a mensajes de datos y firmas digitales; permite contratos por medios electrónicos.</div>
+    </div>
+    <div class="legal-box">
+      <div class="legal-title">Decreto 2364 de 2012 — Firma Electrónica</div>
+      <div class="legal-description">Reglamenta la firma electrónica como mecanismo de autenticación y su equivalencia con la firma manuscrita.</div>
+    </div>
+    <div class="legal-box">
+      <div class="legal-title">Estatuto Tributario (arts. 367, 368, 383) — Retención en la Fuente</div>
+      <div class="legal-description">Los servicios profesionales pueden estar sujetos a retención; el Contratante practica las retenciones y el Contratista asume los tributos a su cargo (incluido IVA, si aplica).</div>
+    </div>
+    <h2 class="section-title">Validez de Firma Electrónica</h2>
+    <div class="content-section">
+      <p>De conformidad con la <strong>Ley 527 de 1999</strong> y el <strong>Decreto 2364 de 2012</strong>, el presente contrato puede suscribirse mediante firma electrónica, con plena validez jurídica y fuerza probatoria ante cualquier autoridad.</p>
+      <p>Las Partes aceptan que la utilización de medios electrónicos para manifestar su consentimiento y aceptación produce los mismos efectos legales que la firma manuscrita.</p>
+    </div>
+    <div class="signature-section">
+      <h2 class="section-title">Lugar de Suscripción y Firmas</h2>
+      <div class="signature-date">
+        <strong>📍 LUGAR:</strong> <span id="ciudad">León, Guanajuato</span>, <span id="pais">México</span><br>
+        <strong>📅 FECHA:</strong> <span id="fecha-firma">17 de noviembre de 2025</span>
+      </div>
+      <div class="signatures-grid">
+        <div class="signature-box">
+          <div>
+            <div class="signature-line"></div>
+            <div class="signer-name" id="firma-contratante-nombre">NOMBRE DEL CONTRATANTE</div>
+            <div class="signer-role">EL CONTRATANTE<br>Doc. No. <span id="firma-contratante-id">000000000</span></div>
+          </div>
+        </div>
+        <div class="signature-box">
+          <div>
+            <div class="signature-line"></div>
+            <div class="signer-name" id="firma-contratista-nombre">CONECTIA SELECT</div>
+            <div class="signer-role">EL CONTRATISTA<br>Doc. No. <span id="firma-contratista-id">000000000</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="electronic-notice">
+        <p><strong>CERTIFICACIÓN DE FIRMA ELECTRÓNICA</strong><br>
+        Este documento ha sido firmado electrónicamente conforme a la legislación aplicable en México, con plena validez jurídica y fuerza probatoria.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+qqweyt                                                                                                                                                                                                                                                                                                                                                                                                              u AAQWETYaAQWet2345672361

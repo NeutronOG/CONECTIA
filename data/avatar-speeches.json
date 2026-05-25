@@ -1,0 +1,77 @@
+{
+  "speeches": [
+    {
+      "id": "welcome",
+      "title": "¡Bienvenido!",
+      "speech": "¡Hola! Soy tu guía virtual de CONECTIA SELECT. Te voy a mostrar cómo navegar por nuestra plataforma inmobiliaria de manera rápida y sencilla. Somos tu inmobiliaria de confianza en León, Guanajuato. ¡Empecemos!",
+      "shortSpeech": "Bienvenido a CONECTIA SELECT, tu inmobiliaria de confianza.",
+      "route": "/",
+      "scrollToTop": true
+    },
+    {
+      "id": "dynamic-island",
+      "title": "Isla Dinámica",
+      "speech": "¿Ves esta barra flotante? Es nuestra isla dinámica de navegación. Se adapta a tu pantalla y siempre está disponible. Desde aquí puedes acceder a todas las secciones principales de la plataforma.",
+      "shortSpeech": "Barra de navegación flotante y adaptable.",
+      "targetSelector": "div[class*='fixed'][class*='left-1/2']"
+    },
+    {
+      "id": "hero",
+      "title": "Sección Principal",
+      "speech": "Aquí está nuestra sección principal con un video de fondo. Puedes ver nuestro logo y los botones principales para explorar propiedades o vender tu propiedad. Todo muy visual y fácil de usar.",
+      "shortSpeech": "Sección principal con acceso rápido.",
+      "targetSelector": "section:first-of-type"
+    },
+    {
+      "id": "stats",
+      "title": "Nuestras Estadísticas",
+      "speech": "Mira nuestras estadísticas en tiempo real: propiedades activas, clientes satisfechos y años de experiencia. Estos números reflejan nuestra trayectoria y compromiso.",
+      "shortSpeech": "Estadísticas de nuestro éxito.",
+      "targetSelector": "section:nth-of-type(2)"
+    },
+    {
+      "id": "featured",
+      "title": "Propiedades Destacadas",
+      "speech": "Aquí están nuestras propiedades destacadas en un carrusel interactivo. Desliza para ver las mejores opciones disponibles. Cada una tiene fotos, precio y características principales.",
+      "shortSpeech": "Carrusel de propiedades destacadas.",
+      "targetSelector": "section:nth-of-type(3)"
+    },
+    {
+      "id": "features",
+      "title": "¿Por qué CONECTIA SELECT?",
+      "speech": "En esta sección te mostramos por qué elegirnos: confianza total con proceso transparente, exclusividad con propiedades únicas, y una red selecta de conexión directa.",
+      "shortSpeech": "Nuestros valores y ventajas.",
+      "targetSelector": "section:nth-of-type(4)"
+    },
+    {
+      "id": "navigation",
+      "title": "Menú de Navegación",
+      "speech": "Arriba o abajo de la pantalla verás nuestro menú flotante. Desde ahí puedes ir a Inicio, Propiedades, Propietarios y Contacto. También tienes acceso a favoritos y búsqueda.",
+      "shortSpeech": "Menú de navegación principal.",
+      "targetSelector": "header, nav"
+    },
+    {
+      "id": "assistant",
+      "title": "Asistente Virtual",
+      "speech": "¿Ves el botón dorado en la esquina? Es nuestro asistente virtual disponible las 24 horas. Puedes chatear con él o incluso hacer una llamada con inteligencia artificial para resolver tus dudas al instante.",
+      "shortSpeech": "Asistente 24/7 para ayudarte."
+    },
+    {
+      "id": "end",
+      "title": "¡Listo!",
+      "speech": "¡Eso es todo! Ya conoces lo básico de CONECTIA SELECT. Recuerda: proceso transparente, sin complicaciones y conexión directa entre compradores y vendedores. ¡Explora y encuentra tu próximo hogar!",
+      "shortSpeech": "¡Explora y encuentra tu hogar ideal!",
+      "scrollToTop": true
+    }
+  ],
+  "metadata": {
+    "language": "es-MX",
+    "totalDuration": "~1 minuto",
+    "targetAudience": "Visitantes nuevos",
+    "voiceSettings": {
+      "rate": 0.95,
+      "pitch": 1,
+      "preferredVoice": "es-MX"
+    }
+  }
+}

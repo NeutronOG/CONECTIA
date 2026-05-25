@@ -1,0 +1,287 @@
+/* Shepherd.js Custom Styles - Modern SaaS Theme */
+
+/* Override default Shepherd styles */
+.shepherd-modal-overlay-container {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.shepherd-modal-overlay-container.shepherd-modal-is-visible path {
+  fill: rgba(0, 0, 0, 0.75);
+}
+
+.shepherd-element {
+  z-index: 10001 !important;
+  max-width: 420px;
+}
+
+.shepherd-theme-custom {
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  padding: 0;
+  overflow: hidden;
+}
+
+.shepherd-theme-custom .shepherd-header {
+  background: #1a1a1a;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(232, 255, 80, 0.3);
+}
+
+.shepherd-theme-custom .shepherd-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #C28C6A;
+  margin: 0;
+  font-family: var(--font-playfair), serif;
+}
+
+.shepherd-theme-custom .shepherd-text {
+  padding: 24px;
+  color: #e5e5e5;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.shepherd-theme-custom .shepherd-footer {
+  padding: 16px 24px 20px;
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.shepherd-theme-custom .shepherd-button {
+  background: #C28C6A;
+  color: #2E2B2A;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(232, 255, 80, 0.3);
+}
+
+.shepherd-theme-custom .shepherd-button:hover {
+  background: #D4EB3C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 255, 80, 0.4);
+}
+
+.shepherd-theme-custom .shepherd-button:active {
+  transform: translateY(0);
+}
+
+.shepherd-theme-custom .shepherd-button-secondary {
+  background: transparent;
+  color: #999;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.shepherd-theme-custom .shepherd-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e5e5;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: none;
+  box-shadow: none;
+}
+
+.shepherd-theme-custom .shepherd-cancel-icon {
+  color: #999;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.shepherd-theme-custom .shepherd-cancel-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #C28C6A;
+}
+
+/* Arrow styling */
+.shepherd-theme-custom .shepherd-arrow {
+  display: none;
+}
+
+.shepherd-theme-custom.shepherd-has-title .shepherd-content .shepherd-header {
+  border-bottom: 1px solid rgba(232, 255, 80, 0.2);
+}
+
+/* Modal overlay opening (spotlight effect) */
+.shepherd-modal-overlay-container.shepherd-modal-is-visible {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.shepherd-modal-overlay-container path {
+  pointer-events: none;
+}
+
+/* Highlight border around the target element */
+.shepherd-target {
+  position: relative;
+  z-index: 10000 !important;
+}
+
+.shepherd-target::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 3px solid #C28C6A;
+  border-radius: 16px;
+  box-shadow: 0 0 0 4px rgba(232, 255, 80, 0.2),
+              0 0 30px rgba(232, 255, 80, 0.6),
+              inset 0 0 20px rgba(232, 255, 80, 0.1);
+  pointer-events: none;
+  z-index: 10000;
+  animation: shepherd-glow 2s ease-in-out infinite;
+}
+
+@keyframes shepherd-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(232, 255, 80, 0.2),
+                0 0 30px rgba(232, 255, 80, 0.6),
+                inset 0 0 20px rgba(232, 255, 80, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(232, 255, 80, 0.3),
+                0 0 50px rgba(232, 255, 80, 0.8),
+                inset 0 0 30px rgba(232, 255, 80, 0.2);
+  }
+}
+
+/* Pulse animation for highlighted element */
+@keyframes shepherd-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(232, 255, 80, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(232, 255, 80, 0);
+  }
+}
+
+.shepherd-enabled.shepherd-element-attached-top,
+.shepherd-enabled.shepherd-element-attached-bottom,
+.shepherd-enabled.shepherd-element-attached-left,
+.shepherd-enabled.shepherd-element-attached-right {
+  animation: shepherd-pulse 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .shepherd-element {
+    max-width: calc(100vw - 32px) !important;
+    margin: 0 16px !important;
+    position: fixed !important;
+    bottom: 80px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .shepherd-theme-custom {
+    border-radius: 20px;
+    background: #1a1a1a !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(232, 255, 80, 0.3) !important;
+  }
+
+  .shepherd-theme-custom .shepherd-header {
+    padding: 16px 20px;
+    background: #1a1a1a !important;
+    border-bottom: 1px solid rgba(232, 255, 80, 0.3) !important;
+  }
+
+  .shepherd-theme-custom .shepherd-title {
+    font-size: 16px;
+    color: #C28C6A !important;
+    font-weight: 700;
+  }
+
+  .shepherd-theme-custom .shepherd-text {
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e5e5e5 !important;
+    background: #1a1a1a !important;
+  }
+
+  .shepherd-theme-custom .shepherd-footer {
+    padding: 12px 20px 16px;
+    flex-direction: column-reverse;
+    gap: 8px;
+    background: #1a1a1a !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .shepherd-theme-custom .shepherd-button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    background: #C28C6A !important;
+    color: #2E2B2A !important;
+    font-weight: 600;
+  }
+
+  .shepherd-theme-custom .shepherd-button-secondary {
+    background: transparent !important;
+    color: #999 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .shepherd-theme-custom .shepherd-cancel-icon {
+    width: 28px;
+    height: 28px;
+    top: 12px;
+    right: 12px;
+    color: #999 !important;
+  }
+
+  .shepherd-theme-custom .shepherd-cancel-icon:hover {
+    color: #C28C6A !important;
+  }
+
+  /* Ajustar el spotlight para móvil */
+  .shepherd-modal-overlay-container {
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+  }
+
+  /* Borde del elemento destacado más pequeño en móvil */
+  .shepherd-target::before {
+    border-width: 2px;
+    inset: -3px;
+    border-color: #C28C6A !important;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .shepherd-element {
+    max-width: 400px;
+  }
+
+  .shepherd-theme-custom .shepherd-text {
+    font-size: 14px;
+  }
+}
+
+/* Smooth transitions */
+.shepherd-element {
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.shepherd-element[data-popper-reference-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
