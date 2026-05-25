@@ -25,7 +25,7 @@
   --card-foreground: #1D1F24;
   --popover: #FFFFFF;
   --popover-foreground: #1D1F24;
-  --primary: #1F313A;
+  --primary: #17313A;
   --primary-foreground: #EAE4DD;
   --secondary: #C78F7B;
   --secondary-foreground: #1D1F24;
@@ -37,10 +37,10 @@
   --destructive-foreground: #FFFFFF;
   --border: #D9D2C2;
   --input: #D9D2C2;
-  --ring: #1F313A;
-  --chart-1: #1F313A;
+  --ring: #17313A;
+  --chart-1: #17313A;
   --chart-2: #C78F7B;
-  --chart-3: #8278BD;
+  --chart-3: #8278BD;  /* Lila humo - solo para detalles elegantes */
   --chart-4: #EAE4DD;
   --chart-5: #1D1F24;
   --radius: 0.625rem;
@@ -54,8 +54,8 @@
   --sidebar-ring: #C28C6A;
 
   /* CONECTIA - Paleta de marca oficial */
-  --conectia-primary: #1F313A;         /* Azul petróleo */
-  --conectia-primary-dark: #152229;  /* Azul petróleo oscuro */
+  --conectia-primary: #17313A;         /* Azul petróleo principal */
+  --conectia-primary-dark: #0F2027;  /* Azul petróleo oscuro */
   --conectia-secondary: #C78F7B;     /* Arcilla rosada */
   --conectia-accent: #8278BD;        /* Lila humo */
   --conectia-surface: #EAE4DD;       /* Marfil humo - Fondo */
