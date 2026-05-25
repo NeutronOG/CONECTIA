@@ -44,14 +44,14 @@
   --chart-4: #EAE4DD;
   --chart-5: #1D1F24;
   --radius: 0.625rem;
-  --sidebar: #FDFBF7;
-  --sidebar-foreground: #2E2B2A;
-  --sidebar-primary: #C28C6A;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar: #EAE4DD;
+  --sidebar-foreground: #1D1F24;
+  --sidebar-primary: #17313A;
+  --sidebar-primary-foreground: #EAE4DD;
   --sidebar-accent: #F5F2EB;
-  --sidebar-accent-foreground: #2E2B2A;
+  --sidebar-accent-foreground: #1D1F24;
   --sidebar-border: #D9D2C2;
-  --sidebar-ring: #C28C6A;
+  --sidebar-ring: #17313A;
 
   /* CONECTIA - Paleta de marca oficial */
   --conectia-primary: #17313A;         /* Azul petróleo principal */
@@ -68,8 +68,8 @@
   --font-conectia: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-titles: 'Cormorant Garamond', Georgia, serif;
 
-  /* Alias cobre — mapea a arcilla rosada */
-  --conectia-gold: #C78F7B;
+  /* Alias cobre — mapea a arcilla rosada (detalles pequeños) */
+  --conectia-gold: #C78F7B;  /* Solo detalles elegantes, no principal */
 }
 
 
