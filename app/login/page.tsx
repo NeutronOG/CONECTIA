@@ -120,7 +120,7 @@ function LoginContent() {
           <div className="flex justify-center mb-4">
             <Image
               src="/logo.png"
-              alt="CONECTIA SELECT"
+              alt="CONECTIA"
               width={250}
               height={80}
               className="h-16 w-auto object-contain"
@@ -135,7 +135,7 @@ function LoginContent() {
                 <span className="text-sm font-medium text-conectia-gold">Tu éxito comienza aquí</span>
               </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Bienvenido a CONECTIA SELECT
+                Bienvenido a CONECTIA
               </h2>
               <p className="text-gray-600 text-sm">
                 Inicia sesión para activar tu plan y potenciar tu carrera inmobiliaria.
@@ -143,7 +143,7 @@ function LoginContent() {
             </div>
           ) : (
             <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
-              Acceso a Plataforma CONECTIA SELECT
+              Acceso a Plataforma CONECTIA
             </p>
           )}
         </div>
@@ -268,7 +268,7 @@ function LoginContent() {
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-          © 2025 CONECTIA SELECT. Todos los derechos reservados.
+          © 2025 CONECTIA. Todos los derechos reservados.
         </p>
       </div>
     </div>

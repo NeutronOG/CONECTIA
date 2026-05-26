@@ -33,7 +33,7 @@ const NAVIGATION_OPTIONS = {
     { label: "💚 WhatsApp Directo", action: "whatsapp" },
     { label: "❤️ Mis Favoritos", action: "navigate", url: "/favoritos" },
     { label: "🔐 Acceso Interno", action: "navigate", url: "/login" },
-    { label: "ℹ️ Sobre CONECTIA SELECT", action: "navigate", url: "/empresa" },
+    { label: "ℹ️ Sobre CONECTIA", action: "navigate", url: "/empresa" },
     { label: "🌐 Cambiar Idioma", action: "language" },
   ],
   en: [
@@ -43,7 +43,7 @@ const NAVIGATION_OPTIONS = {
     { label: "💚 WhatsApp Direct", action: "whatsapp" },
     { label: "❤️ My Favorites", action: "navigate", url: "/favoritos" },
     { label: "🔐 Internal Access", action: "navigate", url: "/login" },
-    { label: "ℹ️ About CONECTIA SELECT", action: "navigate", url: "/empresa" },
+    { label: "ℹ️ About CONECTIA", action: "navigate", url: "/empresa" },
     { label: "🌐 Change Language", action: "language" },
   ],
   fr: [
@@ -53,32 +53,32 @@ const NAVIGATION_OPTIONS = {
     { label: "💚 WhatsApp Direct", action: "whatsapp" },
     { label: "❤️ Mes Favoris", action: "navigate", url: "/favoritos" },
     { label: "🔐 Accès Interne", action: "navigate", url: "/login" },
-    { label: "ℹ️ À propos CONECTIA SELECT", action: "navigate", url: "/empresa" },
+    { label: "ℹ️ À propos CONECTIA", action: "navigate", url: "/empresa" },
     { label: "🌐 Changer Langue", action: "language" },
   ],
 }
 
 const RESPONSES = {
   es: {
-    welcome: "¡Hola! 👋 Soy tu asistente virtual 24/7 de CONECTIA SELECT. Estoy aquí para ayudarte a navegar por nuestra plataforma y resolver cualquier duda. ¿En qué puedo ayudarte?",
+    welcome: "¡Hola! 👋 Soy tu asistente virtual 24/7 de CONECTIA. Estoy aquí para ayudarte a navegar por nuestra plataforma y resolver cualquier duda. ¿En qué puedo ayudarte?",
     help: "Puedo ayudarte con:\n• Navegar por las secciones de la página\n• Cambiar el idioma\n• Información sobre nuestros servicios\n• Contactar con nuestro equipo\n• Buscar propiedades",
-    services: "CONECTIA SELECT ofrece:\n• Marketing Digital para tu propiedad\n• Tours Virtuales inmersivos\n• Valoración con IA\n• Proceso directo\n• Conexión directa entre compradores y vendedores",
+    services: "CONECTIA ofrece:\n• Marketing Digital para tu propiedad\n• Tours Virtuales inmersivos\n• Valoración con IA\n• Proceso directo\n• Conexión directa entre compradores y vendedores",
     contact: "Puedes contactarnos:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\n¿Te gustaría que te redirija a WhatsApp para contacto directo?",
     navigation: "¿A dónde te gustaría ir?",
     languageChanged: "Idioma cambiado exitosamente. ¿En qué más puedo ayudarte?",
   },
   en: {
-    welcome: "Hello! 👋 I'm your 24/7 virtual assistant from CONECTIA SELECT. I'm here to help you navigate our platform and answer any questions. How can I help you?",
+    welcome: "Hello! 👋 I'm your 24/7 virtual assistant from CONECTIA. I'm here to help you navigate our platform and answer any questions. How can I help you?",
     help: "I can help you with:\n• Navigate through page sections\n• Change language\n• Information about our services\n• Contact our team\n• Search properties",
-    services: "CONECTIA SELECT offers:\n• Digital Marketing for your property\n• Immersive Virtual Tours\n• AI Valuation\n• Direct process\n• Direct connection between buyers and sellers",
+    services: "CONECTIA offers:\n• Digital Marketing for your property\n• Immersive Virtual Tours\n• AI Valuation\n• Direct process\n• Direct connection between buyers and sellers",
     contact: "You can contact us:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\nWould you like me to redirect you to WhatsApp for direct contact?",
     navigation: "Where would you like to go?",
     languageChanged: "Language changed successfully. How else can I help you?",
   },
   fr: {
-    welcome: "Bonjour! 👋 Je suis votre assistant virtuel 24/7 d'CONECTIA SELECT. Je suis là pour vous aider à naviguer sur notre plateforme et répondre à vos questions. Comment puis-je vous aider?",
+    welcome: "Bonjour! 👋 Je suis votre assistant virtuel 24/7 d'CONECTIA. Je suis là pour vous aider à naviguer sur notre plateforme et répondre à vos questions. Comment puis-je vous aider?",
     help: "Je peux vous aider avec:\n• Naviguer dans les sections de la page\n• Changer la langue\n• Informations sur nos services\n• Contacter notre équipe\n• Rechercher des propriétés",
-    services: "CONECTIA SELECT offre:\n• Marketing Digital pour votre propriété\n• Visites Virtuelles immersives\n• Évaluation par IA\n• Processus direct\n• Connexion directe entre acheteurs et vendeurs",
+    services: "CONECTIA offre:\n• Marketing Digital pour votre propriété\n• Visites Virtuelles immersives\n• Évaluation par IA\n• Processus direct\n• Connexion directe entre acheteurs et vendeurs",
     contact: "Vous pouvez nous contacter:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\nVoulez-vous que je vous redirige vers WhatsApp pour un contact direct?",
     navigation: "Où aimeriez-vous aller?",
     languageChanged: "Langue changée avec succès. Comment puis-je vous aider d'autre?",
@@ -226,7 +226,7 @@ export function AIAgent() {
                 <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-graphite" />
               </div>
               <div>
-                <h3 className="font-serif font-semibold text-base sm:text-lg">Asistente CONECTIA SELECT</h3>
+                <h3 className="font-serif font-semibold text-base sm:text-lg">Asistente CONECTIA</h3>
                 <p className="text-xs sm:text-sm text-gray-300">{currentLanguage === "es" ? "Asistente 24/7 • Navegación" : currentLanguage === "en" ? "24/7 Assistant • Navigation" : "Assistant 24/7 • Navigation"}</p>
               </div>
             </div>

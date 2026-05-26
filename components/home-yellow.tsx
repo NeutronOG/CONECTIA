@@ -134,7 +134,7 @@ export function HomeYellow() {
                 ¿Listo para el<br />siguiente paso?
               </h2>
               <p className="text-base text-conectia-secondary/70 leading-relaxed">
-                Únete a nuestros clientes satisfechos y descubre la facilidad de comprar o vender con CONECTIA SELECT
+                Únete a nuestros clientes satisfechos y descubre la facilidad de comprar o vender con CONECTIA
               </p>
             </div>
             {/* Botones derecha */}

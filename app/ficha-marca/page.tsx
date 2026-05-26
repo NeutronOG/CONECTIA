@@ -19,7 +19,7 @@ export default function FichaMarcaPage() {
               <div className="bg-conectia-primary px-6 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-3xl shadow-2xl">
                 <Image 
                   src="/logo.png" 
-                  alt="CONECTIA SELECT" 
+                  alt="CONECTIA" 
                   width={400} 
                   height={120} 
                   className="h-12 sm:h-16 md:h-20 w-auto object-contain"
@@ -36,7 +36,7 @@ export default function FichaMarcaPage() {
               <div className="bg-gradient-to-br from-conectia-gold/10 to-conectia-gold/5 p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border-l-4 border-conectia-gold">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-conectia-graphite mb-3 sm:mb-4">La Plataforma Inmobiliaria del Futuro</h2>
                 <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
-                  <span className="font-bold text-conectia-gold">CONECTIA SELECT</span> combina <span className="font-semibold">inteligencia artificial, marketing digital agresivo y tecnología 360°</span> para vender tu propiedad más rápido y al mejor precio.
+                  <span className="font-bold text-conectia-gold">CONECTIA</span> combina <span className="font-semibold">inteligencia artificial, marketing digital agresivo y tecnología 360°</span> para vender tu propiedad más rápido y al mejor precio.
                 </p>
               </div>
             </section>
@@ -206,14 +206,14 @@ export default function FichaMarcaPage() {
                 <div className="flex justify-center">
                   <Image 
                     src="/logo.png" 
-                    alt="CONECTIA SELECT" 
+                    alt="CONECTIA" 
                     width={250} 
                     height={80} 
                     className="h-8 sm:h-10 md:h-12 w-auto object-contain"
                   />
                 </div>
                 <p className="text-sm sm:text-base text-gray-600">Tu socio inmobiliario de confianza</p>
-                <p className="text-xs sm:text-sm text-gray-500">© 2025 CONECTIA SELECT. Todos los derechos reservados.</p>
+                <p className="text-xs sm:text-sm text-gray-500">© 2025 CONECTIA. Todos los derechos reservados.</p>
               </div>
             </section>
 

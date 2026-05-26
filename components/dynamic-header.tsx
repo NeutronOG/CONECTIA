@@ -109,9 +109,8 @@ export function DynamicHeader() {
           <div className="hidden md:flex items-center justify-center gap-2 min-w-0">
             {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 px-2 group">
-              <svg viewBox="0 0 200 45" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-auto transition-transform group-hover:scale-105">
-                <text x="0" y="34" fontFamily="Georgia, serif" fontSize="36" fontWeight="900" fill="currentColor" className="text-conectia-accent" letterSpacing="-1">CONECTIA</text>
-                <text x="2" y="44" fontFamily="Arial, sans-serif" fontSize="7" fontWeight="600" fill="#17313A" letterSpacing="6">SELECT</text>
+              <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto transition-transform group-hover:scale-105">
+                <text x="0" y="30" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="32" fontWeight="600" fill="#EAE4DD" letterSpacing="2">CONECTIA</text>
               </svg>
             </Link>
 
@@ -332,7 +331,7 @@ export function DynamicHeader() {
                 <Link href="/" className="flex items-center flex-shrink-0">
                   <Image
                     src="/logo.png"
-                    alt="CONECTIA SELECT"
+                    alt="CONECTIA"
                     width={120}
                     height={35}
                     className="h-7 w-auto object-contain transition-all duration-300"
@@ -365,7 +364,7 @@ export function DynamicHeader() {
                   <Link href="/" className="flex items-center space-x-2">
                     <Image
                       src="/logo.png"
-                      alt="CONECTIA SELECT"
+                      alt="CONECTIA"
                       width={160}
                       height={50}
                       className="h-8 w-auto object-contain"

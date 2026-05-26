@@ -93,7 +93,7 @@ export async function registerBiometric(email: string, nombre?: string): Promise
     const publicKeyOptions: PublicKeyCredentialCreationOptions = {
       challenge: challenge as BufferSource,
       rp: {
-        name: 'CONECTIA SELECT',
+        name: 'CONECTIA',
         id: window.location.hostname,
       },
       user: {

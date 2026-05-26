@@ -41,7 +41,7 @@ function RegistroContent() {
           nombre: formData.nombre,
           email: formData.email,
           telefono: formData.telefono,
-          mensaje: formData.mensaje || 'Solicitud de información para ser asesor CONECTIA SELECT',
+          mensaje: formData.mensaje || 'Solicitud de información para ser asesor CONECTIA',
           tipo: 'solicitud_asesor',
           fecha: new Date().toISOString()
         })
@@ -69,7 +69,7 @@ function RegistroContent() {
               ¡Solicitud Enviada!
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Gracias por tu interés en unirte a CONECTIA SELECT.
+              Gracias por tu interés en unirte a CONECTIA.
             </p>
             <p className="text-gray-700 dark:text-gray-300 font-medium">
               Nuestro equipo te contactará en menos de 24 horas para brindarte toda la información sobre nuestros planes y beneficios.
@@ -94,7 +94,7 @@ function RegistroContent() {
           <div className="flex justify-center mb-4">
             <Image
               src="/logo.png"
-              alt="CONECTIA SELECT"
+              alt="CONECTIA"
               width={250}
               height={80}
               className="h-16 w-auto object-contain"
@@ -226,14 +226,14 @@ function RegistroContent() {
           {/* Info adicional */}
           <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
             <p className="text-xs text-center text-gray-500 dark:text-gray-400">
-              Al enviar este formulario, aceptas que CONECTIA SELECT te contacte para brindarte información sobre nuestros servicios y planes.
+              Al enviar este formulario, aceptas que CONECTIA te contacte para brindarte información sobre nuestros servicios y planes.
             </p>
           </div>
         </div>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-          © 2025 CONECTIA SELECT. Todos los derechos reservados.
+          © 2025 CONECTIA. Todos los derechos reservados.
         </p>
       </div>
     </div>

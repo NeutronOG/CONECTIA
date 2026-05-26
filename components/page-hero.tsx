@@ -14,7 +14,7 @@ interface PageHeroProps {
 }
 
 export function PageHero({
-  eyebrow = "CONECTIA SELECT",
+  eyebrow = "CONECTIA",
   title,
   titleAccent,
   description,

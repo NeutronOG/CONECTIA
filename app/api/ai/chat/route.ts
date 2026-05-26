@@ -32,7 +32,7 @@ function buildSystemPrompt(properties: any[]) {
     `[ID:${p.id}] ${p.titulo} | ${p.ubicacion} | ${p.precio_texto || p.precio} | ${p.tipo} | ${p.habitaciones}hab ${p.banos}baños ${p.area}m² | ${p.categoria || 'venta'}`
   ).join('\n')
 
-  return `Eres el asistente virtual de CONECTIA SELECT, una plataforma inmobiliaria premium en León, Guanajuato, México.
+  return `Eres el asistente virtual de CONECTIA, una plataforma inmobiliaria premium en León, Guanajuato, México.
 
 Tu nombre es CONECTIA AI. Eres amable, profesional y muy conocedor del mercado inmobiliario mexicano.
 

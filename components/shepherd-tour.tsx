@@ -73,7 +73,7 @@ export function ShepherdTour() {
     // ============================
     tour.addStep({
       id: "welcome",
-      title: "¡Bienvenido a CONECTIA SELECT!",
+      title: "¡Bienvenido a CONECTIA!",
       text: `
         <div style="text-align:center; margin-bottom: 12px;">
           <img src="/logo.png" alt="CONECTIA" style="height:48px; margin:0 auto; border-radius:12px;" />
@@ -110,7 +110,7 @@ export function ShepherdTour() {
     tour.addStep({
       id: "hero",
       title: "Sección Principal",
-      text: "Aquí encontrarás nuestro <strong>video de presentación</strong> y los accesos rápidos para <strong>explorar propiedades</strong> o <strong>vender tu propiedad</strong>. Es la primera impresión de CONECTIA SELECT.",
+      text: "Aquí encontrarás nuestro <strong>video de presentación</strong> y los accesos rápidos para <strong>explorar propiedades</strong> o <strong>vender tu propiedad</strong>. Es la primera impresión de CONECTIA.",
       attachTo: { element: "section:first-of-type", on: "bottom" as const },
       buttons: [
         { text: "Anterior", classes: "shepherd-button-secondary", action: () => tour.back() },
@@ -151,7 +151,7 @@ export function ShepherdTour() {
     // ============================
     tour.addStep({
       id: "why-conectia",
-      title: "¿Por qué CONECTIA SELECT?",
+      title: "¿Por qué CONECTIA?",
       text: "<strong>Confianza</strong> con proceso 100% transparente. <strong>Exclusividad</strong> con propiedades únicas. <strong>Conexión</strong> directa entre compradores y vendedores, sin intermediarios innecesarios.",
       attachTo: { element: "section:nth-of-type(4)", on: "top" as const },
       buttons: [
@@ -209,7 +209,7 @@ export function ShepherdTour() {
     tour.addStep({
       id: "go-to-owners",
       title: "¿Quieres Vender tu Propiedad?",
-      text: "Ahora te muestro la sección de <strong>Propietarios</strong>, donde puedes registrar tu propiedad para que CONECTIA SELECT la promueva con la mejor estrategia de mercado.",
+      text: "Ahora te muestro la sección de <strong>Propietarios</strong>, donde puedes registrar tu propiedad para que CONECTIA la promueva con la mejor estrategia de mercado.",
       buttons: [
         { text: "Anterior", classes: "shepherd-button-secondary", action: () => tour.back() },
         {
@@ -358,7 +358,7 @@ export function ShepherdTour() {
       id: "professionals",
       title: "Para Profesionales Inmobiliarios",
       text: `
-        <p>Si eres <strong>asesor, broker o fotógrafo</strong>, CONECTIA SELECT tiene un panel exclusivo para ti:</p>
+        <p>Si eres <strong>asesor, broker o fotógrafo</strong>, CONECTIA tiene un panel exclusivo para ti:</p>
         <ul style="margin:8px 0;padding-left:16px;">
           <li><strong>Panel Asesor:</strong> Gestiona propiedades y clientes</li>
           <li><strong>Panel Broker:</strong> Administra tu equipo</li>
@@ -403,7 +403,7 @@ export function ShepherdTour() {
       text: `
         <div style="text-align:center;">
           <div style="font-size:48px;margin-bottom:8px;">🎉</div>
-          <p style="font-size:16px;font-weight:600;margin-bottom:12px;">Ya conoces toda la plataforma CONECTIA SELECT</p>
+          <p style="font-size:16px;font-weight:600;margin-bottom:12px;">Ya conoces toda la plataforma CONECTIA</p>
           <p>Proceso transparente, sin complicaciones, con la mejor tecnología inmobiliaria.</p>
           <p style="margin-top:12px;opacity:0.7;font-size:13px;">Puedes repetir este tour cuando quieras desde el menú.</p>
         </div>

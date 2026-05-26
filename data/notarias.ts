@@ -1,4 +1,4 @@
-// Lista de notarías autorizadas para trabajar con CONECTIA SELECT
+// Lista de notarías autorizadas para trabajar con CONECTIA
 export interface Notaria {
   id: string
   numero: number

@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         nombre,
         email,
         telefono,
-        mensaje: mensaje || 'Solicitud de información para ser asesor CONECTIA SELECT',
+        mensaje: mensaje || 'Solicitud de información para ser asesor CONECTIA',
         tipo: tipo || 'solicitud_asesor',
         fecha: fecha || new Date().toISOString(),
         estado: 'pendiente'

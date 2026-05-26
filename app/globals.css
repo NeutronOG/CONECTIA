@@ -18,21 +18,21 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* CONECTIA - Paleta de marca oficial */
-  --background: #EAE4DD;
-  --foreground: #1D1F24;
-  --card: #FFFFFF;
-  --card-foreground: #1D1F24;
-  --popover: #FFFFFF;
-  --popover-foreground: #1D1F24;
-  --primary: #17313A;
-  --primary-foreground: #EAE4DD;
-  --secondary: #C78F7B;
-  --secondary-foreground: #1D1F24;
-  --muted: #F5F2EB;
-  --muted-foreground: #5C5654;
-  --accent: #8278BD;
-  --accent-foreground: #FFFFFF;
+  /* CONECTIA - Paleta de marca con fondo AZUL principal */
+  --background: #17313A;           /* Azul petróleo - FONDO PRINCIPAL */
+  --foreground: #EAE4DD;          /* Marfil - texto principal */
+  --card: #1F3D47;                /* Azul más claro para cards */
+  --card-foreground: #EAE4DD;
+  --popover: #1F3D47;
+  --popover-foreground: #EAE4DD;
+  --primary: #EAE4DD;             /* Marfil como primary sobre azul */
+  --primary-foreground: #17313A;
+  --secondary: #2A4A56;           /* Azul medio */
+  --secondary-foreground: #EAE4DD;
+  --muted: #264653;
+  --muted-foreground: #B8B0A8;
+  --accent: #C78F7B;              /* Arcilla - solo detalles elegantes */
+  --accent-foreground: #17313A;
   --destructive: #C78F7B;
   --destructive-foreground: #FFFFFF;
   --border: #D9D2C2;
@@ -170,8 +170,8 @@
     @apply border-border outline-ring/50;
   }
   html, body {
-    background-color: #EAE4DD !important;
-    color: #1D1F24 !important;
+    background-color: #17313A !important;
+    color: #EAE4DD !important;
   }
   body {
     @apply bg-background text-foreground;

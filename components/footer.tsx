@@ -32,7 +32,7 @@ export function Footer() {
                 <div className="mb-5">
                   <Image
                     src="/logo.png"
-                    alt="CONECTIA SELECT"
+                    alt="CONECTIA"
                     width={200}
                     height={60}
                     className="h-11 w-auto object-contain"
@@ -147,7 +147,7 @@ export function Footer() {
             <div className="border-t border-conectia-primary/15 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
-                  <span className="text-sm text-gray-400">© 2025 CONECTIA SELECT. Todos los derechos reservados.</span>
+                  <span className="text-sm text-gray-400">© 2025 CONECTIA. Todos los derechos reservados.</span>
                   <span className="text-xs text-gray-600">Powered by HUTEC</span>
                 </div>
                 <div className="flex gap-6 text-sm">

@@ -119,7 +119,7 @@ DESARROLLOS ACTIVOS:
 - Bosque Residencial — El Refugio — $2,900,000 — Avance: 72% — Entrega: Q3 2026
 ` : ''
 
-  return `Eres CONECTIA AI, el asistente${admin ? ' ADMINISTRADOR' : ' virtual'} de CONECTIA SELECT — plataforma inmobiliaria premium en León, Guanajuato, México.
+  return `Eres CONECTIA AI, el asistente${admin ? ' ADMINISTRADOR' : ' virtual'} de CONECTIA — plataforma inmobiliaria premium en León, Guanajuato, México.
 Estás respondiendo a través de Telegram.${adminContext}
 
 PROPIEDADES DISPONIBLES (${properties.length} total):
@@ -246,7 +246,7 @@ async function processUpdate(update: any) {
 
     if (text === '/admin') {
       await sendTelegramMessage(chatId,
-        `⚙️ <b>PANEL ADMIN CONECTIA SELECT</b>\n\n` +
+        `⚙️ <b>PANEL ADMIN CONECTIA</b>\n\n` +
         `👤 /nuevo_asesor — Crear nuevo asesor\n` +
         `📋 /asesores — Ver todos los asesores\n` +
         `🏠 /todas_propiedades — Ver todas (inc. pausadas)\n` +
@@ -277,7 +277,7 @@ async function processUpdate(update: any) {
       const props = propRes.data || []
       const users = userRes.data || []
       await sendTelegramMessage(chatId,
-        `📊 <b>ESTADÍSTICAS CONECTIA SELECT</b>\n\n` +
+        `📊 <b>ESTADÍSTICAS CONECTIA</b>\n\n` +
         `🏠 Disponibles: ${props.filter((p: any) => p.status === 'Disponible').length}\n` +
         `🏷 Vendidas: ${props.filter((p: any) => p.status === 'Vendido').length}\n` +
         `🔑 Rentadas: ${props.filter((p: any) => p.status === 'Rentado').length}\n` +
@@ -293,7 +293,7 @@ async function processUpdate(update: any) {
       const { data } = await supabase.from('usuarios').select('nombre, email, telefono, role').in('role', ['asesor', 'admin', 'broker']).order('nombre')
       if (!data || data.length === 0) { await sendTelegramMessage(chatId, 'No hay asesores registrados.'); return }
       const list = data.map((u: any) => `• <b>${u.nombre}</b> (${u.role}) — ${u.email}`).join('\n')
-      await sendTelegramMessage(chatId, `👥 <b>EQUIPO CONECTIA SELECT</b>\n\n${list}`)
+      await sendTelegramMessage(chatId, `👥 <b>EQUIPO CONECTIA</b>\n\n${list}`)
       return
     }
 
@@ -323,7 +323,7 @@ async function processUpdate(update: any) {
   if (text === '/start') {
     conversationHistory.delete(chatId)
     await sendTelegramMessage(chatId,
-      `🏠 <b>¡Bienvenido a CONECTIA SELECT!</b>\n\n` +
+      `🏠 <b>¡Bienvenido a CONECTIA!</b>\n\n` +
       `Hola <b>${firstName}</b>, soy <b>CONECTIA AI</b> 🤖\n\n` +
       `Puedo ayudarte a buscar propiedades, asesorarte sobre precios y zonas de León, o conectarte con un asesor.\n\n` +
       `/propiedades — Ver disponibles\n` +
@@ -343,7 +343,7 @@ async function processUpdate(update: any) {
   }
 
   if (text === '/contacto') {
-    await sendTelegramMessage(chatId, `📞 <b>CONTACTO CONECTIA SELECT</b>\n\n📱 <a href="https://wa.me/5214774756951">+52 477 475 6951</a>\n📧 conectiaselect@gmail.com\n🌐 <a href="https://www.conectiaselect.com">www.conectiaselect.com</a>\n\n⏰ Lunes a Sábado 9am - 7pm`)
+    await sendTelegramMessage(chatId, `📞 <b>CONTACTO CONECTIA</b>\n\n📱 <a href="https://wa.me/5214774756951">+52 477 475 6951</a>\n📧 conectiaselect@gmail.com\n🌐 <a href="https://www.conectiaselect.com">www.conectiaselect.com</a>\n\n⏰ Lunes a Sábado 9am - 7pm`)
     return
   }
 

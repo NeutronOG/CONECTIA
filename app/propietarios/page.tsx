@@ -327,7 +327,7 @@ export default function PropietariosPage() {
             </h1>
             
             <p className="text-lg text-gray-600 mb-6">
-              Tu propiedad ha sido registrada exitosamente en CONECTIA SELECT
+              Tu propiedad ha sido registrada exitosamente en CONECTIA
             </p>
 
             <div className="bg-conectia-gold/10 border border-conectia-gold/20 rounded-xl p-6 mb-8">

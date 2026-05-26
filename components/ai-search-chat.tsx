@@ -442,7 +442,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2 shadow-md">
                 <Image
                   src="/logo.png"
-                  alt="CONECTIA SELECT"
+                  alt="CONECTIA"
                   width={48}
                   height={48}
                   className="w-full h-full object-contain"
@@ -610,7 +610,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
             </Button>
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            Powered by Claude AI • CONECTIA SELECT
+            Powered by Claude AI • CONECTIA
           </p>
         </div>
       </div>
