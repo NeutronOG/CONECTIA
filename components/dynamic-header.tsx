@@ -111,7 +111,7 @@ export function DynamicHeader() {
             <Link href="/" className="flex items-center flex-shrink-0 px-2 group">
               <svg viewBox="0 0 200 45" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-auto transition-transform group-hover:scale-105">
                 <text x="0" y="34" fontFamily="Georgia, serif" fontSize="36" fontWeight="900" fill="currentColor" className="text-conectia-accent" letterSpacing="-1">CONECTIA</text>
-                <text x="2" y="44" fontFamily="Arial, sans-serif" fontSize="7" fontWeight="600" fill="#C28C6A" letterSpacing="6">SELECT</text>
+                <text x="2" y="44" fontFamily="Arial, sans-serif" fontSize="7" fontWeight="600" fill="#17313A" letterSpacing="6">SELECT</text>
               </svg>
             </Link>
 
