@@ -351,27 +351,41 @@ export default function PanelAsesorPage() {
           </div>
 
           {/* Tabla de bonos */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {bonos.map((b, idx) => (
               <div
                 key={idx}
-                className={`p-4 rounded-xl border-2 transition-all ${ventasMes >= b.meta
-                  ? 'bg-green-50 dark:bg-green-900/20 border-green-500'
-                  : b.meta === bonoActual.meta
-                    ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 ring-2 ring-yellow-500/50'
-                    : 'bg-[#1A3540] border-gray-300 dark:border-gray-600'
-                  }`}
+                className={`p-4 rounded-xl border-2 transition-all relative overflow-hidden ${
+                  ventasMes >= b.meta
+                    ? 'bg-green-900/30 border-green-500 shadow-lg shadow-green-500/20'
+                    : b.meta === bonoActual.meta
+                      ? 'bg-conectia-gold/10 border-conectia-gold shadow-lg shadow-conectia-gold/20 ring-2 ring-conectia-gold/30'
+                      : 'bg-[#17313A] border-gray-700 opacity-60'
+                }`}
               >
-                <div className="text-center">
+                {(ventasMes >= b.meta || b.meta === bonoActual.meta) && (
+                  <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full opacity-20 bg-white pointer-events-none" />
+                )}
+                <div className="text-center relative z-10">
                   {ventasMes >= b.meta ? (
-                    <CheckCircle2 className="w-6 h-6 text-green-500 mx-auto mb-2" />
+                    <CheckCircle2 className="w-7 h-7 text-green-400 mx-auto mb-2" />
+                  ) : b.meta === bonoActual.meta ? (
+                    <Flame className="w-7 h-7 text-conectia-gold mx-auto mb-2" />
                   ) : (
-                    <Award className="w-6 h-6 text-gray-400 mx-auto mb-2" />
+                    <Award className="w-7 h-7 text-gray-600 mx-auto mb-2" />
                   )}
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{b.descripcion}</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-xs font-medium text-gray-400 mb-1">{b.descripcion}</p>
+                  <p className={`text-xl font-black ${
+                    ventasMes >= b.meta ? 'text-green-400' : b.meta === bonoActual.meta ? 'text-conectia-gold' : 'text-gray-500'
+                  }`}>
                     ${(b.bono / 1000).toFixed(0)}k
                   </p>
+                  {b.meta === bonoActual.meta && ventasMes < b.meta && (
+                    <p className="text-xs text-conectia-gold/70 mt-1">Siguiente meta</p>
+                  )}
+                  {ventasMes >= b.meta && (
+                    <p className="text-xs text-green-400/70 mt-1">¡Ganado!</p>
+                  )}
                 </div>
               </div>
             ))}
@@ -379,47 +393,85 @@ export default function PanelAsesorPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-[#1A3540] rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-400 text-sm">Propiedades</span>
-              <Building2 className="w-5 h-5 text-conectia-gold" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {/* Propiedades */}
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-conectia-gold/20 relative overflow-hidden group hover:border-conectia-gold/50 hover:shadow-lg hover:shadow-conectia-gold/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-conectia-gold/10 rounded-full pointer-events-none" />
+            <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-conectia-gold/5 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
+                <Building2 className="w-5 h-5 text-conectia-gold" />
+              </div>
+              <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-2 py-1 rounded-full">
+                {progress.filter(p => p.status === 'activa').length} activas
+              </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{progress.length}</p>
+            <p className="text-4xl font-black text-white mb-1">{progress.length}</p>
+            <p className="text-sm text-gray-400">Propiedades</p>
+            <p className="text-xs text-gray-500 mt-1">{progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length} cerradas este mes</p>
           </div>
 
-          <div className="bg-[#1A3540] rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-400 text-sm">Leads</span>
-              <Users className="w-5 h-5 text-blue-500" />
+          {/* Leads */}
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-blue-500/20 relative overflow-hidden group hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-blue-500/10 rounded-full pointer-events-none" />
+            <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-blue-500/5 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                <Users className="w-5 h-5 text-blue-400" />
+              </div>
+              <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">
+                {leads.filter(l => l.status === 'nuevo').length} nuevos
+              </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{totalLeads}</p>
+            <p className="text-4xl font-black text-white mb-1">{totalLeads}</p>
+            <p className="text-sm text-gray-400">Leads totales</p>
+            <p className="text-xs text-gray-500 mt-1">{leads.filter(l => l.status === 'calificado').length} calificados</p>
           </div>
 
-          <div className="bg-[#1A3540] rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-400 text-sm">Visitas</span>
-              <Eye className="w-5 h-5 text-green-500" />
+          {/* Visitas */}
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-green-500/20 relative overflow-hidden group hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-green-500/10 rounded-full pointer-events-none" />
+            <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-green-500/5 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-green-500/20 rounded-xl flex items-center justify-center">
+                <Eye className="w-5 h-5 text-green-400" />
+              </div>
+              <span className="text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded-full">
+                {totalLeads > 0 ? Math.round((totalVisitas / totalLeads) * 100) : 0}% tasa
+              </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{totalVisitas}</p>
+            <p className="text-4xl font-black text-white mb-1">{totalVisitas}</p>
+            <p className="text-sm text-gray-400">Visitas agendadas</p>
+            <p className="text-xs text-gray-500 mt-1">De {totalLeads} leads totales</p>
           </div>
 
-          <div className="bg-[#1A3540] rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 dark:text-gray-400 text-sm">Ofertas</span>
-              <DollarSign className="w-5 h-5 text-purple-500" />
+          {/* Ofertas */}
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-purple-500/20 relative overflow-hidden group hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-purple-500/10 rounded-full pointer-events-none" />
+            <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-purple-500/5 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-purple-400" />
+              </div>
+              <span className="text-xs font-semibold text-purple-400 bg-purple-500/10 px-2 py-1 rounded-full">
+                {totalVisitas > 0 ? Math.round((totalOfertas / totalVisitas) * 100) : 0}% conv.
+              </span>
             </div>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{totalOfertas}</p>
+            <p className="text-4xl font-black text-white mb-1">{totalOfertas}</p>
+            <p className="text-sm text-gray-400">Ofertas recibidas</p>
+            <p className="text-xs text-gray-500 mt-1">De {totalVisitas} visitas totales</p>
           </div>
         </div>
 
         {/* Gráficas de Análisis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Gráfica de Leads por Propiedad */}
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-conectia-gold" />
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-conectia-gold" />
+                </div>
                 Performance por Propiedad
               </h2>
             </div>
@@ -447,10 +499,12 @@ export default function PanelAsesorPage() {
           </div>
 
           {/* Gráfica de Leads por Estatus */}
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-conectia-gold" />
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-blue-500/10 to-transparent">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
                 Distribución de Leads
               </h2>
             </div>
@@ -481,13 +535,14 @@ export default function PanelAsesorPage() {
                   />
                 </PieChart>
               </ResponsiveContainer>
-              <div className="grid grid-cols-2 gap-3 mt-4">
+              <div className="grid grid-cols-2 gap-2 mt-4">
                 {leadsPorEstatus.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      {item.name}: <span className="font-bold text-gray-900 dark:text-white">{item.value}</span>
-                    </span>
+                  <div key={idx} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#17313A]">
+                    <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: item.color }}></div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-gray-400 truncate">{item.name}</p>
+                      <p className="text-sm font-black text-white">{item.value}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -496,12 +551,17 @@ export default function PanelAsesorPage() {
         </div>
 
         {/* Gráfica de Actividad Semanal */}
-        <div className="bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-conectia-gold" />
-              Actividad de la Semana
-            </h2>
+        <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden mb-6 shadow-xl">
+          <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-green-500/10 to-transparent">
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-green-400" />
+                </div>
+                Actividad de la Semana
+              </h2>
+              <span className="text-xs text-gray-400 bg-gray-800 px-3 py-1 rounded-full">Últimos 7 días</span>
+            </div>
           </div>
           <div className="p-6">
             <ResponsiveContainer width="100%" height={300}>
@@ -539,172 +599,206 @@ export default function PanelAsesorPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Mis Propiedades */}
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-conectia-gold" />
-                Mis Propiedades
-              </h2>
-            </div>
-            <div className="p-6 space-y-4 max-h-[600px] overflow-y-auto">
-              {progress.map((prog) => {
-                const propiedad = propiedades.find(p => p.id === prog.propiedadId)
-                if (!propiedad) return null
-
-                return (
-                  <div key={prog.propiedadId} className="p-4 bg-[#17313A] rounded-xl border border-gray-200 dark:border-gray-700">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {propiedad.titulo}
-                        </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {propiedad.ubicacion}
-                        </p>
-                      </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(prog.status)}`}>
-                        {prog.status.replace('_', ' ')}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-4 mb-3">
-                      <div className="text-center">
-                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{prog.leads}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Leads</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{prog.visitas}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Visitas</p>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{prog.ofertas}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">Ofertas</p>
-                      </div>
-                    </div>
-
-                    {prog.notas && (
-                      <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                        <p className="text-xs text-yellow-800 dark:text-yellow-300">
-                          📝 {prog.notas}
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-2 mt-3 text-xs text-gray-500 dark:text-gray-400">
-                      <Clock className="w-3 h-3" />
-                      <span>Última actividad: {formatDate(prog.ultimaActividad)}</span>
-                    </div>
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-conectia-gold" />
                   </div>
-                )
-              })}
+                  Mis Propiedades
+                </h2>
+                <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-3 py-1 rounded-full">
+                  {progress.length} total
+                </span>
+              </div>
+            </div>
+            <div className="p-5 space-y-3 max-h-[600px] overflow-y-auto">
+              {progress.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-conectia-gold/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Building2 className="w-8 h-8 text-conectia-gold/40" />
+                  </div>
+                  <p className="text-gray-400 font-medium mb-1">Sin propiedades asignadas</p>
+                  <p className="text-sm text-gray-600">Tus propiedades aparecerán aquí una vez asignadas</p>
+                </div>
+              ) : (
+                progress.map((prog) => {
+                  const propiedad = propiedades.find(p => p.id === prog.propiedadId)
+                  if (!propiedad) return null
+
+                  return (
+                    <div key={prog.propiedadId} className="p-4 bg-[#17313A] rounded-xl border border-gray-700/60 hover:border-gray-600 transition-colors">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-white mb-1 truncate">
+                            {propiedad.titulo}
+                          </h3>
+                          <p className="text-xs text-gray-400 flex items-center gap-1">
+                            <span>📍</span> {propiedad.ubicacion}
+                          </p>
+                        </div>
+                        <span className={`ml-2 shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold ${getStatusColor(prog.status)}`}>
+                          {prog.status.replace('_', ' ')}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 mb-3">
+                        <div className="text-center bg-blue-500/10 rounded-lg p-2">
+                          <p className="text-xl font-black text-blue-400">{prog.leads}</p>
+                          <p className="text-xs text-gray-500">Leads</p>
+                        </div>
+                        <div className="text-center bg-green-500/10 rounded-lg p-2">
+                          <p className="text-xl font-black text-green-400">{prog.visitas}</p>
+                          <p className="text-xs text-gray-500">Visitas</p>
+                        </div>
+                        <div className="text-center bg-purple-500/10 rounded-lg p-2">
+                          <p className="text-xl font-black text-purple-400">{prog.ofertas}</p>
+                          <p className="text-xs text-gray-500">Ofertas</p>
+                        </div>
+                      </div>
+
+                      {prog.notas && (
+                        <div className="p-2.5 bg-conectia-gold/10 rounded-lg border border-conectia-gold/20 mb-2">
+                          <p className="text-xs text-conectia-gold/80">📝 {prog.notas}</p>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <Clock className="w-3 h-3" />
+                        <span>{formatDate(prog.ultimaActividad)}</span>
+                      </div>
+                    </div>
+                  )
+                })
+              )}
             </div>
           </div>
 
           {/* Leads Recientes */}
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-conectia-gold" />
-                Leads Recientes
-              </h2>
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-blue-500/10 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <Users className="w-4 h-4 text-blue-400" />
+                  </div>
+                  Leads Recientes
+                </h2>
+                <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">
+                  {leads.length} leads
+                </span>
+              </div>
             </div>
-            <div className="p-6 space-y-4 max-h-[600px] overflow-y-auto">
-              {leads.map((lead) => {
-                const propiedad = propiedades.find(p => p.id === lead.propiedadId)
-                if (!propiedad) return null
+            <div className="p-5 space-y-3 max-h-[600px] overflow-y-auto">
+              {leads.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Users className="w-8 h-8 text-blue-400/40" />
+                  </div>
+                  <p className="text-gray-400 font-medium mb-1">Sin leads por ahora</p>
+                  <p className="text-sm text-gray-600">Los leads de tus propiedades aparecerán aquí</p>
+                </div>
+              ) : (
+                leads.map((lead) => {
+                  const propiedad = propiedades.find(p => p.id === lead.propiedadId)
+                  if (!propiedad) return null
 
-                return (
-                  <div key={lead.id} className="p-4 bg-[#17313A] rounded-xl border border-gray-200 dark:border-gray-700">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
-                          {lead.nombre}
-                        </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {propiedad.titulo}
-                        </p>
+                  return (
+                    <div key={lead.id} className="p-4 bg-[#17313A] rounded-xl border border-gray-700/60 hover:border-gray-600 transition-colors">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-white truncate">{lead.nombre}</h3>
+                          <p className="text-xs text-gray-400 truncate">{propiedad.titulo}</p>
+                        </div>
+                        <span className={`ml-2 shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold ${getLeadStatusColor(lead.status)}`}>
+                          {lead.status}
+                        </span>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getLeadStatusColor(lead.status)}`}>
-                        {lead.status}
-                      </span>
-                    </div>
 
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-3 p-3 bg-[#1A3540] rounded-lg">
-                      "{lead.mensaje}"
-                    </p>
+                      <p className="text-sm text-gray-300 mb-3 p-3 bg-[#1A3540] rounded-lg italic border-l-2 border-conectia-gold/30">
+                        “{lead.mensaje}”
+                      </p>
 
-                    <div className="space-y-2 mb-3">
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                        <Phone className="w-4 h-4" />
-                        <a href={`tel:${lead.telefono}`} className="hover:text-conectia-gold transition-colors">
+                      <div className="flex flex-col sm:flex-row gap-2 mb-3">
+                        <a href={`tel:${lead.telefono}`} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-conectia-gold transition-colors bg-[#1A3540] px-3 py-1.5 rounded-lg">
+                          <Phone className="w-3 h-3" />
                           {lead.telefono}
                         </a>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                        <Mail className="w-4 h-4" />
-                        <a href={`mailto:${lead.email}`} className="hover:text-conectia-gold transition-colors">
-                          {lead.email}
+                        <a href={`mailto:${lead.email}`} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-conectia-gold transition-colors bg-[#1A3540] px-3 py-1.5 rounded-lg">
+                          <Mail className="w-3 h-3" />
+                          <span className="truncate">{lead.email}</span>
                         </a>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                      <Clock className="w-3 h-3" />
-                      <span>{formatDate(lead.fecha)}</span>
+                      <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <Clock className="w-3 h-3" />
+                        <span>{formatDate(lead.fecha)}</span>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })
+              )}
             </div>
           </div>
         </div>
 
         {/* Actividad Reciente */}
-        <div className="mt-8 bg-[#1A3540] rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-conectia-gold" />
-              Actividad Reciente
-            </h2>
-          </div>
-          <div className="p-6">
-            <div className="space-y-4">
-              {activities.map((activity) => {
-                const propiedad = propiedades.find(p => p.id === activity.propiedadId)
-                if (!propiedad) return null
-
-                const getActivityIcon = () => {
-                  switch (activity.tipo) {
-                    case 'lead': return <Users className="w-4 h-4 text-blue-500" />
-                    case 'visita': return <Eye className="w-4 h-4 text-green-500" />
-                    case 'oferta': return <DollarSign className="w-4 h-4 text-purple-500" />
-                    case 'venta': return <CheckCircle2 className="w-4 h-4 text-green-600" />
-                    case 'nota': return <FileText className="w-4 h-4 text-gray-500" />
-                  }
-                }
-
-                return (
-                  <div key={activity.id} className="flex items-start gap-4 p-4 bg-[#17313A] rounded-xl">
-                    <div className="w-10 h-10 bg-[#1A3540] rounded-xl flex items-center justify-center flex-shrink-0 border border-gray-200 dark:border-gray-700">
-                      {getActivityIcon()}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-900 dark:text-white font-medium">
-                        {activity.descripcion}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        {propiedad.titulo}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                        {formatDate(activity.fecha)}
-                      </p>
-                    </div>
-                  </div>
-                )
-              })}
+        <div className="mt-6 bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+          <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-purple-500/10 to-transparent">
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-purple-400" />
+                </div>
+                Actividad Reciente
+              </h2>
+              <span className="text-xs text-gray-400 bg-gray-800 px-3 py-1 rounded-full">{activities.length} registros</span>
             </div>
+          </div>
+          <div className="p-5">
+            {activities.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-4">
+                  <TrendingUp className="w-8 h-8 text-purple-400/40" />
+                </div>
+                <p className="text-gray-400 font-medium mb-1">Sin actividad registrada</p>
+                <p className="text-sm text-gray-600">Las acciones del día apareceran aquí</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {activities.map((activity) => {
+                  const propiedad = propiedades.find(p => p.id === activity.propiedadId)
+                  if (!propiedad) return null
+
+                  const iconConfig = {
+                    lead: { icon: <Users className="w-4 h-4 text-blue-400" />, bg: 'bg-blue-500/20', border: 'border-blue-500/20' },
+                    visita: { icon: <Eye className="w-4 h-4 text-green-400" />, bg: 'bg-green-500/20', border: 'border-green-500/20' },
+                    oferta: { icon: <DollarSign className="w-4 h-4 text-purple-400" />, bg: 'bg-purple-500/20', border: 'border-purple-500/20' },
+                    venta: { icon: <CheckCircle2 className="w-4 h-4 text-green-400" />, bg: 'bg-green-600/20', border: 'border-green-600/20' },
+                    nota: { icon: <FileText className="w-4 h-4 text-gray-400" />, bg: 'bg-gray-500/20', border: 'border-gray-500/20' }
+                  }
+                  const cfg = iconConfig[activity.tipo as keyof typeof iconConfig] || iconConfig.nota
+
+                  return (
+                    <div key={activity.id} className={`flex items-start gap-3 p-4 bg-[#17313A] rounded-xl border ${cfg.border} hover:brightness-110 transition-all`}>
+                      <div className={`w-9 h-9 ${cfg.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                        {cfg.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-white font-medium leading-tight mb-1">
+                          {activity.descripcion}
+                        </p>
+                        <p className="text-xs text-gray-400 truncate mb-1">{propiedad.titulo}</p>
+                        <p className="text-xs text-gray-600">{formatDate(activity.fecha)}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
 
