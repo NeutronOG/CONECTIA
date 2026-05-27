@@ -153,20 +153,20 @@ export default function PanelAsesorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary dark:bg-gray-900">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
-      <header className="bg-[#1A3540] border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+      <header className="bg-[#1A3540] border-b border-gray-700/60 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-conectia-gold/10 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
                 <Building2 className="w-6 h-6 text-conectia-gold" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-xl font-bold text-white">
                   Panel de Asesor
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-400">
                   {user.nombre}
                 </p>
               </div>
@@ -176,7 +176,7 @@ export default function PanelAsesorPage() {
                 logout()
                 router.push('/login')
               }}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-conectia-secondary dark:hover:bg-gray-700 rounded-xl transition-all"
+              className="flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all"
             >
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Cerrar Sesión</span>
@@ -189,7 +189,7 @@ export default function PanelAsesorPage() {
         {/* Header con botón de gestión */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+            <h1 className="text-2xl font-bold text-white mb-1">
               {(() => {
                 // Detectar género basado en el nombre
                 const nombre = user.nombre || ''
@@ -199,7 +199,7 @@ export default function PanelAsesorPage() {
                 return esFemenino ? `Bienvenida, ${user.nombre}` : `Bienvenido, ${user.nombre}`
               })()}
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-400">
               Gestiona tus propiedades y alcanza tus metas
             </p>
           </div>
@@ -238,7 +238,7 @@ export default function PanelAsesorPage() {
         </div>
 
         {/* Plan Information */}
-        <div className="bg-gradient-to-r from-conectia-gold/10 to-conectia-gold/5 rounded-2xl p-6 mb-8 border-2 border-conectia-gold/30">
+        <div className="bg-[#1A3540] rounded-2xl p-6 mb-8 border border-conectia-gold/30 shadow-xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               {user.plan === 'elite' ? (
@@ -251,10 +251,10 @@ export default function PanelAsesorPage() {
                 </div>
               )}
               <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-xl font-bold text-white">
                   {getPlanById(user.plan || 'core')?.name}
                 </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-400">
                   {user.plan === 'elite' 
                     ? 'Propiedades ilimitadas • Asistente IA incluido'
                     : 'Hasta 6 propiedades activas'
@@ -276,22 +276,22 @@ export default function PanelAsesorPage() {
         </div>
 
         {/* Sistema de Bonos */}
-        <div className="bg-conectia-secondary dark:bg-gray-800 rounded-2xl p-6 mb-8 border-2 border-gray-300 dark:border-gray-700">
+        <div className="bg-[#1A3540] rounded-2xl p-6 mb-8 border border-gray-700/60 shadow-xl">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-conectia-gold rounded-xl flex items-center justify-center">
                 <Award className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Sistema de Bonos</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Alcanza tus metas y gana bonos increíbles</p>
+                <h2 className="text-xl font-bold text-white">Sistema de Bonos</h2>
+                <p className="text-sm text-gray-400">Alcanza tus metas y gana bonos increíbles</p>
               </div>
             </div>
             <div className="text-right">
-              <div className="inline-block px-6 py-3 rounded-2xl bg-conectia-gold/20 backdrop-blur-md border border-conectia-gold/30 shadow-lg">
-                <p className="text-3xl font-bold text-gray-900 dark:text-white">${bonoActual.bono.toLocaleString()}</p>
+              <div className="inline-block px-6 py-3 rounded-2xl bg-conectia-gold/20 border border-conectia-gold/30 shadow-lg">
+                <p className="text-3xl font-bold text-white">${bonoActual.bono.toLocaleString()}</p>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Próximo bono</p>
+              <p className="text-sm text-gray-400 mt-2">Próximo bono</p>
             </div>
           </div>
 
@@ -300,22 +300,22 @@ export default function PanelAsesorPage() {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-conectia-gold" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span className="text-sm font-medium text-gray-300">
                   Meta: {bonoActual.descripcion}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 {faltanVentas > 0 ? (
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 backdrop-blur-md border border-red-500/30 shadow-md">
-                    <TrendingUp className="w-4 h-4 text-red-700 dark:text-red-400" />
-                    <span className="text-sm font-bold text-red-700 dark:text-red-400">
+                    <TrendingUp className="w-4 h-4 text-red-400" />
+                    <span className="text-sm font-bold text-red-400">
                       ¡Faltan {faltanVentas} {faltanVentas === 1 ? 'venta' : 'ventas'}!
                     </span>
                   </div>
                 ) : (
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 backdrop-blur-md border border-green-500/30 shadow-md">
-                    <CheckCircle2 className="w-4 h-4 text-green-700 dark:text-green-400" />
-                    <span className="text-sm font-bold text-green-700 dark:text-green-400">
+                    <CheckCircle2 className="w-4 h-4 text-green-400" />
+                    <span className="text-sm font-bold text-green-400">
                       ¡Meta alcanzada!
                     </span>
                   </div>
@@ -324,7 +324,7 @@ export default function PanelAsesorPage() {
             </div>
 
             {/* Barra de progreso estilo termómetro */}
-            <div className="relative h-8 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div className="relative h-8 bg-gray-700 rounded-full overflow-hidden">
               <div
                 className="absolute inset-y-0 left-0 bg-gradient-to-r from-conectia-gold via-yellow-500 to-orange-500 rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-3"
                 style={{ width: `${Math.min(progresoBono, 100)}%` }}
@@ -337,13 +337,13 @@ export default function PanelAsesorPage() {
                 )}
               </div>
               {progresoBono <= 15 && (
-                <div className="absolute inset-0 flex items-center justify-center text-gray-700 dark:text-gray-300 font-bold text-sm">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-300 font-bold text-sm">
                   {ventasMes}/{bonoActual.meta}
                 </div>
               )}
             </div>
 
-            <div className="flex items-center justify-between mt-2 text-xs text-gray-600 dark:text-gray-400">
+            <div className="flex items-center justify-between mt-2 text-xs text-gray-400">
               <span>0 ventas</span>
               <span className="font-medium">{Math.round(progresoBono)}% completado</span>
               <span>{bonoActual.meta} ventas</span>
@@ -792,7 +792,7 @@ export default function PanelAsesorPage() {
                           {activity.descripcion}
                         </p>
                         <p className="text-xs text-gray-400 truncate mb-1">{propiedad.titulo}</p>
-                        <p className="text-xs text-gray-600">{formatDate(activity.fecha)}</p>
+                        <p className="text-xs text-gray-500">{formatDate(activity.fecha)}</p>
                       </div>
                     </div>
                   )
@@ -806,8 +806,8 @@ export default function PanelAsesorPage() {
         {user.email === 'ana@conectia.mx' && (
           <div className="mt-8">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Gestión de Desarrollos</h2>
-              <p className="text-gray-600 dark:text-gray-400">Administra proyectos, calendario y usa el agente IA</p>
+              <h2 className="text-2xl font-bold text-white mb-1">Gestión de Desarrollos</h2>
+              <p className="text-gray-400">Administra proyectos, calendario y usa el agente IA</p>
             </div>
             <DesarrollosManager userRole="asesor" />
           </div>

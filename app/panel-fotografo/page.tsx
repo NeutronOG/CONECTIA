@@ -280,151 +280,167 @@ export default function PanelFotografoPage() {
   return (
     <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
-      <div className="bg-gradient-to-r from-conectia-dark to-gray-900 text-white py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between gap-4">
+      <header className="bg-[#1A3540] border-b border-gray-700/60 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-conectia-gold rounded-full flex items-center justify-center">
-                <Camera className="h-8 w-8 text-[#17313A]" />
+              <div className="w-12 h-12 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
+                <Camera className="w-6 h-6 text-conectia-gold" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Panel de Fotografía</h1>
-                <p className="text-gray-300">{user.nombre || 'Santiago Canales'} - Fotógrafo & Videógrafo</p>
+                <h1 className="text-xl font-bold text-white">Panel de Fotografía</h1>
+                <p className="text-sm text-gray-400">{user.nombre || 'Santiago Canales'} · Fotógrafo & Videógrafo</p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-all"
+              className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all"
             >
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Cerrar Sesión</span>
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center relative">
-                  <Inbox className="h-5 w-5 text-red-600" />
-                  {solicitudesPendientes.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                      {solicitudesPendientes.length}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Solicitudes Pendientes</p>
-                  <p className="text-lg font-bold text-red-600">{solicitudesPendientes.length}</p>
-                </div>
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-red-500/20 relative overflow-hidden hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-red-500/10 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-red-500/20 rounded-xl flex items-center justify-center relative">
+                <Inbox className="w-5 h-5 text-red-400" />
+                {solicitudesPendientes.length > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {solicitudesPendientes.length}
+                  </span>
+                )}
               </div>
-            </CardContent>
-          </Card>
+              <span className="text-xs font-semibold text-red-400 bg-red-500/10 px-2 py-1 rounded-full">Urgente</span>
+            </div>
+            <p className="text-4xl font-black text-white mb-1">{solicitudesPendientes.length}</p>
+            <p className="text-sm text-gray-400">Solicitudes Pendientes</p>
+            <p className="text-xs text-gray-500 mt-1">{solicitudesEnProceso.length} en proceso</p>
+          </div>
 
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Home className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Total Propiedades</p>
-                  <p className="text-lg font-bold text-blue-600">{totalPropiedades}</p>
-                </div>
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-blue-500/20 relative overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-blue-500/10 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                <Home className="w-5 h-5 text-blue-400" />
               </div>
-            </CardContent>
-          </Card>
+              <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">Total</span>
+            </div>
+            <p className="text-4xl font-black text-white mb-1">{totalPropiedades}</p>
+            <p className="text-sm text-gray-400">Propiedades</p>
+            <p className="text-xs text-gray-500 mt-1">{propiedadesVendidas.length} vendidas</p>
+          </div>
 
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <Camera className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Con Fotos</p>
-                  <p className="text-lg font-bold text-green-600">{propiedadesConFotos}/{totalPropiedades}</p>
-                </div>
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-green-500/20 relative overflow-hidden hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-green-500/10 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-green-500/20 rounded-xl flex items-center justify-center">
+                <Camera className="w-5 h-5 text-green-400" />
               </div>
-            </CardContent>
-          </Card>
+              <span className="text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded-full">
+                {totalPropiedades > 0 ? Math.round((propiedadesConFotos / totalPropiedades) * 100) : 0}%
+              </span>
+            </div>
+            <p className="text-4xl font-black text-white mb-1">{propiedadesConFotos}</p>
+            <p className="text-sm text-gray-400">Con Fotos</p>
+            <p className="text-xs text-gray-500 mt-1">De {totalPropiedades} propiedades</p>
+          </div>
 
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-conectia-gold/20 rounded-full flex items-center justify-center">
-                  <DollarSign className="h-5 w-5 text-conectia-gold" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Comisiones</p>
-                  <p className="text-lg font-bold text-conectia-gold">
-                    ${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0 })}
-                  </p>
-                </div>
+          <div className="bg-[#1A3540] rounded-2xl p-5 border border-conectia-gold/20 relative overflow-hidden hover:border-conectia-gold/50 hover:shadow-lg hover:shadow-conectia-gold/10 transition-all duration-300">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-conectia-gold/10 rounded-full pointer-events-none" />
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-conectia-gold" />
               </div>
-            </CardContent>
-          </Card>
+              <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-2 py-1 rounded-full">Ganadas</span>
+            </div>
+            <p className="text-4xl font-black text-white mb-1">
+              ${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </p>
+            <p className="text-sm text-gray-400">Comisiones</p>
+            <p className="text-xs text-gray-500 mt-1">{propiedadesVendidas.length} venta{propiedadesVendidas.length !== 1 ? 's' : ''}</p>
+          </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
-          <Button
-            variant={tab === 'solicitudes' ? 'default' : 'outline'}
+        <div className="flex gap-1.5 mb-6 bg-[#1A3540] p-1.5 rounded-xl border border-gray-700/60 w-fit">
+          <button
             onClick={() => { setTab('solicitudes'); setSolicitudDetalle(null) }}
-            className={tab === 'solicitudes' ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]' : ''}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              tab === 'solicitudes'
+                ? 'bg-conectia-gold text-[#17313A] shadow-lg'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
+            }`}
           >
-            <Inbox className="h-4 w-4 mr-2" />
+            <Inbox className="h-4 w-4" />
             Solicitudes de Asesores
             {solicitudesPendientes.length > 0 && (
-              <span className="ml-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+              <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${
+                tab === 'solicitudes' ? 'bg-[#17313A]/30 text-[#17313A]' : 'bg-red-500 text-white'
+              }`}>
                 {solicitudesPendientes.length}
               </span>
             )}
-          </Button>
-          <Button
-            variant={tab === 'propiedades' ? 'default' : 'outline'}
+          </button>
+          <button
             onClick={() => setTab('propiedades')}
-            className={tab === 'propiedades' ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]' : ''}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              tab === 'propiedades'
+                ? 'bg-conectia-gold text-[#17313A] shadow-lg'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
+            }`}
           >
-            <Home className="h-4 w-4 mr-2" />
-            Todas las Propiedades ({totalPropiedades})
-          </Button>
+            <Home className="h-4 w-4" />
+            Propiedades ({totalPropiedades})
+          </button>
         </div>
 
         {/* Tab: Solicitudes */}
         {tab === 'solicitudes' && !solicitudDetalle && (
-          <Card className="border-0 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Inbox className="h-5 w-5 text-conectia-gold" />
-                Solicitudes de Propiedades ({solicitudes.length})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
+                    <Inbox className="h-4 w-4 text-conectia-gold" />
+                  </div>
+                  Solicitudes de Propiedades
+                </h2>
+                <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-3 py-1 rounded-full">
+                  {solicitudes.length} total
+                </span>
+              </div>
+            </div>
+            <div className="p-5">
               {loading ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">Cargando solicitudes...</p>
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-10 h-10 border-2 border-conectia-gold/30 border-t-conectia-gold rounded-full animate-spin mb-4" />
+                  <p className="text-gray-400">Cargando solicitudes...</p>
                 </div>
               ) : solicitudes.length === 0 ? (
-                <div className="text-center py-12">
-                  <Inbox className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">Sin solicitudes</h3>
-                  <p className="text-gray-500 text-sm max-w-md mx-auto">
-                    Cuando un asesor envíe una solicitud de propiedad, aparecerá aquí para que subas las fotos.
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-conectia-gold/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Inbox className="h-8 w-8 text-conectia-gold/40" />
+                  </div>
+                  <h3 className="text-base font-semibold text-white mb-1">Sin solicitudes</h3>
+                  <p className="text-sm text-gray-500 max-w-md">
+                    Cuando un asesor envíe una solicitud, aparecerá aquí para que subas las fotos.
                   </p>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {solicitudes.map((sol) => {
                     const statusConfig: Record<string, { color: string; text: string }> = {
-                      pendiente: { color: 'bg-yellow-100 text-yellow-700 border-yellow-300', text: 'Pendiente' },
-                      en_proceso: { color: 'bg-blue-100 text-blue-700 border-blue-300', text: 'En Proceso' },
-                      completada: { color: 'bg-green-100 text-green-700 border-green-300', text: 'Completada' },
-                      rechazada: { color: 'bg-red-100 text-red-700 border-red-300', text: 'Rechazada' }
+                      pendiente: { color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', text: 'Pendiente' },
+                      en_proceso: { color: 'bg-blue-500/20 text-blue-400 border-blue-500/30', text: 'En Proceso' },
+                      completada: { color: 'bg-green-500/20 text-green-400 border-green-500/30', text: 'Completada' },
+                      rechazada: { color: 'bg-red-500/20 text-red-400 border-red-500/30', text: 'Rechazada' }
                     }
                     const config = statusConfig[sol.status] || statusConfig.pendiente
 
@@ -432,15 +448,15 @@ export default function PanelFotografoPage() {
                       <div
                         key={sol.id}
                         onClick={() => { setSolicitudDetalle(sol); setNotaFotografo(sol.notas_fotografo || '') }}
-                        className="p-4 border border-gray-200 rounded-xl hover:shadow-md hover:border-conectia-gold/50 transition-all cursor-pointer group"
+                        className="p-4 bg-[#17313A] border border-gray-700/60 rounded-xl hover:border-conectia-gold/40 transition-all cursor-pointer group"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-semibold text-lg truncate">{sol.titulo}</h3>
-                              <Badge className={`${config.color} border text-xs`}>{config.text}</Badge>
+                              <h3 className="font-semibold text-white truncate">{sol.titulo}</h3>
+                              <span className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${config.color}`}>{config.text}</span>
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-gray-500">
+                            <div className="flex items-center gap-3 text-sm text-gray-400 flex-wrap">
                               <span className="flex items-center gap-1">
                                 <User className="h-3.5 w-3.5" />
                                 {sol.asesor_nombre || sol.asesor_email}
@@ -454,84 +470,88 @@ export default function PanelFotografoPage() {
                               <span>{new Date(sol.created_at).toLocaleDateString('es-MX')}</span>
                             </div>
                           </div>
-                          <ChevronRight className="h-5 w-5 text-gray-300 group-hover:text-conectia-gold transition-colors" />
+                          <ChevronRight className="h-5 w-5 text-gray-600 group-hover:text-conectia-gold transition-colors shrink-0" />
                         </div>
                       </div>
                     )
                   })}
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* Detalle de Solicitud */}
         {tab === 'solicitudes' && solicitudDetalle && (
-          <div className="space-y-6">
-            <Button variant="ghost" onClick={() => setSolicitudDetalle(null)}>
-              ← Volver a solicitudes
-            </Button>
+          <div className="space-y-5">
+            <button
+              onClick={() => setSolicitudDetalle(null)}
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-conectia-gold transition-colors"
+            >
+              <ChevronRight className="h-4 w-4 rotate-180" />
+              Volver a solicitudes
+            </button>
 
-            <Card className="border-0 shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">{solicitudDetalle.titulo}</CardTitle>
-                  <Badge className={
-                    solicitudDetalle.status === 'pendiente' ? 'bg-yellow-100 text-yellow-700 border-yellow-300 border' :
-                    solicitudDetalle.status === 'en_proceso' ? 'bg-blue-100 text-blue-700 border-blue-300 border' :
-                    solicitudDetalle.status === 'completada' ? 'bg-green-100 text-green-700 border-green-300 border' :
-                    'bg-red-100 text-red-700 border-red-300 border'
-                  }>
+            <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+              <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-lg font-bold text-white">{solicitudDetalle.titulo}</h2>
+                  <span className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${
+                    solicitudDetalle.status === 'pendiente' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' :
+                    solicitudDetalle.status === 'en_proceso' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' :
+                    solicitudDetalle.status === 'completada' ? 'bg-green-500/20 text-green-400 border-green-500/30' :
+                    'bg-red-500/20 text-red-400 border-red-500/30'
+                  }`}>
                     {solicitudDetalle.status === 'pendiente' ? 'Pendiente' :
                      solicitudDetalle.status === 'en_proceso' ? 'En Proceso' :
                      solicitudDetalle.status === 'completada' ? 'Completada' : 'Rechazada'}
-                  </Badge>
+                  </span>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
+              </div>
+              <div className="p-5 space-y-5">
                 {/* Info del asesor */}
-                <div className="p-4 bg-blue-50 rounded-xl">
-                  <p className="text-sm font-medium text-blue-700 mb-1">Solicitado por:</p>
-                  <p className="text-blue-900 font-semibold">{solicitudDetalle.asesor_nombre || 'Sin nombre'}</p>
-                  <p className="text-sm text-blue-600">{solicitudDetalle.asesor_email}</p>
+                <div className="p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+                  <p className="text-xs font-semibold text-blue-400 mb-2 uppercase tracking-wider">Solicitado por</p>
+                  <p className="text-white font-semibold">{solicitudDetalle.asesor_nombre || 'Sin nombre'}</p>
+                  <p className="text-sm text-blue-400">{solicitudDetalle.asesor_email}</p>
                 </div>
 
                 {/* Datos de la propiedad */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {solicitudDetalle.ubicacion && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <MapPin className="h-4 w-4 text-gray-400" />
-                      <span>{solicitudDetalle.ubicacion}</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <MapPin className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">{solicitudDetalle.ubicacion}</span>
                     </div>
                   )}
                   {solicitudDetalle.tipo && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Home className="h-4 w-4 text-gray-400" />
-                      <span>{solicitudDetalle.tipo}</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <Home className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">{solicitudDetalle.tipo}</span>
                     </div>
                   )}
                   {solicitudDetalle.precio_estimado && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <DollarSign className="h-4 w-4 text-gray-400" />
-                      <span>${solicitudDetalle.precio_estimado.toLocaleString('es-MX')}</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <DollarSign className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">${solicitudDetalle.precio_estimado.toLocaleString('es-MX')}</span>
                     </div>
                   )}
                   {solicitudDetalle.habitaciones && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Bed className="h-4 w-4 text-gray-400" />
-                      <span>{solicitudDetalle.habitaciones} habitaciones</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <Bed className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">{solicitudDetalle.habitaciones} habitaciones</span>
                     </div>
                   )}
                   {solicitudDetalle.banos && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Bath className="h-4 w-4 text-gray-400" />
-                      <span>{solicitudDetalle.banos} baños</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <Bath className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">{solicitudDetalle.banos} baños</span>
                     </div>
                   )}
                   {solicitudDetalle.area && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Maximize className="h-4 w-4 text-gray-400" />
-                      <span>{solicitudDetalle.area} m²</span>
+                    <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
+                      <Maximize className="h-4 w-4 text-gray-500 shrink-0" />
+                      <span className="text-gray-300">{solicitudDetalle.area} m²</span>
                     </div>
                   )}
                 </div>
@@ -539,17 +559,17 @@ export default function PanelFotografoPage() {
                 {/* Descripción / Notas del asesor */}
                 {solicitudDetalle.descripcion && (
                   <div>
-                    <p className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
-                      <FileText className="h-4 w-4" />
+                    <p className="text-sm font-semibold text-gray-300 mb-2 flex items-center gap-1.5">
+                      <FileText className="h-4 w-4 text-conectia-gold" />
                       Notas del asesor:
                     </p>
-                    <p className="text-sm text-gray-600 bg-gray-50 p-4 rounded-xl">{solicitudDetalle.descripcion}</p>
+                    <p className="text-sm text-gray-300 bg-[#17313A] p-4 rounded-xl border-l-2 border-conectia-gold/30">{solicitudDetalle.descripcion}</p>
                   </div>
                 )}
 
                 {/* === SECCIÓN DE FOTOS === */}
-                <div className="border-t pt-6">
-                  <p className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                <div className="border-t border-gray-700/60 pt-5">
+                  <p className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
                     <Camera className="h-4 w-4 text-conectia-gold" />
                     Fotos de la propiedad ({(solicitudDetalle.imagenes || []).length})
                   </p>
@@ -580,7 +600,7 @@ export default function PanelFotografoPage() {
                   )}
 
                   {/* Subir nuevas fotos */}
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-conectia-gold transition-colors mb-4">
+                  <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-conectia-gold/50 transition-colors mb-4 cursor-pointer">
                     <input
                       type="file"
                       multiple
@@ -591,9 +611,9 @@ export default function PanelFotografoPage() {
                       disabled={uploading}
                     />
                     <label htmlFor="solicitud-file-upload" className="cursor-pointer">
-                      <ImageIcon className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm font-semibold text-gray-700">Selecciona imágenes</p>
-                      <p className="text-xs text-gray-500">Haz clic para subir fotos de esta propiedad (máximo 30)</p>
+                      <ImageIcon className="h-10 w-10 text-gray-500 mx-auto mb-2" />
+                      <p className="text-sm font-semibold text-gray-300">Selecciona imágenes</p>
+                      <p className="text-xs text-gray-500">Haz clic para subir fotos (máximo 30)</p>
                     </label>
                   </div>
 
@@ -641,12 +661,12 @@ export default function PanelFotografoPage() {
 
                 {/* Notas del fotógrafo */}
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">Tus notas:</p>
+                  <p className="text-sm font-semibold text-gray-300 mb-2">Tus notas:</p>
                   <Textarea
                     value={notaFotografo}
                     onChange={(e) => setNotaFotografo(e.target.value)}
                     placeholder="Agrega notas sobre la sesión de fotos, horarios, observaciones..."
-                    className="min-h-[80px]"
+                    className="min-h-[80px] bg-[#17313A] border-gray-600 text-gray-200 placeholder:text-gray-600 focus:border-conectia-gold/50"
                   />
                 </div>
 
@@ -702,30 +722,40 @@ export default function PanelFotografoPage() {
                     </Button>
                   )}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         )}
 
         {/* Tab: Todas las Propiedades */}
         {tab === 'propiedades' && (
-          <Card className="border-0 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Home className="h-5 w-5 text-conectia-gold" />
-                Todas las Propiedades ({totalPropiedades})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-blue-500/10 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <Home className="h-4 w-4 text-blue-400" />
+                  </div>
+                  Todas las Propiedades
+                </h2>
+                <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">
+                  {totalPropiedades} total
+                </span>
+              </div>
+            </div>
+            <div className="p-5">
               {loading ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-500">Cargando propiedades...</p>
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-10 h-10 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin mb-4" />
+                  <p className="text-gray-400">Cargando propiedades...</p>
                 </div>
               ) : propiedades.length === 0 ? (
-                <div className="text-center py-12">
-                  <ImageOff className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">Sin propiedades</h3>
-                  <p className="text-gray-500 text-sm">No hay propiedades registradas aún.</p>
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                    <ImageOff className="h-8 w-8 text-blue-400/40" />
+                  </div>
+                  <h3 className="text-base font-semibold text-white mb-1">Sin propiedades</h3>
+                  <p className="text-sm text-gray-500">No hay propiedades registradas aún.</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -737,41 +767,43 @@ export default function PanelFotografoPage() {
                     return (
                       <div
                         key={propiedad.id}
-                        className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow"
+                        className="p-4 bg-[#17313A] border border-gray-700/60 rounded-xl hover:border-gray-600 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-4">
-                          <div className="flex gap-4 flex-1 min-w-0">
+                          <div className="flex gap-3 flex-1 min-w-0">
                             {/* Thumbnail */}
-                            <div className="w-20 h-20 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
+                            <div className="w-16 h-16 rounded-xl bg-[#1A3540] flex-shrink-0 overflow-hidden">
                               {propiedad.imagen ? (
                                 <img src={propiedad.imagen} alt="" className="w-full h-full object-cover" />
                               ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                  <ImageOff className="h-8 w-8 text-gray-300" />
+                                  <ImageOff className="h-6 w-6 text-gray-600" />
                                 </div>
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
-                                <h3 className="font-semibold truncate">{propiedad.titulo}</h3>
-                                <Badge variant="secondary" className="text-xs">{propiedad.status || 'Disponible'}</Badge>
+                                <h3 className="font-semibold text-white truncate">{propiedad.titulo}</h3>
+                                <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-gray-700 text-gray-300">{propiedad.status || 'Disponible'}</span>
                               </div>
-                              <div className="flex items-center gap-3 text-sm text-gray-500 mb-1">
+                              <div className="flex items-center gap-3 text-xs text-gray-400 mb-1">
                                 <span className="flex items-center gap-1">
-                                  <MapPin className="h-3.5 w-3.5" />
+                                  <MapPin className="h-3 w-3" />
                                   {propiedad.ubicacion}
                                 </span>
                                 <span className="flex items-center gap-1">
-                                  <DollarSign className="h-3.5 w-3.5" />
+                                  <DollarSign className="h-3 w-3" />
                                   {propiedad.precioTexto || propiedad.precio_texto || `$${(propiedad.precio || 0).toLocaleString('es-MX')}`}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-3 text-xs text-gray-400">
-                                <span className="flex items-center gap-1">
+                              <div className="flex items-center gap-3 text-xs">
+                                <span className="flex items-center gap-1 text-gray-500">
                                   <User className="h-3 w-3" />
                                   {asesor}
                                 </span>
-                                <span className={`flex items-center gap-1 ${tieneImagen ? 'text-green-600' : 'text-red-500'}`}>
+                                <span className={`flex items-center gap-1 font-medium ${
+                                  tieneImagen ? 'text-green-400' : 'text-red-400'
+                                }`}>
                                   <Camera className="h-3 w-3" />
                                   {tieneImagen ? `${numGaleria > 0 ? numGaleria + ' fotos' : 'Con imagen'}` : 'Sin fotos'}
                                 </span>
@@ -781,7 +813,7 @@ export default function PanelFotografoPage() {
                           <Button
                             size="sm"
                             onClick={() => router.push(`/panel-fotografo/propiedades/${propiedad.id}`)}
-                            className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
+                            className="bg-conectia-gold hover:bg-conectia-gold/80 text-[#17313A] font-semibold shrink-0"
                           >
                             <Upload className="h-4 w-4 mr-1" />
                             Fotos
@@ -792,47 +824,49 @@ export default function PanelFotografoPage() {
                   })}
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* Resumen de Comisiones */}
-        <Card className="border-0 shadow-lg mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Banknote className="h-5 w-5 text-conectia-gold" />
+        <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl mt-6">
+          <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
+                <Banknote className="h-4 w-4 text-conectia-gold" />
+              </div>
               Estructura de Comisiones
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-conectia-secondary/70 rounded-xl">
-                <p className="text-sm text-gray-500 mb-1">Comisión CONECTIA</p>
-                <p className="text-3xl font-bold text-gray-900">2%</p>
-                <p className="text-xs text-gray-400">del precio de venta</p>
+            </h2>
+          </div>
+          <div className="p-5">
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center p-5 bg-[#17313A] rounded-xl border border-gray-700/60">
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Comisión CONECTIA</p>
+                <p className="text-4xl font-black text-white">2%</p>
+                <p className="text-xs text-gray-500 mt-1">del precio de venta</p>
               </div>
-              <div className="text-center p-4 bg-conectia-gold/10 rounded-xl border-2 border-conectia-gold/30">
-                <p className="text-sm text-gray-500 mb-1">Tu Comisión</p>
-                <p className="text-3xl font-bold text-conectia-gold">13.5%</p>
-                <p className="text-xs text-gray-400">de la comisión CONECTIA</p>
+              <div className="text-center p-5 bg-conectia-gold/10 rounded-xl border-2 border-conectia-gold/40 shadow-lg shadow-conectia-gold/10">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Tu Comisión</p>
+                <p className="text-4xl font-black text-conectia-gold">13.5%</p>
+                <p className="text-xs text-gray-400 mt-1">de la comisión CONECTIA</p>
               </div>
-              <div className="text-center p-4 bg-green-50 rounded-xl">
-                <p className="text-sm text-gray-500 mb-1">Tu % del Total</p>
-                <p className="text-3xl font-bold text-green-600">0.27%</p>
-                <p className="text-xs text-gray-400">del precio de venta</p>
+              <div className="text-center p-5 bg-green-500/10 rounded-xl border border-green-500/20">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Tu % del Total</p>
+                <p className="text-4xl font-black text-green-400">0.27%</p>
+                <p className="text-xs text-gray-400 mt-1">del precio de venta</p>
               </div>
             </div>
-            <div className="mt-6 p-4 bg-blue-50 rounded-xl">
-              <p className="text-sm text-blue-800">
+            <div className="mt-4 p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+              <p className="text-sm text-blue-300">
                 <strong>Ejemplo:</strong> Por una propiedad vendida en $5,000,000 MXN:
               </p>
               <div className="flex flex-wrap gap-4 mt-2 text-sm">
-                <span className="text-gray-600">Comisión CONECTIA: <strong>$100,000</strong></span>
-                <span className="text-emerald-600 font-bold">→ Tu comisión: $13,500</span>
+                <span className="text-gray-400">Comisión CONECTIA: <strong className="text-white">$100,000</strong></span>
+                <span className="text-green-400 font-bold">→ Tu comisión: $13,500</span>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )

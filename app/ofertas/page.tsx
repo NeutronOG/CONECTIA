@@ -95,7 +95,7 @@ export default function OfertasPage() {
           <div className="flex items-end gap-8 mb-10">
             <div>
               <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-bold">Aprovecha ahora</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] mt-1">Ofertas vigentes</h2>
+              <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Ofertas vigentes</h2>
             </div>
             <div className="h-px flex-1 bg-conectia-primary/20 hidden sm:block" />
           </div>
