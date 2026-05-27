@@ -201,7 +201,7 @@ export default function SubirImagenesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#17313A] flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-conectia-gold" />
       </div>
     )
@@ -209,7 +209,7 @@ export default function SubirImagenesPage() {
 
   if (!propiedad) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#17313A] flex items-center justify-center">
         <p className="text-gray-500">Propiedad no encontrada</p>
       </div>
     )
@@ -218,7 +218,7 @@ export default function SubirImagenesPage() {
   const allImages = propiedad.galeria || []
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-gradient-to-r from-conectia-dark to-gray-900 text-white py-6">
         <div className="container mx-auto px-4">
@@ -232,7 +232,7 @@ export default function SubirImagenesPage() {
           </Button>
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center">
-              <Camera className="h-6 w-6 text-black" />
+              <Camera className="h-6 w-6 text-[#17313A]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold">{propiedad.titulo}</h1>
@@ -335,7 +335,7 @@ export default function SubirImagenesPage() {
                   <Button
                     onClick={handleUploadImages}
                     disabled={uploading}
-                    className="w-full bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold py-5"
+                    className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold py-5"
                   >
                     {uploading ? (
                       <>
@@ -385,7 +385,7 @@ export default function SubirImagenesPage() {
                         Principal
                       </span>
                     )}
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                    <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                       <Button
                         size="sm"
                         variant="ghost"

@@ -248,7 +248,7 @@ export default function PanelBrokerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary text-conectia-graphite">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD]">
       {/* Header */}
       <div className="bg-conectia-secondary/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

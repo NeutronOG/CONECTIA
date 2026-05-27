@@ -86,7 +86,7 @@ function SuccessContent() {
           <div className="space-y-3">
             <Button
               onClick={() => router.push('/panel-asesor')}
-              className="w-full bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold"
+              className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
             >
               Ir al Panel
             </Button>

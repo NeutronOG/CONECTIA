@@ -35,8 +35,8 @@ export default function ExclusivosPage() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('https://mnrfsdrjadretxesjxhu.supabase.co/storage/v1/object/sign/conectia/hf_20260219_015208_b75495b2-1016-45df-a1f8-d1160006831b.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZTg2NjJkMS1lZjIzLTRkZjUtYjAwYy04NjVkOTcwYzljZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcmtpbi9oZl8yMDI2MDIxOV8wMTUyMDhfYjc1NDk1YjItMTAxNi00NWRmLWExZjgtZDExNjAwMDY4MzFiLmpwZWciLCJpYXQiOjE3NzE0NjYyNTQsImV4cCI6MTgwMzAwMjI1NH0.0ew5z0WbvUkHQAwo8zOlhQFyLokmh2PKTqjqBtpxcuc')" }}
         />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-[#17313A]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/60 via-[#17313A]/40 to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 flex items-center">
           <div className="max-w-xl">
@@ -191,7 +191,7 @@ export default function ExclusivosPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-conectia-accent via-black to-conectia-accent">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-conectia-accent via-[#17313A] to-conectia-accent">
         <div className="max-w-4xl mx-auto text-center">
           <Shield className="h-12 w-12 mx-auto mb-6 text-conectia-primary" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-6">

@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { WishlistButton } from "@/components/wishlist-button"
-import { MapPin, Bed, Bath, Square, Calendar } from "lucide-react"
+import { MapPin, Bed, Bathtub, Square, Calendar } from "@phosphor-icons/react"
 import Link from "next/link"
 
 interface PropertyCardProps {
@@ -48,21 +48,21 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
   }
 
   return (
-    <div className="group bg-conectia-surface rounded-2xl shadow-md hover:shadow-xl transition-all duration-400 overflow-hidden border border-conectia-primary/10 hover:border-conectia-primary/35 flex flex-col">
+    <div className="group glass-card rounded-2xl overflow-hidden flex flex-col transition-all duration-400">
       {/* Imagen */}
       <div className="relative h-52 overflow-hidden flex-shrink-0">
         <img
           src={imgSrc}
           alt={propiedad.titulo}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
-        {/* Overlay sutil */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        {/* Overlay degradado elegante */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/50 via-transparent to-transparent" />
 
         {/* Badge categoría */}
         {badgeLabel && (
           <div className="absolute top-3 left-3">
-            <Badge className="bg-conectia-primary/90 text-white backdrop-blur-sm text-xs font-semibold px-2.5 py-1 rounded-md border-0">
+            <Badge className="glass-pill text-[#17313A] text-xs font-semibold px-2.5 py-1 rounded-full border-0">
               {badgeLabel}
             </Badge>
           </div>
@@ -71,7 +71,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
         {/* Bono especial */}
         {propiedad.bono && (
           <div className="absolute bottom-3 left-3">
-            <span className="bg-conectia-accent text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg">
+            <span className="btn-glass-secondary text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg">
               {propiedad.bono}
             </span>
           </div>
@@ -99,47 +99,47 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
       <div className="p-5 flex flex-col flex-1">
         {/* Tipo + Precio */}
         <div className="flex items-center justify-between mb-2">
-          <Badge className="bg-conectia-primary/10 text-conectia-primary text-xs font-semibold border-0">
+          <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] text-xs font-semibold border border-[#C78F7B]/25 rounded-full px-3">
             {propiedad.tipo}
           </Badge>
-          <span className="text-lg font-black text-conectia-primary">{propiedad.precioTexto}</span>
+          <span className="text-lg font-bold text-[#17313A]" style={{fontFamily: "var(--font-titles)"}}>{propiedad.precioTexto}</span>
         </div>
 
         {/* Título */}
-        <h3 className="text-base font-bold text-conectia-accent mb-1.5 line-clamp-2 leading-snug">
+        <h3 className="text-base font-semibold text-[#1D1F24] mb-1.5 line-clamp-2 leading-snug" style={{fontFamily: "var(--font-titles)"}}>
           {propiedad.titulo}
         </h3>
 
         {/* Ubicación */}
-        <div className="flex items-center text-conectia-accent/55 mb-3">
-          <MapPin className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" />
+        <div className="flex items-center text-[#4A4F57] mb-3">
+          <MapPin className="h-3.5 w-3.5 mr-1.5 flex-shrink-0 text-[#B0ACA6]" weight="duotone" />
           <span className="text-xs line-clamp-1">{propiedad.ubicacion}</span>
         </div>
 
         {/* Descripción */}
         {propiedad.descripcion && (
-          <p className="text-xs text-conectia-accent/50 mb-3 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#4A4F57] mb-3 line-clamp-2 leading-relaxed">
             {propiedad.descripcion}
           </p>
         )}
 
         {/* Stats */}
-        <div className="flex items-center gap-4 text-xs text-conectia-accent/55 mb-4 mt-auto pt-3 border-t border-conectia-accent/8">
+        <div className="flex items-center gap-4 text-xs text-[#4A4F57] mb-4 mt-auto pt-3 border-t border-[#17313A]/08">
           {propiedad.habitaciones != null && (
             <span className="flex items-center gap-1">
-              <Bed className="h-3.5 w-3.5" />
+              <Bed className="h-3.5 w-3.5 text-[#B0ACA6]" weight="duotone" />
               {propiedad.habitaciones}
             </span>
           )}
           {propiedad.banos != null && (
             <span className="flex items-center gap-1">
-              <Bath className="h-3.5 w-3.5" />
+              <Bathtub className="h-3.5 w-3.5 text-[#B0ACA6]" weight="duotone" />
               {propiedad.banos}
             </span>
           )}
           {propiedad.areaTexto && (
             <span className="flex items-center gap-1">
-              <Square className="h-3.5 w-3.5" />
+              <Square className="h-3.5 w-3.5 text-[#B0ACA6]" weight="duotone" />
               {propiedad.areaTexto}
             </span>
           )}
@@ -149,7 +149,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
         <div className="flex gap-2">
           <Button
             size="sm"
-            className="flex-1 bg-conectia-primary hover:bg-conectia-primary/90 text-white rounded-lg text-xs font-semibold h-9"
+            className="flex-1 btn-glass-primary rounded-xl text-xs font-semibold h-9 border-0"
             onClick={handleAgendar}
           >
             <Calendar className="h-3.5 w-3.5 mr-1.5" />
@@ -159,7 +159,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
             <Button
               variant="outline"
               size="sm"
-              className="border-conectia-primary/30 hover:border-conectia-primary text-conectia-accent hover:text-conectia-primary rounded-lg text-xs h-9 px-3"
+              className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"
             >
               Ver
             </Button>

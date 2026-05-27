@@ -87,13 +87,13 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#17313A]/50 hover:bg-[#17313A]/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     <ArrowLeft className="h-5 w-5" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#17313A]/50 hover:bg-[#17313A]/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     <ArrowRight className="h-5 w-5" />
                   </button>
@@ -113,7 +113,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
 
               <button
                 onClick={() => setIsImageFullscreen(true)}
-                className="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white"
+                className="absolute top-4 right-4 w-10 h-10 bg-[#17313A]/50 hover:bg-[#17313A]/70 rounded-full flex items-center justify-center text-white"
               >
                 <Maximize className="h-5 w-5" />
               </button>
@@ -121,7 +121,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               {propertyData.tourVirtual && (
                 <button
                   onClick={() => window.open(propertyData.tourVirtual, '_blank')}
-                  className="absolute top-4 left-4 px-4 py-2 bg-conectia-gold hover:bg-conectia-gold/90 text-black rounded-full font-medium flex items-center gap-2"
+                  className="absolute top-4 left-4 px-4 py-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-full font-medium flex items-center gap-2"
                 >
                   <Play className="h-4 w-4" />
                   Tour Virtual
@@ -134,7 +134,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge className="bg-conectia-gold text-black">{propertyData.status}</Badge>
+                      <Badge className="bg-conectia-gold text-[#17313A]">{propertyData.status}</Badge>
                       <Badge variant="outline">{propertyData.tipo}</Badge>
                     </div>
                     <CardTitle className="text-3xl mb-2 uppercase">{propertyData.titulo}</CardTitle>
@@ -307,7 +307,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                         )}
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                           <span className="text-gray-600 text-sm">Estado</span>
-                          <Badge className="bg-conectia-gold text-black">{propertyData.status}</Badge>
+                          <Badge className="bg-conectia-gold text-[#17313A]">{propertyData.status}</Badge>
                         </div>
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                           <span className="text-gray-600 text-sm">Categoría</span>
@@ -407,7 +407,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
       </div>
 
       {isImageFullscreen && (
-        <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-[#17313A] flex items-center justify-center">
           <button
             onClick={() => setIsImageFullscreen(false)}
             className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white"

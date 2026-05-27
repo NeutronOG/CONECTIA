@@ -213,7 +213,7 @@ export default function MigrateImagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-[#17313A] p-8">
       <div className="max-w-4xl mx-auto">
         <Card>
           <CardHeader>
@@ -238,7 +238,7 @@ export default function MigrateImagesPage() {
             <Button 
               onClick={runMigration} 
               disabled={isRunning}
-              className="w-full bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+              className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
               size="lg"
             >
               {isRunning ? (

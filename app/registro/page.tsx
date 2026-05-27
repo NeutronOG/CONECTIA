@@ -138,7 +138,7 @@ function RegistroContent() {
                   type="text"
                   value={formData.nombre}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                  className="w-full pl-11 pr-4 py-3 bg-[#17313A] border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
                   placeholder="Tu nombre"
                   required
                 />
@@ -158,7 +158,7 @@ function RegistroContent() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                  className="w-full pl-11 pr-4 py-3 bg-[#17313A] border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
                   placeholder="tu@email.com"
                   required
                 />
@@ -178,7 +178,7 @@ function RegistroContent() {
                   type="tel"
                   value={formData.telefono}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                  className="w-full pl-11 pr-4 py-3 bg-[#17313A] border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
                   placeholder="+52 1 477 123 4567"
                   required
                 />
@@ -197,7 +197,7 @@ function RegistroContent() {
                   name="mensaje"
                   value={formData.mensaje}
                   onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white resize-none"
+                  className="w-full pl-11 pr-4 py-3 bg-[#17313A] border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white resize-none"
                   placeholder="Cuéntanos sobre tu experiencia o interés..."
                   rows={3}
                 />

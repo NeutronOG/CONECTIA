@@ -380,36 +380,6 @@
       "updatedAt": "2026-02-13T18:12:21.504212+00:00"
     },
     {
-      "id": 82,
-      "titulo": "Departamento en Planta Baja ",
-      "ubicacion": "Mariano Escobedo ",
-      "precio": 1700000,
-      "precioTexto": "$1,700,000",
-      "tipo": "Departamento",
-      "habitaciones": 3,
-      "banos": 1,
-      "area": 0,
-      "areaTexto": "0 m²",
-      "imagen": "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/principal/1770395210058-wu5gbg.jpeg",
-      "descripcion": "Departamento en venta \nJaime Nuno \nPlanta baja \nFrente a k2\nSobre Mariano Escobedo \n3 recámaras \nPrincipal con baño \n2 secundarias comparten baño \n$1,700,000",
-      "caracteristicas": [],
-      "status": "Disponible",
-      "categoria": "venta",
-      "fechaPublicacion": "2026-02-06T00:00:00+00:00",
-      "tourVirtual": null,
-      "galeria": [
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395210771-5nxqct.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395211180-02kp1.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395211590-x0nm9l.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395211936-qdwg1.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395212308-k23ufm.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395212715-v2v5za.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1770395213129-xj8cn.jpeg"
-      ],
-      "createdAt": "2026-02-06T16:26:56.989627+00:00",
-      "updatedAt": "2026-02-06T16:26:56.989627+00:00"
-    },
-    {
       "id": 81,
       "titulo": "En venta MAYORKA ",
       "ubicacion": "MAYORKA León Gto zona este ",
@@ -895,43 +865,6 @@
       "updatedAt": "2026-02-07T00:54:30.749069+00:00"
     },
     {
-      "id": 67,
-      "titulo": "CASA EN VENTA",
-      "ubicacion": "Punta del Este ",
-      "precio": 4980000,
-      "precioTexto": "$4,980,000",
-      "tipo": "Casa",
-      "habitaciones": 3,
-      "banos": 2,
-      "area": 180,
-      "areaTexto": "180 m²",
-      "imagen": "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/principal/1769230522293-om827j.jpeg",
-      "descripcion": "- Cocina integral con isla y alacena \n- Entrada de servicio independiente \n- Patio \n- Vertedero en Planta Alta",
-      "caracteristicas": [
-        "Tinaco",
-        "Aljibe",
-        "Cuarto de lavado",
-        "Sala de televisión"
-      ],
-      "status": "Disponible",
-      "categoria": "venta",
-      "fechaPublicacion": "2026-01-24T00:00:00+00:00",
-      "tourVirtual": null,
-      "galeria": [
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230523002-0c1pg7.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230523407-ia5com.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230523816-fz8rup.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230524144-ayr07n.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230524630-yde6ts.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230524916-1pwopb.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230525177-d81rje.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230525660-ybnabs.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1769230526064-nx8e67.jpeg"
-      ],
-      "createdAt": "2026-01-24T04:55:30.980234+00:00",
-      "updatedAt": "2026-02-07T00:54:36.804669+00:00"
-    },
-    {
       "id": 66,
       "titulo": "Departamento ",
       "ubicacion": "Adamant",
@@ -1153,26 +1086,26 @@
       "id": 58,
       "titulo": "PREVENTA. Mod. ALAMO",
       "ubicacion": "León, Gto. Zona Norte Villa Valbuena",
-      "precio": 3291210,
-      "precioTexto": "$3,291,210",
+      "precio": 3018000,
+      "precioTexto": "$3,018,000",
       "tipo": "Casa",
       "habitaciones": 2,
       "banos": 2,
-      "area": 131,
-      "areaTexto": "131.25 m²",
+      "area": 105,
+      "areaTexto": "105 m²",
       "imagen": "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/principal/1765946759873-2bqghg.png",
-      "descripcion": "Casa en PREVENTA en VILLA VALBUENA. Agenda HOY mismo tu visita para aprovechar el precio de arranque y otras oportunidades, además la mejor ubicación y garantizar la mayor plusvalía.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.",
+      "descripcion": "Casa en PREVENTA en VILLA VALBUENA. Agenda HOY mismo tu visita para aprovechar el precio de arranque y otras oportunidades, además la mejor ubicación y garantizar la mayor plusvalía.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.\n\nActividades recreativas: Amplias áreas verdes, canchas de pádel, canchas de fútbol rápido, pet park y comercio.",
       "caracteristicas": [],
       "status": "Disponible",
       "categoria": "venta",
-      "fechaPublicacion": "2025-12-20T00:00:00+00:00",
+      "fechaPublicacion": "2026-03-07T00:00:00+00:00",
       "tourVirtual": null,
       "galeria": [
         "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1765946762529-jhn2fn.png",
         "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1765946763662-6a8gna.png"
       ],
       "createdAt": "2025-12-17T04:43:12.050996+00:00",
-      "updatedAt": "2026-02-07T00:56:01.705632+00:00"
+      "updatedAt": "2026-03-07T18:45:20.793089+00:00"
     },
     {
       "id": 57,
@@ -1626,43 +1559,6 @@
       "updatedAt": "2026-02-07T00:58:22.127505+00:00"
     },
     {
-      "id": 44,
-      "titulo": "OFERTA VENTA",
-      "ubicacion": "Residencial el Molino Club & Golf ",
-      "precio": 9000000,
-      "precioTexto": "$9,000,000",
-      "tipo": "Casa",
-      "habitaciones": 4,
-      "banos": 4,
-      "area": 695,
-      "areaTexto": "695 m²",
-      "imagen": "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/principal/44-1765404568311-aov81.jpeg",
-      "descripcion": "Sala de juegos\n.- Jardín amplio\n.- Cuarto de servicio\n.- Bodega\n.- Cochera para 4 autos",
-      "caracteristicas": [],
-      "status": "Disponible",
-      "categoria": "venta",
-      "fechaPublicacion": "2026-02-15T00:00:00+00:00",
-      "tourVirtual": null,
-      "galeria": [
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404568707-0v40s.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404569811-qv0li.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404570222-3xznsc.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404570634-8sg2v.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404571042-7lry5.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404571352-kcg9yk.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404571779-1xzuop.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404572103-jxhu61.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404572492-vrcccf.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404572813-ibznvg.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404573124-hn9e.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404573426-tk3ue.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404573807-o2dy6j.jpeg",
-        "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/44-1765404574217-twc7z5.jpeg"
-      ],
-      "createdAt": "2025-12-10T20:44:54.886046+00:00",
-      "updatedAt": "2026-02-15T12:58:42.506846+00:00"
-    },
-    {
       "id": 43,
       "titulo": "EDIFICIO EN VENTA ",
       "ubicacion": "Colonia CENTRO",
@@ -1869,6 +1765,6 @@
       "updatedAt": "2026-02-20T21:53:11.843684+00:00"
     }
   ],
-  "lastUpdated": "2026-03-04T16:09:49.690Z",
-  "count": 52
+  "lastUpdated": "2026-05-27T19:57:34.385Z",
+  "count": 49
 }

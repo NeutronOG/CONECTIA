@@ -299,7 +299,7 @@ export function AvatarGuide() {
     <>
       {/* Initial Prompt for New Visitors */}
       {showPrompt && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-[#17313A]/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
           <Card className="max-w-md w-full p-6 bg-conectia-secondary border-conectia-accent/20 rounded-3xl shadow-2xl animate-in zoom-in-95 duration-300">
             <div className="text-center space-y-4">
               {/* Avatar */}

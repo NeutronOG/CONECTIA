@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -36,6 +36,16 @@ export function DynamicHeader() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isOtrosMenuOpen, setIsOtrosMenuOpen] = useState(false)
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
+  const otrosButtonRef = useRef<HTMLButtonElement | null>(null)
+  const [otrosRect, setOtrosRect] = useState<{ top: number; right: number } | null>(null)
+
+  const handleOtrosToggle = () => {
+    if (!isOtrosMenuOpen && otrosButtonRef.current) {
+      const r = otrosButtonRef.current.getBoundingClientRect()
+      setOtrosRect({ top: r.bottom + 8, right: window.innerWidth - r.right })
+    }
+    setIsOtrosMenuOpen(prev => !prev)
+  }
   const pathname = usePathname()
   const { user, isAuthenticated } = useAuth()
 
@@ -90,19 +100,15 @@ export function DynamicHeader() {
             transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]
             ${isMobileMenuOpen
               ? `rounded-[32px] px-6 py-6 min-w-[320px] 
-                 backdrop-blur-2xl bg-conectia-surface/96
-                 border border-conectia-primary/25
-                 shadow-2xl shadow-conectia-primary/10
+                 glass-nav
+                 shadow-2xl
                  transform scale-100 opacity-100
                  mobile-menu-expanded`
-              : `rounded-[20px] px-4 py-2 max-w-fit
-                 backdrop-blur-2xl bg-conectia-surface/96
-                 border border-conectia-primary/20
-                 shadow-xl shadow-conectia-primary/10
-                 ${isScrolled ? 'scale-[0.96] shadow-lg' : ''}
+              : `rounded-[28px] px-4 py-2 max-w-fit
+                 glass-nav
+                 ${isScrolled ? 'scale-[0.97] shadow-lg' : ''}
                  transform scale-100 opacity-100`
             }
-            hover:shadow-2xl hover:shadow-conectia-primary/15
           `}
         >
           {/* Desktop Navigation */}
@@ -115,7 +121,7 @@ export function DynamicHeader() {
             </Link>
 
             {/* Separator */}
-            <div className="w-px h-6 bg-gradient-to-b from-transparent via-conectia-accent/40 to-transparent flex-shrink-0"></div>
+            <div className="w-px h-6 bg-gradient-to-b from-transparent via-[#B0ACA6]/25 to-transparent flex-shrink-0"></div>
 
             {/* Navigation Items */}
             <nav className="flex items-center gap-1 min-w-0">
@@ -127,10 +133,10 @@ export function DynamicHeader() {
                     href={item.href}
                     className={`
                       group relative flex items-center justify-center gap-1.5 px-3 py-1.5
-                      transition-all duration-300 ease-out flex-shrink-0
+                      rounded-full transition-all duration-300 ease-out flex-shrink-0
                       ${isActive(item.href)
-                        ? 'text-conectia-primary font-bold border-b-2 border-conectia-primary'
-                        : 'text-conectia-accent/60 hover:text-conectia-primary hover:border-b-2 hover:border-conectia-primary/30'
+                        ? 'bg-[#17313A]/10 text-[#17313A] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
+                        : 'text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/07'
                       }
                     `}
                   >
@@ -142,7 +148,7 @@ export function DynamicHeader() {
             </nav>
 
             {/* Separator entre nav y action buttons */}
-            <div className="w-px h-4 bg-conectia-accent/20 mx-2"></div>
+            <div className="w-px h-4 bg-[#B0ACA6]/20 mx-2"></div>
 
             {/* Action Buttons - Lupa pegada al corazón */}
             <div className="flex items-center gap-0 flex-shrink-0">
@@ -150,7 +156,7 @@ export function DynamicHeader() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-conectia-accent/70 hover:bg-conectia-primary/10 hover:text-conectia-primary"
+                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#B0ACA6] hover:bg-conectia-primary/10 hover:text-conectia-primary"
                 >
                   <Heart className="h-3.5 w-3.5" />
                 </Button>
@@ -158,7 +164,7 @@ export function DynamicHeader() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-conectia-accent/70 hover:bg-conectia-primary/10 hover:text-conectia-primary"
+                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#B0ACA6] hover:bg-conectia-primary/10 hover:text-conectia-primary"
               >
                 <Search className="h-3.5 w-3.5" />
               </Button>
@@ -172,7 +178,7 @@ export function DynamicHeader() {
               <Link href="/propietarios">
                 <Button
                   size="sm"
-                  className="bg-conectia-primary hover:bg-conectia-primary/90 text-white rounded-lg px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-conectia-primary/20 whitespace-nowrap flex items-center gap-1.5"
+                  className="btn-glass-primary rounded-xl px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
                 >
                   <Building className="h-3 w-3" />
                   Vender
@@ -181,89 +187,24 @@ export function DynamicHeader() {
               <Link href="/alianza-comercial">
                 <Button
                   size="sm"
-                  className="bg-conectia-secondary hover:bg-conectia-secondary/90 text-white border border-conectia-accent/20 rounded-lg px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 hover:shadow-lg whitespace-nowrap flex items-center gap-1.5"
+                  className="btn-glass-secondary rounded-xl px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
                 >
                   <User className="h-3 w-3" />
                   Asesor
                 </Button>
               </Link>
-              <div className="relative">
-                <Button
-                  size="sm"
-                  onClick={() => setIsOtrosMenuOpen(!isOtrosMenuOpen)}
-                  className={`rounded-lg px-3 py-1.5 font-medium text-xs h-8 transition-all duration-300 hover:scale-105 hover:shadow-md whitespace-nowrap flex items-center gap-1.5 ${isScrolled ? 'bg-conectia-accent/10 hover:bg-conectia-accent/20 text-conectia-accent' : 'bg-white/10 hover:bg-white/15 text-white'}`}
-                >
-                  Otros
-                  <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isOtrosMenuOpen ? 'rotate-180' : ''}`} />
-                </Button>
-
-                {/* Dropdown Menu */}
-                {isOtrosMenuOpen && (
-                  <>
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setIsOtrosMenuOpen(false)}
-                    />
-                    <div className="absolute top-full right-0 mt-2 w-48 bg-conectia-surface/97 backdrop-blur-xl border border-conectia-primary/15 rounded-xl shadow-2xl z-50 overflow-hidden">
-                      <div className="py-2">
-                        <Link href="/venta" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Tag className="h-4 w-4 text-conectia-primary" />
-                            <span>Venta</span>
-                          </button>
-                        </Link>
-                        <Link href="/renta" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Key className="h-4 w-4 text-conectia-primary" />
-                            <span>Renta</span>
-                          </button>
-                        </Link>
-                        <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Sparkles className="h-4 w-4 text-conectia-primary" />
-                            <span>Especiales</span>
-                          </button>
-                        </Link>
-                        <Link href="/ofertas" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Percent className="h-4 w-4 text-conectia-primary" />
-                            <span>Ofertas</span>
-                          </button>
-                        </Link>
-                        <Link href="/exclusivos" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Shield className="h-4 w-4 text-conectia-primary" />
-                            <span>Exclusivos</span>
-                          </button>
-                        </Link>
-                        <div className="border-t border-conectia-accent/20 my-2"></div>
-                        <Link href="/desarrollos" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Building className="h-4 w-4 text-conectia-primary" />
-                            <span>Desarrollos</span>
-                          </button>
-                        </Link>
-                        <Link href="/brokers" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Users className="h-4 w-4 text-conectia-primary" />
-                            <span>Brokers y Notarías</span>
-                          </button>
-                        </Link>
-                        <div className="border-t border-conectia-accent/20 my-2"></div>
-                        <Link href="/ficha-marca" onClick={() => setIsOtrosMenuOpen(false)}>
-                          <button className="w-full px-4 py-2.5 text-left text-sm text-conectia-accent hover:bg-conectia-primary/10 transition-colors flex items-center gap-2">
-                            <Palette className="h-4 w-4 text-conectia-gold" />
-                            <span>Ficha de Marca</span>
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
+              <Button
+                ref={otrosButtonRef}
+                size="sm"
+                onClick={handleOtrosToggle}
+                className="btn-glass-tertiary rounded-xl px-3 py-1.5 font-medium text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
+              >
+                Otros
+                <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isOtrosMenuOpen ? 'rotate-180' : ''}`} />
+              </Button>
 
               {/* Separator */}
-              <div className="w-px h-4 bg-conectia-accent/30 mx-1 flex-shrink-0"></div>
+              <div className="w-px h-4 bg-[#B0ACA6]/20 mx-1 flex-shrink-0"></div>
 
               {/* Panel Interno Access - Desktop */}
               {isAuthenticated && user ? (
@@ -279,7 +220,7 @@ export function DynamicHeader() {
                 >
                   <Button
                     size="sm"
-                    className="bg-conectia-gold hover:bg-conectia-gold/90 text-black rounded-full px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1"
+                    className="btn-glass-secondary rounded-full px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border-0"
                   >
                     {user.role === 'admin' ? (
                       <>
@@ -313,7 +254,7 @@ export function DynamicHeader() {
                 <Link href="/login">
                   <Button
                     size="sm"
-                    className={`rounded-lg px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 ${isScrolled ? 'bg-conectia-accent/10 hover:bg-conectia-accent/20 text-conectia-accent' : 'bg-white/10 hover:bg-white/15 text-white'}`}
+                    className="btn-glass-tertiary rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border-0"
                   >
                     <UserCircle className="h-2.5 w-2.5" />
                     <span>Acceso</span>
@@ -339,20 +280,20 @@ export function DynamicHeader() {
                 </Link>
 
                 {/* Divider */}
-                <div className="w-px h-5 bg-conectia-accent/25 mx-1 flex-shrink-0" />
+                <div className="w-px h-5 bg-[#B0ACA6]/20 mx-1 flex-shrink-0" />
 
                 {/* Menú button — grande y visible */}
                 <button
                   onClick={() => setIsMobileMenuOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-conectia-primary/15 hover:bg-conectia-primary/25 active:scale-95 border border-conectia-primary/30 transition-all duration-200"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-[#17313A] active:scale-95 transition-all duration-200 font-semibold text-sm"
                 >
-                  <Menu className="h-4 w-4 text-conectia-primary flex-shrink-0" />
-                  <span className="text-sm font-semibold text-conectia-primary whitespace-nowrap tracking-wide">Menú</span>
+                  <Menu className="h-4 w-4 flex-shrink-0" />
+                  <span className="whitespace-nowrap tracking-wide">Menú</span>
                 </button>
 
                 {/* Heart icon */}
                 <Link href="/favoritos" className="flex-shrink-0">
-                  <button className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-conectia-primary/10 hover:text-conectia-primary transition-all duration-200 hover:scale-110 active:scale-95 text-conectia-accent/70">
+                  <button className="flex items-center justify-center w-9 h-9 rounded-full glass-pill text-[#17313A] hover:scale-110 active:scale-95 transition-all duration-200">
                     <Heart className="h-4 w-4" />
                   </button>
                 </Link>
@@ -395,8 +336,8 @@ export function DynamicHeader() {
                           hover:scale-105 active:scale-95
                           opacity-100
                           ${isActive(item.href)
-                            ? 'bg-conectia-primary/15 text-conectia-primary font-medium shadow-sm'
-                            : 'text-conectia-accent/70 hover:text-conectia-primary hover:bg-conectia-accent/5'
+                            ? 'glass-panel text-[#17313A] font-medium'
+                            : 'text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/05'
                           }
                         `}
                       >
@@ -404,8 +345,8 @@ export function DynamicHeader() {
                           w-10 h-10 rounded-xl flex items-center justify-center
                           transition-all duration-300 ease-out
                           ${isActive(item.href)
-                            ? 'bg-conectia-primary/20 shadow-sm'
-                            : 'bg-conectia-accent/10'
+                            ? 'bg-[#17313A]/15'
+                            : 'bg-[#17313A]/08'
                           }
                         `}>
                           <Icon className="h-5 w-5" />
@@ -417,51 +358,45 @@ export function DynamicHeader() {
                 </div>
 
                 {/* Categorías Dropdown */}
-                <div className="pt-3 border-t border-conectia-accent/20">
+                <div className="pt-3 border-t border-[#17313A]/10">
                   <button
                     onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-conectia-accent/5 hover:bg-conectia-accent/10 transition-all duration-300"
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl glass-pill hover:opacity-80 transition-all duration-300"
                   >
-                    <span className="text-sm font-semibold text-conectia-accent">Categorías</span>
-                    <ChevronDown className={`h-5 w-5 text-conectia-accent transition-transform duration-300 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
+                    <span className="text-sm font-semibold text-[#17313A]">Categorías</span>
+                    <ChevronDown className={`h-5 w-5 text-[#17313A] transition-transform duration-300 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
                   {isCategoriesOpen && (
                     <div className="mt-2 grid grid-cols-2 gap-2 animate-in slide-in-from-top-2 duration-200">
-                      <Link href="/venta" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-green-500/10 transition-all">
-                          <Tag className="h-4 w-4 text-green-600" />
-                          <span className="text-xs font-medium text-conectia-accent">Venta</span>
-                        </button>
-                      </Link>
                       <Link href="/renta" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-blue-500/10 transition-all">
-                          <Key className="h-4 w-4 text-blue-600" />
-                          <span className="text-xs font-medium text-conectia-accent">Renta</span>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Key className="h-4 w-4 text-[#17313A]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Renta</span>
                         </button>
                       </Link>
                       <Link href="/exclusivos" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-conectia-primary/10 transition-all">
-                          <Shield className="h-4 w-4 text-conectia-primary" />
-                          <span className="text-xs font-medium text-conectia-accent">Exclusivos</span>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Shield className="h-4 w-4 text-[#17313A]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Exclusivos</span>
                         </button>
                       </Link>
                       <Link href="/desarrollos" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-blue-500/10 transition-all">
-                          <Building className="h-4 w-4 text-blue-600" />
-                          <span className="text-xs font-medium text-conectia-accent">Desarrollos</span>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Building className="h-4 w-4 text-[#17313A]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Desarrollos</span>
                         </button>
                       </Link>
                       <Link href="/especiales" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-purple-500/10 transition-all">
-                          <Sparkles className="h-4 w-4 text-purple-600" />
-                          <span className="text-xs font-medium text-conectia-accent">Especiales</span>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Sparkles className="h-4 w-4 text-[#B0ACA6]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Especiales</span>
                         </button>
                       </Link>
                       <Link href="/ofertas" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-conectia-accent/5 hover:bg-red-500/10 transition-all">
-                          <Percent className="h-4 w-4 text-red-600" />
-                          <span className="text-xs font-medium text-conectia-accent">Ofertas</span>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Percent className="h-4 w-4 text-[#C78F7B]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Ofertas</span>
                         </button>
                       </Link>
                     </div>
@@ -469,11 +404,11 @@ export function DynamicHeader() {
                 </div>
 
                 {/* Action Buttons Row */}
-                <div className="flex items-center justify-between pt-3 border-t border-conectia-accent/20 transition-all duration-200 ease-out">
+                <div className="flex items-center justify-between pt-3 border-t border-[#17313A]/10 transition-all duration-200 ease-out">
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-xl hover:bg-conectia-accent/5 transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/06 transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     <Search className="h-4 w-4" />
                     <span className="text-sm">Buscar</span>
@@ -482,7 +417,7 @@ export function DynamicHeader() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex items-center space-x-2 px-4 py-2 rounded-xl hover:bg-conectia-accent/5 transition-all duration-300 hover:scale-105 active:scale-95"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/06 transition-all duration-300 hover:scale-105 active:scale-95"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <WishlistCounter />
@@ -500,7 +435,7 @@ export function DynamicHeader() {
                         className="transition-all duration-200 ease-out"
                       >
                         <Button
-                          className="w-full bg-gradient-to-r from-conectia-primary to-conectia-primary/80 hover:from-conectia-primary/90 hover:to-conectia-primary/70 text-white rounded-2xl font-semibold py-3 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                          className="w-full btn-glass-primary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <Building className="h-4 w-4 mr-2" />
@@ -513,7 +448,7 @@ export function DynamicHeader() {
                         className="transition-all duration-200 ease-out"
                       >
                         <Button
-                          className="w-full bg-gradient-to-r from-conectia-primary to-conectia-primary/80 hover:from-conectia-primary/90 hover:to-conectia-primary/70 text-white rounded-2xl font-semibold py-3 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                          className="w-full btn-glass-primary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {user.role === 'admin' ? (
@@ -535,7 +470,7 @@ export function DynamicHeader() {
                   <>
                     <Link href="/propietarios" className="transition-all duration-200 ease-out">
                       <Button
-                        className="w-full bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent rounded-2xl font-semibold py-3 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full btn-glass-primary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <User className="h-4 w-4 mr-2" />
@@ -544,7 +479,7 @@ export function DynamicHeader() {
                     </Link>
                     <Link href="/alianza-comercial" className="transition-all duration-200 ease-out">
                       <Button
-                        className="w-full bg-conectia-secondary hover:bg-conectia-secondary/90 text-white border border-conectia-accent/20 rounded-2xl font-semibold py-3 transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full btn-glass-secondary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
@@ -553,7 +488,7 @@ export function DynamicHeader() {
                     </Link>
                     <Link href="/login" className="transition-all duration-200 ease-out">
                       <Button
-                        className="w-full bg-conectia-primary/10 hover:bg-conectia-primary/20 text-conectia-primary border-2 border-conectia-primary/30 rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full btn-glass-tertiary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
@@ -564,12 +499,12 @@ export function DynamicHeader() {
                 )}
 
                 {/* Contact Info */}
-                <div className="text-center pt-3 border-t border-conectia-accent/20 transition-all duration-200 ease-out">
-                  <div className="flex items-center justify-center space-x-2 text-sm text-conectia-accent/70 mb-2">
-                    <MapPin className="h-4 w-4" />
+                <div className="text-center pt-3 border-t border-[#17313A]/10 transition-all duration-200 ease-out">
+                  <div className="flex items-center justify-center space-x-2 text-sm text-[#4A4F57] mb-2">
+                    <MapPin className="h-4 w-4 text-[#C78F7B]" />
                     <span>León, Guanajuato</span>
                   </div>
-                  <div className="space-y-1 text-sm text-conectia-accent/60">
+                  <div className="space-y-1 text-sm text-[#4A4F57]">
                     <div>+52 1 477 475 6951</div>
                     <div>conectiaselect@gmail.com</div>
                   </div>
@@ -583,9 +518,68 @@ export function DynamicHeader() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-[#17313A]/15 backdrop-blur-sm z-40 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
+      )}
+
+      {/* Dropdown Otros — fuera de la isla, position:fixed independiente */}
+      {isOtrosMenuOpen && otrosRect && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setIsOtrosMenuOpen(false)} />
+          <div
+            className="fixed z-50 w-52 rounded-2xl overflow-hidden"
+            style={{
+              top: otrosRect.top,
+              right: otrosRect.right,
+              background: 'rgba(250,247,244,0.94)',
+              backdropFilter: 'blur(24px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              border: '1px solid rgba(234,228,221,0.50)',
+              boxShadow: '0 20px 60px rgba(23,49,58,0.22), 0 4px 12px rgba(23,49,58,0.12)',
+            }}
+          >
+            <div className="py-2">
+              <Link href="/renta" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Key className="h-4 w-4 text-[#17313A]" />
+                  <span>Renta</span>
+                </button>
+              </Link>
+              <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[#C78F7B]" />
+                  <span>Especiales</span>
+                </button>
+              </Link>
+              <Link href="/ofertas" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Percent className="h-4 w-4 text-[#17313A]" />
+                  <span>Ofertas</span>
+                </button>
+              </Link>
+              <Link href="/exclusivos" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Shield className="h-4 w-4 text-[#17313A]" />
+                  <span>Exclusivos</span>
+                </button>
+              </Link>
+              <div className="my-1.5 mx-4 border-t border-[#B0ACA6]/25" />
+              <Link href="/desarrollos" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Building className="h-4 w-4 text-[#17313A]" />
+                  <span>Desarrollos</span>
+                </button>
+              </Link>
+              <Link href="/brokers" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Users className="h-4 w-4 text-[#17313A]" />
+                  <span>Brokers y Notarías</span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </>
       )}
     </>
   )

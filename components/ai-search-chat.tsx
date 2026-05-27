@@ -433,10 +433,10 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-[#17313A]/50 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-2xl h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <CardHeader className="bg-gradient-to-r from-conectia-gold to-yellow-400 text-black p-4 border-b">
+        <CardHeader className="bg-gradient-to-r from-conectia-gold to-yellow-400 text-[#17313A] p-4 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2 shadow-md">
@@ -457,7 +457,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="text-black hover:bg-black/10 rounded-full w-8 h-8 p-0"
+              className="text-[#17313A] hover:bg-[#17313A]/10 rounded-full w-8 h-8 p-0"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -472,14 +472,14 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
                 <div className={`flex items-start space-x-2 ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     message.type === 'user' 
-                      ? 'bg-conectia-gold text-black' 
+                      ? 'bg-conectia-gold text-[#17313A]' 
                       : 'bg-conectia-secondary text-conectia-gold'
                   }`}>
                     {message.type === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
                   </div>
                   <div className={`rounded-2xl px-4 py-2 ${
                     message.type === 'user'
-                      ? 'bg-conectia-gold text-black'
+                      ? 'bg-conectia-gold text-[#17313A]'
                       : 'bg-conectia-secondary text-gray-900'
                   }`}>
                     <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -531,7 +531,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
                                   {formatPrice(property.precio)}
                                 </p>
                                 <Link href={`/propiedades/${property.id}`}>
-                                  <Button size="sm" className="bg-conectia-gold hover:bg-conectia-gold/90 text-black text-xs h-7 px-3 font-semibold">
+                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] text-xs h-7 px-3 font-semibold">
                                     Ver Detalles
                                   </Button>
                                 </Link>
@@ -604,7 +604,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
             <Button
               onClick={handleSendMessage}
               disabled={!inputValue.trim() || isTyping}
-              className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
             >
               <Send className="h-4 w-4" />
             </Button>

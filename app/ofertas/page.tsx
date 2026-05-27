@@ -18,7 +18,7 @@ export default function OfertasPage() {
   )
 
   return (
-    <div className="min-h-screen bg-conectia-surface">
+    <div className="min-h-screen bg-[#17313A]">
 
       {/* HERO — bold impact layout */}
       <section className="relative overflow-hidden">
@@ -29,9 +29,9 @@ export default function OfertasPage() {
           className="absolute inset-0 w-full h-full object-cover object-center scale-105"
         />
         {/* Overlay muy oscuro para contraste */}
-        <div className="absolute inset-0 bg-black/80" />
+        <div className="absolute inset-0 bg-[#17313A]/80" />
         {/* Gradiente diagonal de acento */}
-        <div className="absolute inset-0 bg-gradient-to-br from-conectia-primary/25 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-conectia-primary/25 via-transparent to-[#0F2027]/60" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -95,7 +95,7 @@ export default function OfertasPage() {
           <div className="flex items-end gap-8 mb-10">
             <div>
               <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-bold">Aprovecha ahora</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-conectia-accent mt-1">Ofertas vigentes</h2>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] mt-1">Ofertas vigentes</h2>
             </div>
             <div className="h-px flex-1 bg-conectia-primary/20 hidden sm:block" />
           </div>

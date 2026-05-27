@@ -34,8 +34,8 @@ export function MobileNavigation() {
       <div
         className={`dynamic-island transition-all duration-500 ease-out ${
           isExpanded
-            ? "w-80 h-auto bg-black/90 backdrop-blur-2xl rounded-3xl shadow-2xl"
-            : "w-32 h-8 bg-black/80 backdrop-blur-xl rounded-full shadow-lg cursor-pointer hover:bg-black/90"
+            ? "w-80 h-auto bg-[#17313A]/90 backdrop-blur-2xl rounded-3xl shadow-2xl"
+            : "w-32 h-8 bg-[#17313A]/80 backdrop-blur-xl rounded-full shadow-lg cursor-pointer hover:bg-[#17313A]/90"
         }`}
         onClick={() => !isExpanded && setIsExpanded(true)}
       >
@@ -186,7 +186,7 @@ export function MobileNavigation() {
             {/* Action Buttons */}
             <div className="space-y-3">
               <Link href="/propietarios" onClick={() => setIsExpanded(false)}>
-                <Button className="w-full bg-gradient-to-r from-conectia-gold to-yellow-400 hover:from-conectia-gold/90 hover:to-yellow-400/90 text-black rounded-2xl py-3 text-sm font-semibold shadow-lg">
+                <Button className="w-full bg-gradient-to-r from-conectia-gold to-yellow-400 hover:from-conectia-gold/90 hover:to-yellow-400/90 text-[#17313A] rounded-2xl py-3 text-sm font-semibold shadow-lg">
                   Vender mi Propiedad
                 </Button>
               </Link>

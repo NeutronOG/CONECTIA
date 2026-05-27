@@ -140,7 +140,7 @@ export default function NuevaSolicitudPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-gradient-to-r from-conectia-graphite to-gray-900 text-white py-6">
         <div className="container mx-auto px-4">
@@ -341,7 +341,7 @@ export default function NuevaSolicitudPage() {
 
       {/* Modal de Éxito */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-[#17313A]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300">
             <div className="w-20 h-20 bg-conectia-primary rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-conectia-accent" />

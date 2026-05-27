@@ -370,14 +370,14 @@ export default function PropietariosPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 onClick={() => router.push('/')}
-                className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
               >
                 Volver al Inicio
               </Button>
               <Button
                 onClick={() => router.push('/propiedades')}
                 variant="outline"
-                className="border-conectia-gold text-black hover:bg-conectia-gold/10"
+                className="border-conectia-gold text-[#17313A] hover:bg-conectia-gold/10"
               >
                 Ver Propiedades
               </Button>
@@ -421,7 +421,7 @@ export default function PropietariosPage() {
                 <div key={step} className="flex flex-col items-center">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                     step <= currentStep 
-                      ? 'bg-conectia-gold text-black' 
+                      ? 'bg-conectia-gold text-[#17313A]' 
                       : 'bg-gray-200 text-gray-500'
                   }`}>
                     {step < currentStep ? <CheckCircle className="h-4 w-4" /> : step}
@@ -471,7 +471,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <Home className="h-6 w-6 text-black" />
+                  <Home className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-conectia-graphite">
@@ -619,7 +619,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <MapPin className="h-6 w-6 text-black" />
+                  <MapPin className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-conectia-graphite">
@@ -762,7 +762,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <DollarSign className="h-6 w-6 text-black" />
+                  <DollarSign className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-conectia-graphite">
@@ -898,7 +898,7 @@ export default function PropietariosPage() {
                         }`}
                       >
                         {formData.amenities.includes(amenity) && (
-                          <CheckCircle className="h-3 w-3 text-black" />
+                          <CheckCircle className="h-3 w-3 text-[#17313A]" />
                         )}
                       </div>
                       <span className="text-sm">{amenity}</span>
@@ -910,7 +910,7 @@ export default function PropietariosPage() {
                 <div className="mt-8 p-6 bg-gradient-to-br from-conectia-gold/10 via-yellow-50 to-transparent rounded-xl border border-conectia-gold/30">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-conectia-gold rounded-full flex items-center justify-center mr-3">
-                      <Star className="h-5 w-5 text-black" />
+                      <Star className="h-5 w-5 text-[#17313A]" />
                     </div>
                     <div>
                       <h3 className="font-serif text-lg font-semibold text-conectia-graphite">
@@ -967,7 +967,7 @@ export default function PropietariosPage() {
                     {formData.promocion && formData.promocion !== 'ninguna' && (
                       <div className="p-3 bg-conectia-gold/20 rounded-lg border border-conectia-gold/40">
                         <p className="text-xs text-gray-600 mb-1">Vista previa del bono en la publicación:</p>
-                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-conectia-gold to-yellow-400 text-black px-4 py-2 rounded-full text-sm font-bold shadow-md">
+                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-conectia-gold to-yellow-400 text-[#17313A] px-4 py-2 rounded-full text-sm font-bold shadow-md">
                           <Star className="h-4 w-4" />
                           {formData.promocion === 'escrituras_gratis' && 'Escrituras Gratis'}
                           {formData.promocion === 'meses_mantenimiento' && '3 Meses Mantenimiento Gratis'}
@@ -995,7 +995,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <Camera className="h-6 w-6 text-black" />
+                  <Camera className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-conectia-graphite">
@@ -1026,7 +1026,7 @@ export default function PropietariosPage() {
                   <label htmlFor="photo-upload">
                     <Button
                       type="button"
-                      className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                      className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
                       asChild
                     >
                       <span>
@@ -1090,7 +1090,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <User className="h-6 w-6 text-black" />
+                  <User className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-conectia-graphite">
@@ -1219,7 +1219,7 @@ export default function PropietariosPage() {
                 variant="outline"
                 onClick={prevStep}
                 disabled={currentStep === 1}
-                className="border-gray-200 hover:border-conectia-gold hover:text-black"
+                className="border-gray-200 hover:border-conectia-gold hover:text-[#17313A]"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Anterior
@@ -1230,7 +1230,7 @@ export default function PropietariosPage() {
                   <Button
                     type="button"
                     onClick={nextStep}
-                    className="bg-conectia-gold hover:bg-conectia-gold/90 text-black px-8"
+                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] px-8"
                   >
                     Continuar
                     <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
@@ -1240,7 +1240,7 @@ export default function PropietariosPage() {
                     type="button"
                     onClick={handleSubmit}
                     disabled={!formData.exclusivity || !formData.terms || !formData.privacy || isSubmitting}
-                    className="bg-conectia-gold hover:bg-conectia-gold/90 text-black px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>

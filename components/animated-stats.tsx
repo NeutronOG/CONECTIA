@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Building2, Key, Shield, Sparkles, ChevronLeft, ChevronRight } from "lucide-react"
+import { Buildings, Key, Shield, CaretLeft, CaretRight } from "@phosphor-icons/react"
 
 export function AnimatedStats() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -9,7 +9,7 @@ export function AnimatedStats() {
 
   const features = [
     { 
-      icon: Building2, 
+      icon: Buildings, 
       title: 'Transparencia Total', 
       description: 'Información clara y completa de cada propiedad para tu tranquilidad y confianza',
       gradient: 'from-blue-500 to-purple-500'
@@ -25,12 +25,6 @@ export function AnimatedStats() {
       title: 'Confianza Total', 
       description: 'Asesoría legal completa y garantía en cada transacción inmobiliaria',
       gradient: 'from-green-500 to-emerald-500'
-    },
-    { 
-      icon: Sparkles, 
-      title: 'Experiencia Única', 
-      description: 'Atención personalizada y servicio de lujo en cada etapa del proceso',
-      gradient: 'from-orange-500 to-red-500'
     },
   ]
 
@@ -81,7 +75,7 @@ export function AnimatedStats() {
               {/* Icon Container */}
               <div className="relative">
                 <div className="w-20 h-20 bg-gradient-to-br from-conectia-primary to-conectia-primary/70 rounded-2xl flex items-center justify-center shadow-lg shadow-conectia-primary/30 transition-transform duration-500">
-                  <Icon className="h-10 w-10 text-conectia-accent" strokeWidth={2.5} />
+                  <Icon className="h-10 w-10 text-conectia-accent" weight="duotone" />
                 </div>
                 <div className="absolute inset-0 w-20 h-20 bg-conectia-primary rounded-2xl blur-xl opacity-30" />
               </div>
@@ -103,14 +97,14 @@ export function AnimatedStats() {
             onClick={prevSlide}
             className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-conectia-secondary/80 hover:bg-conectia-secondary backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 border border-conectia-accent/20"
           >
-            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-accent" />
+            <CaretLeft className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-accent" weight="bold" />
           </button>
 
           <button
             onClick={nextSlide}
             className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-conectia-secondary/80 hover:bg-conectia-secondary backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 border border-conectia-accent/20"
           >
-            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-accent" />
+            <CaretRight className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-accent" weight="bold" />
           </button>
         </div>
 

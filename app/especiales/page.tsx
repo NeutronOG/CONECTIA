@@ -32,8 +32,8 @@ export default function EspecialesPage() {
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
         {/* Overlay oscuro elegante */}
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+        <div className="absolute inset-0 bg-[#17313A]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F2027]/30 via-transparent to-[#0F2027]/70" />
 
         {/* Líneas decorativas */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-conectia-primary to-transparent" />

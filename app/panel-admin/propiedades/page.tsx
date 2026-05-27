@@ -130,7 +130,7 @@ export default function AdminPropiedadesPage() {
     if (!user) return null
 
     return (
-        <div className="min-h-screen bg-conectia-secondary text-conectia-graphite p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-6 lg:p-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
@@ -332,7 +332,7 @@ export default function AdminPropiedadesPage() {
                                                                     void handleReassignOwner(propiedad.id, pendingChanges[propiedad.id])
                                                                 }}
                                                                 disabled={!!savingOwnerByPropertyId[propiedad.id]}
-                                                                className="bg-conectia-gold hover:bg-conectia-gold/90 text-black flex-shrink-0"
+                                                                className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] flex-shrink-0"
                                                             >
                                                                 <Save className="h-4 w-4 mr-1" />
                                                                 {savingOwnerByPropertyId[propiedad.id] ? 'Guardando...' : 'Guardar'}
@@ -381,7 +381,7 @@ export default function AdminPropiedadesPage() {
 
                 {/* Modal de confirmación de eliminación */}
                 {deleteConfirm !== null && (
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="fixed inset-0 bg-[#17313A]/50 flex items-center justify-center z-50 p-4">
                         <Card className="max-w-md w-full">
                             <CardHeader>
                                 <div className="flex items-center gap-3 mb-2">

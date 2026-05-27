@@ -212,7 +212,7 @@ export default function PropiedadesAsesorPage() {
 
   if (showForm) {
     return (
-      <div className="min-h-screen bg-conectia-secondary text-conectia-graphite p-8">
+      <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-8">
         <div className="max-w-4xl mx-auto">
           <Button
             variant="ghost"
@@ -251,7 +251,7 @@ export default function PropiedadesAsesorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary text-conectia-graphite p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
@@ -271,14 +271,14 @@ export default function PropiedadesAsesorPage() {
             <Button
               onClick={() => router.push('/panel-asesor/solicitud-propiedad')}
               variant="outline"
-              className="border-conectia-gold text-black hover:bg-conectia-gold/10 font-semibold w-full sm:w-auto"
+              className="border-conectia-gold text-[#17313A] hover:bg-conectia-gold/10 font-semibold w-full sm:w-auto"
             >
               <Camera className="h-4 w-4 mr-2" />
               Solicitar Propiedad
             </Button>
             <Button
               onClick={handleNewProperty}
-              className="bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold w-full sm:w-auto"
+              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold w-full sm:w-auto"
             >
               <Plus className="h-4 w-4 mr-2" />
               Nueva Propiedad
@@ -316,7 +316,7 @@ export default function PropiedadesAsesorPage() {
                 {user.plan !== 'elite' && (
                   <Button
                     onClick={() => router.push('/panel-asesor/planes')}
-                    className="bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold"
+                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
                   >
                     <Crown className="h-4 w-4 mr-2" />
                     Actualizar a Elite
@@ -401,7 +401,7 @@ export default function PropiedadesAsesorPage() {
               <p className="text-gray-600 mb-6">Comienza publicando tu primera propiedad</p>
               <Button
                 onClick={handleNewProperty}
-                className="bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold"
+                className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Publicar Primera Propiedad

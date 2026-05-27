@@ -527,7 +527,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.habitaciones === num
-                        ? 'bg-conectia-gold text-black border-conectia-gold font-bold shadow-md scale-105'
+                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
                         : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
@@ -549,7 +549,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.banos === num
-                        ? 'bg-conectia-gold text-black border-conectia-gold font-bold shadow-md scale-105'
+                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
                         : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
@@ -571,7 +571,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.mediosBanos === num
-                        ? 'bg-conectia-gold text-black border-conectia-gold font-bold shadow-md scale-105'
+                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
                         : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
@@ -639,7 +639,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.cochera === num
-                        ? 'bg-conectia-gold text-black border-conectia-gold font-bold shadow-md scale-105'
+                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
                         : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
@@ -812,7 +812,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
-                    ? 'bg-[#D4AF37]/90 text-black border-[#D4AF37] shadow-md'
+                    ? 'bg-[#D4AF37]/90 text-[#17313A] border-[#D4AF37] shadow-md'
                     : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                   }
                 `}
@@ -876,7 +876,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
-                    ? 'bg-conectia-gold text-black border-conectia-gold shadow-md'
+                    ? 'bg-conectia-gold text-[#17313A] border-conectia-gold shadow-md'
                     : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                   }
                 `}
@@ -937,7 +937,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   alt="Vista previa"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                   <label htmlFor="imagen" className="cursor-pointer">
                     <input
                       type="file"
@@ -946,7 +946,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       onChange={handleImageUpload}
                       className="hidden"
                     />
-                    <Button type="button" size="sm" className="bg-conectia-gold hover:bg-conectia-gold/90 text-black" asChild>
+                    <Button type="button" size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]" asChild>
                       <span>
                         <Upload className="h-4 w-4 mr-2" />
                         Cambiar
@@ -1024,7 +1024,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       alt={`Galería ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <Button
                         type="button"
                         size="sm"
@@ -1093,7 +1093,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         )}
         <Button 
           type="submit" 
-          className="bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold min-w-[200px]"
+          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold min-w-[200px]"
           disabled={isUploading}
         >
           {isUploading ? (

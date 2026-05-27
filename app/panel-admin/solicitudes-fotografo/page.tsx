@@ -157,7 +157,7 @@ export default function SolicitudesFotografoPage() {
   const rechazadas = solicitudes.filter(s => s.status === 'rechazada').length
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-gradient-to-r from-conectia-graphite to-gray-900 text-white py-6">
         <div className="container mx-auto px-4">

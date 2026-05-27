@@ -142,7 +142,7 @@ export default function SolicitudesFotografoAsesorPage() {
   // Verificar autorización
   if (!ASESORES_AUTORIZADOS.includes(user.email)) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#17313A] flex items-center justify-center">
         <Card className="max-w-md">
           <CardContent className="p-8 text-center">
             <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
@@ -162,7 +162,7 @@ export default function SolicitudesFotografoAsesorPage() {
   const rechazadas = solicitudes.filter(s => s.status === 'rechazada').length
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-gradient-to-r from-conectia-graphite to-gray-900 text-white py-6">
         <div className="container mx-auto px-4">

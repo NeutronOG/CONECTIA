@@ -162,7 +162,7 @@ export default function PanelAdminPage() {
               </button>
               <button
                 onClick={() => router.push('/panel-admin/solicitudes')}
-                className="flex items-center gap-2 px-4 py-2 bg-conectia-gold hover:bg-conectia-gold/90 text-black rounded-xl transition-all font-semibold relative"
+                className="flex items-center gap-2 px-4 py-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-xl transition-all font-semibold relative"
               >
                 <ClipboardList className="w-4 h-4" />
                 <span className="hidden sm:inline">Solicitudes</span>

@@ -35,7 +35,7 @@ export default function PanelPropietario() {
 
   if (!miPropiedad || !progreso) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-8">
+      <div className="min-h-screen bg-[#17313A] p-8">
         <div className="max-w-7xl mx-auto">
           <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
             <Building2 className="w-16 h-16 mx-auto mb-4 text-gray-400" />
@@ -118,7 +118,7 @@ export default function PanelPropietario() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-conectia-secondary/50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-8 py-6">
@@ -163,7 +163,7 @@ export default function PanelPropietario() {
               alt={miPropiedad.titulo}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027]/60 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
               <div className="flex items-start justify-between">
                 <div>

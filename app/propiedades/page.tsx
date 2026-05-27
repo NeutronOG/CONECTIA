@@ -128,27 +128,31 @@ export default function PropiedadesPage() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/fondoconectia.jpg')" }}
         />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-[#17313A]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/60 via-[#17313A]/40 to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 flex items-center">
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 bg-conectia-primary rounded-2xl flex items-center justify-center shadow-lg">
-                <Building className="h-6 w-6 text-conectia-accent" />
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
+                <Building className="h-5 w-5 text-[#C78F7B]" />
               </div>
-              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">Conectia Select</span>
+              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">CONECTIA Select</span>
             </div>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4">
-              Propiedades<br/>
-              <span className="text-conectia-primary">Exclusivas</span>
+            <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-light text-[#EAE4DD] leading-[1.05] mb-3">
+              Propiedades
             </h1>
-            <p className="text-white/80 text-base sm:text-lg mb-6 leading-relaxed">
+            <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic text-[#C78F7B] leading-tight mb-5">
+              Exclusivas
+            </h2>
+            <p className="text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed">
               Descubre nuestra selección de propiedades únicas y premium
             </p>
-            <Badge className="bg-conectia-primary text-conectia-accent border-0 px-4 py-2 text-sm font-semibold shadow-lg">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-[#EAE4DD]"
+              style={{ background: 'rgba(234,228,221,0.12)', border: '1px solid rgba(234,228,221,0.22)', backdropFilter: 'blur(12px)' }}>
               {isLoading ? 'Cargando...' : `${filteredAndSortedProperties.length} de ${propiedades.length} Propiedades`}
-            </Badge>
+            </span>
           </div>
         </div>
       </section>
@@ -307,7 +311,7 @@ export default function PropiedadesPage() {
                         {/* Bono debajo del precio */}
                         {(propiedad as any).bono && (
                           <div className="mb-3">
-                            <div className="inline-block bg-black text-white px-3 py-1.5 rounded-lg text-xs font-bold uppercase shadow-md">
+                            <div className="inline-block bg-[#17313A] text-white px-3 py-1.5 rounded-lg text-xs font-bold uppercase shadow-md">
                               {(propiedad as any).bono}
                             </div>
                           </div>
@@ -357,7 +361,7 @@ export default function PropiedadesPage() {
                         {/* Actions */}
                         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                           <Button 
-                            className="flex-1 bg-conectia-gold hover:bg-conectia-gold/90 text-black rounded-xl text-sm"
+                            className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-xl text-sm"
                             onClick={() => {
                               const mensaje = `¡Hola! 👋 Me interesa agendar una visita para la propiedad:\n\n🏠 *${propiedad.titulo}*\n📍 ${propiedad.ubicacion}\n💰 ${propiedad.precioTexto}\n\n¿Podrían darme más información?`
                               window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`, '_blank')
@@ -419,7 +423,7 @@ export default function PropiedadesPage() {
                               className={`${propiedad.status === "Disponible"
                                 ? "bg-green-500/90 text-white"
                                 : propiedad.status === "Exclusiva"
-                                  ? "bg-conectia-gold/90 text-black"
+                                  ? "bg-conectia-gold/90 text-[#17313A]"
                                   : "bg-red-500/90 text-white"
                                 } backdrop-blur-sm`}
                             >
@@ -485,7 +489,7 @@ export default function PropiedadesPage() {
                               <div className="flex space-x-3">
                                 <Button 
                                   size="sm" 
-                                  className="bg-conectia-gold hover:bg-conectia-gold/90 text-black rounded-xl"
+                                  className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-xl"
                                   onClick={() => {
                                     const mensaje = `¡Hola! 👋 Me interesa agendar una visita para la propiedad:\n\n🏠 *${propiedad.titulo}*\n📍 ${propiedad.ubicacion}\n💰 ${propiedad.precioTexto}\n\n¿Podrían darme más información?`
                                     window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`, '_blank')
@@ -582,7 +586,7 @@ export default function PropiedadesPage() {
                   <p className="text-gray-600 mb-6">Intenta ajustar tus filtros de búsqueda</p>
                   <Button
                     onClick={() => setFilters({})}
-                    className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
                   >
                     Limpiar Filtros
                   </Button>
@@ -594,7 +598,7 @@ export default function PropiedadesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#0F2027] via-[#17313A] to-[#0F2027]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-6">
             ¿Tienes una propiedad exclusiva?
@@ -603,7 +607,7 @@ export default function PropiedadesPage() {
             Únete a nuestro selecto portafolio de propiedades de lujo y accede a compradores exclusivos
           </p>
           <Link href="/propietarios">
-            <Button className="bg-conectia-gold hover:bg-conectia-gold/90 text-black px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg">
+            <Button className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg">
               Registrar mi Propiedad
             </Button>
           </Link>

@@ -278,14 +278,14 @@ export default function PanelFotografoPage() {
   }, 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50">
+    <div className="min-h-screen bg-[#17313A]">
       {/* Header */}
       <div className="bg-gradient-to-r from-conectia-dark to-gray-900 text-white py-8">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-conectia-gold rounded-full flex items-center justify-center">
-                <Camera className="h-8 w-8 text-black" />
+                <Camera className="h-8 w-8 text-[#17313A]" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold">Panel de Fotografía</h1>
@@ -375,7 +375,7 @@ export default function PanelFotografoPage() {
           <Button
             variant={tab === 'solicitudes' ? 'default' : 'outline'}
             onClick={() => { setTab('solicitudes'); setSolicitudDetalle(null) }}
-            className={tab === 'solicitudes' ? 'bg-conectia-gold hover:bg-conectia-gold/90 text-black' : ''}
+            className={tab === 'solicitudes' ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]' : ''}
           >
             <Inbox className="h-4 w-4 mr-2" />
             Solicitudes de Asesores
@@ -388,7 +388,7 @@ export default function PanelFotografoPage() {
           <Button
             variant={tab === 'propiedades' ? 'default' : 'outline'}
             onClick={() => setTab('propiedades')}
-            className={tab === 'propiedades' ? 'bg-conectia-gold hover:bg-conectia-gold/90 text-black' : ''}
+            className={tab === 'propiedades' ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]' : ''}
           >
             <Home className="h-4 w-4 mr-2" />
             Todas las Propiedades ({totalPropiedades})
@@ -560,7 +560,7 @@ export default function PanelFotografoPage() {
                       {(solicitudDetalle.imagenes || []).map((imgUrl, idx) => (
                         <div key={idx} className="relative group">
                           <img src={imgUrl} alt={`Foto ${idx + 1}`} className="w-full h-32 object-cover rounded-lg" />
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                          <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                             <button
                               onClick={() => window.open(imgUrl, '_blank')}
                               className="text-white hover:text-conectia-gold"
@@ -627,7 +627,7 @@ export default function PanelFotografoPage() {
                       <Button
                         onClick={handleUploadToSolicitud}
                         disabled={uploading}
-                        className="w-full bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold"
+                        className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
                       >
                         {uploading ? (
                           <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Subiendo...</>
@@ -781,7 +781,7 @@ export default function PanelFotografoPage() {
                           <Button
                             size="sm"
                             onClick={() => router.push(`/panel-fotografo/propiedades/${propiedad.id}`)}
-                            className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                            className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
                           >
                             <Upload className="h-4 w-4 mr-1" />
                             Fotos

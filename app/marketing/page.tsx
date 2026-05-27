@@ -50,7 +50,7 @@ export default function MarketingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-conectia-secondary/50">
+    <div className="min-h-screen bg-[#17313A]">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">

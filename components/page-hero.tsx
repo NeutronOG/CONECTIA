@@ -32,8 +32,8 @@ export function PageHero({
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url('${bgImage}')` }}
           />
-          <div className="absolute inset-0 bg-black/68" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-[#17313A]/68" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/70 via-[#17313A]/40 to-transparent" />
         </>
       ) : (
         <div className="absolute inset-0 bg-conectia-accent" />

@@ -130,40 +130,50 @@ function LoginContent() {
           {/* Mensaje inspirador */}
           {fromPlans ? (
             <div className="mb-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-conectia-gold/10 rounded-full mb-3">
-                <Sparkles className="w-4 h-4 text-conectia-gold" />
-                <span className="text-sm font-medium text-conectia-gold">Tu éxito comienza aquí</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3"
+                style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.30)' }}>
+                <Sparkles className="w-4 h-4 text-[#C78F7B]" />
+                <span className="text-sm font-medium text-[#C78F7B]">Tu éxito comienza aquí</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              <h2 className="font-titles text-2xl font-light text-[#EAE4DD] mb-2">
                 Bienvenido a CONECTIA
               </h2>
-              <p className="text-gray-600 text-sm">
+              <p className="text-[#B0ACA6] text-sm">
                 Inicia sesión para activar tu plan y potenciar tu carrera inmobiliaria.
               </p>
             </div>
           ) : (
-            <p className="text-gray-600 dark:text-gray-400 text-lg font-medium">
+            <p className="text-[#B0ACA6] text-lg font-medium">
               Acceso a Plataforma CONECTIA
             </p>
           )}
         </div>
 
         {/* Formulario */}
-        <div className="bg-gray-300/50 dark:bg-gray-800 rounded-3xl shadow-xl p-8 border border-gray-400/30 dark:border-gray-700">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="rounded-3xl p-8"
+          style={{
+            background: 'linear-gradient(160deg, rgba(234,228,221,0.13) 0%, rgba(23,49,58,0.35) 100%)',
+            backdropFilter: 'blur(32px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(32px) saturate(160%)',
+            border: '1px solid rgba(234,228,221,0.18)',
+            borderTopColor: 'rgba(255,255,255,0.24)',
+            boxShadow: '0 2px 0 rgba(255,255,255,0.08) inset, 0 24px 64px rgba(23,49,58,0.35)',
+          }}>
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
                 Correo electrónico
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0ACA6]" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-[#EAE4DD] placeholder:text-[#B0ACA6]/60 outline-none transition-all"
+                  style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}
                   placeholder="tu@conectia.mx"
                   required
                 />
@@ -172,17 +182,18 @@ function LoginContent() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
                 Contraseña
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0ACA6]" />
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 bg-conectia-secondary/70 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-[#EAE4DD] placeholder:text-[#B0ACA6]/60 outline-none transition-all"
+                  style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}
                   placeholder="••••••••"
                   required
                 />
@@ -191,7 +202,7 @@ function LoginContent() {
 
             {/* Error */}
             {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-600 dark:text-red-400 text-sm">
+              <div className="flex items-center gap-2 p-3 bg-red-900/20 border border-red-700/30 rounded-xl text-red-400 text-sm">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span>{error}</span>
               </div>
@@ -201,7 +212,8 @@ function LoginContent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-conectia-gold hover:bg-conectia-gold/90 text-gray-800 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-conectia-gold/20"
+              className="w-full py-3 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ background: loading ? 'rgba(199,143,123,0.5)' : '#C78F7B', color: 'white', boxShadow: '0 8px 24px rgba(199,143,123,0.25)' }}
             >
               {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
             </button>
@@ -209,24 +221,25 @@ function LoginContent() {
 
           {/* Biometric Login */}
           {biometricSupported && hasBiometric && biometricUser && (
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-6 pt-6" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
               <button
                 onClick={handleBiometricLogin}
                 disabled={biometricLoading}
-                className="w-full flex items-center justify-center gap-3 py-3.5 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 shadow-lg"
+                className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl font-semibold text-[#EAE4DD] transition-all duration-300 disabled:opacity-50"
+                style={{ background: 'linear-gradient(135deg, #1F3D47, #17313A)', border: '1px solid rgba(234,228,221,0.15)', boxShadow: '0 4px 16px rgba(23,49,58,0.40)' }}
               >
                 {biometricLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-[#EAE4DD]/30 border-t-[#EAE4DD] rounded-full animate-spin" />
                 ) : (
                   <>
-                    <Fingerprint className="w-5 h-5" />
+                    <Fingerprint className="w-5 h-5 text-[#C78F7B]" />
                     <span>Acceder con Face ID / Huella</span>
                   </>
                 )}
               </button>
               <div className="flex items-center justify-between mt-2">
-                <p className="text-xs text-gray-500">
-                  Acceso rápido como <strong>{biometricUser.nombre || biometricUser.email}</strong>
+                <p className="text-xs text-[#B0ACA6]">
+                  Acceso rápido como <strong className="text-[#EAE4DD]">{biometricUser.nombre || biometricUser.email}</strong>
                 </p>
                 <button
                   onClick={() => {
@@ -234,7 +247,7 @@ function LoginContent() {
                     setHasBiometric(false)
                     setBiometricUser(null)
                   }}
-                  className="flex items-center gap-1 text-xs text-red-400 hover:text-red-600 transition-colors"
+                  className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors"
                   title="Borrar datos biométricos guardados"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -246,19 +259,19 @@ function LoginContent() {
 
           {/* Biometric registration success */}
           {biometricRegistered && (
-            <div className="mt-4 flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm">
+            <div className="mt-4 flex items-center gap-2 p-3 bg-green-900/20 border border-green-700/30 rounded-xl text-green-400 text-sm">
               <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
               <span>Face ID / Huella configurado. La próxima vez podrás acceder más rápido.</span>
             </div>
           )}
 
           {/* Link a registro */}
-          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-6 pt-6 text-center" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
+            <p className="text-sm text-[#B0ACA6]">
               ¿No tienes cuenta?{' '}
               <Link 
                 href={fromPlans ? "/registro?from=planes" : "/registro"} 
-                className="text-conectia-gold hover:underline font-medium"
+                className="text-[#C78F7B] hover:text-[#D4987E] underline font-medium transition-colors"
               >
                 Crear cuenta de asesor
               </Link>
@@ -267,7 +280,7 @@ function LoginContent() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+        <p className="text-center text-sm text-[#B0ACA6] mt-6">
           © 2025 CONECTIA. Todos los derechos reservados.
         </p>
       </div>
@@ -280,9 +293,9 @@ export default function LoginPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-conectia-secondary flex items-center justify-center p-4">
         <div className="w-full max-w-md text-center">
-          <div className="animate-pulse">
-            <div className="h-16 w-48 bg-gray-300 rounded mx-auto mb-4"></div>
-            <div className="h-4 w-64 bg-gray-300 rounded mx-auto"></div>
+          <div className="animate-pulse flex flex-col items-center gap-3">
+            <div className="h-16 w-48 rounded-xl" style={{ background: 'rgba(234,228,221,0.10)' }}></div>
+            <div className="h-4 w-64 rounded-full" style={{ background: 'rgba(234,228,221,0.08)' }}></div>
           </div>
         </div>
       </div>

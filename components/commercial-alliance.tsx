@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Check, Building, Zap, Loader2, Users, Crown } from "lucide-react"
+import { Check, Buildings, Lightning, CircleNotch, Users, Crown } from "@phosphor-icons/react"
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -49,7 +49,7 @@ export function CommercialAlliance() {
         }
     }
 
-    // ── Planes individuales: fondo claro / texto oscuro (estilo original) ──────
+    // ── Planes individuales: fondo marfil / acentos arcilla rosada ──────
     const individualPlans = [
         {
             id: "core",
@@ -66,21 +66,21 @@ export function CommercialAlliance() {
                 "Soporte por email",
                 "Acceso a la plataforma web"
             ],
-            icon: Building,
+            icon: Buildings,
             highlight: false,
             badge: "Básico",
-            cardClass: "border-conectia-accent/10 bg-conectia-secondary/60 backdrop-blur-lg hover:-translate-y-1",
-            iconBg: "bg-conectia-accent/5",
-            iconColor: "text-conectia-accent/70",
-            badgeClass: "bg-conectia-accent/5 text-conectia-accent",
-            titleColor: "text-conectia-accent",
-            descColor: "text-conectia-accent/60",
-            priceColor: "text-conectia-accent",
-            periodColor: "text-conectia-accent/50",
-            propColor: "font-semibold text-conectia-accent/80",
-            checkColor: "text-conectia-accent/40",
-            featureColor: "text-conectia-accent/70",
-            btnClass: "bg-conectia-accent/5 hover:bg-conectia-accent/10 text-conectia-accent",
+            cardClass: "border-[#C78F7B]/30 bg-white/12 backdrop-blur-2xl hover:-translate-y-1 shadow-lg hover:shadow-xl",
+            iconBg: "bg-[#EAE4DD]/15",
+            iconColor: "text-[#EAE4DD]",
+            badgeClass: "bg-[#C78F7B]/20 text-[#C78F7B] border-[#C78F7B]/40",
+            titleColor: "text-[#EAE4DD]",
+            descColor: "text-[#B0ACA6]",
+            priceColor: "text-[#EAE4DD]",
+            periodColor: "text-[#B0ACA6]",
+            propColor: "font-semibold text-[#C78F7B]",
+            checkColor: "text-[#C78F7B]",
+            featureColor: "text-[#D5D2C9]",
+            btnClass: "bg-[#C78F7B] hover:bg-[#D4987E] text-white border-0 font-semibold shadow-lg",
         },
         {
             id: "elite",
@@ -100,26 +100,25 @@ export function CommercialAlliance() {
                 "Marketing automatizado",
                 "Análisis predictivo de mercado"
             ],
-            icon: Zap,
+            icon: Lightning,
             highlight: true,
             badge: "Más Popular",
-            // Fondo oscuro (conectia-accent = grafito), texto amarillo (conectia-primary)
-            cardClass: "border-conectia-primary shadow-xl scale-105 z-10 bg-conectia-accent backdrop-blur-xl",
-            iconBg: "bg-conectia-primary/20",
-            iconColor: "text-conectia-primary",
-            badgeClass: "bg-conectia-primary/20 text-conectia-primary",
+            cardClass: "border-[#C78F7B]/40 shadow-2xl scale-105 z-10 bg-[#1F3D47] backdrop-blur-xl",
+            iconBg: "bg-[#EAE4DD]/15",
+            iconColor: "text-[#EAE4DD]",
+            badgeClass: "bg-[#C78F7B]/30 text-[#C78F7B] border-[#C78F7B]/50",
             titleColor: "text-white",
-            descColor: "text-white/60",
-            priceColor: "text-conectia-primary",
-            periodColor: "text-white/50",
-            propColor: "font-semibold text-white/80",
-            checkColor: "text-conectia-primary",
-            featureColor: "text-white/70",
-            btnClass: "bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent shadow-lg hover:shadow-xl",
+            descColor: "text-[#B0ACA6]",
+            priceColor: "text-white",
+            periodColor: "text-[#B0ACA6]",
+            propColor: "font-semibold text-[#EAE4DD]",
+            checkColor: "text-[#C78F7B]",
+            featureColor: "text-[#EAE4DD]",
+            btnClass: "bg-[#C78F7B] hover:bg-[#D4987E] text-white shadow-lg hover:shadow-xl font-semibold border-0",
         }
     ]
 
-    // ── Planes de equipo: versión negativa/invertida de los individuales ───────
+    // ── Planes de equipo ───────
     const teamPlans = [
         {
             id: "team-core",
@@ -139,19 +138,18 @@ export function CommercialAlliance() {
             icon: Users,
             highlight: false,
             badge: "Equipo",
-            // Negativo del Core: fondo oscuro (conectia-accent), texto claro
-            cardClass: "border-white/10 bg-conectia-accent backdrop-blur-lg hover:-translate-y-1",
-            iconBg: "bg-white/5",
-            iconColor: "text-white/70",
-            badgeClass: "bg-white/5 text-white/80",
-            titleColor: "text-white",
-            descColor: "text-white/60",
-            priceColor: "text-white",
-            periodColor: "text-white/50",
-            propColor: "font-semibold text-white/80",
-            checkColor: "text-white/40",
-            featureColor: "text-white/70",
-            btnClass: "bg-white/10 hover:bg-white/20 text-white",
+            cardClass: "border-[#C78F7B]/30 bg-white/12 backdrop-blur-2xl hover:-translate-y-1 shadow-lg hover:shadow-xl",
+            iconBg: "bg-[#EAE4DD]/15",
+            iconColor: "text-[#EAE4DD]",
+            badgeClass: "bg-[#C78F7B]/20 text-[#C78F7B] border-[#C78F7B]/40",
+            titleColor: "text-[#EAE4DD]",
+            descColor: "text-[#B0ACA6]",
+            priceColor: "text-[#EAE4DD]",
+            periodColor: "text-[#B0ACA6]",
+            propColor: "font-semibold text-[#C78F7B]",
+            checkColor: "text-[#C78F7B]",
+            featureColor: "text-[#D5D2C9]",
+            btnClass: "bg-[#C78F7B] hover:bg-[#D4987E] text-white border-0 font-semibold shadow-lg",
         },
         {
             id: "team-elite",
@@ -173,30 +171,29 @@ export function CommercialAlliance() {
             icon: Crown,
             highlight: true,
             badge: "Más Popular",
-            // Negativo del Elite: fondo amarillo (conectia-primary), texto oscuro (conectia-accent)
-            cardClass: "border-conectia-accent/30 shadow-xl scale-105 z-10 bg-conectia-primary backdrop-blur-xl",
-            iconBg: "bg-conectia-accent/10",
-            iconColor: "text-conectia-accent",
-            badgeClass: "bg-conectia-accent/10 text-conectia-accent",
-            titleColor: "text-conectia-accent",
-            descColor: "text-conectia-accent/60",
-            priceColor: "text-conectia-accent",
-            periodColor: "text-conectia-accent/50",
-            propColor: "font-semibold text-conectia-accent/80",
-            checkColor: "text-conectia-accent",
-            featureColor: "text-conectia-accent/70",
-            btnClass: "bg-conectia-accent hover:bg-conectia-accent/90 text-conectia-primary shadow-lg hover:shadow-xl",
+            cardClass: "border-[#C78F7B]/40 shadow-2xl scale-105 z-10 bg-[#1F3D47] backdrop-blur-xl",
+            iconBg: "bg-[#EAE4DD]/15",
+            iconColor: "text-[#EAE4DD]",
+            badgeClass: "bg-[#C78F7B]/30 text-[#C78F7B] border-[#C78F7B]/50",
+            titleColor: "text-white",
+            descColor: "text-[#B0ACA6]",
+            priceColor: "text-white",
+            periodColor: "text-[#B0ACA6]",
+            propColor: "font-semibold text-[#EAE4DD]",
+            checkColor: "text-[#C78F7B]",
+            featureColor: "text-[#EAE4DD]",
+            btnClass: "bg-[#C78F7B] hover:bg-[#D4987E] text-white shadow-lg hover:shadow-xl font-semibold border-0",
         }
     ]
 
     const activePlans = isTeam ? teamPlans : individualPlans
 
     return (
-        <div className="min-h-screen bg-conectia-secondary relative overflow-hidden transition-all duration-500">
+        <div className="min-h-screen bg-[#17313A] relative overflow-hidden transition-all duration-500">
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-conectia-primary/10 rounded-full blur-3xl animate-pulse-slow" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-conectia-primary/5 rounded-full blur-3xl animate-float" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-conectia-primary/5 rotate-45 blur-2xl" />
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#C78F7B]/12 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#17313A]/6 rounded-full blur-3xl" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#C78F7B]/6 rotate-45 blur-2xl" />
             </div>
 
             <div className="relative z-10 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
@@ -204,24 +201,24 @@ export function CommercialAlliance() {
 
                     {/* Header */}
                     <div className="text-center mb-12 space-y-6">
-                        <Badge variant="outline" className="px-4 py-1.5 text-sm border-conectia-accent/20 text-conectia-accent bg-conectia-accent/5 backdrop-blur-sm">
+                        <Badge variant="outline" className="px-4 py-1.5 text-sm border-[#C78F7B]/40 text-[#C78F7B] bg-[#C78F7B]/10 backdrop-blur-sm">
                             Alianza Comercial
                         </Badge>
-                        <h1 className="font-serif text-4xl md:text-6xl font-black text-conectia-accent tracking-tight leading-tight">
+                        <h1 className="font-serif text-4xl md:text-6xl font-black text-[#EAE4DD] tracking-tight leading-tight">
                             Impulsa tu carrera <br />
-                            <span className="text-conectia-primary">inmobiliaria</span>
+                            <span className="text-[#C78F7B] italic">inmobiliaria</span>
                         </h1>
-                        <p className="text-xl text-conectia-accent/70 max-w-2xl mx-auto font-light">
+                        <p className="text-xl text-[#B0ACA6] max-w-2xl mx-auto font-light">
                             Únete a la red de asesores más exclusiva. Elige el plan que mejor se adapte a tu portafolio.
                         </p>
                     </div>
 
                     {/* ── Toggle Individual / Equipo ── */}
                     <div className="flex justify-center mb-12">
-                        <div className="relative flex items-center bg-conectia-accent/8 border border-conectia-accent/15 rounded-2xl p-1.5 gap-1 shadow-inner">
+                        <div className="relative flex items-center bg-[#EAE4DD]/8 border border-[#EAE4DD]/12 rounded-2xl p-1.5 gap-1 shadow-sm">
                             {/* Sliding pill */}
                             <div
-                                className="absolute top-1.5 bottom-1.5 rounded-xl bg-conectia-accent transition-all duration-300 ease-in-out shadow-md"
+                                className="absolute top-1.5 bottom-1.5 rounded-xl bg-[#C78F7B] transition-all duration-300 ease-in-out shadow-md"
                                 style={{
                                     left: isTeam ? 'calc(50% + 2px)' : '6px',
                                     right: isTeam ? '6px' : 'calc(50% + 2px)',
@@ -230,21 +227,21 @@ export function CommercialAlliance() {
                             <button
                                 onClick={() => setIsTeam(false)}
                                 className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-300 ${
-                                    !isTeam ? 'text-conectia-primary' : 'text-conectia-accent/60 hover:text-conectia-accent'
+                                    !isTeam ? 'text-white' : 'text-[#EAE4DD]/50 hover:text-[#EAE4DD]'
                                 }`}
                             >
-                                <Building className="h-4 w-4" />
+                                <Buildings className="h-4 w-4" weight="duotone" />
                                 Individual
                             </button>
                             <button
                                 onClick={() => setIsTeam(true)}
                                 className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-300 ${
-                                    isTeam ? 'text-conectia-primary' : 'text-conectia-accent/60 hover:text-conectia-accent'
+                                    isTeam ? 'text-white' : 'text-[#EAE4DD]/50 hover:text-[#EAE4DD]'
                                 }`}
                             >
-                                <Users className="h-4 w-4" />
+                                <Users className="h-4 w-4" weight="duotone" />
                                 Equipo
-                                <span className="ml-1 text-xs bg-conectia-primary/20 text-conectia-primary px-1.5 py-0.5 rounded-full font-bold">
+                                <span className="ml-1 text-xs bg-[#EAE4DD]/15 text-[#EAE4DD] px-1.5 py-0.5 rounded-full font-bold">
                                     -40%
                                 </span>
                             </button>
@@ -253,7 +250,7 @@ export function CommercialAlliance() {
 
                     {/* Subtitle for team */}
                     {isTeam && (
-                        <p className="text-center text-conectia-accent/60 text-sm mb-8 -mt-6">
+                        <p className="text-center text-[#B0ACA6] text-sm mb-8 -mt-6">
                             Para 2 o más miembros · Precio por miembro/mes
                         </p>
                     )}
@@ -269,7 +266,7 @@ export function CommercialAlliance() {
                                 >
                                     {plan.highlight && (
                                         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                            <Badge className="bg-conectia-primary text-conectia-accent px-4 py-1 font-bold shadow-lg">
+                                            <Badge className="bg-[#C78F7B] text-white px-4 py-1 font-bold shadow-lg">
                                                 {plan.badge}
                                             </Badge>
                                         </div>
@@ -313,7 +310,7 @@ export function CommercialAlliance() {
                                             className={`w-full py-7 text-lg font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] ${plan.btnClass}`}
                                         >
                                             {loading && selectedPlanId === plan.id ? (
-                                                <><Loader2 className="h-5 w-5 mr-2 animate-spin" />Procesando...</>
+                                                <><CircleNotch className="h-5 w-5 mr-2 animate-spin" weight="bold" />Procesando...</>
                                             ) : (
                                                 'Seleccionar Plan'
                                             )}

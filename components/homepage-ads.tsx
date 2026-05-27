@@ -84,7 +84,7 @@ function AdBanner({ ad }: { ad: Ad }) {
               alt={ad.titulo}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/80 via-[#17313A]/50 to-transparent" />
           </div>
         )}
         <div className="relative z-10 p-8 sm:p-12 flex flex-col justify-center min-h-[200px]">

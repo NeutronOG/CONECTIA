@@ -140,7 +140,7 @@ export default function FavoritosPage() {
                       <Link href={`/propiedades/${property.id}`} className="flex-1">
                         <Button
                           variant="outline"
-                          className="w-full rounded-xl font-medium py-2 border-conectia-accent bg-conectia-secondary/50 text-conectia-accent hover:bg-conectia-gold hover:text-black transition-all duration-300"
+                          className="w-full rounded-xl font-medium py-2 border-conectia-accent bg-conectia-secondary/50 text-conectia-accent hover:bg-conectia-gold hover:text-[#17313A] transition-all duration-300"
                         >
                           Ver Detalles
                         </Button>

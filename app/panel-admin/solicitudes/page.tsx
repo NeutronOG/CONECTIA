@@ -162,7 +162,7 @@ export default function SolicitudesPropietariosPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-black text-white p-8">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -326,7 +326,7 @@ export default function SolicitudesPropietariosPage() {
 
                     {/* Descripción */}
                     {submission.description && (
-                      <div className="mb-4 p-3 bg-gray-800/50 rounded-lg">
+                      <div className="mb-4 p-3 bg-[#1F3D47]/50 rounded-lg">
                         <p className="text-gray-400 text-xs mb-1 flex items-center"><FileText className="h-3 w-3 mr-1" />Descripción</p>
                         <p className="text-sm text-gray-200">{submission.description}</p>
                       </div>
@@ -400,7 +400,7 @@ export default function SolicitudesPropietariosPage() {
                     {submission.promocion && submission.promocion !== 'ninguna' && (
                       <div className="mb-4 p-3 bg-gradient-to-r from-[#D4AF37]/20 to-yellow-500/10 rounded-lg border border-[#D4AF37]/40">
                         <p className="text-gray-400 text-xs mb-2 flex items-center"><Tag className="h-3 w-3 mr-1" />Promoción / Bono</p>
-                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-yellow-400 text-black px-4 py-2 rounded-full text-sm font-bold shadow-md">
+                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-yellow-400 text-[#17313A] px-4 py-2 rounded-full text-sm font-bold shadow-md">
                           <Tag className="h-4 w-4" />
                           {submission.promocion === 'personalizada'
                             ? (submission.promocionPersonalizada || 'Promoción Especial')

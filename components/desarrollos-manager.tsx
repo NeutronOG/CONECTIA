@@ -345,7 +345,7 @@ function MiniCalendar({
               onClick={() => onSelectDate(dateKey)}
               className={`relative p-1 text-xs rounded-lg transition-all ${
                 isSelected
-                  ? 'bg-conectia-gold text-black font-bold'
+                  ? 'bg-conectia-gold text-[#17313A] font-bold'
                   : isToday
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
@@ -452,7 +452,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
             onClick={() => setActiveView(key as any)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
               activeView === key
-                ? 'bg-conectia-gold text-black shadow-lg'
+                ? 'bg-conectia-gold text-[#17313A] shadow-lg'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
@@ -645,7 +645,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
                   {formatDateDisplay(selectedDate)}
                   {selectedDate === getTodayStr() && <Badge className="bg-blue-100 text-blue-700 text-xs">Hoy</Badge>}
                 </CardTitle>
-                <Button size="sm" onClick={() => { setShowNewEvent(true); setNewEvent(prev => ({ ...prev, fecha: selectedDate })) }} className="bg-conectia-gold hover:bg-conectia-gold/90 text-black h-8 px-3 text-xs">
+                <Button size="sm" onClick={() => { setShowNewEvent(true); setNewEvent(prev => ({ ...prev, fecha: selectedDate })) }} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] h-8 px-3 text-xs">
                   <Plus className="h-3.5 w-3.5 mr-1" />Nuevo Evento
                 </Button>
               </div>
@@ -730,7 +730,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
                   )}
                   <div className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-conectia-gold text-black rounded-br-md'
+                      ? 'bg-conectia-gold text-[#17313A] rounded-br-md'
                       : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-bl-md border border-gray-200 dark:border-gray-700'
                   }`}>
                     {msg.content.split('\n').map((line, i) => (
@@ -763,7 +763,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
                   placeholder="Ej: avance de Residencial del Parque a 50..."
                   className="text-sm"
                 />
-                <Button onClick={handleSendChat} className="bg-conectia-gold hover:bg-conectia-gold/90 text-black px-4 flex-shrink-0">
+                <Button onClick={handleSendChat} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] px-4 flex-shrink-0">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>

@@ -66,7 +66,7 @@ export default function PlanesPage() {
   const currentPlan = user?.plan || 'core'
 
   return (
-    <div className="min-h-screen bg-conectia-secondary text-conectia-graphite p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -102,7 +102,7 @@ export default function PlanesPage() {
                 } ${isCurrentPlan ? 'ring-2 ring-conectia-gold' : ''}`}
               >
                 {isElite && (
-                  <div className="absolute top-0 right-0 bg-conectia-gold text-black px-4 py-1 text-xs font-bold">
+                  <div className="absolute top-0 right-0 bg-conectia-gold text-[#17313A] px-4 py-1 text-xs font-bold">
                     RECOMENDADO
                   </div>
                 )}
@@ -122,7 +122,7 @@ export default function PlanesPage() {
                       <div>
                         <CardTitle className="text-2xl">{plan.name}</CardTitle>
                         {isCurrentPlan && (
-                          <Badge className="mt-1 bg-conectia-gold text-black">
+                          <Badge className="mt-1 bg-conectia-gold text-[#17313A]">
                             Plan Actual
                           </Badge>
                         )}
@@ -166,7 +166,7 @@ export default function PlanesPage() {
                     disabled={isCurrentPlan || loading}
                     className={`w-full ${
                       isElite
-                        ? 'bg-conectia-gold hover:bg-conectia-gold/90 text-black'
+                        ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]'
                         : 'bg-blue-600 hover:bg-blue-700 text-white'
                     }`}
                   >

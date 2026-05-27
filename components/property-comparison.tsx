@@ -83,7 +83,7 @@ export function PropertyComparison({
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-conectia-gold rounded-full flex items-center justify-center">
-                <TrendingUp className="h-4 w-4 text-black" />
+                <TrendingUp className="h-4 w-4 text-[#17313A]" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">
@@ -127,14 +127,14 @@ export function PropertyComparison({
             <Button
               variant="outline"
               size="sm"
-              className="border-conectia-gold text-conectia-gold hover:bg-conectia-gold hover:text-black"
+              className="border-conectia-gold text-conectia-gold hover:bg-conectia-gold hover:text-[#17313A]"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Compartir
             </Button>
             <Button
               size="sm"
-              className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
             >
               Ver Comparación
               <ArrowRight className="h-4 w-4 ml-2" />
@@ -171,7 +171,7 @@ export function PropertyComparison({
                           property.status === "Disponible"
                             ? "bg-green-500/90 text-white"
                             : property.status === "Exclusiva"
-                              ? "bg-conectia-gold/90 text-black"
+                              ? "bg-conectia-gold/90 text-[#17313A]"
                               : "bg-red-500/90 text-white"
                         } backdrop-blur-sm`}
                       >
@@ -276,7 +276,7 @@ export function PropertyComparison({
                       <Link href={`/propiedades/${property.id}`}>
                         <Button
                           size="sm"
-                          className="bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
                         >
                           <Eye className="h-4 w-4 mr-1" />
                           Ver

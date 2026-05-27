@@ -230,7 +230,7 @@ export default function PublicidadPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-[#1a1a1a] to-black text-white p-4 sm:p-8">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -248,7 +248,7 @@ export default function PublicidadPage() {
             </div>
             <Button
               onClick={() => { resetForm(); setShowForm(true) }}
-              className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-black font-bold"
+              className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#17313A] font-bold"
             >
               <Plus className="h-4 w-4 mr-2" />
               Nuevo Anuncio
@@ -301,7 +301,7 @@ export default function PublicidadPage() {
                       placeholder="Ej: Nuevo desarrollo en Polanco"
                       value={form.titulo}
                       onChange={(e) => setForm(prev => ({ ...prev, titulo: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -310,7 +310,7 @@ export default function PublicidadPage() {
                       placeholder="Ej: Ver más"
                       value={form.textoBoton}
                       onChange={(e) => setForm(prev => ({ ...prev, textoBoton: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export default function PublicidadPage() {
                     rows={3}
                     value={form.descripcion}
                     onChange={(e) => setForm(prev => ({ ...prev, descripcion: e.target.value }))}
-                    className="bg-black/50 border-gray-700 text-white"
+                    className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                   />
                 </div>
 
@@ -335,10 +335,10 @@ export default function PublicidadPage() {
                       placeholder="https://ejemplo.com/imagen.jpg"
                       value={form.imagen}
                       onChange={(e) => setForm(prev => ({ ...prev, imagen: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                     {form.imagen && (
-                      <div className="mt-2 rounded-xl overflow-hidden h-32 bg-black/30">
+                      <div className="mt-2 rounded-xl overflow-hidden h-32 bg-[#1A3540]/50">
                         <img src={form.imagen} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
@@ -351,7 +351,7 @@ export default function PublicidadPage() {
                       placeholder="https://ejemplo.com"
                       value={form.enlace}
                       onChange={(e) => setForm(prev => ({ ...prev, enlace: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export default function PublicidadPage() {
                       <LayoutGrid className="h-3.5 w-3.5" /> Ubicación
                     </Label>
                     <Select value={form.ubicacion} onValueChange={(v) => setForm(prev => ({ ...prev, ubicacion: v }))}>
-                      <SelectTrigger className="bg-black/50 border-gray-700 text-white">
+                      <SelectTrigger className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -378,7 +378,7 @@ export default function PublicidadPage() {
                       <Palette className="h-3.5 w-3.5" /> Estilo
                     </Label>
                     <Select value={form.estilo} onValueChange={(v) => setForm(prev => ({ ...prev, estilo: v }))}>
-                      <SelectTrigger className="bg-black/50 border-gray-700 text-white">
+                      <SelectTrigger className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -411,7 +411,7 @@ export default function PublicidadPage() {
                       type="date"
                       value={form.fechaInicio}
                       onChange={(e) => setForm(prev => ({ ...prev, fechaInicio: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -422,7 +422,7 @@ export default function PublicidadPage() {
                       type="date"
                       value={form.fechaFin}
                       onChange={(e) => setForm(prev => ({ ...prev, fechaFin: e.target.value }))}
-                      className="bg-black/50 border-gray-700 text-white"
+                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
                     />
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function PublicidadPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-black font-bold px-8"
+                    className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#17313A] font-bold px-8"
                   >
                     {saving ? 'Guardando...' : editingId ? 'Guardar Cambios' : 'Crear Anuncio'}
                   </Button>
@@ -468,7 +468,7 @@ export default function PublicidadPage() {
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
                       {ad.imagen && (
-                        <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-black/30">
+                        <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-[#1A3540]/50">
                           <img src={ad.imagen} alt={ad.titulo} className="w-full h-full object-cover" />
                         </div>
                       )}

@@ -46,7 +46,7 @@ export function NotificationToast({
     <div className="fixed inset-0 z-[100] pointer-events-none">
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 pointer-events-auto ${
+        className={`absolute inset-0 bg-[#17313A]/40 transition-opacity duration-300 pointer-events-auto ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         onClick={handleClose}

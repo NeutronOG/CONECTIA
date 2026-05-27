@@ -32,7 +32,7 @@ export function CallButton() {
 
       {/* ConvAI Widget Overlay */}
       {isCallWidgetOpen && (
-        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm">
+        <div className="fixed inset-0 z-40 bg-[#17313A]/20 backdrop-blur-sm">
           <div className="fixed bottom-24 left-6 z-50">
             <div className="bg-conectia-secondary/50 rounded-2xl shadow-2xl p-4 border border-gray-200 w-80">
               <div className="flex items-center justify-between mb-3">

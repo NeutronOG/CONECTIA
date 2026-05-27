@@ -35,7 +35,7 @@ export default function DashboardPage() {
               <div className="font-serif text-2xl font-bold text-conectia-graphite">CONECTIA</div>
             </Link>
             <div className="flex items-center space-x-4">
-              <Badge variant="outline" className="border-conectia-gold text-black">
+              <Badge variant="outline" className="border-conectia-gold text-[#17313A]">
                 Propietario Exclusivo
               </Badge>
               <Button variant="outline" size="sm">

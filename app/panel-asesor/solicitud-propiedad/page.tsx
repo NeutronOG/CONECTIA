@@ -103,7 +103,7 @@ export default function SolicitudPropiedadPage() {
               </Button>
               <Button
                 onClick={() => router.push('/panel-asesor/propiedades')}
-                className="flex-1 bg-conectia-gold hover:bg-conectia-gold/90 text-black"
+                className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
               >
                 Volver a Propiedades
               </Button>
@@ -115,7 +115,7 @@ export default function SolicitudPropiedadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary text-conectia-graphite p-4 sm:p-8">
+    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
         <Button
           variant="ghost"

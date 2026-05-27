@@ -73,12 +73,12 @@ export default function PanelEmpresaPage() {
   const go = (t:Tab) => { setTab(t); setSelected(null) }
 
   return (
-    <div className="min-h-screen bg-black">
-      <header className="bg-black text-white shadow-lg">
+    <div className="min-h-screen bg-[#17313A]">
+      <header className="bg-[#17313A] text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-conectia-gold flex items-center justify-center flex-shrink-0">
-              <Briefcase className="h-5 w-5 text-black"/>
+              <Briefcase className="h-5 w-5 text-[#17313A]"/>
             </div>
             <div>
               <p className="font-bold text-sm text-white">{user.nombre}</p>
@@ -86,7 +86,7 @@ export default function PanelEmpresaPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Badge className="bg-conectia-gold text-black text-xs px-2 py-0.5 hidden sm:flex items-center gap-1"><Award className="h-3 w-3"/> Team Elite</Badge>
+            <Badge className="bg-conectia-gold text-[#17313A] text-xs px-2 py-0.5 hidden sm:flex items-center gap-1"><Award className="h-3 w-3"/> Team Elite</Badge>
             <Button variant="ghost" size="sm" onClick={()=>{logout();router.push('/')}} className="text-white hover:text-conectia-gold hover:bg-white/10 text-xs">
               <LogOut className="h-4 w-4 mr-1"/> Salir
             </Button>
@@ -124,7 +124,7 @@ export default function PanelEmpresaPage() {
               <CardContent className="space-y-1">
                 {[...ASESORES].sort((a,b)=>b.ventas-a.ventas).map((a,i)=>(
                   <div key={a.id} onClick={()=>{setSelected(a);setTab('asesores')}} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${i===0?'bg-conectia-gold text-black':i===1?'bg-gray-300 text-gray-700':i===2?'bg-amber-600 text-white':'bg-gray-100 text-gray-500'}`}>{i+1}</span>
+                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${i===0?'bg-conectia-gold text-[#17313A]':i===1?'bg-gray-300 text-gray-700':i===2?'bg-amber-600 text-white':'bg-gray-100 text-gray-500'}`}>{i+1}</span>
                     <UserCircle className="h-7 w-7 text-conectia-primary flex-shrink-0"/>
                     <div className="flex-1 min-w-0"><p className="text-sm font-semibold text-gray-900 truncate">{a.nombre}</p><p className="text-xs text-gray-500">{a.especialidad}</p></div>
                     <div className="text-right flex-shrink-0"><p className="text-sm font-bold text-green-600">{a.ventas} ventas</p><p className="text-xs text-gray-400">{a.leads} leads</p></div>

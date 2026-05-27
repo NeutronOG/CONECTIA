@@ -6,11 +6,11 @@ import Link from "next/link"
 
 export function VirtualToursSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 relative overflow-hidden">
+    <section className="py-20 px-4 sm:px-6 relative overflow-hidden bg-[#17313A]">
       {/* Background Decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-conectia-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-conectia-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C78F7B]/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#EAE4DD]/6 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -18,16 +18,16 @@ export function VirtualToursSection() {
         <div className="text-center mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-conectia-primary/10 border border-conectia-primary/20 rounded-full">
             <Video className="h-5 w-5 text-conectia-primary" />
-            <span className="text-sm font-bold text-conectia-accent uppercase tracking-wider">
+            <span className="text-sm font-bold text-[#17313A] uppercase tracking-wider">
               Experiencia Inmersiva
             </span>
           </div>
           
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-conectia-accent">
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#17313A]">
             Tours Virtuales <span className="text-conectia-primary">360°</span>
           </h2>
           
-          <p className="text-xl text-conectia-accent/70 max-w-2xl mx-auto">
+          <p className="text-xl text-[#4A4F57] max-w-2xl mx-auto">
             Explora nuestras propiedades desde la comodidad de tu hogar con tecnología de realidad virtual
           </p>
         </div>
@@ -47,23 +47,23 @@ export function VirtualToursSection() {
               
               {/* Title */}
               <div className="space-y-2">
-                <h3 className="font-serif text-3xl font-bold text-conectia-accent">
+                <h3 className="font-serif text-3xl font-bold text-[#17313A]">
                   Próximamente
                 </h3>
-                <p className="text-lg text-conectia-accent/70 max-w-md mx-auto">
+                <p className="text-lg text-[#4A4F57] max-w-md mx-auto">
                   Estamos preparando una experiencia inmersiva única para que puedas explorar nuestras propiedades en 360°
                 </p>
               </div>
               
               {/* Features coming */}
               <div className="flex flex-wrap justify-center gap-3 pt-4">
-                <span className="px-4 py-2 bg-conectia-primary/10 text-conectia-accent rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-conectia-primary/10 text-[#17313A] rounded-full text-sm font-medium">
                   Recorridos 360°
                 </span>
-                <span className="px-4 py-2 bg-conectia-primary/10 text-conectia-accent rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-conectia-primary/10 text-[#17313A] rounded-full text-sm font-medium">
                   Realidad Virtual
                 </span>
-                <span className="px-4 py-2 bg-conectia-primary/10 text-conectia-accent rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-conectia-primary/10 text-[#17313A] rounded-full text-sm font-medium">
                   Vista Inmersiva
                 </span>
               </div>
@@ -74,7 +74,7 @@ export function VirtualToursSection() {
         {/* CTA */}
         <div className="text-center mt-12">
           <Link href="/propiedades">
-            <Button className="bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent font-bold px-10 py-6 rounded-2xl text-lg shadow-xl hover:scale-105 transition-all duration-300">
+            <Button className="bg-conectia-primary hover:bg-conectia-primary/90 text-[#EAE4DD] font-bold px-10 py-6 rounded-2xl text-lg shadow-xl hover:scale-105 transition-all duration-300">
               Ver Propiedades Disponibles
               <Video className="h-5 w-5 ml-2" />
             </Button>

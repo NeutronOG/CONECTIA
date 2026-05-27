@@ -170,7 +170,7 @@ function UnidadesSection() {
               onClick={() => setActiveIdx(i)}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all border ${
                 activeIdx === i
-                  ? 'bg-[#e8ff50] text-black border-[#e8ff50]'
+                  ? 'bg-[#e8ff50] text-[#17313A] border-[#e8ff50]'
                   : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
               }`}
             >
@@ -229,7 +229,7 @@ function UnidadesSection() {
             href="https://wa.me/524774756951"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-conectia-gold hover:bg-conectia-gold/90 text-black font-semibold px-6 py-3 rounded-lg transition-all"
+            className="inline-flex items-center gap-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold px-6 py-3 rounded-lg transition-all"
           >
             <Phone className="h-4 w-4" />
             Apartar por WhatsApp
@@ -249,8 +249,8 @@ export default function DesarrollosPage() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('https://mnrfsdrjadretxesjxhu.supabase.co/storage/v1/object/sign/conectia/hf_20260219_015208_b75495b2-1016-45df-a1f8-d1160006831b.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZTg2NjJkMS1lZjIzLTRkZjUtYjAwYy04NjVkOTcwYzljZWMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhcmtpbi9oZl8yMDI2MDIxOV8wMTUyMDhfYjc1NDk1YjItMTAxNi00NWRmLWExZjgtZDExNjAwMDY4MzFiLmpwZWciLCJpYXQiOjE3NzE0NjYyNTQsImV4cCI6MTgwMzAwMjI1NH0.0ew5z0WbvUkHQAwo8zOlhQFyLokmh2PKTqjqBtpxcuc'}" }}
         />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-[#17313A]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/60 via-[#17313A]/40 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 flex items-center">
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-5">
@@ -267,7 +267,7 @@ export default function DesarrollosPage() {
               Descubre los mejores desarrollos verticales, horizontales y fraccionamientos.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button size="lg" className="bg-conectia-primary hover:bg-conectia-primary/90 text-black font-semibold rounded-xl shadow-lg">
+              <Button size="lg" className="bg-conectia-primary hover:bg-conectia-primary/90 text-[#17313A] font-semibold rounded-xl shadow-lg">
                 <Building2 className="mr-2 h-5 w-5" />
                 Ver Desarrollos
               </Button>
@@ -444,7 +444,7 @@ export default function DesarrollosPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contacto">
-              <Button size="lg" className="bg-conectia-gold hover:bg-conectia-gold/90 text-black">
+              <Button size="lg" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]">
                 Agendar Cita
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
