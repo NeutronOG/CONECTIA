@@ -23,7 +23,8 @@ import {
   Award,
   ClipboardList,
   Camera,
-  Sparkles
+  Sparkles,
+  History
 } from 'lucide-react'
 import { OwnerSubmissionsStorage } from '@/lib/owner-submissions-storage'
 
@@ -171,6 +172,13 @@ export default function PanelAdminPage() {
                     {submissionsStats.pending}
                   </span>
                 )}
+              </button>
+              <button
+                onClick={() => router.push('/panel-admin/auditoria')}
+                className="flex items-center gap-2 px-4 py-2 bg-[#17313A] hover:bg-[#1F3D47] text-[#EAE4DD] border border-[#C78F7B] rounded-xl transition-all font-semibold"
+              >
+                <History className="w-4 h-4 text-[#C78F7B]" />
+                <span className="hidden sm:inline">Auditoría</span>
               </button>
               <button
                 onClick={() => router.push('/panel-admin/publicidad')}

@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { users as mockUsers } from '@/data/internal-users'
+import { logAudit } from '@/lib/audit-log'
 
 interface User {
   id: string
@@ -263,6 +264,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             plan: (mockUser as any).plan || undefined,
           }
           setUser(userData)
+          
+          // Registrar login en auditoría (especialmente para Ari)
+          logAudit(
+            { id: userData.id, email: userData.email, nombre: userData.nombre || userData.email },
+            'login',
+            'usuario',
+            userData.id,
+            userData.nombre || userData.email,
+            { role: userData.role, esEditor: (mockUser as any).esEditorPrincipal || false }
+          )
+          
           try {
             localStorage.setItem(MOCK_USER_STORAGE_KEY, JSON.stringify(userData))
           } catch (e) {
@@ -313,6 +325,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
+      // Registrar logout en auditoría antes de limpiar
+      if (user) {
+        logAudit(
+          { id: user.id, email: user.email, nombre: user.nombre || user.email },
+          'logout',
+          'usuario',
+          user.id,
+          user.nombre || user.email,
+          { role: user.role }
+        )
+      }
+      
       // Limpiar mock user de localStorage
       localStorage.removeItem(MOCK_USER_STORAGE_KEY)
       setUser(null)

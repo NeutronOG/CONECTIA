@@ -11,6 +11,8 @@ export interface User {
   avatar?: string
   propiedadId?: number // Para propietarios
   plan?: PlanType // Plan de suscripción para asesores
+  permisos?: string[] // Permisos especiales para admins editores
+  esEditorPrincipal?: boolean // Indica si es editor principal como Ari
 }
 
 export interface PropertyProgress {

@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Building2, Trash2, Eye, ArrowLeft, AlertTriangle, Save } from 'lucide-react'
+import { Building2, Trash2, Eye, ArrowLeft, AlertTriangle, Save, FileText, History } from 'lucide-react'
 import { PropertiesStorage } from '@/lib/properties-storage'
 import { ShareButton } from '@/components/share-button'
+import { SocialShareFormats } from '@/components/social-share-formats'
 import { Propiedad } from '@/data/propiedades'
 import { toast } from 'sonner'
+import { logAudit } from '@/lib/audit-log'
 import {
     Select,
     SelectContent,
@@ -109,6 +111,7 @@ export default function AdminPropiedadesPage() {
 
     const handleDelete = async (id: number) => {
         console.log('🗑️ Intentando eliminar propiedad ID:', id)
+        const propiedad = propiedades.find(p => p.id === id)
         try {
             console.log('Llamando a PropertiesStorage.delete...')
             const result = await PropertiesStorage.delete(id)
@@ -116,6 +119,24 @@ export default function AdminPropiedadesPage() {
 
             if (result) {
                 toast.success('Propiedad eliminada exitosamente')
+                
+                // Registrar auditoría
+                if (user && propiedad) {
+                    logAudit(
+                        { id: user.id, email: user.email, nombre: user.nombre || user.email },
+                        'propiedad_eliminada',
+                        'propiedad',
+                        String(id),
+                        propiedad.titulo,
+                        { 
+                            ubicacion: propiedad.ubicacion,
+                            precio: propiedad.precioTexto,
+                            eliminadoPor: user.email,
+                            esAri: user.email === 'ari@conectia.mx'
+                        }
+                    )
+                }
+                
                 await loadProperties()
                 setDeleteConfirm(null)
             } else {
@@ -362,14 +383,22 @@ export default function AdminPropiedadesPage() {
 
                                             {/* Botones de acción */}
                                             <div className="flex gap-2 flex-wrap">
-                                                <ShareButton
-                                                    title={propiedad.titulo}
-                                                    description={`${propiedad.ubicacion} - ${propiedad.precioTexto}`}
-                                                    url={`/propiedad/${propiedad.id}`}
-                                                    image={propiedad.imagen}
+                                                <SocialShareFormats
+                                                    property={{
+                                                        id: propiedad.id,
+                                                        titulo: propiedad.titulo,
+                                                        ubicacion: propiedad.ubicacion,
+                                                        precioTexto: propiedad.precioTexto,
+                                                        tipo: propiedad.tipo,
+                                                        imagen: propiedad.imagen,
+                                                        descripcion: propiedad.descripcion,
+                                                        habitaciones: propiedad.habitaciones,
+                                                        banos: propiedad.banos,
+                                                        areaTexto: propiedad.areaTexto,
+                                                    }}
                                                     variant="outline"
                                                     size="sm"
-                                                    className="bg-[#17313A] border-[#C78F7B] text-[#EAE4DD] hover:bg-[#C78F7B] hover:text-[#17313A]"
+                                                    className="border-[#C78F7B] text-[#EAE4DD] hover:bg-[#C78F7B] hover:text-[#17313A]"
                                                 />
                                                 <Button
                                                     variant="outline"

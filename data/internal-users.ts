@@ -11,6 +11,17 @@ export const users: User[] = [
     avatar: '/avatars/admin.jpg'
   },
   {
+    id: 'admin-ari',
+    nombre: 'Ari',
+    email: 'ari@conectia.mx',
+    role: 'admin',
+    telefono: '+52 477 475 6952',
+    avatar: '/avatars/ari.jpg',
+    password: 'ari_conectia2025',
+    permisos: ['editar_propiedades', 'subir_propiedades', 'bajar_propiedades', 'ver_logs'],
+    esEditorPrincipal: true
+  },
+  {
     id: 'asesor-1',
     nombre: 'Ana García',
     email: 'ana@conectia.mx',
