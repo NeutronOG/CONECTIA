@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { WishlistButton } from "@/components/wishlist-button"
+import { ShareButton } from "@/components/share-button"
 import { MapPin, Bed, Bathtub, Square, Calendar } from "@phosphor-icons/react"
 import Link from "next/link"
 
@@ -155,6 +156,15 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
             <Calendar className="h-3.5 w-3.5 mr-1.5" />
             Agendar Visita
           </Button>
+          <ShareButton
+            title={propiedad.titulo}
+            description={`${propiedad.ubicacion} - ${propiedad.precioTexto}`}
+            url={`/propiedades/${propiedad.id}`}
+            image={imgSrc}
+            variant="outline"
+            size="sm"
+            className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"
+          />
           <Link href={`/propiedades/${propiedad.id}`}>
             <Button
               variant="outline"

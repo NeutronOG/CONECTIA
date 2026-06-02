@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { WishlistButton } from "@/components/wishlist-button"
+import { ShareButton } from "@/components/share-button"
 import type { Propiedad } from "@/data/propiedades"
 import { usePropertyStatic } from "@/hooks/use-properties-static"
 
@@ -143,16 +144,26 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       {propertyData.ubicacion}
                     </div>
                   </div>
-                  <WishlistButton property={{
-                    id: String(propertyData.id),
-                    title: propertyData.titulo,
-                    price: propertyData.precioTexto,
-                    location: propertyData.ubicacion,
-                    image: propertyData.imagen,
-                    bedrooms: propertyData.habitaciones,
-                    bathrooms: propertyData.banos,
-                    area: propertyData.area,
-                  }} />
+                  <div className="flex gap-2">
+                    <ShareButton
+                      title={propertyData.titulo}
+                      description={`${propertyData.ubicacion} - ${propertyData.precioTexto}`}
+                      url={`/propiedades/${propertyData.id}`}
+                      image={propertyData.imagen}
+                      variant="outline"
+                      size="sm"
+                    />
+                    <WishlistButton property={{
+                      id: String(propertyData.id),
+                      title: propertyData.titulo,
+                      price: propertyData.precioTexto,
+                      location: propertyData.ubicacion,
+                      image: propertyData.imagen,
+                      bedrooms: propertyData.habitaciones,
+                      bathrooms: propertyData.banos,
+                      area: propertyData.areaTexto,
+                    }} />
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>

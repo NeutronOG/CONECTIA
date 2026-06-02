@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Building2, Trash2, Eye, ArrowLeft, AlertTriangle, Save } from 'lucide-react'
 import { PropertiesStorage } from '@/lib/properties-storage'
+import { ShareButton } from '@/components/share-button'
 import { Propiedad } from '@/data/propiedades'
 import { toast } from 'sonner'
 import {
@@ -359,8 +360,17 @@ export default function AdminPropiedadesPage() {
                                                 <span>📐 {propiedad.areaTexto}</span>
                                             </div>
 
-                                            {/* Botón de eliminar */}
-                                            <div className="flex gap-2">
+                                            {/* Botones de acción */}
+                                            <div className="flex gap-2 flex-wrap">
+                                                <ShareButton
+                                                    title={propiedad.titulo}
+                                                    description={`${propiedad.ubicacion} - ${propiedad.precioTexto}`}
+                                                    url={`/propiedad/${propiedad.id}`}
+                                                    image={propiedad.imagen}
+                                                    variant="outline"
+                                                    size="sm"
+                                                    className="bg-[#17313A] border-[#C78F7B] text-[#EAE4DD] hover:bg-[#C78F7B] hover:text-[#17313A]"
+                                                />
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
