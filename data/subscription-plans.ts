@@ -100,13 +100,16 @@ export function getPlanById(planId: PlanType): SubscriptionPlan | undefined {
   return [...subscriptionPlans, ...teamPlans].find(plan => plan.id === planId)
 }
 
-export function canAddProperty(currentPlan: PlanType, currentPropertyCount: number): boolean {
+export function canAddProperty(currentPlan: PlanType, currentPropertyCount: number, userEmail?: string): boolean {
+  // Lizzie tiene propiedades ilimitadas
+  if (userEmail === 'lizzie@conectia.mx') return true
+
   const plan = getPlanById(currentPlan)
   if (!plan) return false
-  
+
   // Si maxProperties es -1, es ilimitado
   if (plan.maxProperties === -1) return true
-  
+
   // Verificar si no ha alcanzado el límite
   return currentPropertyCount < plan.maxProperties
 }

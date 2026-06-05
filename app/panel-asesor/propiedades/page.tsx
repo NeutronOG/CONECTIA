@@ -171,7 +171,7 @@ export default function PropiedadesAsesorPage() {
     const currentPlan = getPlanById(userPlan)
     
     // Verificar si puede agregar más propiedades
-    if (!canAddProperty(userPlan, propiedades.length)) {
+    if (!canAddProperty(userPlan, propiedades.length, user?.email)) {
       const limit = getPropertyLimit(userPlan)
       toast.error(
         `Has alcanzado el límite de ${limit} propiedades del ${currentPlan?.name}`,
@@ -306,14 +306,14 @@ export default function PropiedadesAsesorPage() {
                       {getPlanById(user.plan || 'core')?.name}
                     </h3>
                     <p className="text-sm text-gray-600">
-                      {user.plan === 'elite' 
+                      {user.plan === 'elite' || user.email === 'lizzie@conectia.mx'
                         ? `Propiedades ilimitadas • ${propiedades.length} activas`
                         : `${propiedades.length} de ${getPropertyLimit(user.plan || 'core')} propiedades`
                       }
                     </p>
                   </div>
                 </div>
-                {user.plan !== 'elite' && (
+                {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
                   <Button
                     onClick={() => router.push('/panel-asesor/planes')}
                     className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
