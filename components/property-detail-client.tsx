@@ -139,7 +139,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       <Badge variant="outline">{propertyData.tipo}</Badge>
                     </div>
                     <CardTitle className="text-3xl mb-2 uppercase">{propertyData.titulo}</CardTitle>
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-white">
                       <MapPin className="h-4 w-4 mr-1" />
                       {propertyData.ubicacion}
                     </div>
@@ -210,7 +210,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   <TabsContent value="descripcion" className="mt-4 space-y-4">
                     <div>
                       <h3 className="font-semibold text-lg mb-2 text-conectia-accent">Acerca de esta propiedad</h3>
-                      <p className="text-gray-600 leading-relaxed">{propertyData.descripcion}</p>
+                      <p className="text-white leading-relaxed">{propertyData.descripcion}</p>
                     </div>
                     
                     {propertyData.tourVirtual && (
@@ -228,7 +228,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   {/* Características y Amenidades - Expandible */}
                   <TabsContent value="caracteristicas" className="mt-4">
                     <Accordion type="single" collapsible className="w-full space-y-2">
-                      <AccordionItem value="amenidades" className="border rounded-lg px-4 bg-white">
+                      <AccordionItem value="amenidades" className="border rounded-lg px-4 bg-[#1A3540]">
                         <AccordionTrigger className="hover:no-underline py-3">
                           <div className="flex items-center gap-2">
                             <Sparkles className="h-5 w-5 text-conectia-gold" />
@@ -240,11 +240,11 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                             {propertyData.caracteristicas?.map((car, i) => {
                               const Icon = amenityIcons[car] || Shield
                               return (
-                                <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-50 border border-gray-200 hover:border-conectia-gold/50 transition-colors">
+                                <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#1A3540] border border-gray-600 hover:border-conectia-gold/50 transition-colors">
                                   <div className="w-8 h-8 rounded-full bg-conectia-gold/10 flex items-center justify-center flex-shrink-0">
                                     <Icon className="h-4 w-4 text-conectia-gold" />
                                   </div>
-                                  <span className="text-xs font-medium text-gray-700 leading-tight">{car}</span>
+                                  <span className="text-xs font-medium text-white leading-tight">{car}</span>
                                 </div>
                               )
                             })}
@@ -252,7 +252,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                         </AccordionContent>
                       </AccordionItem>
 
-                      <AccordionItem value="espacios" className="border rounded-lg px-4 bg-white">
+                      <AccordionItem value="espacios" className="border rounded-lg px-4 bg-[#1A3540]">
                         <AccordionTrigger className="hover:no-underline py-3">
                           <div className="flex items-center gap-2">
                             <Square className="h-5 w-5 text-conectia-gold" />
@@ -297,40 +297,40 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       <h3 className="font-semibold text-lg mb-3 text-conectia-accent">Información Detallada</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                          <span className="text-gray-600 text-sm">Tipo de Propiedad</span>
-                          <span className="font-medium text-gray-900">{propertyData.detalles?.tipoPropiedad || propertyData.tipo}</span>
+                          <span className="text-white text-sm">Tipo de Propiedad</span>
+                          <span className="font-medium text-white">{propertyData.detalles?.tipoPropiedad || propertyData.tipo}</span>
                         </div>
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                          <span className="text-gray-600 text-sm">Área Total</span>
-                          <span className="font-medium text-gray-900">{propertyData.areaTexto}</span>
+                          <span className="text-white text-sm">Área Total</span>
+                          <span className="font-medium text-white">{propertyData.areaTexto}</span>
                         </div>
                         {propertyData.detalles?.areaTerreno && (
                           <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                            <span className="text-gray-600 text-sm">Área de Terreno</span>
-                            <span className="font-medium text-gray-900">{propertyData.detalles.areaTerreno}</span>
+                            <span className="text-white text-sm">Área de Terreno</span>
+                            <span className="font-medium text-white">{propertyData.detalles.areaTerreno}</span>
                           </div>
                         )}
                         {propertyData.detalles?.antiguedad && (
                           <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                            <span className="text-gray-600 text-sm">Antigüedad</span>
-                            <span className="font-medium text-gray-900">{propertyData.detalles.antiguedad}</span>
+                            <span className="text-white text-sm">Antigüedad</span>
+                            <span className="font-medium text-white">{propertyData.detalles.antiguedad}</span>
                           </div>
                         )}
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                          <span className="text-gray-600 text-sm">Estado</span>
+                          <span className="text-white text-sm">Estado</span>
                           <Badge className="bg-conectia-gold text-[#17313A]">{propertyData.status}</Badge>
                         </div>
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                          <span className="text-gray-600 text-sm">Categoría</span>
+                          <span className="text-white text-sm">Categoría</span>
                           <Badge variant="outline" className="capitalize">{propertyData.categoria}</Badge>
                         </div>
                         {propertyData.detalles?.publicado && (
                           <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                            <span className="text-gray-600 text-sm flex items-center gap-1">
+                            <span className="text-white text-sm flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               Fecha de Publicación
                             </span>
-                            <span className="font-medium text-gray-900">{propertyData.detalles.publicado}</span>
+                            <span className="font-medium text-white">{propertyData.detalles.publicado}</span>
                           </div>
                         )}
                       </div>
@@ -339,21 +339,21 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     {/* Estadísticas */}
                     {propertyData.detalles && (
                       <div className="pt-4 border-t">
-                        <h4 className="font-semibold text-gray-700 mb-3">Estadísticas</h4>
+                        <h4 className="font-semibold text-white mb-3">Estadísticas</h4>
                         <div className="grid grid-cols-2 gap-4">
-                          <div className="p-3 rounded-lg bg-blue-50 border border-blue-200">
+                          <div className="p-3 rounded-lg bg-[#1A3540] border border-gray-600">
                             <div className="flex items-center gap-2 mb-1">
-                              <Camera className="h-4 w-4 text-blue-600" />
-                              <span className="text-xs text-blue-600 font-medium">Vistas</span>
+                              <Camera className="h-4 w-4 text-conectia-gold" />
+                              <span className="text-xs text-white font-medium">Vistas</span>
                             </div>
-                            <p className="text-2xl font-bold text-blue-700">{propertyData.detalles.vistas?.toLocaleString()}</p>
+                            <p className="text-2xl font-bold text-white">{propertyData.detalles.vistas?.toLocaleString()}</p>
                           </div>
-                          <div className="p-3 rounded-lg bg-red-50 border border-red-200">
+                          <div className="p-3 rounded-lg bg-[#1A3540] border border-gray-600">
                             <div className="flex items-center gap-2 mb-1">
-                              <Heart className="h-4 w-4 text-red-600" />
-                              <span className="text-xs text-red-600 font-medium">Favoritos</span>
+                              <Heart className="h-4 w-4 text-conectia-gold" />
+                              <span className="text-xs text-white font-medium">Favoritos</span>
                             </div>
-                            <p className="text-2xl font-bold text-red-700">{propertyData.detalles.favoritos?.toLocaleString()}</p>
+                            <p className="text-2xl font-bold text-white">{propertyData.detalles.favoritos?.toLocaleString()}</p>
                           </div>
                         </div>
                       </div>
@@ -364,11 +364,11 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   <TabsContent value="ubicacion" className="mt-4 space-y-4">
                     <div>
                       <h3 className="font-semibold text-lg mb-3 text-conectia-accent">Ubicación</h3>
-                      <div className="flex items-start gap-3 p-4 rounded-lg bg-gray-50 border border-gray-200">
+                      <div className="flex items-start gap-3 p-4 rounded-lg bg-[#1A3540] border border-gray-600">
                         <MapPin className="h-5 w-5 text-conectia-gold flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-medium text-gray-900">{propertyData.ubicacion}</p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="font-medium text-white">{propertyData.ubicacion}</p>
+                          <p className="text-sm text-white mt-1">
                             Esta propiedad se encuentra en una ubicación privilegiada con fácil acceso a servicios, transporte y amenidades.
                           </p>
                         </div>
@@ -394,7 +394,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   </Avatar>
                   <div>
                     <p className="font-medium">Asesor CONECTIA</p>
-                    <p className="text-sm text-gray-500">Especialista en Propiedades</p>
+                    <p className="text-sm text-white">Especialista en Propiedades</p>
                   </div>
                 </div>
 
