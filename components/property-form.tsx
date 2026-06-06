@@ -528,7 +528,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.habitaciones === num
                         ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
                   >
@@ -550,7 +550,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.banos === num
                         ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
                   >
@@ -572,7 +572,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.mediosBanos === num
                         ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
                   >
@@ -640,7 +640,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.cochera === num
                         ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                       }
                     `}
                   >
@@ -769,7 +769,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     p-2 rounded-lg border text-sm font-medium transition-all text-left
                     ${actividadesRecreativasSeleccionadas.includes(actividad)
                       ? 'bg-blue-500/90 text-white border-blue-500 shadow-md'
-                      : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-blue-500/50 hover:bg-blue-500/5'
+                      : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-blue-500/50 hover:bg-blue-500/5'
                     }
                   `}
                 >
@@ -813,7 +813,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
                     ? 'bg-[#D4AF37]/90 text-[#17313A] border-[#D4AF37] shadow-md'
-                    : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                    : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                   }
                 `}
               >
@@ -877,7 +877,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
                     ? 'bg-conectia-gold text-[#17313A] border-conectia-gold shadow-md'
-                    : 'bg-conectia-secondary/50 text-gray-600 border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                    : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
                   }
                 `}
               >
