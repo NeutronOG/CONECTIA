@@ -610,7 +610,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
             </Button>
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            Powered by Claude AI • CONECTIA
+            CONECTIA
           </p>
         </div>
       </div>

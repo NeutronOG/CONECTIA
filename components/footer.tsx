@@ -148,7 +148,6 @@ export function Footer() {
               <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
                   <span className="text-sm text-[#B0ACA6]">© 2025 CONECTIA. Todos los derechos reservados.</span>
-                  <span className="text-xs text-[#B0ACA6]/50">Powered by HUTEC</span>
                 </div>
                 <div className="flex gap-6 text-sm">
                   <Link href="/legal" className="text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
