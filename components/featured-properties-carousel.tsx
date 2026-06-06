@@ -62,9 +62,6 @@ export function FeaturedPropertiesCarousel() {
         }}
       />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-conectia-accent via-conectia-accent/60 to-transparent" />
-
       {/* Content */}
       <div className="relative h-full flex flex-col justify-end p-8 sm:p-12">
         {/* Property Info */}
