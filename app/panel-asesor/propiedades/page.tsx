@@ -8,7 +8,6 @@ import { propiedades as mockPropiedades } from '@/data/propiedades'
 import { Propiedad } from '@/data/propiedades'
 import { PropertyForm } from '@/components/property-form'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
   Plus,
@@ -212,25 +211,18 @@ export default function PropiedadesAsesorPage() {
 
   if (showForm) {
     return (
-      <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-8">
-        <div className="max-w-4xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setShowForm(false)
-              setEditingProperty(null)
-            }}
-            className="mb-6"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver
-          </Button>
+      <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
+        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+          <button onClick={() => { setShowForm(false); setEditingProperty(null); }} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-6 text-sm transition-colors">
+            <ArrowLeft className="h-4 w-4" /> Volver
+          </button>
 
           <div className="mb-6">
-            <h1 className="text-3xl font-bold mb-2 text-conectia-graphite">
+            <h1 className="text-3xl font-black text-white mb-2">
               {editingProperty ? 'Editar Propiedad' : 'Nueva Propiedad'}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm text-[#B0ACA6]">
               {editingProperty ? 'Actualiza la información de la propiedad' : 'Completa el formulario para publicar una nueva propiedad'}
             </p>
           </div>
@@ -240,10 +232,7 @@ export default function PropiedadesAsesorPage() {
             asesorEmail={user.email}
             asesorNombre={user.nombre || ''}
             onSubmit={handleSubmit}
-            onCancel={() => {
-              setShowForm(false)
-              setEditingProperty(null)
-            }}
+            onCancel={() => { setShowForm(false); setEditingProperty(null); }}
           />
         </div>
       </div>
@@ -251,342 +240,189 @@ export default function PropiedadesAsesorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div className="w-full sm:w-auto">
-            <Button
-              variant="ghost"
-              onClick={() => router.push('/panel-asesor')}
-              className="mb-3 sm:mb-4"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Volver al Panel
-            </Button>
-            <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-conectia-graphite">Mis Propiedades</h1>
-            <p className="text-sm sm:text-base text-gray-600">Gestiona tu portafolio de propiedades</p>
+            <button onClick={() => router.push('/panel-asesor')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-3 sm:mb-4 text-sm transition-colors">
+              <ArrowLeft className="h-4 w-4" /> Volver al Panel
+            </button>
+            <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">Mis Propiedades</h1>
+            <p className="text-sm text-[#B0ACA6]">Gestiona tu portafolio de propiedades</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            <Button
-              onClick={() => router.push('/panel-asesor/solicitud-propiedad')}
-              variant="outline"
-              className="border-conectia-gold text-[#17313A] hover:bg-conectia-gold/10 font-semibold w-full sm:w-auto"
-            >
-              <Camera className="h-4 w-4 mr-2" />
-              Solicitar Propiedad
-            </Button>
-            <Button
-              onClick={handleNewProperty}
-              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold w-full sm:w-auto"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Nueva Propiedad
-            </Button>
+          <div className="flex flex-wrap gap-2">
+            <button onClick={() => router.push('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+              <Camera className="h-4 w-4 text-[#C78F7B]" /> Solicitar Propiedad
+            </button>
+            <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+              <Plus className="h-4 w-4" /> Nueva Propiedad
+            </button>
           </div>
         </div>
 
-        {/* Plan Information */}
+        {/* Plan Info — Glassmorphism */}
         {user && (
-          <Card className="mb-6 bg-gradient-to-r from-conectia-gold/10 to-conectia-gold/5 border-conectia-gold/30">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  {user.plan === 'elite' ? (
-                    <div className="p-3 bg-conectia-gold rounded-xl">
-                      <Crown className="h-6 w-6 text-white" />
-                    </div>
-                  ) : (
-                    <div className="p-3 bg-blue-500 rounded-xl">
-                      <Zap className="h-6 w-6 text-white" />
-                    </div>
-                  )}
-                  <div>
-                    <h3 className="text-lg font-bold text-conectia-graphite">
-                      {getPlanById(user.plan || 'core')?.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {user.plan === 'elite' || user.email === 'lizzie@conectia.mx'
-                        ? `Propiedades ilimitadas • ${propiedades.length} activas`
-                        : `${propiedades.length} de ${getPropertyLimit(user.plan || 'core')} propiedades`
-                      }
-                    </p>
-                  </div>
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-5 sm:p-6 mb-8 overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: user.plan === 'elite' ? 'rgba(199,143,123,0.2)' : 'rgba(59,130,246,0.2)', border: user.plan === 'elite' ? '1px solid rgba(199,143,123,0.3)' : '1px solid rgba(59,130,246,0.3)' }}>
+                  {user.plan === 'elite' ? <Crown className="h-5 w-5 text-[#C78F7B]" /> : <Zap className="h-5 w-5 text-blue-400" />}
                 </div>
-                {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
-                  <Button
-                    onClick={() => router.push('/panel-asesor/planes')}
-                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
-                  >
-                    <Crown className="h-4 w-4 mr-2" />
-                    Actualizar a Elite
-                  </Button>
-                )}
+                <div>
+                  <h3 className="text-lg font-bold text-white">{getPlanById(user.plan || 'core')?.name}</h3>
+                  <p className="text-xs text-[#B0ACA6]">
+                    {user.plan === 'elite' || user.email === 'lizzie@conectia.mx'
+                      ? `Propiedades ilimitadas • ${propiedades.length} activas`
+                      : `${propiedades.length} de ${getPropertyLimit(user.plan || 'core')} propiedades`
+                    }
+                  </p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+              {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
+                <button onClick={() => router.push('/panel-asesor/planes')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+                  <Crown className="h-4 w-4" /> Actualizar a Elite
+                </button>
+              )}
+            </div>
+          </div>
         )}
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-4 sm:p-6">
+        {/* Stats — Glassmorphism */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          {[
+            { label: 'Total Propiedades', value: propiedades.length, accent: '#C78F7B', icon: Building2 },
+            { label: 'Disponibles', value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye },
+            { label: 'Exclusivas', value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: '#C78F7B', icon: Building2 },
+            { label: 'Reservadas', value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2 },
+          ].map((stat, i) => (
+            <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
+              <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">Total Propiedades</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-conectia-graphite">{propiedades.length}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4A4F57]">{stat.label}</p>
+                  <p className="text-2xl sm:text-3xl font-black text-white mt-1">{stat.value}</p>
                 </div>
-                <div className="p-3 bg-conectia-gold/10 rounded-xl">
-                  <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-conectia-gold" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">Disponibles</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-green-600">
-                    {propiedades.filter(p => p.status === 'Disponible').length}
-                  </p>
-                </div>
-                <div className="p-3 bg-green-500/10 rounded-xl">
-                  <Eye className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                  <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: stat.accent }} />
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">Exclusivas</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-conectia-gold">
-                    {propiedades.filter(p => p.status === 'Exclusiva').length}
-                  </p>
-                </div>
-                <div className="p-3 bg-conectia-gold/10 rounded-xl">
-                  <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-conectia-gold" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">Reservadas</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-blue-600">
-                    {propiedades.filter(p => p.status === 'Reservada').length}
-                  </p>
-                </div>
-                <div className="p-3 bg-blue-500/10 rounded-xl">
-                  <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+          ))}
         </div>
 
         {/* Lista de Propiedades */}
         {propiedades.length === 0 ? (
-          <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-            <CardContent className="p-12 text-center">
-              <Building2 className="h-16 w-16 text-conectia-gold mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2 text-conectia-graphite">No tienes propiedades</h3>
-              <p className="text-gray-600 mb-6">Comienza publicando tu primera propiedad</p>
-              <Button
-                onClick={handleNewProperty}
-                className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Publicar Primera Propiedad
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-12 text-center">
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="relative">
+              <div className="w-16 h-16 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><Building2 className="h-8 w-8 text-[#C78F7B]/60" /></div>
+              <h3 className="text-xl font-bold text-white mb-2">No tienes propiedades</h3>
+              <p className="text-sm text-[#B0ACA6] mb-6">Comienza publicando tu primera propiedad</p>
+              <button onClick={handleNewProperty} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+                <Plus className="h-4 w-4" /> Publicar Primera Propiedad
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {propiedades.map((propiedad) => (
-              <Card key={propiedad.id} className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+              <div key={propiedad.id} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden group hover:border-white/20 transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={propiedad.imagen}
-                    alt={propiedad.titulo}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute top-2 right-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${propiedad.status === 'Disponible'
-                      ? 'bg-green-500/20 text-green-700 border border-green-500/50'
-                      : propiedad.status === 'Exclusiva'
-                        ? 'bg-conectia-gold/20 text-conectia-gold border border-conectia-gold/50'
-                        : 'bg-blue-500/20 text-blue-700 border border-blue-500/50'
-                      }`}>
-                      {propiedad.status}
-                    </span>
+                  <img src={propiedad.imagen} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027] via-transparent to-transparent opacity-60" />
+                  <div className="absolute top-3 right-3">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border ${
+                      propiedad.status === 'Disponible' ? 'bg-green-500/15 text-green-400 border-green-500/30' :
+                      propiedad.status === 'Exclusiva' ? 'bg-[#C78F7B]/15 text-[#C78F7B] border-[#C78F7B]/30' :
+                      'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                    }`}>{propiedad.status}</span>
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <h3 className="text-lg font-bold text-white leading-tight">{propiedad.titulo}</h3>
+                    <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 text-[#C78F7B]" /> {propiedad.ubicacion}</div>
                   </div>
                 </div>
 
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-conectia-graphite">{propiedad.titulo}</h3>
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    <span className="text-sm">{propiedad.ubicacion}</span>
-                  </div>
-
-                  {/* Información del Asesor */}
+                <div className="p-5">
                   {propiedad.agente && (
-                    <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-conectia-gold/10 rounded-lg border border-conectia-gold/20">
-                      <User className="h-4 w-4 text-conectia-gold" />
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">Publicado por</span>
-                        <span className="text-sm font-semibold text-conectia-graphite">{propiedad.agente.nombre}</span>
-                      </div>
+                    <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-[#C78F7B]/10 rounded-xl border border-[#C78F7B]/20">
+                      <User className="h-4 w-4 text-[#C78F7B]" />
+                      <div className="flex flex-col"><span className="text-[10px] text-[#B0ACA6]">Publicado por</span><span className="text-xs font-semibold text-white">{propiedad.agente.nombre}</span></div>
                     </div>
                   )}
 
-                  <p className="text-2xl font-bold text-conectia-gold mb-4">
-                    {propiedad.precioTexto}
-                  </p>
+                  <p className="text-2xl font-black text-[#C78F7B] mb-4">{propiedad.precioTexto}</p>
 
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center">
-                      <Bed className="h-4 w-4 mr-1" />
-                      {propiedad.habitaciones}
-                    </div>
-                    <div className="flex items-center">
-                      <Bath className="h-4 w-4 mr-1" />
-                      {propiedad.banos}
-                    </div>
-                    <div className="flex items-center">
-                      <Maximize className="h-4 w-4 mr-1" />
-                      {propiedad.areaTexto}
-                    </div>
+                  <div className="flex items-center gap-3 text-xs text-[#B0ACA6] mb-5">
+                    <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Bed className="h-3.5 w-3.5" /> {propiedad.habitaciones}</div>
+                    <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Bath className="h-3.5 w-3.5" /> {propiedad.banos}</div>
+                    <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Maximize className="h-3.5 w-3.5" /> {propiedad.areaTexto}</div>
                   </div>
 
                   <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEdit(propiedad)}
-                      className="flex-1"
-                    >
-                      <Eye className="h-4 w-4 mr-1" />
-                      Ver Detalles
-                    </Button>
-
-
-                    {/* Editar: Solo propietario o admin */}
+                    <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
+                      <Eye className="h-3.5 w-3.5" /> Ver
+                    </button>
                     {(user?.role === 'admin' || (propiedad.agente && propiedad.agente.email === user?.email)) && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleEdit(propiedad)}
-                        className="flex-1"
-                      >
-                        <Edit className="h-4 w-4 mr-1" />
-                        Editar
-                      </Button>
+                      <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
+                        <Edit className="h-3.5 w-3.5" /> Editar
+                      </button>
                     )}
-
-                    {/* Notificar Baja: Para asesores */}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setBajaConfirm(propiedad)}
-                      className="flex-1 text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                      title="Notificar baja de propiedad"
-                    >
-                      <AlertTriangle className="h-4 w-4" />
-                    </Button>
-
-                    {/* Eliminar: SOLO admin */}
+                    <button onClick={() => setBajaConfirm(propiedad)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-400 rounded-xl transition-all text-xs font-semibold" title="Notificar baja">
+                      <AlertTriangle className="h-3.5 w-3.5" />
+                    </button>
                     {user?.role === 'admin' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setDeleteConfirm(propiedad.id)}
-                        className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <button onClick={() => setDeleteConfirm(propiedad.id)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 rounded-xl transition-all text-xs font-semibold" title="Eliminar">
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
                     )}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
-        )
-        }
+        )}
 
         {/* Dialog de Confirmación de Eliminación */}
         <Dialog open={deleteConfirm !== null} onOpenChange={() => setDeleteConfirm(null)}>
-          <DialogContent className="bg-white dark:bg-conectia-graphite border-conectia-gold/20">
+          <DialogContent className="bg-[#17313A]/95 backdrop-blur-xl border-white/10 rounded-[24px]">
             <DialogHeader>
-              <DialogTitle className="text-conectia-graphite dark:text-white">¿Eliminar propiedad?</DialogTitle>
-              <DialogDescription className="text-gray-600">
-                Esta acción no se puede deshacer. La propiedad será eliminada permanentemente.
-              </DialogDescription>
+              <DialogTitle className="text-white">¿Eliminar propiedad?</DialogTitle>
+              <DialogDescription className="text-[#B0ACA6]">Esta acción no se puede deshacer. La propiedad será eliminada permanentemente.</DialogDescription>
             </DialogHeader>
-            <div className="flex gap-4 justify-end mt-4">
-              <Button variant="outline" onClick={() => setDeleteConfirm(null)}>
-                Cancelar
-              </Button>
-              <Button
-                onClick={() => deleteConfirm && handleDelete(deleteConfirm)}
-                className="bg-red-500 hover:bg-red-600 text-white"
-              >
-                Eliminar
-              </Button>
+            <div className="flex gap-3 justify-end mt-4">
+              <Button variant="outline" onClick={() => setDeleteConfirm(null)} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Cancelar</Button>
+              <Button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="bg-red-500/80 hover:bg-red-500 text-white rounded-xl">Eliminar</Button>
             </div>
           </DialogContent>
         </Dialog>
 
         {/* Dialog de Notificación de Baja */}
         <Dialog open={bajaConfirm !== null} onOpenChange={() => { setBajaConfirm(null); setMotivoBaja(''); }}>
-          <DialogContent className="bg-white dark:bg-conectia-graphite border-conectia-gold/20">
+          <DialogContent className="bg-[#17313A]/95 backdrop-blur-xl border-white/10 rounded-[24px]">
             <DialogHeader>
-              <DialogTitle className="text-conectia-graphite dark:text-white flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-orange-500" />
-                Notificar Baja de Propiedad
-              </DialogTitle>
-              <DialogDescription className="text-gray-600">
-                {bajaConfirm && (
-                  <span>Estás solicitando dar de baja: <strong>{bajaConfirm.titulo}</strong></span>
-                )}
-              </DialogDescription>
+              <DialogTitle className="text-white flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-orange-400" /> Notificar Baja de Propiedad</DialogTitle>
+              <DialogDescription className="text-[#B0ACA6]">{bajaConfirm && (<span>Estás solicitando dar de baja: <strong className="text-white">{bajaConfirm.titulo}</strong></span>)}</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 mt-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Motivo de la baja *
-                </label>
-                <textarea
-                  value={motivoBaja}
-                  onChange={(e) => setMotivoBaja(e.target.value)}
-                  placeholder="Ej: Propiedad vendida, propietario retiró la propiedad, etc."
-                  className="w-full p-3 border border-gray-200 rounded-lg focus:border-conectia-gold focus:ring-1 focus:ring-conectia-gold/20"
-                  rows={3}
-                />
+                <label className="block text-xs font-medium text-[#B0ACA6] mb-2">Motivo de la baja *</label>
+                <textarea value={motivoBaja} onChange={(e) => setMotivoBaja(e.target.value)} placeholder="Ej: Propiedad vendida, propietario retiró la propiedad, etc." className="w-full p-3 bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-1 focus:ring-[#C78F7B]/20 outline-none" rows={3} />
               </div>
-              <div className="flex gap-4 justify-end">
-                <Button variant="outline" onClick={() => { setBajaConfirm(null); setMotivoBaja(''); }}>
-                  Cancelar
-                </Button>
-                <Button
-                  onClick={() => bajaConfirm && handleNotificarBaja(bajaConfirm)}
-                  className="bg-orange-500 hover:bg-orange-600 text-white"
-                >
-                  Enviar Notificación
-                </Button>
+              <div className="flex gap-3 justify-end">
+                <Button variant="outline" onClick={() => { setBajaConfirm(null); setMotivoBaja(''); }} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Cancelar</Button>
+                <Button onClick={() => bajaConfirm && handleNotificarBaja(bajaConfirm)} className="bg-orange-500/80 hover:bg-orange-500 text-white rounded-xl">Enviar Notificación</Button>
               </div>
             </div>
           </DialogContent>
         </Dialog>
-      </div >
-    </div >
+      </div>
+    </div>
   )
 }
