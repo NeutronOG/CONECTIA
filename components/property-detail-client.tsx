@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { 
   MapPin, Bed, Bath, Square, Calendar, Heart, Share2, Phone, Mail, MessageCircle,
   Car, Wifi, Shield, TreePine, Waves, Dumbbell, ChefHat, Wind, Sun, Camera, Play,
-  ArrowLeft, ArrowRight, Maximize, X, Star, Loader2, Users, FileText, Sparkles, Info
+  ArrowLeft, ArrowRight, Maximize, X, Star, Loader2, Users, FileText, ListChecks, Info
 } from "lucide-react"
 import Link from "next/link"
 import { WishlistButton } from "@/components/wishlist-button"
@@ -186,7 +186,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       <span className="hidden sm:inline">Descripción</span>
                     </TabsTrigger>
                     <TabsTrigger value="caracteristicas" className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl text-[10px] sm:text-xs font-bold text-[#EAE4DD] hover:text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
-                      <Sparkles className="h-4 w-4" />
+                      <ListChecks className="h-4 w-4" />
                       <span className="hidden sm:inline">Amenidades</span>
                     </TabsTrigger>
                     <TabsTrigger value="detalles" className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl text-[10px] sm:text-xs font-bold text-[#EAE4DD] hover:text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
