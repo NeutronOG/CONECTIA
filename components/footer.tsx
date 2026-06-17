@@ -1,160 +1,159 @@
 import Link from "next/link"
 import Image from "next/image"
+import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-[#17313A] text-white relative overflow-hidden">
-      {/* Línea superior de marca */}
-      <div className="h-[3px] bg-gradient-to-r from-conectia-primary via-conectia-primary/70 to-transparent" />
+    <footer className="bg-[#0F2027] text-white relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C78F7B]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#17313A]/60 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Contenedor principal */}
-      <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-8 lg:px-16">
-        <div className="footer-container relative rounded-[2rem] overflow-hidden backdrop-blur-[1rem] my-6">
-          {/* Estrellas animadas de fondo */}
-          <div className="container-stars absolute z-[-1] w-full h-full overflow-hidden transition-all duration-500 backdrop-blur-[1rem] rounded-[2rem]">
-            <div className="stars-wrapper">
-              <div className="stars"></div>
+      {/* Top gradient line */}
+      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#C78F7B]/40 to-transparent" />
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-8 lg:px-16 py-16 sm:py-20">
+        {/* Top CTA Row */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 pb-16 border-b border-white/10">
+          <div className="max-w-lg">
+            <h3 className="font-serif text-3xl sm:text-4xl font-black text-white mb-3">
+              ¿Listo para tu <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">próximo hogar?</span>
+            </h3>
+            <p className="text-[#B0ACA6] text-base">
+              Conectamos directamente compradores y vendedores. Sin complicaciones.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <Link href="/contacto">
+              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-[#C78F7B]/20">
+                Contactar Ahora
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </Link>
+            <Link href="/propiedades">
+              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/15 text-white font-semibold hover:bg-white/10 hover:border-[#C78F7B]/30 transition-all duration-300">
+                Ver Propiedades
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-12 gap-10 mb-16">
+          {/* Brand Column */}
+          <div className="md:col-span-4">
+            <div className="mb-6">
+              <Image
+                src="/logo.png"
+                alt="CONECTIA"
+                width={200}
+                height={60}
+                className="h-11 w-auto object-contain"
+              />
+            </div>
+            <p className="text-sm text-[#B0ACA6] leading-relaxed mb-8 max-w-xs">
+              La forma más transparente y estética de encontrar tu próxima propiedad en Guanajuato.
+            </p>
+            {/* Social */}
+            <div className="flex gap-3">
+              {['f', 'in', '@'].map((icon) => (
+                <div key={icon} className="w-10 h-10 bg-white/[0.05] border border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#C78F7B]/10">
+                  <span className="text-[#EAE4DD] font-bold text-sm">{icon}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Efecto de brillo (glow) */}
-          <div className="glow-effect absolute flex w-full h-full pointer-events-none">
-            <div className="glow-circle glow-circle-1"></div>
-            <div className="glow-circle glow-circle-2"></div>
+          {/* Links Columns */}
+          <div className="md:col-span-2">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Servicios</p>
+            <ul className="space-y-3">
+              {['Marketing Digital', 'Tours Virtuales', 'Valoración IA'].map((item) => (
+                <li key={item}>
+                  <Link href="/servicios" className="group text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300 flex items-center gap-1">
+                    {item}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Contenido */}
-          <div className="relative z-10 px-6 sm:px-10 py-14 sm:py-16 bg-[#0F2027]/60">
-            <div className="grid md:grid-cols-4 gap-10 mb-12">
+          <div className="md:col-span-2">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Explorar</p>
+            <ul className="space-y-3">
+              {[
+                { label: 'Venta', href: '/propiedades' },
+                { label: 'Renta', href: '/renta' },
+                { label: 'Ofertas', href: '/ofertas' },
+                { label: 'Exclusivos', href: '/exclusivos' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="group text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300 flex items-center gap-1">
+                    {item.label}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              {/* Columna Marca */}
-              <div className="md:col-span-1">
-                <div className="mb-5">
-                  <Image
-                    src="/logo.png"
-                    alt="CONECTIA"
-                    width={200}
-                    height={60}
-                    className="h-11 w-auto object-contain"
-                  />
+          {/* Contact */}
+          <div className="md:col-span-4">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Contacto</p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
+                  <MapPin className="h-4 w-4 text-[#C78F7B]" />
                 </div>
-                <p className="text-sm text-[#B0ACA6] leading-relaxed mb-6 text-pretty">
-                  Conectamos directamente compradores y vendedores. Sin complicaciones.
-                  Proceso simple y transparente.
-                </p>
-                <div className="flex gap-3">
-                  <div className="w-9 h-9 bg-[#EAE4DD]/10 hover:bg-[#C78F7B]/25 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-[#EAE4DD]/15">
-                    <span className="text-[#EAE4DD] font-bold text-sm">f</span>
-                  </div>
-                  <div className="w-9 h-9 bg-[#EAE4DD]/10 hover:bg-[#C78F7B]/25 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-[#EAE4DD]/15">
-                    <span className="text-[#EAE4DD] font-bold text-xs">in</span>
-                  </div>
-                  <div className="w-9 h-9 bg-[#EAE4DD]/10 hover:bg-[#C78F7B]/25 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-[#EAE4DD]/15">
-                    <span className="text-[#EAE4DD] font-bold text-sm">@</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Servicios */}
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-4">Servicios</p>
-                <ul className="space-y-3">
-                  <li>
-                      <Link href="/servicios" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Marketing Digital
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/servicios" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Tours Virtuales
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/servicios" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Valoración IA
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Soluciones */}
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-4">Soluciones</p>
-                <ul className="space-y-3">
-                  <li>
-                    <Link href="/propiedades" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Venta
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/propiedades" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Renta
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/propiedades" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Compra
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/servicios" className="text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                      Construcción
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Contacto */}
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-4">Contacto</p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-1 h-1 bg-[#C78F7B] rounded-full mt-2 flex-shrink-0" />
-                    <div>
-                      <p className="text-[11px] text-[#B0ACA6] uppercase tracking-widest">Oficina Principal</p>
-                      <p className="text-sm text-[#EAE4DD]">León, Gto</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1 h-1 bg-[#C78F7B] rounded-full mt-2 flex-shrink-0" />
-                    <div>
-                      <p className="text-[11px] text-[#B0ACA6] uppercase tracking-widest">Email</p>
-                      <Link href="/contacto" className="text-sm text-[#EAE4DD] hover:text-[#C78F7B] transition-colors">
-                        conectiaselect@gmail.com
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1 h-1 bg-[#C78F7B] rounded-full mt-2 flex-shrink-0" />
-                    <div>
-                      <p className="text-[11px] text-[#B0ACA6] uppercase tracking-widest">WhatsApp</p>
-                      <a
-                        href="https://wa.me/5214774756951?text=Hola%20CONECTIA%20SELECT,%20me%20interesa%20obtener%20más%20información%20sobre%20sus%20servicios%20inmobiliarios."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-[#EAE4DD] hover:text-[#C78F7B] transition-colors flex items-center gap-2"
-                      >
-                        <span>📱</span>
-                        <span>+52 1 477 475 6951</span>
-                      </a>
-                    </div>
-                  </div>
+                <div>
+                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">Oficina</p>
+                  <p className="text-sm text-[#EAE4DD]">León, Guanajuato, México</p>
                 </div>
               </div>
-            </div>
-
-            {/* Barra inferior */}
-            <div className="border-t border-[#EAE4DD]/10 pt-8">
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
-                  <span className="text-sm text-[#B0ACA6]">© 2025 CONECTIA. Todos los derechos reservados.</span>
+              <div className="flex items-start gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
+                  <Mail className="h-4 w-4 text-[#C78F7B]" />
                 </div>
-                <div className="flex gap-6 text-sm">
-                  <Link href="/legal" className="text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300">
-                    Política de Privacidad
+                <div>
+                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">Email</p>
+                  <Link href="/contacto" className="text-sm text-[#EAE4DD] hover:text-[#C78F7B] transition-colors">
+                    conectia@gmail.com
                   </Link>
                 </div>
               </div>
+              <div className="flex items-start gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
+                  <Phone className="h-4 w-4 text-[#C78F7B]" />
+                </div>
+                <div>
+                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">WhatsApp</p>
+                  <a
+                    href="https://wa.me/5214774756951?text=Hola%20CONECTIA,%20me%20interesa%20obtener%20más%20información%20sobre%20sus%20servicios%20inmobiliarios."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[#EAE4DD] hover:text-[#C78F7B] transition-colors"
+                  >
+                    +52 1 477 475 6951
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <span className="text-sm text-[#4A4F57]">© 2025 CONECTIA. Todos los derechos reservados.</span>
+            <div className="flex gap-6">
+              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#B0ACA6] transition-colors">
+                Política de Privacidad
+              </Link>
+              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#B0ACA6] transition-colors">
+                Términos de Servicio
+              </Link>
             </div>
           </div>
         </div>
