@@ -67,13 +67,17 @@ export function useAllPropertyAnalytics() {
 export function usePropertiesAnalyticsList(propertyIds: (string | number)[]) {
   const [analytics, setAnalytics] = useState<PropertyAnalytics[]>([])
 
-  const refresh = useCallback(() => {
-    setAnalytics(getAnalyticsForProperties(propertyIds))
+  useEffect(() => {
+    if (propertyIds.length > 0) {
+      setAnalytics(getAnalyticsForProperties(propertyIds))
+    }
   }, [propertyIds])
 
-  useEffect(() => {
-    refresh()
-  }, [refresh])
+  const refresh = useCallback(() => {
+    if (propertyIds.length > 0) {
+      setAnalytics(getAnalyticsForProperties(propertyIds))
+    }
+  }, [propertyIds])
 
   return { analytics, refresh }
 }
