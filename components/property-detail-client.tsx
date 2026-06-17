@@ -181,19 +181,19 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 {/* Tabs */}
                 <Tabs defaultValue="descripcion" className="w-full">
                   <TabsList className="grid w-full grid-cols-4 gap-1.5 bg-white/[0.03] border border-white/10 p-1.5 rounded-2xl">
-                    <TabsTrigger value="descripcion" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-medium text-[#B0ACA6] data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
+                    <TabsTrigger value="descripcion" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-bold !text-[#EAE4DD] hover:!text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:!text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
                       <FileText className="h-4 w-4" />
                       <span className="hidden sm:inline">Descripción</span>
                     </TabsTrigger>
-                    <TabsTrigger value="caracteristicas" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-medium text-[#B0ACA6] data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
+                    <TabsTrigger value="caracteristicas" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-bold !text-[#EAE4DD] hover:!text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:!text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
                       <Sparkles className="h-4 w-4" />
                       <span className="hidden sm:inline">Amenidades</span>
                     </TabsTrigger>
-                    <TabsTrigger value="detalles" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-medium text-[#B0ACA6] data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
+                    <TabsTrigger value="detalles" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-bold !text-[#EAE4DD] hover:!text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:!text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
                       <Info className="h-4 w-4" />
                       <span className="hidden sm:inline">Detalles</span>
                     </TabsTrigger>
-                    <TabsTrigger value="ubicacion" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-medium text-[#B0ACA6] data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
+                    <TabsTrigger value="ubicacion" className="flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-bold !text-[#EAE4DD] hover:!text-white data-[state=active]:bg-[#C78F7B]/20 data-[state=active]:!text-[#C78F7B] data-[state=active]:border data-[state=active]:border-[#C78F7B]/30 data-[state=active]:shadow-lg data-[state=active]:shadow-[#C78F7B]/10 transition-all">
                       <MapPin className="h-4 w-4" />
                       <span className="hidden sm:inline">Ubicación</span>
                     </TabsTrigger>
