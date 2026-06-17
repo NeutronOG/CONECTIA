@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PropertyFilters } from "@/components/property-filters"
 import { AISearchChat } from "@/components/ai-search-chat"
-import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Sparkles, MessageSquare, RefreshCw, Building, Gem } from "lucide-react"
+import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Sparkles, MessageSquare, RefreshCw, Building } from "lucide-react"
 import Link from "next/link"
 import { WishlistButton } from "@/components/wishlist-button"
 import { Propiedad } from "@/data/propiedades"
@@ -138,9 +138,12 @@ export default function PropiedadesPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-20 flex items-center">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/25 mb-5">
-              <Gem className="h-4 w-4 text-[#C78F7B]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C78F7B]">CONECTIA Premium</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
+                <Building className="h-5 w-5 text-[#C78F7B]" />
+              </div>
+              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">CONECTIA</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-white leading-[0.95] mb-2">
               Propiedades
@@ -149,7 +152,7 @@ export default function PropiedadesPage() {
               Exclusivas
             </h2>
             <p className="text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
-              Descubre nuestra selección de propiedades únicas y premium
+              Descubre nuestra selección de propiedades únicas y exclusivas
             </p>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-[#EAE4DD] bg-white/[0.05] border border-white/15 backdrop-blur-md">
               {isLoading ? 'Cargando...' : `${filteredAndSortedProperties.length} de ${propiedades.length} Propiedades`}

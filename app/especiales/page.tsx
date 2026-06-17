@@ -10,7 +10,7 @@ const HERO_IMAGE = "https://images.unsplash.com/photo-1613490493576-7fde63acd811
 
 const ATRIBUTOS = [
   { icon: Crown, label: "Ubicaciones prime" },
-  { icon: Diamond, label: "Acabados premium" },
+  { icon: Diamond, label: "Acabados exclusivos" },
   { icon: Sparkles, label: "Características únicas" },
 ]
 
@@ -63,7 +63,7 @@ export default function EspecialesPage() {
 
           {/* Descripción */}
           <p className="text-white/60 text-base sm:text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-            Una colección curada de propiedades premium con características únicas y ubicaciones privilegiadas.
+            Una colección curada de propiedades exclusivas con características únicas y ubicaciones privilegiadas.
           </p>
 
           {/* Atributos */}

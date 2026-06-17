@@ -103,7 +103,7 @@ export function HomeYellow() {
                 <div className="p-5 space-y-3">
                   <div>
                     <p className="text-xs text-[#C78F7B] font-semibold uppercase tracking-wider mb-1">León, Gto</p>
-                    <p className="text-sm font-bold text-white leading-tight">Residencia Premium en Zona Norte</p>
+                    <p className="text-sm font-bold text-white leading-tight">Residencia Exclusiva en Zona Norte</p>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-black text-[#C78F7B]">$4.2M</span>
@@ -120,7 +120,7 @@ export function HomeYellow() {
                   <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-white">Premium</p>
+                  <p className="text-xs font-bold text-white">Exclusivo</p>
                   <p className="text-[9px] text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
                 </div>
               </div>

@@ -317,7 +317,7 @@ export function ShepherdTour() {
         <ul style="margin:8px 0;padding-left:16px;">
           <li><strong>Venta:</strong> Propiedades en venta</li>
           <li><strong>Renta:</strong> Propiedades en renta</li>
-          <li><strong>Exclusivos:</strong> Propiedades premium</li>
+          <li><strong>Exclusivos:</strong> Propiedades exclusivas</li>
           <li><strong>Desarrollos:</strong> Nuevos proyectos con mapa 3D</li>
           <li><strong>Especiales:</strong> Oportunidades únicas</li>
           <li><strong>Ofertas:</strong> Los mejores precios</li>

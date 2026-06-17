@@ -30,7 +30,7 @@ export default function EmpresaPage() {
               excepcionales que merece.
             </p>
             <p>
-              Nuestra combinación única de tecnología avanzada, marketing inteligente y servicio premium nos ha
+              Nuestra combinación única de tecnología avanzada, marketing inteligente y servicio exclusivo nos ha
               posicionado como la inmobiliaria de referencia para propietarios que buscan algo más que una simple
               transacción.
             </p>
@@ -91,7 +91,7 @@ export default function EmpresaPage() {
             <h3 className="font-serif text-xl font-semibold text-[#EAE4DD] mb-2">Elena Martínez</h3>
             <p className="text-[#C78F7B] font-medium mb-4">CEO & Fundadora</p>
             <p className="text-gray-600 text-sm">
-              15 años de experiencia en bienes raíces de lujo. Especialista en propiedades premium.
+              15 años de experiencia en bienes raíces de lujo. Especialista en propiedades exclusivas.
             </p>
           </Card>
 

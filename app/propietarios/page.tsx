@@ -361,7 +361,7 @@ export default function PropietariosPage() {
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Marketing premium</p>
+                  <p className="font-semibold text-white">Marketing exclusivo</p>
                   <p className="text-sm text-[#B0ACA6]">Exposición en nuestros canales exclusivos</p>
                 </div>
               </div>
@@ -401,7 +401,7 @@ export default function PropietariosPage() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/30 mb-4">
               <Star className="h-4 w-4 text-[#C78F7B]" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">CONECTIA Premium</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">CONECTIA</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl font-black text-white mb-3">
               Registro de Propiedad Exclusiva
@@ -461,7 +461,7 @@ export default function PropietariosPage() {
             {[
               { icon: Shield, title: 'Exclusividad', desc: 'Sin competencia' },
               { icon: TrendingUp, title: 'Valoración IA', desc: 'Precio óptimo' },
-              { icon: Star, title: 'Marketing Premium', desc: 'Máxima exposición' },
+              { icon: Star, title: 'Marketing Exclusivo', desc: 'Máxima exposición' },
               { icon: Calendar, title: 'Venta Rápida', desc: 'Promedio 45 días' },
             ].map((item, i) => (
               <CarouselItem key={i} className="pl-3 basis-3/4 sm:basis-1/2 md:basis-1/4">
@@ -1184,7 +1184,7 @@ export default function PropietariosPage() {
                 {/* Agreement Section */}
                 <div className="bg-gradient-to-br from-conectia-gold/5 to-transparent p-6 rounded-xl border border-conectia-gold/20">
                   <h3 className="font-serif text-xl font-semibold text-white mb-4">
-                    Acuerdo de Exclusividad Premium
+                    Acuerdo de Exclusividad
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
@@ -1196,7 +1196,7 @@ export default function PropietariosPage() {
                       />
                       <Label htmlFor="exclusivity" className="text-sm leading-relaxed">
                         <strong>Acepto la exclusividad de 6 meses</strong> para maximizar el valor de mi propiedad. 
-                        Entiendo que esto garantiza atención personalizada, marketing premium y mejores resultados.
+                        Entiendo que esto garantiza atención personalizada, marketing exclusivo y mejores resultados.
                       </Label>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1207,7 +1207,7 @@ export default function PropietariosPage() {
                         className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
                       />
                       <Label htmlFor="terms" className="text-sm leading-relaxed">
-                        Acepto los <strong>términos y condiciones</strong> del servicio premium de CONECTIA, 
+                        Acepto los <strong>términos y condiciones</strong> del servicio de CONECTIA, 
                         incluyendo la comisión competitiva del 4% sobre el precio final de venta.
                       </Label>
                     </div>

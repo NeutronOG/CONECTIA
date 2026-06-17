@@ -403,7 +403,7 @@ export default function DesarrollosPage() {
                 {
                   icon: <Waves className="h-10 w-10 text-purple-600" />,
                   bg: 'bg-purple-100',
-                  title: 'Amenidades Premium',
+                  title: 'Amenidades Exclusivas',
                   desc: 'Disfruta de instalaciones de primer nivel incluidas en tu inversión.',
                 },
                 {

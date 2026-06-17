@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
 
 const ASESORES = [
-  { id:'a1', nombre:'Ana García', email:'ana@conectia.mx', telefono:'+52 477 123 4567', especialidad:'Residencial Premium', propActivas:8, propVendidas:12, leads:42, visitas:28, ofertas:9, ventas:3, cartera:'$24,500,000', comisiones:'$490,000', rating:4.9, ultimaAct:'Hace 2 horas' },
+  { id:'a1', nombre:'Ana García', email:'ana@conectia.mx', telefono:'+52 477 123 4567', especialidad:'Residencial Exclusivo', propActivas:8, propVendidas:12, leads:42, visitas:28, ofertas:9, ventas:3, cartera:'$24,500,000', comisiones:'$490,000', rating:4.9, ultimaAct:'Hace 2 horas' },
   { id:'a2', nombre:'Roberto Silva', email:'roberto@conectia.mx', telefono:'+52 477 234 5678', especialidad:'Comercial e Industrial', propActivas:5, propVendidas:7, leads:31, visitas:18, ofertas:6, ventas:2, cartera:'$15,200,000', comisiones:'$304,000', rating:4.7, ultimaAct:'Hace 5 horas' },
   { id:'a3', nombre:'María López', email:'maria@conectia.mx', telefono:'+52 477 345 6789', especialidad:'Renta Residencial', propActivas:6, propVendidas:9, leads:27, visitas:15, ofertas:4, ventas:1, cartera:'$18,900,000', comisiones:'$378,000', rating:4.8, ultimaAct:'Hace 1 día' },
   { id:'a4', nombre:'Daniela Belmonte', email:'daniela@conectia.mx', telefono:'+52 477 456 7801', especialidad:'Desarrollos Nuevos', propActivas:4, propVendidas:5, leads:19, visitas:11, ofertas:3, ventas:1, cartera:'$9,800,000', comisiones:'$196,000', rating:4.6, ultimaAct:'Hace 3 horas' },

@@ -18,7 +18,7 @@ export function WhyConectiaCarousel() {
     {
       icon: Star,
       title: "Exclusividad",
-      desc: "Acceso a propiedades únicas y premium.",
+      desc: "Acceso a propiedades únicas y exclusivas.",
       num: "02",
     },
     {

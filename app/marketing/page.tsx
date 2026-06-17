@@ -27,7 +27,7 @@ export default function MarketingPage() {
     },
     {
       id: "2",
-      name: "Premium Villas Barcelona",
+      name: "Villas Barcelona",
       platform: "Google Ads",
       status: "active",
       budget: "€8,000",

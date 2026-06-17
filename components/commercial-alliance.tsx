@@ -96,7 +96,7 @@ export function CommercialAlliance() {
                 "Estadísticas detalladas y reportes",
                 "Gestión avanzada de leads",
                 "Prioridad en soporte",
-                "Acceso a herramientas premium",
+                "Acceso a herramientas exclusivas",
                 "Marketing automatizado",
                 "Análisis predictivo de mercado"
             ],

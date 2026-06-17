@@ -50,7 +50,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-serif text-3xl font-light text-conectia-graphite mb-2">Panel de Control Exclusivo</h1>
-          <p className="text-gray-600">Seguimiento en tiempo real de tu propiedad premium</p>
+          <p className="text-gray-600">Seguimiento en tiempo real de tu propiedad exclusiva</p>
         </div>
 
         {/* Property Overview */}

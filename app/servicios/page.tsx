@@ -12,7 +12,7 @@ export default function ServiciosPage() {
           Nuestros Servicios
         </h1>
         <p className="text-lg sm:text-xl text-[#B0ACA6] max-w-3xl mx-auto px-2 sm:px-6">
-          Servicios premium diseñados para maximizar el valor de tu propiedad
+          Servicios exclusivos diseñados para maximizar el valor de tu propiedad
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default function ServiciosPage() {
               <Star className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#EAE4DD] mb-3 sm:mb-4">
-              Asesoría Premium
+              Asesoría Exclusiva
             </h3>
             <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
               Consultoría especializada en propiedades de lujo con análisis de mercado y recomendaciones estratégicas.
