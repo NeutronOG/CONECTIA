@@ -434,12 +434,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Información Básica</CardTitle>
-          <CardDescription>Datos principales de la propiedad</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Información Básica</h3>
+          <p className="text-xs text-[#B0ACA6]">Datos principales de la propiedad</p>
+        </div>
+        <div className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="titulo">Título *</Label>
@@ -480,7 +480,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 placeholder={formData.tipo === 'Hectáreas' ? '150' : '18,500,000'}
               />
               {formData.precio && formData.precio > 0 && (
-                <p className="text-xs text-conectia-gold font-medium">
+                <p className="text-xs text-[#C78F7B] font-medium">
                   ${formData.precio.toLocaleString('es-MX')} MXN{formData.tipo === 'Hectáreas' ? '/m²' : ''}
                 </p>
               )}
@@ -527,8 +527,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.habitaciones === num
-                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
                   >
@@ -549,8 +549,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.banos === num
-                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
                   >
@@ -571,8 +571,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.mediosBanos === num
-                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
                   >
@@ -639,8 +639,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.cochera === num
-                        ? 'bg-conectia-gold text-[#17313A] border-conectia-gold font-bold shadow-md scale-105'
-                        : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
                   >
@@ -768,8 +768,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   className={`
                     p-2 rounded-lg border text-sm font-medium transition-all text-left
                     ${actividadesRecreativasSeleccionadas.includes(actividad)
-                      ? 'bg-blue-500/90 text-white border-blue-500 shadow-md'
-                      : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-blue-500/50 hover:bg-blue-500/5'
+                      ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                      : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                     }
                   `}
                 >
@@ -794,15 +794,15 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               rows={3}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Características</CardTitle>
-          <CardDescription>Agrega las características destacadas</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Características</h3>
+          <p className="text-xs text-[#B0ACA6]">Agrega las características destacadas</p>
+        </div>
+        <div className="p-6 space-y-4">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {caracteristicasDisponibles.map((car) => (
               <button
@@ -812,8 +812,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
-                    ? 'bg-[#D4AF37]/90 text-[#17313A] border-[#D4AF37] shadow-md'
-                    : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                    ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                    : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                   }
                 `}
               >
@@ -843,7 +843,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 {formData.caracteristicas.filter(c => !caracteristicasDisponibles.includes(c)).map((car) => (
                   <div
                     key={car}
-                    className="flex items-center gap-2 bg-[#D4AF37]/10 text-[#D4AF37] px-3 py-1 rounded-full"
+                    className="flex items-center gap-2 bg-[#C78F7B]/10 text-[#C78F7B] px-3 py-1 rounded-full"
                   >
                     <span className="text-sm">{car}</span>
                     <button
@@ -858,15 +858,15 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Amenidades</CardTitle>
-          <CardDescription>Selecciona las amenidades disponibles en la propiedad</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Amenidades</h3>
+          <p className="text-xs text-[#B0ACA6]">Selecciona las amenidades disponibles en la propiedad</p>
+        </div>
+        <div className="p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {amenidadesDisponibles.map((amenidad) => (
               <button
@@ -876,8 +876,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
-                    ? 'bg-conectia-gold text-[#17313A] border-conectia-gold shadow-md'
-                    : 'bg-conectia-secondary/50 text-white border-gray-200 hover:border-conectia-gold/50 hover:bg-conectia-gold/5'
+                    ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                    : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                   }
                 `}
               >
@@ -890,15 +890,15 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               {amenidadesSeleccionadas.length} amenidad(es) seleccionada(s)
             </p>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Imagen Principal</CardTitle>
-          <CardDescription>Sube la imagen principal de la propiedad</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Imagen Principal</h3>
+          <p className="text-xs text-[#B0ACA6]">Sube la imagen principal de la propiedad</p>
+        </div>
+        <div className="p-6 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="imagen">Imagen Principal *</Label>
 
@@ -906,8 +906,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <div 
                 className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
                   isDraggingMain 
-                    ? 'border-conectia-gold bg-conectia-gold/20 scale-[1.02]' 
-                    : 'border-conectia-gold/30 bg-conectia-gold/5 hover:bg-conectia-gold/10'
+                    ? 'border-[#C78F7B] bg-[#C78F7B]/20 scale-[1.02]' 
+                    : 'border-[#C78F7B]/30 bg-[#C78F7B]/5 hover:bg-[#C78F7B]/10'
                 }`}
                 onDragOver={(e) => handleDragOver(e, setIsDraggingMain)}
                 onDragLeave={(e) => handleDragLeave(e, setIsDraggingMain)}
@@ -921,8 +921,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   className="hidden"
                 />
                 <label htmlFor="imagen" className="cursor-pointer">
-                  <Upload className={`h-12 w-12 mx-auto mb-3 transition-transform ${isDraggingMain ? 'text-conectia-gold scale-125' : 'text-conectia-gold'}`} />
-                  <p className="text-sm font-medium text-conectia-graphite mb-1">
+                  <Upload className={`h-12 w-12 mx-auto mb-3 transition-transform ${isDraggingMain ? 'text-[#C78F7B] scale-125' : 'text-[#C78F7B]'}`} />
+                  <p className="text-sm font-medium text-white mb-1">
                     {isDraggingMain ? '¡Suelta la imagen aquí!' : 'Arrastra una imagen o haz click'}
                   </p>
                   <p className="text-xs text-gray-500">
@@ -931,13 +931,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 </label>
               </div>
             ) : (
-              <div className="relative w-full h-64 rounded-xl overflow-hidden border-2 border-conectia-gold/20 group">
+              <div className="relative w-full h-64 rounded-xl overflow-hidden border-2 border-[#C78F7B]/20 group">
                 <img
                   src={imagePreview}
                   alt="Vista previa"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                <div className="absolute inset-0 bg-[#0F2027]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                   <label htmlFor="imagen" className="cursor-pointer">
                     <input
                       type="file"
@@ -946,7 +946,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       onChange={handleImageUpload}
                       className="hidden"
                     />
-                    <Button type="button" size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]" asChild>
+                    <Button type="button" size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027]" asChild>
                       <span>
                         <Upload className="h-4 w-4 mr-2" />
                         Cambiar
@@ -966,23 +966,23 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Galería de Imágenes</CardTitle>
-          <CardDescription>Sube hasta 30 imágenes adicionales</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Galería de Imágenes</h3>
+          <p className="text-xs text-[#B0ACA6]">Sube hasta 30 imágenes adicionales</p>
+        </div>
+        <div className="p-6 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="galeria">Imágenes de la Galería</Label>
 
             <div 
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
                 isDraggingGallery 
-                  ? 'border-conectia-gold bg-conectia-gold/20 scale-[1.02]' 
-                  : 'border-conectia-gold/30 bg-conectia-gold/5 hover:bg-conectia-gold/10'
+                  ? 'border-[#C78F7B] bg-[#C78F7B]/20 scale-[1.02]' 
+                  : 'border-[#C78F7B]/30 bg-[#C78F7B]/5 hover:bg-[#C78F7B]/10'
               }`}
               onDragOver={(e) => handleDragOver(e, setIsDraggingGallery)}
               onDragLeave={(e) => handleDragLeave(e, setIsDraggingGallery)}
@@ -998,17 +998,17 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               />
               <label htmlFor="galeria" className="cursor-pointer">
                 <div className="flex justify-center gap-2 mb-3">
-                  <Upload className={`h-12 w-12 transition-transform ${isDraggingGallery ? 'text-conectia-gold scale-125' : 'text-conectia-gold'}`} />
-                  <Plus className={`h-6 w-6 text-conectia-gold mt-6 -ml-4 transition-transform ${isDraggingGallery ? 'scale-125' : ''}`} />
+                  <Upload className={`h-12 w-12 transition-transform ${isDraggingGallery ? 'text-[#C78F7B] scale-125' : 'text-[#C78F7B]'}`} />
+                  <Plus className={`h-6 w-6 text-[#C78F7B] mt-6 -ml-4 transition-transform ${isDraggingGallery ? 'scale-125' : ''}`} />
                 </div>
-                <p className="text-sm font-medium text-conectia-graphite mb-1">
+                <p className="text-sm font-medium text-white mb-1">
                   {isDraggingGallery ? '¡Suelta las imágenes aquí!' : 'Arrastra imágenes o haz click'}
                 </p>
                 <p className="text-xs text-gray-500">
                   JPG, PNG o WEBP (máx. 5MB cada una) • Hasta 30 imágenes
                 </p>
                 {galleryPreviews.length > 0 && (
-                  <p className="text-xs text-conectia-gold mt-2 font-medium">
+                  <p className="text-xs text-[#C78F7B] mt-2 font-medium">
                     {galleryPreviews.length}/30 imágenes subidas
                   </p>
                 )}
@@ -1018,13 +1018,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             {galleryPreviews.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 {galleryPreviews.map((preview, index) => (
-                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-conectia-gold/20 group">
+                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-[#C78F7B]/20 group">
                     <img
                       src={preview}
                       alt={`Galería ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-[#0F2027]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <Button
                         type="button"
                         size="sm"
@@ -1039,16 +1039,16 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Bono / Descuento */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Bono o Descuento</CardTitle>
-          <CardDescription>Opcional — se mostrará como un listón en la esquina de la publicación</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+        <div className="px-6 pt-6 pb-2">
+          <h3 className="text-lg font-bold text-white">Bono o Descuento</h3>
+          <p className="text-xs text-[#B0ACA6]">Opcional — se mostrará como un listón en la esquina de la publicación</p>
+        </div>
+        <div className="p-6 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="bono">Texto del bono</Label>
             <Input
@@ -1082,8 +1082,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <div className="flex gap-4 justify-end">
         {onCancel && (
@@ -1093,7 +1093,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         )}
         <Button 
           type="submit" 
-          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold min-w-[200px]"
+          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold min-w-[200px]"
           disabled={isUploading}
         >
           {isUploading ? (

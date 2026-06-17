@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { PropertyForm } from '@/components/property-form'
 import { Propiedad } from '@/data/propiedades'
-import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Camera, CheckCircle2 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -80,73 +79,48 @@ export default function SolicitudPropiedadPage() {
 
   if (enviada) {
     return (
-      <div className="min-h-screen bg-conectia-secondary flex items-center justify-center p-4">
-        <Card className="max-w-md w-full bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-          <CardContent className="p-8 text-center">
+      <div className="min-h-screen bg-[#0F2027] flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-8 text-center max-w-md w-full z-10">
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+          <div className="relative">
             <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 className="h-8 w-8 text-green-500" />
+              <CheckCircle2 className="h-8 w-8 text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-conectia-graphite mb-2">Solicitud Enviada</h2>
-            <p className="text-gray-500 mb-2">
-              Tu solicitud para <strong>{tituloEnviado}</strong> ha sido enviada al fotógrafo.
-            </p>
-            <p className="text-sm text-gray-400 mb-6">
-              Santiago recibirá la solicitud y se encargará de completar las fotos y publicar la propiedad.
-            </p>
+            <h2 className="text-2xl font-bold text-white mb-2">Solicitud Enviada</h2>
+            <p className="text-sm text-[#B0ACA6] mb-2">Tu solicitud para <strong className="text-white">{tituloEnviado}</strong> ha sido enviada al fotógrafo.</p>
+            <p className="text-xs text-[#4A4F57] mb-6">Santiago recibirá la solicitud y se encargará de completar las fotos y publicar la propiedad.</p>
             <div className="flex gap-3">
-              <Button
-                variant="outline"
-                onClick={() => setEnviada(false)}
-                className="flex-1"
-              >
-                Nueva Solicitud
-              </Button>
-              <Button
-                onClick={() => router.push('/panel-asesor/propiedades')}
-                className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
-              >
-                Volver a Propiedades
-              </Button>
+              <Button variant="outline" onClick={() => setEnviada(false)} className="flex-1 bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Nueva Solicitud</Button>
+              <Button onClick={() => router.push('/panel-asesor/propiedades')} className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold">Volver a Propiedades</Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto">
-        <Button
-          variant="ghost"
-          onClick={() => router.push('/panel-asesor/propiedades')}
-          className="mb-6"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Volver a Propiedades
-        </Button>
+    <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        <button onClick={() => router.push('/panel-asesor/propiedades')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-6 text-sm transition-colors">
+          <ArrowLeft className="h-4 w-4" /> Volver a Propiedades
+        </button>
 
         <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-conectia-graphite">
-            Solicitar Fotografía de Propiedad
-          </h1>
-          <p className="text-gray-500 text-sm">
-            Llena todos los datos de la propiedad igual que si fueras a publicarla. El fotógrafo recibirá la solicitud y se encargará de completar las fotos profesionales.
-          </p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">Solicitar Fotografía de Propiedad</h1>
+          <p className="text-sm text-[#B0ACA6]">Llena todos los datos de la propiedad igual que si fueras a publicarla. El fotógrafo recibirá la solicitud y se encargará de completar las fotos profesionales.</p>
         </div>
 
         {/* Info banner */}
-        <Card className="mb-6 bg-blue-500/5 border-blue-500/20">
-          <CardContent className="p-4 flex items-start gap-3">
-            <Camera className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-            <div>
-              <p className="text-sm font-medium text-blue-700">¿Cómo funciona?</p>
-              <p className="text-xs text-blue-600 mt-1">
-                1. Llena todos los datos de la propiedad (puedes subir fotos provisionales o dejar que el fotógrafo las suba) → 2. Envía la solicitud → 3. El fotógrafo recibe la solicitud, sube las fotos profesionales y la completa → 4. La propiedad se publica automáticamente en tu panel
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="relative bg-blue-500/5 backdrop-blur-md border border-blue-500/20 rounded-[24px] p-5 mb-6 flex items-start gap-3">
+          <Camera className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-sm font-bold text-blue-400">¿Cómo funciona?</p>
+            <p className="text-xs text-blue-400/70 mt-1">1. Llena todos los datos de la propiedad (puedes subir fotos provisionales o dejar que el fotógrafo las suba) → 2. Envía la solicitud → 3. El fotógrafo recibe la solicitud, sube las fotos profesionales y la completa → 4. La propiedad se publica automáticamente en tu panel</p>
+          </div>
+        </div>
 
         <PropertyForm
           asesorEmail={user?.email || ''}

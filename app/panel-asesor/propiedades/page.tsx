@@ -22,7 +22,7 @@ import {
   Maximize,
   User,
   AlertTriangle,
-  Crown,
+  Diamond,
   Zap,
   Camera
 } from 'lucide-react'
@@ -272,7 +272,7 @@ export default function PropiedadesAsesorPage() {
             <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: user.plan === 'elite' ? 'rgba(199,143,123,0.2)' : 'rgba(59,130,246,0.2)', border: user.plan === 'elite' ? '1px solid rgba(199,143,123,0.3)' : '1px solid rgba(59,130,246,0.3)' }}>
-                  {user.plan === 'elite' ? <Crown className="h-5 w-5 text-[#C78F7B]" /> : <Zap className="h-5 w-5 text-blue-400" />}
+                  {user.plan === 'elite' ? <Diamond className="h-5 w-5 text-[#C78F7B]" /> : <Zap className="h-5 w-5 text-blue-400" />}
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">{getPlanById(user.plan || 'core')?.name}</h3>
@@ -286,7 +286,7 @@ export default function PropiedadesAsesorPage() {
               </div>
               {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
                 <button onClick={() => router.push('/panel-asesor/planes')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
-                  <Crown className="h-4 w-4" /> Actualizar a Elite
+                  <Diamond className="h-4 w-4" /> Actualizar a Elite
                 </button>
               )}
             </div>

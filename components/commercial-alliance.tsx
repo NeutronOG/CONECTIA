@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Check, Buildings, Lightning, CircleNotch, Users, Crown } from "@phosphor-icons/react"
+import { Check, Buildings, Lightning, CircleNotch, Users, Diamond } from "@phosphor-icons/react"
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -168,7 +168,7 @@ export function CommercialAlliance() {
                 "Análisis predictivo de mercado",
                 "Mínimo 2 miembros"
             ],
-            icon: Crown,
+            icon: Diamond,
             highlight: true,
             badge: "Más Popular",
             cardClass: "border-[#C78F7B]/40 shadow-2xl scale-105 z-10 bg-[#1F3D47] backdrop-blur-xl",

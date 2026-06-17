@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { User, Mail, Phone, AlertCircle, CheckCircle2, Crown, MessageSquare } from 'lucide-react'
+import { User, Mail, Phone, AlertCircle, CheckCircle2, Diamond, MessageSquare } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -105,7 +105,7 @@ function RegistroContent() {
           {fromPlans ? (
             <div className="mb-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-conectia-gold/10 rounded-full mb-3">
-                <Crown className="w-4 h-4 text-conectia-gold" />
+                <Diamond className="w-4 h-4 text-conectia-gold" />
                 <span className="text-sm font-medium text-conectia-gold">Únete a la élite inmobiliaria</span>
               </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">

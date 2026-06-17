@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { Sparkles, Crown, Diamond } from "lucide-react"
+import { Sparkles, Star, Diamond } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { PropertyCard, EmptyProperties } from "@/components/property-card"
@@ -9,7 +9,7 @@ import { PropertyCard, EmptyProperties } from "@/components/property-card"
 const HERO_IMAGE = "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80"
 
 const ATRIBUTOS = [
-  { icon: Crown, label: "Ubicaciones prime" },
+  { icon: Star, label: "Ubicaciones prime" },
   { icon: Diamond, label: "Acabados exclusivos" },
   { icon: Sparkles, label: "Características únicas" },
 ]

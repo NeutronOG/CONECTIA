@@ -26,7 +26,7 @@ import {
   Plus,
   Settings,
   Camera,
-  Crown,
+  Diamond,
   Zap,
   Sparkles,
   MapPin
@@ -192,7 +192,7 @@ export default function PanelAsesorPage() {
             <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
               <div>
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/25 text-[#C78F7B] text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
-                  <Crown className="w-3 h-3" /> {getPlanById(user.plan || 'core')?.name}
+                  <Diamond className="w-3 h-3" /> {getPlanById(user.plan || 'core')?.name}
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">
                   {(() => {

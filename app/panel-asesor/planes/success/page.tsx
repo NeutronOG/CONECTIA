@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { CheckCircle, Crown, Loader2 } from 'lucide-react'
+import { CheckCircle, Diamond, Loader2 } from 'lucide-react'
 
 function SuccessContent() {
   const router = useRouter()
@@ -47,7 +47,7 @@ function SuccessContent() {
             <div className="w-20 h-20 bg-conectia-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-12 w-12 text-white" />
             </div>
-            <Crown className="h-12 w-12 text-conectia-gold mx-auto mb-4" />
+            <Diamond className="h-12 w-12 text-conectia-gold mx-auto mb-4" />
           </div>
 
           <h1 className="text-3xl font-bold text-conectia-graphite mb-3">

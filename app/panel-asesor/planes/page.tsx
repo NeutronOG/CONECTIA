@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { subscriptionPlans, teamPlans } from '@/data/subscription-plans'
-import { ArrowLeft, Check, Crown, Zap, Sparkles, Loader2, Users } from 'lucide-react'
+import { ArrowLeft, Check, Diamond, Zap, Sparkles, Loader2, Users } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function PlanesPage() {
@@ -112,7 +112,7 @@ export default function PlanesPage() {
                     <div className="flex items-center gap-3">
                       {isElite ? (
                         <div className="p-3 bg-conectia-gold rounded-xl">
-                          <Crown className="h-8 w-8 text-white" />
+                          <Diamond className="h-8 w-8 text-white" />
                         </div>
                       ) : (
                         <div className="p-3 bg-blue-500 rounded-xl">
@@ -179,7 +179,7 @@ export default function PlanesPage() {
                       'Plan Actual'
                     ) : isElite ? (
                       <>
-                        <Crown className="h-4 w-4 mr-2" />
+                        <Diamond className="h-4 w-4 mr-2" />
                         Actualizar a Elite
                       </>
                     ) : (
@@ -232,7 +232,7 @@ export default function PlanesPage() {
                       <div className="flex items-center gap-3">
                         {isElite ? (
                           <div className="p-3 bg-purple-600 rounded-xl">
-                            <Crown className="h-8 w-8 text-white" />
+                            <Diamond className="h-8 w-8 text-white" />
                           </div>
                         ) : (
                           <div className="p-3 bg-purple-400 rounded-xl">
