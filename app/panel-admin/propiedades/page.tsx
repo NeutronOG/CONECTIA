@@ -3,11 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Building2, Trash2, Eye, ArrowLeft, AlertTriangle, Save, FileText, History } from 'lucide-react'
+import { Building2, Trash2, ArrowLeft, AlertTriangle, Save, Home, Diamond, Shield, MapPin, Bed, Bath, Ruler } from 'lucide-react'
 import { PropertiesStorage } from '@/lib/properties-storage'
-import { ShareButton } from '@/components/share-button'
 import { SocialShareFormats } from '@/components/social-share-formats'
 import { Propiedad } from '@/data/propiedades'
 import { toast } from 'sonner'
@@ -78,28 +76,51 @@ export default function AdminPropiedadesPage() {
         }
     }
 
-    const handleReassignOwner = async (propertyId: number, newUsuarioId: string | null) => {
-        setSavingOwnerByPropertyId(prev => ({ ...prev, [propertyId]: true }))
+    // Map property usuarioId to asesor id for the Select component
+    const getSelectValue = (propiedad: Propiedad) => {
+        if (pendingChanges[propiedad.id] !== undefined) {
+            return pendingChanges[propiedad.id] || '__unassigned__'
+        }
+        const uid = propiedad.usuarioId
+        if (!uid) return '__unassigned__'
+        // If it's already a UUID matching an asesor, use it
+        const byId = asesores.find(a => a.id === uid)
+        if (byId) return byId.id
+        // If it's an email, find the asesor by email
+        const byEmail = asesores.find(a => a.email.toLowerCase() === uid.toLowerCase())
+        if (byEmail) return byEmail.id
+        return '__unassigned__'
+    }
 
+    const getAsesorName = (asesorIdOrEmail?: string) => {
+        if (!asesorIdOrEmail) return 'Sin asignar'
+        const byId = asesores.find(a => a.id === asesorIdOrEmail)
+        if (byId) return `${byId.nombre} (${byId.email})`
+        const byEmail = asesores.find(a => a.email.toLowerCase() === asesorIdOrEmail.toLowerCase())
+        if (byEmail) return `${byEmail.nombre} (${byEmail.email})`
+        return asesorIdOrEmail
+    }
+
+    const handleReassignOwner = async (propertyId: number, asesorId: string | null) => {
+        setSavingOwnerByPropertyId(prev => ({ ...prev, [propertyId]: true }))
         try {
+            const asesor = asesorId ? asesores.find(a => a.id === asesorId) : null
             const res = await fetch('/api/admin/fix-orphan-properties', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ propertyId, asesorEmail: newUsuarioId })
+                body: JSON.stringify({
+                    propertyId,
+                    asesorId: asesorId || null,
+                    asesorEmail: asesor?.email || null
+                })
             })
-
             if (!res.ok) {
                 const data = await res.json()
                 toast.error(data.error || 'No se pudo reasignar el asesor')
                 return
             }
-
             toast.success('Asesor reasignado exitosamente')
-            setPendingChanges(prev => {
-                const copy = { ...prev }
-                delete copy[propertyId]
-                return copy
-            })
+            setPendingChanges(prev => { const c = { ...prev }; delete c[propertyId]; return c })
             await loadProperties()
         } catch (error: any) {
             console.error('Error reassigning owner:', error)
@@ -151,128 +172,76 @@ export default function AdminPropiedadesPage() {
 
     if (!user) return null
 
+    const disponibles = propiedades.filter(p => p.status === 'Disponible').length
+    const exclusivas = propiedades.filter(p => p.status === 'Exclusiva').length
+    const reservadas = propiedades.filter(p => p.status === 'Reservada').length
+
     return (
-        <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-6 lg:p-8">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+            {/* Glow orbs */}
+            <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+            <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
-                    <div className="w-full sm:w-auto">
-                        <Button
-                            variant="ghost"
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <button
                             onClick={() => router.push('/panel-admin')}
-                            className="mb-3 sm:mb-4"
+                            className="flex items-center gap-2 text-[#B0ACA6] hover:text-white text-sm font-medium mb-3 transition-colors"
                         >
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Volver al Panel Admin
-                        </Button>
-                        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-conectia-graphite">
+                            <ArrowLeft className="h-4 w-4" />
+                            Volver al Panel
+                        </button>
+                        <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
+                                <Building2 className="w-5 h-5 text-[#C78F7B]" />
+                            </div>
                             Gestión de Propiedades
                         </h1>
-                        <p className="text-sm sm:text-base text-gray-600">
-                            Administra todas las propiedades del sistema
-                        </p>
+                        <p className="text-sm text-[#B0ACA6] mt-1">Administra todas las propiedades del sistema</p>
                     </div>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                    <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                        Total Propiedades
-                                    </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-conectia-graphite">
-                                        {propiedades.length}
-                                    </p>
-                                </div>
-                                <div className="p-3 bg-conectia-gold/10 rounded-xl">
-                                    <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-conectia-gold" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                    {[
+                        { label: 'Total', value: propiedades.length, accent: '#C78F7B', icon: Building2 },
+                        { label: 'Disponibles', value: disponibles, accent: '#22c55e', icon: Home },
+                        { label: 'Exclusivas', value: exclusivas, accent: '#f59e0b', icon: Diamond },
+                        { label: 'Reservadas', value: reservadas, accent: '#3b82f6', icon: Shield },
+                    ].map((stat, i) => (
+                        <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[20px] p-5 overflow-hidden hover:border-white/20 transition-all">
+                            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
+                            <div className="flex items-start justify-between mb-3">
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                                    <stat.icon className="w-5 h-5" style={{ color: stat.accent }} />
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                        Disponibles
-                                    </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-green-600">
-                                        {propiedades.filter(p => p.status === 'Disponible').length}
-                                    </p>
-                                </div>
-                                <div className="p-3 bg-green-500/10 rounded-xl">
-                                    <Eye className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                        Exclusivas
-                                    </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-conectia-gold">
-                                        {propiedades.filter(p => p.status === 'Exclusiva').length}
-                                    </p>
-                                </div>
-                                <div className="p-3 bg-conectia-gold/10 rounded-xl">
-                                    <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-conectia-gold" />
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-                        <CardContent className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                                        Reservadas
-                                    </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-blue-600">
-                                        {propiedades.filter(p => p.status === 'Reservada').length}
-                                    </p>
-                                </div>
-                                <div className="p-3 bg-blue-500/10 rounded-xl">
-                                    <Building2 className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+                            <p className="text-xs text-[#8A8F97] mt-1">{stat.label}</p>
+                        </div>
+                    ))}
                 </div>
 
                 {/* Lista de Propiedades */}
                 {propiedades.length === 0 ? (
-                    <Card className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg">
-                        <CardContent className="p-12 text-center">
-                            <Building2 className="h-16 w-16 text-conectia-gold mx-auto mb-4" />
-                            <h3 className="text-xl font-semibold mb-2 text-conectia-graphite">
-                                No hay propiedades
-                            </h3>
-                            <p className="text-gray-600">
-                                No se encontraron propiedades en el sistema
-                            </p>
-                        </CardContent>
-                    </Card>
+                    <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-12 text-center">
+                        <Building2 className="h-12 w-12 text-[#4A4F57] mx-auto mb-3" />
+                        <p className="text-white font-semibold mb-1">No hay propiedades</p>
+                        <p className="text-sm text-[#8A8F97]">No se encontraron propiedades en el sistema</p>
+                    </div>
                 ) : (
                     <div className="space-y-4">
                         {propiedades.map((propiedad) => (
-                            <Card
+                            <div
                                 key={propiedad.id}
-                                className="bg-conectia-secondary/60 backdrop-blur-xl border-white/40 shadow-lg hover:shadow-xl transition-all duration-300"
+                                className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden hover:border-white/20 transition-all"
                             >
-                                <CardContent className="p-6">
-                                    <div className="flex flex-col md:flex-row gap-6">
+                                <div className="p-5 sm:p-6">
+                                    <div className="flex flex-col lg:flex-row gap-5">
                                         {/* Imagen */}
-                                        <div className="w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0">
+                                        <div className="w-full lg:w-56 h-48 lg:h-44 rounded-[16px] overflow-hidden flex-shrink-0 border border-white/10">
                                             <img
                                                 src={propiedad.imagen}
                                                 alt={propiedad.titulo}
@@ -282,48 +251,42 @@ export default function AdminPropiedadesPage() {
 
                                         {/* Información */}
                                         <div className="flex-1">
-                                            <div className="flex items-start justify-between mb-2">
-                                                <div>
-                                                    <h3 className="text-xl font-bold text-conectia-graphite mb-1">
-                                                        {propiedad.titulo}
-                                                    </h3>
-                                                    <p className="text-sm text-gray-600">{propiedad.ubicacion}</p>
+                                            <div className="flex items-start justify-between gap-3 mb-2">
+                                                <div className="min-w-0">
+                                                    <h3 className="text-lg font-bold text-white truncate">{propiedad.titulo}</h3>
+                                                    <div className="flex items-center gap-1.5 text-xs text-[#B0ACA6] mt-1">
+                                                        <MapPin className="h-3.5 w-3.5 text-[#C78F7B]" />
+                                                        {propiedad.ubicacion}
+                                                    </div>
                                                 </div>
-                                                <span
-                                                    className={`px-3 py-1 rounded-full text-xs font-semibold ${propiedad.status === 'Disponible'
-                                                        ? 'bg-green-500/20 text-green-700 border border-green-500/50'
-                                                        : propiedad.status === 'Exclusiva'
-                                                            ? 'bg-conectia-gold/20 text-conectia-gold border border-conectia-gold/50'
-                                                            : 'bg-blue-500/20 text-blue-700 border border-blue-500/50'
-                                                        }`}
-                                                >
+                                                <span className={`px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${
+                                                    propiedad.status === 'Disponible' ? 'bg-green-500/10 text-green-400 border-green-500/20'
+                                                    : propiedad.status === 'Exclusiva' ? 'bg-[#C78F7B]/10 text-[#C78F7B] border-[#C78F7B]/20'
+                                                    : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                                }`}>
                                                     {propiedad.status}
                                                 </span>
                                             </div>
 
                                             {propiedad.agente && (
-                                                <div className="mb-3 text-sm text-gray-600">
-                                                    <span className="font-semibold">Publicado por:</span>{' '}
+                                                <div className="mb-3 text-sm text-[#B0ACA6]">
+                                                    <span className="font-medium text-[#8A8F97]">Publicado por:</span>{' '}
                                                     {propiedad.agente.nombre} ({propiedad.agente.email})
                                                 </div>
                                             )}
 
                                             <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                 <div>
-                                                    <div className="text-xs font-medium text-gray-500 mb-1">
+                                                    <div className="text-xs font-medium text-[#8A8F97] mb-1">
                                                         Asesor asignado
                                                     </div>
                                                     <div className="flex gap-2">
                                                         <Select
-                                                            value={
-                                                                pendingChanges[propiedad.id] !== undefined
-                                                                    ? (pendingChanges[propiedad.id] || '__unassigned__')
-                                                                    : (propiedad.usuarioId ? propiedad.usuarioId : '__unassigned__')
-                                                            }
+                                                            value={getSelectValue(propiedad)}
                                                             onValueChange={(val) => {
                                                                 const next = val === '__unassigned__' ? null : val
-                                                                const current = propiedad.usuarioId || null
-                                                                if (next === current) {
+                                                                const currentId = getSelectValue(propiedad) === '__unassigned__' ? null : getSelectValue(propiedad)
+                                                                if (next === currentId) {
                                                                     setPendingChanges(prev => {
                                                                         const copy = { ...prev }
                                                                         delete copy[propiedad.id]
@@ -341,7 +304,7 @@ export default function AdminPropiedadesPage() {
                                                             <SelectContent>
                                                                 <SelectItem value="__unassigned__">Sin asignar</SelectItem>
                                                                 {asesores.map((a) => (
-                                                                    <SelectItem key={a.email} value={a.email}>
+                                                                    <SelectItem key={a.id} value={a.id}>
                                                                         {a.nombre} ({a.email})
                                                                     </SelectItem>
                                                                 ))}
@@ -364,21 +327,21 @@ export default function AdminPropiedadesPage() {
                                                 </div>
 
                                                 <div>
-                                                    <div className="text-xs font-medium text-gray-500 mb-1">UUID</div>
-                                                    <div className="h-10 px-3 flex items-center rounded-md border border-input bg-background text-xs text-gray-600 overflow-hidden">
-                                                        {propiedad.usuarioId || '—'}
+                                                    <div className="text-xs font-medium text-[#8A8F97] mb-1">Asesor actual</div>
+                                                    <div className="h-10 px-3 flex items-center rounded-md border border-white/10 bg-white/[0.03] text-xs text-gray-300 overflow-hidden">
+                                                        {getAsesorName(propiedad.usuarioId)}
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <p className="text-2xl font-bold text-conectia-gold mb-3">
+                                            <p className="text-2xl font-bold text-[#C78F7B] mb-3">
                                                 {propiedad.precioTexto}
                                             </p>
 
-                                            <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                                                <span>🛏️ {propiedad.habitaciones} hab</span>
-                                                <span>🚿 {propiedad.banos} baños</span>
-                                                <span>📐 {propiedad.areaTexto}</span>
+                                            <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                                                <span className="flex items-center gap-1.5"><Bed className="h-4 w-4 text-[#C78F7B]" /> {propiedad.habitaciones} hab</span>
+                                                <span className="flex items-center gap-1.5"><Bath className="h-4 w-4 text-[#C78F7B]" /> {propiedad.banos} baños</span>
+                                                <span className="flex items-center gap-1.5"><Ruler className="h-4 w-4 text-[#C78F7B]" /> {propiedad.areaTexto}</span>
                                             </div>
 
                                             {/* Botones de acción */}
@@ -404,7 +367,7 @@ export default function AdminPropiedadesPage() {
                                                     variant="outline"
                                                     size="sm"
                                                     onClick={() => setDeleteConfirm(propiedad.id)}
-                                                    className="bg-red-50 text-red-600 hover:bg-red-100 border-red-200"
+                                                    className="border-white/10 text-red-400 hover:bg-red-500/10 hover:text-red-300 hover:border-red-500/30"
                                                 >
                                                     <Trash2 className="h-4 w-4 mr-2" />
                                                     Eliminar Propiedad
@@ -412,29 +375,29 @@ export default function AdminPropiedadesPage() {
                                             </div>
                                         </div>
                                     </div>
-                                </CardContent>
-                            </Card>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 )}
 
                 {/* Modal de confirmación de eliminación */}
                 {deleteConfirm !== null && (
-                    <div className="fixed inset-0 bg-[#17313A]/50 flex items-center justify-center z-50 p-4">
-                        <Card className="max-w-md w-full">
-                            <CardHeader>
-                                <div className="flex items-center gap-3 mb-2">
-                                    <div className="p-3 bg-red-100 rounded-full">
-                                        <AlertTriangle className="h-6 w-6 text-red-600" />
+                    <div className="fixed inset-0 bg-[#0F2027]/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                        <div className="max-w-md w-full bg-white/[0.05] backdrop-blur-xl border border-white/10 rounded-[24px] p-6">
+                            <div className="mb-4">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="p-3 bg-red-500/10 rounded-full border border-red-500/20">
+                                        <AlertTriangle className="h-6 w-6 text-red-400" />
                                     </div>
-                                    <CardTitle>Confirmar Eliminación</CardTitle>
+                                    <h3 className="text-lg font-bold text-white">Confirmar Eliminación</h3>
                                 </div>
-                                <CardDescription>
+                                <p className="text-sm text-[#B0ACA6]">
                                     ¿Estás seguro de que deseas eliminar esta propiedad? Esta acción no se puede
                                     deshacer.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent className="flex gap-3">
+                                </p>
+                            </div>
+                            <div className="flex gap-3">
                                 <Button
                                     variant="outline"
                                     onClick={() => setDeleteConfirm(null)}
@@ -448,8 +411,8 @@ export default function AdminPropiedadesPage() {
                                 >
                                     Eliminar
                                 </Button>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

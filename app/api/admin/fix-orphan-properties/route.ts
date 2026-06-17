@@ -66,36 +66,63 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { propertyId, asesorEmail } = body
+    const { propertyId, asesorId, asesorEmail } = body
 
     if (!propertyId) {
       return NextResponse.json({ error: 'propertyId es requerido' }, { status: 400 })
     }
 
-    // Actualizar la propiedad con el email del asesor en ambas columnas
+    // Support both old (email) and new (id) clients
+    const idToUse = asesorId || null
+    const emailToUse = asesorEmail || null
+
+    // Build update object: only set usuario_id if it's a valid UUID or null
+    const updateData: any = {}
+
+    if (idToUse) {
+      updateData.usuario_id = idToUse
+    } else {
+      updateData.usuario_id = null
+    }
+
+    // Try to set asesor_email too (TEXT column, safe for emails)
+    if (emailToUse) {
+      updateData.asesor_email = emailToUse
+    } else {
+      updateData.asesor_email = null
+    }
+
     const { data, error } = await supabaseAdmin
       .from('propiedades')
-      .update({ 
-        asesor_email: asesorEmail || null,
-        usuario_id: asesorEmail || null 
-      })
+      .update(updateData)
       .eq('id', propertyId)
       .select()
       .single()
 
     if (error) {
       console.error('Error updating property:', error)
-      // Si falla porque la columna no existe, dar instrucciones
-      if (error.message.includes('asesor_email')) {
-        return NextResponse.json({ 
-          error: 'Ejecuta en Supabase SQL Editor: ALTER TABLE propiedades ADD COLUMN asesor_email TEXT;',
-          sqlToRun: 'ALTER TABLE propiedades ADD COLUMN asesor_email TEXT;'
-        }, { status: 500 })
+      // If asesor_email column doesn't exist, try updating only usuario_id
+      if (error.message && error.message.includes('asesor_email')) {
+        const { data: fallbackData, error: fallbackError } = await supabaseAdmin
+          .from('propiedades')
+          .update({ usuario_id: idToUse })
+          .eq('id', propertyId)
+          .select()
+          .single()
+
+        if (fallbackError) {
+          return NextResponse.json({ error: fallbackError.message }, { status: 500 })
+        }
+        return NextResponse.json({
+          success: true,
+          property: fallbackData,
+          note: 'Columna asesor_email no existe. Ejecuta: ALTER TABLE propiedades ADD COLUMN asesor_email TEXT;'
+        })
       }
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
       property: data
     })

@@ -4,11 +4,9 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
@@ -28,6 +26,7 @@ import {
   Pause,
   Play,
   Ban,
+  Megaphone
 } from 'lucide-react'
 
 interface Ad {
@@ -230,25 +229,34 @@ export default function PublicidadPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-[#17313A] text-[#EAE4DD] p-4 sm:p-8">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
         <div className="mb-8">
-          <Button variant="ghost" onClick={() => router.push('/panel-admin')} className="mb-4">
-            <ArrowLeft className="h-4 w-4 mr-2" />
+          <button
+            onClick={() => router.push('/panel-admin')}
+            className="flex items-center gap-2 text-[#B0ACA6] hover:text-white text-sm font-medium mb-3 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
             Volver al Panel
-          </Button>
-          <div className="flex items-center justify-between">
+          </button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-                <Sparkles className="h-7 w-7 text-[#D4AF37]" />
+              <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
+                  <Megaphone className="w-5 h-5 text-[#C78F7B]" />
+                </div>
                 Publicidad
               </h1>
-              <p className="text-gray-400">Gestiona los espacios publicitarios del homepage</p>
+              <p className="text-sm text-[#B0ACA6] mt-1">Gestiona los espacios publicitarios del homepage</p>
             </div>
             <Button
               onClick={() => { resetForm(); setShowForm(true) }}
-              className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#17313A] font-bold"
+              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold"
             >
               <Plus className="h-4 w-4 mr-2" />
               Nuevo Anuncio
@@ -257,112 +265,105 @@ export default function PublicidadPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card className="bg-[#1a1a1a] border-gray-800">
-            <CardContent className="p-5 text-center">
-              <p className="text-gray-400 text-xs mb-1">Total</p>
-              <p className="text-2xl font-bold text-white">{ads.length}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-[#1a1a1a] border-gray-800">
-            <CardContent className="p-5 text-center">
-              <p className="text-gray-400 text-xs mb-1">Activos</p>
-              <p className="text-2xl font-bold text-green-400">{ads.filter(a => a.estado === 'activo').length}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-[#1a1a1a] border-gray-800">
-            <CardContent className="p-5 text-center">
-              <p className="text-gray-400 text-xs mb-1">Impresiones</p>
-              <p className="text-2xl font-bold text-blue-400">{ads.reduce((s, a) => s + (a.impresiones || 0), 0)}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-[#1a1a1a] border-gray-800">
-            <CardContent className="p-5 text-center">
-              <p className="text-gray-400 text-xs mb-1">Clicks</p>
-              <p className="text-2xl font-bold text-[#D4AF37]">{ads.reduce((s, a) => s + (a.clicks || 0), 0)}</p>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {[
+            { label: 'Total', value: ads.length, accent: '#C78F7B', icon: Sparkles },
+            { label: 'Activos', value: ads.filter(a => a.estado === 'activo').length, accent: '#22c55e', icon: Play },
+            { label: 'Impresiones', value: ads.reduce((s, a) => s + (a.impresiones || 0), 0), accent: '#3b82f6', icon: Eye },
+            { label: 'Clicks', value: ads.reduce((s, a) => s + (a.clicks || 0), 0), accent: '#f59e0b', icon: MousePointer },
+          ].map((stat, i) => (
+            <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[20px] p-5 overflow-hidden hover:border-white/20 transition-all">
+              <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
+              <div className="flex items-start justify-between mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                  <stat.icon className="w-5 h-5" style={{ color: stat.accent }} />
+                </div>
+              </div>
+              <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+              <p className="text-xs text-[#8A8F97] mt-1">{stat.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Form */}
         {showForm && (
-          <Card className="bg-[#1a1a1a] border-gray-800 mb-8">
-            <CardContent className="p-6 sm:p-8">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <PenLine className="h-5 w-5 text-[#D4AF37]" />
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden mb-8">
+            <div className="p-6 sm:p-8">
+              <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
+                <PenLine className="h-5 w-5 text-[#C78F7B]" />
                 {editingId ? 'Editar Anuncio' : 'Nuevo Anuncio'}
               </h2>
 
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm">Título del anuncio *</Label>
+                    <Label className="text-[#B0ACA6] text-sm">Título del anuncio *</Label>
                     <Input
                       placeholder="Ej: Nuevo desarrollo en Polanco"
                       value={form.titulo}
                       onChange={(e) => setForm(prev => ({ ...prev, titulo: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm">Texto del botón</Label>
+                    <Label className="text-[#B0ACA6] text-sm">Texto del botón</Label>
                     <Input
                       placeholder="Ej: Ver más"
                       value={form.textoBoton}
                       onChange={(e) => setForm(prev => ({ ...prev, textoBoton: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-gray-300 text-sm">Descripción</Label>
+                  <Label className="text-[#B0ACA6] text-sm">Descripción</Label>
                   <Textarea
                     placeholder="Describe el anuncio..."
                     rows={3}
                     value={form.descripcion}
                     onChange={(e) => setForm(prev => ({ ...prev, descripcion: e.target.value }))}
-                    className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                    className="bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                   />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <ImageIcon className="h-3.5 w-3.5" /> URL de imagen
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <ImageIcon className="h-3.5 w-3.5 text-[#C78F7B]" /> URL de imagen
                     </Label>
                     <Input
                       placeholder="https://ejemplo.com/imagen.jpg"
                       value={form.imagen}
                       onChange={(e) => setForm(prev => ({ ...prev, imagen: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                     />
                     {form.imagen && (
-                      <div className="mt-2 rounded-xl overflow-hidden h-32 bg-[#1A3540]/50">
+                      <div className="mt-2 rounded-[12px] overflow-hidden h-32 bg-[#0A181C] border border-white/10">
                         <img src={form.imagen} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <LinkIcon className="h-3.5 w-3.5" /> Enlace de destino
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <LinkIcon className="h-3.5 w-3.5 text-[#C78F7B]" /> Enlace de destino
                     </Label>
                     <Input
                       placeholder="https://ejemplo.com"
                       value={form.enlace}
                       onChange={(e) => setForm(prev => ({ ...prev, enlace: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                     />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <LayoutGrid className="h-3.5 w-3.5" /> Ubicación
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <LayoutGrid className="h-3.5 w-3.5 text-[#C78F7B]" /> Ubicación
                     </Label>
                     <Select value={form.ubicacion} onValueChange={(v) => setForm(prev => ({ ...prev, ubicacion: v }))}>
-                      <SelectTrigger className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white">
+                      <SelectTrigger className="bg-[#0F2027] border-white/10 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -374,11 +375,11 @@ export default function PublicidadPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <Palette className="h-3.5 w-3.5" /> Estilo
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <Palette className="h-3.5 w-3.5 text-[#C78F7B]" /> Estilo
                     </Label>
                     <Select value={form.estilo} onValueChange={(v) => setForm(prev => ({ ...prev, estilo: v }))}>
-                      <SelectTrigger className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white">
+                      <SelectTrigger className="bg-[#0F2027] border-white/10 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -389,13 +390,13 @@ export default function PublicidadPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm">Estado inicial</Label>
+                    <Label className="text-[#B0ACA6] text-sm">Estado inicial</Label>
                     <div className="flex items-center gap-3 pt-2">
                       <Switch
                         checked={form.activo}
                         onCheckedChange={(v) => setForm(prev => ({ ...prev, activo: v, estado: v ? 'activo' : 'pausado' }))}
                       />
-                      <span className={form.activo ? 'text-green-400 text-sm' : 'text-gray-500 text-sm'}>
+                      <span className={form.activo ? 'text-green-400 text-sm' : 'text-[#8A8F97] text-sm'}>
                         {form.activo ? 'Activo' : 'Pausado'}
                       </span>
                     </div>
@@ -404,25 +405,25 @@ export default function PublicidadPage() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5" /> Fecha inicio
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 text-[#C78F7B]" /> Fecha inicio
                     </Label>
                     <Input
                       type="date"
                       value={form.fechaInicio}
                       onChange={(e) => setForm(prev => ({ ...prev, fechaInicio: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-gray-300 text-sm flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5" /> Fecha fin (opcional)
+                    <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 text-[#C78F7B]" /> Fecha fin (opcional)
                     </Label>
                     <Input
                       type="date"
                       value={form.fechaFin}
                       onChange={(e) => setForm(prev => ({ ...prev, fechaFin: e.target.value }))}
-                      className="bg-[#1F3D47]/70 border-[#EAE4DD]/20 text-white"
+                      className="bg-[#0F2027] border-white/10 text-white"
                     />
                   </div>
                 </div>
@@ -431,44 +432,41 @@ export default function PublicidadPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#17313A] font-bold px-8"
+                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold px-8"
                   >
                     {saving ? 'Guardando...' : editingId ? 'Guardar Cambios' : 'Crear Anuncio'}
                   </Button>
-                  <Button variant="outline" onClick={resetForm} className="border-gray-600 text-gray-300">
+                  <Button variant="outline" onClick={resetForm} className="border-white/10 text-[#B0ACA6] hover:bg-white/5 hover:text-white">
                     Cancelar
                   </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* Ads List */}
         <div className="space-y-4">
           {loading ? (
-            <Card className="bg-[#1a1a1a] border-gray-800">
-              <CardContent className="p-12 text-center">
-                <p className="text-gray-400">Cargando anuncios...</p>
-              </CardContent>
-            </Card>
+            <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-12 text-center">
+              <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin mx-auto mb-3" />
+              <p className="text-[#8A8F97]">Cargando anuncios...</p>
+            </div>
           ) : ads.length === 0 ? (
-            <Card className="bg-[#1a1a1a] border-gray-800">
-              <CardContent className="p-12 text-center">
-                <Sparkles className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-400 mb-2">No hay anuncios creados</p>
-                <p className="text-gray-500 text-sm">Crea tu primer anuncio para mostrarlo en el homepage</p>
-              </CardContent>
-            </Card>
+            <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-12 text-center">
+              <Sparkles className="h-12 w-12 text-[#4A4F57] mx-auto mb-3" />
+              <p className="text-white font-semibold mb-1">No hay anuncios creados</p>
+              <p className="text-sm text-[#8A8F97]">Crea tu primer anuncio para mostrarlo en el homepage</p>
+            </div>
           ) : (
             ads.map((ad) => {
               const badge = estadoBadge(ad)
               return (
-                <Card key={ad.id} className="bg-[#1a1a1a] border-gray-800">
-                  <CardContent className="p-5">
+                <div key={ad.id} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[20px] overflow-hidden hover:border-white/20 transition-all">
+                  <div className="p-5">
                     <div className="flex items-start gap-4">
                       {ad.imagen && (
-                        <div className="w-24 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-[#1A3540]/50">
+                        <div className="w-24 h-16 rounded-[12px] overflow-hidden flex-shrink-0 bg-[#0A181C] border border-white/10">
                           <img src={ad.imagen} alt={ad.titulo} className="w-full h-full object-cover" />
                         </div>
                       )}
@@ -476,16 +474,16 @@ export default function PublicidadPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <h3 className="font-bold text-white truncate">{ad.titulo}</h3>
-                          <Badge className={`${badge.color} text-xs`}>{badge.label}</Badge>
-                          <Badge variant="outline" className="text-xs text-[#D4AF37] border-[#D4AF37]/50">
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${badge.color}`}>{badge.label}</span>
+                          <span className="px-2 py-0.5 rounded-full text-xs border border-[#C78F7B]/30 text-[#C78F7B]">
                             {ubicacionLabels[ad.ubicacion] || ad.ubicacion}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs">
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full text-xs border border-white/10 text-[#B0ACA6]">
                             {estiloLabels[ad.estilo] || ad.estilo}
-                          </Badge>
+                          </span>
                         </div>
-                        <p className="text-sm text-gray-400 truncate mb-2">{ad.descripcion || 'Sin descripción'}</p>
-                        <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <p className="text-sm text-[#8A8F97] truncate mb-2">{ad.descripcion || 'Sin descripción'}</p>
+                        <div className="flex items-center gap-4 text-xs text-[#8A8F97]">
                           <span className="flex items-center gap-1"><Eye className="h-3 w-3" />{ad.impresiones || 0} impresiones</span>
                           <span className="flex items-center gap-1"><MousePointer className="h-3 w-3" />{ad.clicks || 0} clicks</span>
                           <span>Por: {ad.creado_por || '—'}</span>
@@ -500,7 +498,7 @@ export default function PublicidadPage() {
                             variant="ghost"
                             onClick={() => setEstado(ad.id, 'activo')}
                             title="Reanudar"
-                            className="text-green-400 hover:text-green-300"
+                            className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
                           >
                             <Play className="h-4 w-4" />
                           </Button>
@@ -511,7 +509,7 @@ export default function PublicidadPage() {
                             variant="ghost"
                             onClick={() => setEstado(ad.id, 'pausado')}
                             title="Pausar"
-                            className="text-yellow-400 hover:text-yellow-300"
+                            className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
                           >
                             <Pause className="h-4 w-4" />
                           </Button>
@@ -522,7 +520,7 @@ export default function PublicidadPage() {
                             variant="ghost"
                             onClick={() => setEstado(ad.id, 'suspendido')}
                             title="Suspender"
-                            className="text-orange-400 hover:text-orange-300"
+                            className="text-orange-400 hover:text-orange-300 hover:bg-orange-500/10"
                           >
                             <Ban className="h-4 w-4" />
                           </Button>
@@ -532,7 +530,7 @@ export default function PublicidadPage() {
                           variant="ghost"
                           onClick={() => handleEdit(ad)}
                           title="Editar"
-                          className="text-blue-400 hover:text-blue-300"
+                          className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
                         >
                           <PenLine className="h-4 w-4" />
                         </Button>
@@ -541,14 +539,14 @@ export default function PublicidadPage() {
                           variant="ghost"
                           onClick={() => handleDelete(ad.id)}
                           title="Eliminar"
-                          className="text-red-400 hover:text-red-300"
+                          className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )
             })
           )}

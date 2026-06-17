@@ -4,10 +4,8 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { supabase } from "@/lib/supabase/client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
 import {
   Camera,
   CheckCircle,
@@ -18,7 +16,8 @@ import {
   Image as ImageIcon,
   ArrowLeft,
   Eye,
-  AlertCircle
+  AlertCircle,
+  Aperture
 } from "lucide-react"
 
 interface SolicitudFotografo {
@@ -157,107 +156,82 @@ export default function SolicitudesFotografoPage() {
   const rechazadas = solicitudes.filter(s => s.status === 'rechazada').length
 
   return (
-    <div className="min-h-screen bg-[#17313A]">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-conectia-graphite to-gray-900 text-white py-6">
-        <div className="container mx-auto px-4">
-          <Button
+    <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="mb-8">
+          <button
             onClick={() => router.push('/panel-admin')}
-            variant="ghost"
-            className="text-white hover:bg-white/10 mb-4"
+            className="flex items-center gap-2 text-[#B0ACA6] hover:text-white text-sm font-medium mb-3 transition-colors"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver al Panel Admin
-          </Button>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-conectia-primary rounded-full flex items-center justify-center">
-              <Camera className="h-6 w-6 text-conectia-accent" />
+            <ArrowLeft className="h-4 w-4" />
+            Volver al Panel
+          </button>
+          <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
+              <Aperture className="w-5 h-5 text-[#C78F7B]" />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold">Solicitudes de Fotógrafo</h1>
-              <p className="text-gray-300">Revisar y aprobar propiedades enviadas por Santiago</p>
-            </div>
-          </div>
+            Solicitudes de Fotógrafo
+          </h1>
+          <p className="text-sm text-[#B0ACA6] mt-1">Revisar y aprobar propiedades enviadas por fotógrafos</p>
         </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-8">
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <Clock className="h-5 w-5 text-yellow-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Pendientes</p>
-                  <p className="text-2xl font-bold text-yellow-600">{pendientes}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Aprobadas</p>
-                  <p className="text-2xl font-bold text-green-600">{aprobadas}</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+          {[
+            { label: 'Pendientes', value: pendientes, accent: '#f59e0b', icon: Clock },
+            { label: 'Aprobadas', value: aprobadas, accent: '#22c55e', icon: CheckCircle },
+            { label: 'Rechazadas', value: rechazadas, accent: '#ef4444', icon: XCircle },
+          ].map((stat, i) => (
+            <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[20px] p-5 overflow-hidden hover:border-white/20 transition-all">
+              <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
+              <div className="flex items-start justify-between mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                  <stat.icon className="w-5 h-5" style={{ color: stat.accent }} />
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-lg">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                  <XCircle className="h-5 w-5 text-red-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Rechazadas</p>
-                  <p className="text-2xl font-bold text-red-600">{rechazadas}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+              <p className="text-xs text-[#8A8F97] mt-1">{stat.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Lista de Solicitudes */}
-        <Card className="border-0 shadow-lg">
-          <CardHeader>
-            <CardTitle>Todas las Solicitudes ({solicitudes.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+          <div className="p-5 sm:p-6 border-b border-white/10">
+            <h2 className="text-lg font-bold text-white">Todas las Solicitudes ({solicitudes.length})</h2>
+          </div>
+          <div className="p-5 sm:p-6">
             {loading ? (
-              <div className="text-center py-12">
-                <p className="text-gray-500">Cargando solicitudes...</p>
+              <div className="flex items-center justify-center py-12">
+                <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
               </div>
             ) : solicitudes.length === 0 ? (
               <div className="text-center py-12">
-                <Camera className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500">No hay solicitudes aún</p>
+                <Camera className="h-12 w-12 text-[#4A4F57] mx-auto mb-3" />
+                <p className="text-white font-semibold mb-1">No hay solicitudes aún</p>
+                <p className="text-sm text-[#8A8F97]">Las solicitudes de fotógrafos aparecerán aquí</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {solicitudes.map((solicitud) => {
                   const statusConfig = {
                     pendiente: {
-                      color: 'bg-yellow-100 text-yellow-700 border-yellow-300',
+                      color: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
                       icon: Clock,
                       text: 'Pendiente'
                     },
                     aprobada: {
-                      color: 'bg-green-100 text-green-700 border-green-300',
+                      color: 'bg-green-500/10 text-green-400 border-green-500/20',
                       icon: CheckCircle,
                       text: 'Aprobada'
                     },
                     rechazada: {
-                      color: 'bg-red-100 text-red-700 border-red-300',
+                      color: 'bg-red-500/10 text-red-400 border-red-500/20',
                       icon: XCircle,
                       text: 'Rechazada'
                     }
@@ -269,42 +243,42 @@ export default function SolicitudesFotografoPage() {
                   return (
                     <div
                       key={solicitud.id}
-                      className={`p-4 border rounded-xl transition-all ${
-                        isSelected ? 'border-conectia-primary shadow-lg' : 'border-gray-200'
+                      className={`p-4 sm:p-5 rounded-[16px] border transition-all ${
+                        isSelected ? 'border-[#C78F7B]/40 bg-white/[0.05]' : 'border-white/10 bg-white/[0.03]'
                       }`}
                     >
                       <div className="space-y-4">
                         {/* Header */}
                         <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <h3 className="font-semibold text-lg">{solicitud.titulo}</h3>
-                              <Badge className={`${config.color} border`}>
-                                <StatusIcon className="h-3 w-3 mr-1" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                              <h3 className="font-bold text-lg text-white">{solicitud.titulo}</h3>
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border flex items-center gap-1 ${config.color}`}>
+                                <StatusIcon className="h-3 w-3" />
                                 {config.text}
-                              </Badge>
+                              </span>
                             </div>
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-2">
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-[#8A8F97] mb-2">
                               <span className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4" />
+                                <MapPin className="h-4 w-4 text-[#C78F7B]" />
                                 {solicitud.ubicacion}
                               </span>
                               {solicitud.precio_estimado && (
                                 <span className="flex items-center gap-1">
-                                  <DollarSign className="h-4 w-4" />
+                                  <DollarSign className="h-4 w-4 text-[#C78F7B]" />
                                   ${solicitud.precio_estimado.toLocaleString('es-MX')}
                                 </span>
                               )}
-                              <span className="flex items-center gap-1 text-blue-600">
+                              <span className="flex items-center gap-1 text-blue-400">
                                 <ImageIcon className="h-4 w-4" />
                                 {solicitud.imagenes.length} foto{solicitud.imagenes.length !== 1 ? 's' : ''}
                               </span>
-                              <span className="text-gray-500">
+                              <span className="text-[#8A8F97]">
                                 {new Date(solicitud.created_at).toLocaleDateString('es-MX')}
                               </span>
                             </div>
                             {solicitud.descripcion && (
-                              <p className="text-sm text-gray-600 mb-2">{solicitud.descripcion}</p>
+                              <p className="text-sm text-[#B0ACA6] mb-2">{solicitud.descripcion}</p>
                             )}
                           </div>
                           {solicitud.status === 'pendiente' && (
@@ -312,6 +286,7 @@ export default function SolicitudesFotografoPage() {
                               onClick={() => setSelectedSolicitud(isSelected ? null : solicitud)}
                               variant="outline"
                               size="sm"
+                              className="border-white/10 text-[#EAE4DD] hover:bg-white/5 flex-shrink-0"
                             >
                               <Eye className="h-4 w-4 mr-2" />
                               {isSelected ? 'Ocultar' : 'Revisar'}
@@ -326,7 +301,7 @@ export default function SolicitudesFotografoPage() {
                               key={idx}
                               src={url}
                               alt={`Foto ${idx + 1}`}
-                              className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                              className="w-full h-32 object-cover rounded-[12px] cursor-pointer hover:opacity-80 transition-opacity border border-white/10"
                               onClick={() => window.open(url, '_blank')}
                             />
                           ))}
@@ -334,8 +309,8 @@ export default function SolicitudesFotografoPage() {
 
                         {/* Notas Admin (si existen) */}
                         {solicitud.notas_admin && (
-                          <div className="p-3 bg-blue-50 rounded-lg">
-                            <p className="text-sm text-blue-900">
+                          <div className="p-3 bg-blue-500/5 rounded-[12px] border border-blue-500/20">
+                            <p className="text-sm text-blue-300">
                               <strong>Nota del admin:</strong> {solicitud.notas_admin}
                             </p>
                           </div>
@@ -343,9 +318,9 @@ export default function SolicitudesFotografoPage() {
 
                         {/* Panel de Acciones (solo para pendientes) */}
                         {isSelected && solicitud.status === 'pendiente' && (
-                          <div className="p-4 bg-gray-50 rounded-lg space-y-4">
+                          <div className="p-4 bg-white/[0.03] rounded-[16px] border border-white/10 space-y-4">
                             <div>
-                              <label className="block text-sm font-semibold mb-2">
+                              <label className="block text-sm font-semibold text-white mb-2">
                                 Notas para el fotógrafo (opcional)
                               </label>
                               <Textarea
@@ -353,14 +328,14 @@ export default function SolicitudesFotografoPage() {
                                 onChange={(e) => setNotasAdmin(e.target.value)}
                                 placeholder="Agrega comentarios o instrucciones..."
                                 rows={3}
-                                className="w-full"
+                                className="w-full bg-[#0F2027] border-white/10 text-white placeholder:text-[#4A4F57]"
                               />
                             </div>
                             <div className="flex gap-3">
                               <Button
                                 onClick={() => aprobarSolicitud(solicitud)}
                                 disabled={processingId === solicitud.id}
-                                className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                                className="flex-1 bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20"
                               >
                                 <CheckCircle className="h-4 w-4 mr-2" />
                                 {processingId === solicitud.id ? 'Procesando...' : 'Aprobar y Crear Propiedad'}
@@ -368,8 +343,8 @@ export default function SolicitudesFotografoPage() {
                               <Button
                                 onClick={() => rechazarSolicitud(solicitud)}
                                 disabled={processingId === solicitud.id}
-                                variant="destructive"
-                                className="flex-1"
+                                variant="outline"
+                                className="flex-1 border-red-500/20 text-red-400 hover:bg-red-500/10 hover:border-red-500/30"
                               >
                                 <XCircle className="h-4 w-4 mr-2" />
                                 Rechazar
@@ -383,8 +358,8 @@ export default function SolicitudesFotografoPage() {
                 })}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )
