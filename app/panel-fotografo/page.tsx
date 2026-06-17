@@ -1,9 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { uploadImage } from "@/lib/supabase/storage"
+import { useAllPropertyAnalytics, usePropertiesAnalyticsList } from "@/hooks/use-property-analytics"
+import { formatDuration } from "@/lib/property-analytics"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -34,7 +36,11 @@ import {
   Eye,
   X,
   Loader2,
-  Trash2
+  Trash2,
+  BarChart3,
+  TrendingUp,
+  MousePointerClick,
+  Share2
 } from "lucide-react"
 import { toast } from 'sonner'
 
@@ -277,25 +283,37 @@ export default function PanelFotografoPage() {
     return sum + comisionFotografo
   }, 0)
 
+  // Analytics
+  const propertyIds = useMemo(() => propiedades.map(p => p.id), [propiedades])
+  const { totalViews, totalShares, topProperties } = useAllPropertyAnalytics()
+  const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(propertyIds)
+
+  const totalVistasPropiedades = propiedadesAnalytics.reduce((sum, a) => sum + a.views, 0)
+  const totalCompartidosPropiedades = propiedadesAnalytics.reduce((sum, a) => sum + a.shares, 0)
+  const avgInteractionTime = propiedadesAnalytics.length > 0
+    ? propiedadesAnalytics.reduce((sum, a) => sum + (a.interactionsCount > 0 ? a.totalInteractionTimeMs / a.interactionsCount : 0), 0) / propiedadesAnalytics.filter(a => a.interactionsCount > 0).length || 0
+    : 0
+
   return (
-    <div className="min-h-screen bg-[#17313A]">
-      {/* Header */}
-      <header className="bg-[#1A3540] border-b border-gray-700/60 sticky top-0 z-10">
+    <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Header — Glassmorphism */}
+      <header className="sticky top-0 z-50 bg-[#0F2027]/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
-                <Camera className="w-6 h-6 text-conectia-gold" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.3)' }}>
+                <Camera className="w-5 h-5 text-[#C78F7B]" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Panel de Fotografía</h1>
-                <p className="text-sm text-gray-400">{user.nombre || 'Santiago Canales'} · Fotógrafo & Videógrafo</p>
+                <h1 className="text-lg font-bold text-white">Panel de Fotografía</h1>
+                <p className="text-xs text-[#B0ACA6]">{user.nombre || 'Santiago Canales'} · Fotógrafo & Videógrafo</p>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all"
-            >
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Cerrar Sesión</span>
             </button>
@@ -303,86 +321,92 @@ export default function PanelFotografoPage() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-[#1A3540] rounded-2xl p-5 border border-red-500/20 relative overflow-hidden hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300">
-            <div className="absolute -top-6 -right-6 w-20 h-20 bg-red-500/10 rounded-full pointer-events-none" />
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-11 h-11 bg-red-500/20 rounded-xl flex items-center justify-center relative">
-                <Inbox className="w-5 h-5 text-red-400" />
-                {solicitudesPendientes.length > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                    {solicitudesPendientes.length}
-                  </span>
-                )}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        {/* Stats — Glassmorphism */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-8">
+          {[
+            { label: 'Solicitudes Pendientes', value: solicitudesPendientes.length, sub: `${solicitudesEnProceso.length} en proceso`, accent: '#ef4444', icon: Inbox, badge: 'Urgente' },
+            { label: 'Propiedades', value: totalPropiedades, sub: `${propiedadesVendidas.length} vendidas`, accent: '#3b82f6', icon: Home, badge: 'Total' },
+            { label: 'Con Fotos', value: propiedadesConFotos, sub: `De ${totalPropiedades}`, accent: '#22c55e', icon: Camera, badge: `${totalPropiedades > 0 ? Math.round((propiedadesConFotos / totalPropiedades) * 100) : 0}%` },
+            { label: 'Comisiones', value: `$${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`, sub: `${propiedadesVendidas.length} venta${propiedadesVendidas.length !== 1 ? 's' : ''}`, accent: '#C78F7B', icon: DollarSign, badge: 'Ganadas' },
+            { label: 'Vistas Totales', value: totalVistasPropiedades, sub: `${totalViews} global`, accent: '#8b5cf6', icon: BarChart3, badge: 'Analytics' },
+            { label: 'Compartidos', value: totalCompartidosPropiedades, sub: `${totalShares} global`, accent: '#06b6d4', icon: Share2, badge: 'Social' },
+          ].map((stat, i) => (
+            <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
+              <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
+              <div className="flex items-start justify-between mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                  <stat.icon className="w-5 h-5" style={{ color: stat.accent }} />
+                </div>
+                <span className="text-[10px] font-bold px-2 py-1 rounded-full" style={{ background: `${stat.accent}15`, color: stat.accent }}>{stat.badge}</span>
               </div>
-              <span className="text-xs font-semibold text-red-400 bg-red-500/10 px-2 py-1 rounded-full">Urgente</span>
+              <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+              <p className="text-xs text-[#8A8F97] mt-1">{stat.label}</p>
+              <p className="text-[10px] text-[#4A4F57] mt-0.5">{stat.sub}</p>
             </div>
-            <p className="text-4xl font-black text-white mb-1">{solicitudesPendientes.length}</p>
-            <p className="text-sm text-gray-400">Solicitudes Pendientes</p>
-            <p className="text-xs text-gray-500 mt-1">{solicitudesEnProceso.length} en proceso</p>
+          ))}
+        </div>
+
+        {/* Analytics Row — Vistas, Compartidos, Tiempo Promedio */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#8b5cf6]/10 rounded-full blur-[40px] pointer-events-none" />
+            <div className="relative flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center border border-[#8b5cf6]/20">
+                <MousePointerClick className="w-6 h-6 text-[#8b5cf6]" />
+              </div>
+              <div>
+                <p className="text-xs text-[#8A8F97] uppercase tracking-wider font-bold">Tiempo Promedio</p>
+                <p className="text-2xl font-black text-white">{formatDuration(Math.round(avgInteractionTime))}</p>
+                <p className="text-[10px] text-[#4A4F57]">Por visita en propiedades</p>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-[#1A3540] rounded-2xl p-5 border border-blue-500/20 relative overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300">
-            <div className="absolute -top-6 -right-6 w-20 h-20 bg-blue-500/10 rounded-full pointer-events-none" />
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-11 h-11 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                <Home className="w-5 h-5 text-blue-400" />
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#06b6d4]/10 rounded-full blur-[40px] pointer-events-none" />
+            <div className="relative flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#06b6d4]/10 flex items-center justify-center border border-[#06b6d4]/20">
+                <TrendingUp className="w-6 h-6 text-[#06b6d4]" />
               </div>
-              <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">Total</span>
+              <div>
+                <p className="text-xs text-[#8A8F97] uppercase tracking-wider font-bold">Tasa de Conversión</p>
+                <p className="text-2xl font-black text-white">{totalViews > 0 ? ((totalShares / totalViews) * 100).toFixed(1) : 0}%</p>
+                <p className="text-[10px] text-[#4A4F57]">Compartidos / Vistas</p>
+              </div>
             </div>
-            <p className="text-4xl font-black text-white mb-1">{totalPropiedades}</p>
-            <p className="text-sm text-gray-400">Propiedades</p>
-            <p className="text-xs text-gray-500 mt-1">{propiedadesVendidas.length} vendidas</p>
           </div>
 
-          <div className="bg-[#1A3540] rounded-2xl p-5 border border-green-500/20 relative overflow-hidden hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300">
-            <div className="absolute -top-6 -right-6 w-20 h-20 bg-green-500/10 rounded-full pointer-events-none" />
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-11 h-11 bg-green-500/20 rounded-xl flex items-center justify-center">
-                <Camera className="w-5 h-5 text-green-400" />
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C78F7B]/10 rounded-full blur-[40px] pointer-events-none" />
+            <div className="relative flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
+                <Eye className="w-6 h-6 text-[#C78F7B]" />
               </div>
-              <span className="text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded-full">
-                {totalPropiedades > 0 ? Math.round((propiedadesConFotos / totalPropiedades) * 100) : 0}%
-              </span>
-            </div>
-            <p className="text-4xl font-black text-white mb-1">{propiedadesConFotos}</p>
-            <p className="text-sm text-gray-400">Con Fotos</p>
-            <p className="text-xs text-gray-500 mt-1">De {totalPropiedades} propiedades</p>
-          </div>
-
-          <div className="bg-[#1A3540] rounded-2xl p-5 border border-conectia-gold/20 relative overflow-hidden hover:border-conectia-gold/50 hover:shadow-lg hover:shadow-conectia-gold/10 transition-all duration-300">
-            <div className="absolute -top-6 -right-6 w-20 h-20 bg-conectia-gold/10 rounded-full pointer-events-none" />
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-11 h-11 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
-                <DollarSign className="w-5 h-5 text-conectia-gold" />
+              <div>
+                <p className="text-xs text-[#8A8F97] uppercase tracking-wider font-bold">Top Propiedad</p>
+                <p className="text-lg font-black text-white truncate">{topProperties[0]?.propertyId ? `ID: ${topProperties[0].propertyId}` : 'Sin datos'}</p>
+                <p className="text-[10px] text-[#4A4F57]">{topProperties[0]?.views || 0} vistas</p>
               </div>
-              <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-2 py-1 rounded-full">Ganadas</span>
             </div>
-            <p className="text-4xl font-black text-white mb-1">
-              ${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </p>
-            <p className="text-sm text-gray-400">Comisiones</p>
-            <p className="text-xs text-gray-500 mt-1">{propiedadesVendidas.length} venta{propiedadesVendidas.length !== 1 ? 's' : ''}</p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1.5 mb-6 bg-[#1A3540] p-1.5 rounded-xl border border-gray-700/60 w-fit">
+        <div className="flex gap-1.5 mb-6 bg-white/[0.03] backdrop-blur-md p-1.5 rounded-xl border border-white/10 w-fit">
           <button
             onClick={() => { setTab('solicitudes'); setSolicitudDetalle(null) }}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               tab === 'solicitudes'
-                ? 'bg-conectia-gold text-[#17313A] shadow-lg'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/20'
+                : 'text-[#B0ACA6] hover:text-white hover:bg-white/5'
             }`}
           >
             <Inbox className="h-4 w-4" />
-            Solicitudes de Asesores
+            Solicitudes
             {solicitudesPendientes.length > 0 && (
               <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${
-                tab === 'solicitudes' ? 'bg-[#17313A]/30 text-[#17313A]' : 'bg-red-500 text-white'
+                tab === 'solicitudes' ? 'bg-[#0F2027]/30 text-[#0F2027]' : 'bg-red-500 text-white'
               }`}>
                 {solicitudesPendientes.length}
               </span>
@@ -392,8 +416,8 @@ export default function PanelFotografoPage() {
             onClick={() => setTab('propiedades')}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               tab === 'propiedades'
-                ? 'bg-conectia-gold text-[#17313A] shadow-lg'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/20'
+                : 'text-[#B0ACA6] hover:text-white hover:bg-white/5'
             }`}
           >
             <Home className="h-4 w-4" />
@@ -403,16 +427,16 @@ export default function PanelFotografoPage() {
 
         {/* Tab: Solicitudes */}
         {tab === 'solicitudes' && !solicitudDetalle && (
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
-            <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden overflow-hidden shadow-xl">
+            <div className="p-5 border-b border-white/10 px-6 pt-5 pb-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
-                    <Inbox className="h-4 w-4 text-conectia-gold" />
+                  <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20 flex items-center justify-center">
+                    <Inbox className="h-4 w-4 text-[#C78F7B]" />
                   </div>
                   Solicitudes de Propiedades
                 </h2>
-                <span className="text-xs font-semibold text-conectia-gold bg-conectia-gold/10 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-[#C78F7B] bg-[#C78F7B]/10 px-3 py-1 rounded-full">
                   {solicitudes.length} total
                 </span>
               </div>
@@ -420,16 +444,16 @@ export default function PanelFotografoPage() {
             <div className="p-5">
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-12">
-                  <div className="w-10 h-10 border-2 border-conectia-gold/30 border-t-conectia-gold rounded-full animate-spin mb-4" />
-                  <p className="text-gray-400">Cargando solicitudes...</p>
+                  <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin mb-4" />
+                  <p className="text-[#B0ACA6]">Cargando solicitudes...</p>
                 </div>
               ) : solicitudes.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 bg-conectia-gold/10 rounded-2xl flex items-center justify-center mb-4">
-                    <Inbox className="h-8 w-8 text-conectia-gold/40" />
+                  <div className="w-16 h-16 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Inbox className="h-8 w-8 text-[#C78F7B]/40" />
                   </div>
                   <h3 className="text-base font-semibold text-white mb-1">Sin solicitudes</h3>
-                  <p className="text-sm text-gray-500 max-w-md">
+                  <p className="text-sm text-[#8A8F97] max-w-md">
                     Cuando un asesor envíe una solicitud, aparecerá aquí para que subas las fotos.
                   </p>
                 </div>
@@ -448,7 +472,7 @@ export default function PanelFotografoPage() {
                       <div
                         key={sol.id}
                         onClick={() => { setSolicitudDetalle(sol); setNotaFotografo(sol.notas_fotografo || '') }}
-                        className="p-4 bg-[#17313A] border border-gray-700/60 rounded-xl hover:border-conectia-gold/40 transition-all cursor-pointer group"
+                        className="p-4 bg-white/[0.02] border border-white/10 rounded-xl hover:border-[#C78F7B]/40 transition-all cursor-pointer group"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex-1 min-w-0">
@@ -456,7 +480,7 @@ export default function PanelFotografoPage() {
                               <h3 className="font-semibold text-white truncate">{sol.titulo}</h3>
                               <span className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${config.color}`}>{config.text}</span>
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-gray-400 flex-wrap">
+                            <div className="flex items-center gap-3 text-sm text-[#B0ACA6] flex-wrap">
                               <span className="flex items-center gap-1">
                                 <User className="h-3.5 w-3.5" />
                                 {sol.asesor_nombre || sol.asesor_email}
@@ -470,7 +494,7 @@ export default function PanelFotografoPage() {
                               <span>{new Date(sol.created_at).toLocaleDateString('es-MX')}</span>
                             </div>
                           </div>
-                          <ChevronRight className="h-5 w-5 text-gray-600 group-hover:text-conectia-gold transition-colors shrink-0" />
+                          <ChevronRight className="h-5 w-5 text-[#4A4F57] group-hover:text-[#C78F7B] transition-colors shrink-0" />
                         </div>
                       </div>
                     )
@@ -486,14 +510,14 @@ export default function PanelFotografoPage() {
           <div className="space-y-5">
             <button
               onClick={() => setSolicitudDetalle(null)}
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-conectia-gold transition-colors"
+              className="flex items-center gap-2 text-sm text-[#B0ACA6] hover:text-[#C78F7B] transition-colors"
             >
               <ChevronRight className="h-4 w-4 rotate-180" />
               Volver a solicitudes
             </button>
 
-            <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
-              <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+            <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden overflow-hidden shadow-xl">
+              <div className="p-5 border-b border-white/10 px-6 pt-5 pb-4">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-lg font-bold text-white">{solicitudDetalle.titulo}</h2>
                   <span className={`shrink-0 px-3 py-1 rounded-full text-xs font-semibold border ${
@@ -520,38 +544,38 @@ export default function PanelFotografoPage() {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {solicitudDetalle.ubicacion && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <MapPin className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">{solicitudDetalle.ubicacion}</span>
+                      <MapPin className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">{solicitudDetalle.ubicacion}</span>
                     </div>
                   )}
                   {solicitudDetalle.tipo && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <Home className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">{solicitudDetalle.tipo}</span>
+                      <Home className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">{solicitudDetalle.tipo}</span>
                     </div>
                   )}
                   {solicitudDetalle.precio_estimado && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <DollarSign className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">${solicitudDetalle.precio_estimado.toLocaleString('es-MX')}</span>
+                      <DollarSign className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">${solicitudDetalle.precio_estimado.toLocaleString('es-MX')}</span>
                     </div>
                   )}
                   {solicitudDetalle.habitaciones && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <Bed className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">{solicitudDetalle.habitaciones} habitaciones</span>
+                      <Bed className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">{solicitudDetalle.habitaciones} habitaciones</span>
                     </div>
                   )}
                   {solicitudDetalle.banos && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <Bath className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">{solicitudDetalle.banos} baños</span>
+                      <Bath className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">{solicitudDetalle.banos} baños</span>
                     </div>
                   )}
                   {solicitudDetalle.area && (
                     <div className="flex items-center gap-2 text-sm bg-[#17313A] px-3 py-2.5 rounded-lg">
-                      <Maximize className="h-4 w-4 text-gray-500 shrink-0" />
-                      <span className="text-gray-300">{solicitudDetalle.area} m²</span>
+                      <Maximize className="h-4 w-4 text-[#8A8F97] shrink-0" />
+                      <span className="text-white">{solicitudDetalle.area} m²</span>
                     </div>
                   )}
                 </div>
@@ -559,18 +583,18 @@ export default function PanelFotografoPage() {
                 {/* Descripción / Notas del asesor */}
                 {solicitudDetalle.descripcion && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-300 mb-2 flex items-center gap-1.5">
-                      <FileText className="h-4 w-4 text-conectia-gold" />
+                    <p className="text-sm font-semibold text-white mb-2 flex items-center gap-1.5">
+                      <FileText className="h-4 w-4 text-[#C78F7B]" />
                       Notas del asesor:
                     </p>
-                    <p className="text-sm text-gray-300 bg-[#17313A] p-4 rounded-xl border-l-2 border-conectia-gold/30">{solicitudDetalle.descripcion}</p>
+                    <p className="text-sm text-white bg-[#17313A] p-4 rounded-xl border-l-2 border-[#C78F7B]/30">{solicitudDetalle.descripcion}</p>
                   </div>
                 )}
 
                 {/* === SECCIÓN DE FOTOS === */}
                 <div className="border-t border-gray-700/60 pt-5">
-                  <p className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                    <Camera className="h-4 w-4 text-conectia-gold" />
+                  <p className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                    <Camera className="h-4 w-4 text-[#C78F7B]" />
                     Fotos de la propiedad ({(solicitudDetalle.imagenes || []).length})
                   </p>
 
@@ -583,7 +607,7 @@ export default function PanelFotografoPage() {
                           <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                             <button
                               onClick={() => window.open(imgUrl, '_blank')}
-                              className="text-white hover:text-conectia-gold"
+                              className="text-white hover:text-[#C78F7B]"
                             >
                               <Eye className="h-5 w-5" />
                             </button>
@@ -600,7 +624,7 @@ export default function PanelFotografoPage() {
                   )}
 
                   {/* Subir nuevas fotos */}
-                  <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-conectia-gold/50 transition-colors mb-4 cursor-pointer">
+                  <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-[#C78F7B]/50 transition-colors mb-4 cursor-pointer">
                     <input
                       type="file"
                       multiple
@@ -611,9 +635,9 @@ export default function PanelFotografoPage() {
                       disabled={uploading}
                     />
                     <label htmlFor="solicitud-file-upload" className="cursor-pointer">
-                      <ImageIcon className="h-10 w-10 text-gray-500 mx-auto mb-2" />
-                      <p className="text-sm font-semibold text-gray-300">Selecciona imágenes</p>
-                      <p className="text-xs text-gray-500">Haz clic para subir fotos (máximo 30)</p>
+                      <ImageIcon className="h-10 w-10 text-[#8A8F97] mx-auto mb-2" />
+                      <p className="text-sm font-semibold text-white">Selecciona imágenes</p>
+                      <p className="text-xs text-[#8A8F97]">Haz clic para subir fotos (máximo 30)</p>
                     </label>
                   </div>
 
@@ -637,17 +661,17 @@ export default function PanelFotografoPage() {
 
                       {uploading && (
                         <div className="mb-3">
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div className="h-full bg-conectia-gold rounded-full transition-all duration-300" style={{ width: `${uploadProgress}%` }} />
+                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-full bg-[#C78F7B] rounded-full transition-all duration-300" style={{ width: `${uploadProgress}%` }} />
                           </div>
-                          <p className="text-xs text-gray-500 mt-1 text-center">{uploadProgress}%</p>
+                          <p className="text-xs text-[#8A8F97] mt-1 text-center">{uploadProgress}%</p>
                         </div>
                       )}
 
                       <Button
                         onClick={handleUploadToSolicitud}
                         disabled={uploading}
-                        className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold"
+                        className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold rounded-xl"
                       >
                         {uploading ? (
                           <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Subiendo...</>
@@ -661,12 +685,12 @@ export default function PanelFotografoPage() {
 
                 {/* Notas del fotógrafo */}
                 <div>
-                  <p className="text-sm font-semibold text-gray-300 mb-2">Tus notas:</p>
+                  <p className="text-sm font-semibold text-white mb-2">Tus notas:</p>
                   <Textarea
                     value={notaFotografo}
                     onChange={(e) => setNotaFotografo(e.target.value)}
                     placeholder="Agrega notas sobre la sesión de fotos, horarios, observaciones..."
-                    className="min-h-[80px] bg-[#17313A] border-gray-600 text-gray-200 placeholder:text-gray-600 focus:border-conectia-gold/50"
+                    className="min-h-[80px] bg-white/5 border-white/15 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B]/50"
                   />
                 </div>
 
@@ -729,7 +753,7 @@ export default function PanelFotografoPage() {
 
         {/* Tab: Todas las Propiedades */}
         {tab === 'propiedades' && (
-          <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden overflow-hidden shadow-xl">
             <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-blue-500/10 to-transparent">
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
@@ -747,7 +771,7 @@ export default function PanelFotografoPage() {
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-12">
                   <div className="w-10 h-10 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin mb-4" />
-                  <p className="text-gray-400">Cargando propiedades...</p>
+                  <p className="text-[#B0ACA6]">Cargando propiedades...</p>
                 </div>
               ) : propiedades.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -755,7 +779,7 @@ export default function PanelFotografoPage() {
                     <ImageOff className="h-8 w-8 text-blue-400/40" />
                   </div>
                   <h3 className="text-base font-semibold text-white mb-1">Sin propiedades</h3>
-                  <p className="text-sm text-gray-500">No hay propiedades registradas aún.</p>
+                  <p className="text-sm text-[#8A8F97]">No hay propiedades registradas aún.</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -767,7 +791,7 @@ export default function PanelFotografoPage() {
                     return (
                       <div
                         key={propiedad.id}
-                        className="p-4 bg-[#17313A] border border-gray-700/60 rounded-xl hover:border-gray-600 transition-colors"
+                        className="p-4 bg-white/[0.02] border border-white/10 rounded-xl hover:border-white/20 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex gap-3 flex-1 min-w-0">
@@ -777,16 +801,16 @@ export default function PanelFotografoPage() {
                                 <img src={propiedad.imagen} alt="" className="w-full h-full object-cover" />
                               ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                  <ImageOff className="h-6 w-6 text-gray-600" />
+                                  <ImageOff className="h-6 w-6 text-[#4A4F57]" />
                                 </div>
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
                                 <h3 className="font-semibold text-white truncate">{propiedad.titulo}</h3>
-                                <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-gray-700 text-gray-300">{propiedad.status || 'Disponible'}</span>
+                                <span className="shrink-0 text-xs px-2 py-0.5 rounded-full bg-gray-700 text-white">{propiedad.status || 'Disponible'}</span>
                               </div>
-                              <div className="flex items-center gap-3 text-xs text-gray-400 mb-1">
+                              <div className="flex items-center gap-3 text-xs text-[#B0ACA6] mb-1">
                                 <span className="flex items-center gap-1">
                                   <MapPin className="h-3 w-3" />
                                   {propiedad.ubicacion}
@@ -797,7 +821,7 @@ export default function PanelFotografoPage() {
                                 </span>
                               </div>
                               <div className="flex items-center gap-3 text-xs">
-                                <span className="flex items-center gap-1 text-gray-500">
+                                <span className="flex items-center gap-1 text-[#8A8F97]">
                                   <User className="h-3 w-3" />
                                   {asesor}
                                 </span>
@@ -813,7 +837,7 @@ export default function PanelFotografoPage() {
                           <Button
                             size="sm"
                             onClick={() => router.push(`/panel-fotografo/propiedades/${propiedad.id}`)}
-                            className="bg-conectia-gold hover:bg-conectia-gold/80 text-[#17313A] font-semibold shrink-0"
+                            className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold shrink-0"
                           >
                             <Upload className="h-4 w-4 mr-1" />
                             Fotos
@@ -829,31 +853,31 @@ export default function PanelFotografoPage() {
         )}
 
         {/* Resumen de Comisiones */}
-        <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl mt-6">
-          <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-conectia-gold/10 to-transparent">
+        <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden overflow-hidden shadow-xl mt-6">
+          <div className="p-5 border-b border-white/10 px-6 pt-5 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <div className="w-8 h-8 bg-conectia-gold/20 rounded-lg flex items-center justify-center">
-                <Banknote className="h-4 w-4 text-conectia-gold" />
+              <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20 flex items-center justify-center">
+                <Banknote className="h-4 w-4 text-[#C78F7B]" />
               </div>
               Estructura de Comisiones
             </h2>
           </div>
           <div className="p-5">
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="text-center p-5 bg-[#17313A] rounded-xl border border-gray-700/60">
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Comisión CONECTIA</p>
+              <div className="text-center p-5 bg-white/[0.02] rounded-xl border border-white/10">
+                <p className="text-xs text-[#8A8F97] uppercase tracking-wider mb-2">Comisión CONECTIA</p>
                 <p className="text-4xl font-black text-white">2%</p>
-                <p className="text-xs text-gray-500 mt-1">del precio de venta</p>
+                <p className="text-xs text-[#8A8F97] mt-1">del precio de venta</p>
               </div>
-              <div className="text-center p-5 bg-conectia-gold/10 rounded-xl border-2 border-conectia-gold/40 shadow-lg shadow-conectia-gold/10">
-                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Tu Comisión</p>
-                <p className="text-4xl font-black text-conectia-gold">13.5%</p>
-                <p className="text-xs text-gray-400 mt-1">de la comisión CONECTIA</p>
+              <div className="text-center p-5 bg-[#C78F7B]/10 rounded-xl border-2 border-[#C78F7B]/40 shadow-lg shadow-[#C78F7B]/10">
+                <p className="text-xs text-[#B0ACA6] uppercase tracking-wider mb-2">Tu Comisión</p>
+                <p className="text-4xl font-black text-[#C78F7B]">13.5%</p>
+                <p className="text-xs text-[#B0ACA6] mt-1">de la comisión CONECTIA</p>
               </div>
               <div className="text-center p-5 bg-green-500/10 rounded-xl border border-green-500/20">
-                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Tu % del Total</p>
+                <p className="text-xs text-[#B0ACA6] uppercase tracking-wider mb-2">Tu % del Total</p>
                 <p className="text-4xl font-black text-green-400">0.27%</p>
-                <p className="text-xs text-gray-400 mt-1">del precio de venta</p>
+                <p className="text-xs text-[#B0ACA6] mt-1">del precio de venta</p>
               </div>
             </div>
             <div className="mt-4 p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
@@ -861,7 +885,7 @@ export default function PanelFotografoPage() {
                 <strong>Ejemplo:</strong> Por una propiedad vendida en $5,000,000 MXN:
               </p>
               <div className="flex flex-wrap gap-4 mt-2 text-sm">
-                <span className="text-gray-400">Comisión CONECTIA: <strong className="text-white">$100,000</strong></span>
+                <span className="text-[#B0ACA6]">Comisión CONECTIA: <strong className="text-white">$100,000</strong></span>
                 <span className="text-green-400 font-bold">→ Tu comisión: $13,500</span>
               </div>
             </div>

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
+import { trackPropertyShare } from '@/lib/property-analytics'
 import {
   Share2,
   Facebook,
@@ -30,6 +31,7 @@ interface ShareButtonProps {
   variant?: 'default' | 'outline' | 'ghost' | 'secondary'
   size?: 'default' | 'sm' | 'lg' | 'icon'
   className?: string
+  propertyId?: string | number
 }
 
 export function ShareButton({
@@ -40,6 +42,7 @@ export function ShareButton({
   variant = 'outline',
   size = 'default',
   className = '',
+  propertyId,
 }: ShareButtonProps) {
   const [copied, setCopied] = useState(false)
   const [open, setOpen] = useState(false)
@@ -90,6 +93,7 @@ export function ShareButton({
 
   const handleShare = (shareUrl: string) => {
     window.open(shareUrl, '_blank', 'width=600,height=400')
+    if (propertyId) trackPropertyShare(propertyId)
     setOpen(false)
   }
 
@@ -102,6 +106,7 @@ export function ShareButton({
           text: description,
           url: fullUrl,
         })
+        if (propertyId) trackPropertyShare(propertyId)
         setOpen(false)
       } catch {
         // El usuario canceló o error

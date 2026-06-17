@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { trackPropertyView, startInteractionTimer } from "@/lib/property-analytics"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -27,7 +28,16 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
   
   const id = parseInt(propertyId, 10)
   const { property: propertyData, isLoading, error: loadError } = usePropertyStatic(id)
-  
+
+  // Track view and interaction time
+  useEffect(() => {
+    if (propertyData) {
+      trackPropertyView(propertyData.id)
+      const endTimer = startInteractionTimer(propertyData.id)
+      return endTimer
+    }
+  }, [propertyData])
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

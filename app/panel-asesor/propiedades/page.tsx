@@ -9,6 +9,8 @@ import { Propiedad } from '@/data/propiedades'
 import { PropertyForm } from '@/components/property-form'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { usePropertiesAnalyticsList } from '@/hooks/use-property-analytics'
+import { formatDuration, getAverageInteractionTimeMs } from '@/lib/property-analytics'
 import {
   Plus,
   Edit,
@@ -24,7 +26,10 @@ import {
   AlertTriangle,
   Diamond,
   Zap,
-  Camera
+  Camera,
+  BarChart3,
+  Share2,
+  MousePointerClick
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
@@ -38,6 +43,13 @@ export default function PropiedadesAsesorPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
   const [bajaConfirm, setBajaConfirm] = useState<Propiedad | null>(null)
   const [motivoBaja, setMotivoBaja] = useState('')
+
+  const propertyIds = propiedades.map(p => p.id)
+  const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(propertyIds)
+
+  const getAnalyticsForProperty = (id: number) => {
+    return propiedadesAnalytics.find(a => Number(a.propertyId) === id) || null
+  }
 
   useEffect(() => {
     if (!isAuthenticated || user?.role !== 'asesor') {
@@ -358,6 +370,34 @@ export default function PropiedadesAsesorPage() {
                   )}
 
                   <p className="text-2xl font-black text-[#C78F7B] mb-4">{propiedad.precioTexto}</p>
+
+                  {/* Mini analytics bar */}
+                  {(() => {
+                    const analytics = getAnalyticsForProperty(propiedad.id)
+                    if (!analytics || (analytics.views === 0 && analytics.shares === 0)) return null
+                    return (
+                      <div className="flex items-center gap-2 mb-3">
+                        {analytics.views > 0 && (
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[#8b5cf6]/10 rounded-lg border border-[#8b5cf6]/20">
+                            <BarChart3 className="h-3 w-3 text-[#8b5cf6]" />
+                            <span className="text-[10px] font-bold text-[#8b5cf6]">{analytics.views} vista{analytics.views !== 1 ? 's' : ''}</span>
+                          </div>
+                        )}
+                        {analytics.shares > 0 && (
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[#06b6d4]/10 rounded-lg border border-[#06b6d4]/20">
+                            <Share2 className="h-3 w-3 text-[#06b6d4]" />
+                            <span className="text-[10px] font-bold text-[#06b6d4]">{analytics.shares} compartido{analytics.shares !== 1 ? 's' : ''}</span>
+                          </div>
+                        )}
+                        {analytics.interactionsCount > 0 && (
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20" title="Tiempo promedio de interacción">
+                            <MousePointerClick className="h-3 w-3 text-[#C78F7B]" />
+                            <span className="text-[10px] font-bold text-[#C78F7B]">{formatDuration(getAverageInteractionTimeMs(propiedad.id))}</span>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })()}
 
                   <div className="flex items-center gap-3 text-xs text-[#B0ACA6] mb-5">
                     <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Bed className="h-3.5 w-3.5" /> {propiedad.habitaciones}</div>
