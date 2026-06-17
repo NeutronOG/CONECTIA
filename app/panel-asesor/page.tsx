@@ -33,10 +33,10 @@ import {
 } from 'lucide-react'
 import { getPlanById } from '@/data/subscription-plans'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
+import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 // Lista de asesores autorizados para ver solicitudes del fotógrafo
 const ASESORES_AUTORIZADOS_FOTOGRAFO = ['lizzie@conectia.mx']
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 export default function PanelAsesorPage() {
   const { user, logout, isAuthenticated, loading } = useAuth()

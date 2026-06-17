@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import {
   Building2, Calendar as CalendarIcon, MessageSquare, Edit3, Save, X, Plus, Trash2,
   ChevronLeft, ChevronRight, Clock, MapPin, DollarSign, Layers, Send, User,
-  CheckCircle2, AlertCircle, TrendingUp, Home
+  CheckCircle2, AlertCircle, TrendingUp, Home, Bot
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
