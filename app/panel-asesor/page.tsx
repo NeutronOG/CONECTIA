@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { getProgressByAsesor, getLeadsByAsesor, getActivitiesByAsesor } from '@/data/internal-users'
@@ -37,9 +37,17 @@ import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, Cart
 export default function PanelAsesorPage() {
   const { user, logout, isAuthenticated, loading } = useAuth()
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
   const [progress, setProgress] = useState<PropertyProgress[]>([])
   const [leads, setLeads] = useState<Lead[]>([])
   const [activities, setActivities] = useState<Activity[]>([])
+  const [dataLoaded, setDataLoaded] = useState(false)
+
+  const handleNavigation = (path: string) => {
+    startTransition(() => {
+      router.push(path)
+    })
+  }
 
   useEffect(() => {
     // Esperar a que termine de cargar antes de redirigir
@@ -56,20 +64,23 @@ export default function PanelAsesorPage() {
       return
     }
 
-    // Cargar datos del asesor
-    console.log('🔍 Cargando datos para asesor:', user.id, user.email)
-    const progressData = getProgressByAsesor(user.id, user.email)
-    const leadsData = getLeadsByAsesor(user.id, user.email)
-    const activitiesData = getActivitiesByAsesor(user.id, user.email)
-    
-    console.log('📊 Progress cargado:', progressData.length, 'propiedades')
-    console.log('👥 Leads cargados:', leadsData.length, 'leads')
-    console.log('📝 Actividades cargadas:', activitiesData.length, 'actividades')
-    
-    setProgress(progressData)
-    setLeads(leadsData)
-    setActivities(activitiesData)
-  }, [user, isAuthenticated, loading, router])
+    // Load data asynchronously to not block render
+    if (!dataLoaded) {
+      console.log('🔍 Cargando datos para asesor:', user.id, user.email)
+      const progressData = getProgressByAsesor(user.id, user.email)
+      const leadsData = getLeadsByAsesor(user.id, user.email)
+      const activitiesData = getActivitiesByAsesor(user.id, user.email)
+      
+      console.log('📊 Progress cargado:', progressData.length, 'propiedades')
+      console.log('👥 Leads cargados:', leadsData.length, 'leads')
+      console.log('📝 Actividades cargadas:', activitiesData.length, 'actividades')
+      
+      setProgress(progressData)
+      setLeads(leadsData)
+      setActivities(activitiesData)
+      setDataLoaded(true)
+    }
+  }, [user, isAuthenticated, loading, router, dataLoaded])
 
   if (!user) return null
 
@@ -170,7 +181,7 @@ export default function PanelAsesorPage() {
               </div>
             </div>
             <button
-              onClick={() => { logout(); router.push('/login') }}
+              onClick={() => { logout(); handleNavigation('/login') }}
               className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30"
             >
               <LogOut className="w-4 h-4" />
@@ -203,11 +214,11 @@ export default function PanelAsesorPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {user.email === 'lizzie@conectia.mx' && (
-                  <button onClick={() => router.push('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+                  <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
                     <Sparkles className="w-4 h-4 text-[#C78F7B]" /> Publicidad
                   </button>
                 )}
-                <button onClick={() => router.push('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+                <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
                   <Settings className="w-4 h-4" /> Gestionar Propiedades
                 </button>
               </div>

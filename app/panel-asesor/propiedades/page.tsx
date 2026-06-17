@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { PropertiesStorage } from '@/lib/properties-storage'
@@ -28,7 +28,8 @@ import {
   Zap,
   BarChart3,
   Share2,
-  MousePointerClick
+  MousePointerClick,
+  Camera
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
@@ -36,18 +37,26 @@ import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscripti
 export default function PropiedadesAsesorPage() {
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
   const [propiedades, setPropiedades] = useState<Propiedad[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingProperty, setEditingProperty] = useState<Propiedad | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
   const [bajaConfirm, setBajaConfirm] = useState<Propiedad | null>(null)
   const [motivoBaja, setMotivoBaja] = useState('')
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false)
+
+  const handleNavigation = (path: string) => {
+    startTransition(() => {
+      router.push(path)
+    })
+  }
 
   const propertyIds = propiedades.map(p => p.id)
-  const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(propertyIds)
+  const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(analyticsLoaded ? propertyIds : [])
 
   const getAnalyticsForProperty = (id: number) => {
-    return propiedadesAnalytics.find(a => Number(a.propertyId) === id) || null
+    return analyticsLoaded ? (propiedadesAnalytics.find(a => Number(a.propertyId) === id) || null) : null
   }
 
   useEffect(() => {
@@ -62,6 +71,16 @@ export default function PropiedadesAsesorPage() {
     // Cargar propiedades del asesor
     loadProperties()
   }, [user, isAuthenticated, router])
+
+  // Load analytics after propiedades are loaded (lazy, non-blocking)
+  useEffect(() => {
+    if (propiedades.length > 0 && !analyticsLoaded) {
+      const timer = setTimeout(() => {
+        setAnalyticsLoaded(true)
+      }, 500) // Delay analytics loading by 500ms to not block initial render
+      return () => clearTimeout(timer)
+    }
+  }, [propiedades.length, analyticsLoaded])
 
   const loadProperties = async () => {
     if (!user) return
@@ -243,7 +262,10 @@ export default function PropiedadesAsesorPage() {
             asesorEmail={user.email}
             asesorNombre={user.nombre || ''}
             onSubmit={handleSubmit}
-            onCancel={() => { setShowForm(false); setEditingProperty(null); }}
+            onCancel={() => { 
+              setShowForm(false)
+              setEditingProperty(null)
+            }}
           />
         </div>
       </div>
@@ -260,13 +282,16 @@ export default function PropiedadesAsesorPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div className="w-full sm:w-auto">
-            <button onClick={() => router.push('/panel-asesor')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-3 sm:mb-4 text-sm transition-colors">
+            <button onClick={() => handleNavigation('/panel-asesor')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-3 sm:mb-4 text-sm transition-colors">
               <ArrowLeft className="h-4 w-4" /> Volver al Panel
             </button>
             <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">Mis Propiedades</h1>
             <p className="text-sm text-[#B0ACA6]">Gestiona tu portafolio de propiedades</p>
           </div>
           <div className="flex flex-wrap gap-2">
+            <button onClick={() => handleNavigation('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+              <Camera className="h-4 w-4 text-[#C78F7B]" /> Solicitar Propiedad
+            </button>
             <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
               <Plus className="h-4 w-4" /> Nueva Propiedad
             </button>
