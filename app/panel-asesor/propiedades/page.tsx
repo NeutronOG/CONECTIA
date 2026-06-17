@@ -305,7 +305,7 @@ export default function PropiedadesAsesorPage() {
               <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4A4F57]">{stat.label}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8A8F97]">{stat.label}</p>
                   <p className="text-2xl sm:text-3xl font-black text-white mt-1">{stat.value}</p>
                 </div>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
