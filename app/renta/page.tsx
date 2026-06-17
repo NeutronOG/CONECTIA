@@ -26,58 +26,67 @@ export default function RentaPage() {
   return (
     <div className="min-h-screen bg-conectia-surface">
 
-      {/* HERO — Split screen */}
-      <section className="relative min-h-[90dvh] flex flex-col lg:flex-row overflow-hidden">
+      {/* HERO — Clean modern split */}
+      <section className="relative min-h-[85dvh] flex flex-col lg:flex-row bg-[#F6F2EE]">
 
-        {/* Izquierda: panel oscuro editorial */}
-        <div className="relative flex-1 lg:max-w-[52%] bg-conectia-accent flex flex-col justify-end px-8 sm:px-12 lg:px-16 py-16 sm:py-20 z-10">
-          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-conectia-primary to-transparent" />
-          <div className="max-w-xl space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-conectia-primary rounded-lg flex items-center justify-center">
-                <Key className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-bold">CONECTIA</span>
+        {/* Izquierda: contenido claro */}
+        <div className="relative flex-1 lg:max-w-[50%] flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 sm:py-20 z-10">
+          <div className="max-w-xl space-y-8">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 border border-[#17313A]/10">
+              <Key className="h-3.5 w-3.5 text-[#C78F7B]" />
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] font-bold">CONECTIA</span>
             </div>
+
+            {/* Título */}
             <div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-none">Renta</h1>
-              <p className="text-3xl sm:text-4xl font-light text-conectia-primary italic mt-1">con tranquilidad</p>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] leading-[0.95]">Renta</h1>
+              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">con tranquilidad</p>
             </div>
-            <p className="text-white/60 text-base leading-relaxed">
+
+            {/* Descripción */}
+            <p className="text-[#4A4F57] text-base leading-relaxed max-w-md">
               Encuentra el espacio perfecto para vivir. Selección de departamentos, casas y locales con la flexibilidad que necesitas.
             </p>
-            <div className="grid grid-cols-3 gap-4 pt-2">
+
+            {/* Beneficios como tarjetas */}
+            <div className="flex flex-wrap gap-3">
               {BENEFICIOS.map((b) => (
-                <div key={b.label} className="border-l-2 border-conectia-primary/40 pl-3">
-                  <p className="text-white text-sm font-bold">{b.label}</p>
-                  <p className="text-white/40 text-xs mt-0.5">{b.sub}</p>
+                <div key={b.label} className="px-4 py-3 rounded-xl bg-white border border-[#17313A]/8 shadow-sm">
+                  <p className="text-[#17313A] text-sm font-semibold">{b.label}</p>
+                  <p className="text-[#B0ACA6] text-xs mt-0.5">{b.sub}</p>
                 </div>
               ))}
             </div>
+
+            {/* CTA */}
             <div className="flex items-center gap-4 pt-2">
-              <Badge className="bg-conectia-primary/20 text-conectia-primary border border-conectia-primary/30 text-sm font-semibold px-4 py-2">
+              <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] border border-[#C78F7B]/25 text-sm font-semibold px-4 py-2">
                 {propiedades.length} disponibles
               </Badge>
               <Link href="/contacto">
-                <Button variant="ghost" className="text-white/60 hover:text-white gap-2 text-sm">
+                <Button className="bg-[#17313A] hover:bg-[#0F2027] text-white gap-2 text-sm rounded-xl px-6">
                   Consultar <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="absolute bottom-6 right-6 text-[120px] font-black text-white/4 leading-none select-none pointer-events-none">R</div>
         </div>
 
-        {/* Derecha: imagen */}
-        <div className="relative flex-1 min-h-[40vh] lg:min-h-0">
-          <img src={HERO_IMAGE} alt="Renta de propiedades" className="absolute inset-0 w-full h-full object-cover object-center" />
-          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-conectia-accent to-transparent" />
-          <div className="absolute top-8 right-8 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl">
-            <div className="flex items-center gap-1 mb-1">
-              {[1,2,3,4,5].map(i => <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
+        {/* Derecha: imagen con bordes redondeados */}
+        <div className="relative flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
+          <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+            <img src={HERO_IMAGE} alt="Renta de propiedades" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
+
+            {/* Tarjeta flotante */}
+            <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5">
+              <div className="flex items-center gap-1 mb-2">
+                {[1,2,3,4,5].map(i => <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
+              </div>
+              <p className="text-sm font-bold text-[#17313A]">Clientes satisfechos</p>
+              <p className="text-xs text-[#B0ACA6]">+200 rentas exitosas</p>
             </div>
-            <p className="text-xs font-bold text-gray-900">Clientes satisfechos</p>
-            <p className="text-xs text-gray-500">+200 rentas exitosas</p>
           </div>
         </div>
       </section>
