@@ -1192,7 +1192,7 @@ export default function PropietariosPage() {
                         id="exclusivity" 
                         checked={formData.exclusivity}
                         onCheckedChange={(checked) => setFormData(prev => ({...prev, exclusivity: checked as boolean}))}
-                        className="mt-1 border-conectia-gold data-[state=checked]:bg-conectia-gold data-[state=checked]:border-conectia-gold"
+                        className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
                       />
                       <Label htmlFor="exclusivity" className="text-sm leading-relaxed">
                         <strong>Acepto la exclusividad de 6 meses</strong> para maximizar el valor de mi propiedad. 
@@ -1204,7 +1204,7 @@ export default function PropietariosPage() {
                         id="terms" 
                         checked={formData.terms}
                         onCheckedChange={(checked) => setFormData(prev => ({...prev, terms: checked as boolean}))}
-                        className="mt-1 border-conectia-gold data-[state=checked]:bg-conectia-gold data-[state=checked]:border-conectia-gold"
+                        className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
                       />
                       <Label htmlFor="terms" className="text-sm leading-relaxed">
                         Acepto los <strong>términos y condiciones</strong> del servicio premium de CONECTIA, 
@@ -1216,7 +1216,7 @@ export default function PropietariosPage() {
                         id="privacy" 
                         checked={formData.privacy}
                         onCheckedChange={(checked) => setFormData(prev => ({...prev, privacy: checked as boolean}))}
-                        className="mt-1 border-conectia-gold data-[state=checked]:bg-conectia-gold data-[state=checked]:border-conectia-gold"
+                        className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
                       />
                       <Label htmlFor="privacy" className="text-sm leading-relaxed">
                         Autorizo el <strong>tratamiento de mis datos</strong> conforme a la política de privacidad 
