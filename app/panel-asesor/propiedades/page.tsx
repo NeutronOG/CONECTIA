@@ -26,7 +26,6 @@ import {
   AlertTriangle,
   Diamond,
   Zap,
-  Camera,
   BarChart3,
   Share2,
   MousePointerClick
@@ -268,9 +267,6 @@ export default function PropiedadesAsesorPage() {
             <p className="text-sm text-[#B0ACA6]">Gestiona tu portafolio de propiedades</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => router.push('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-              <Camera className="h-4 w-4 text-[#C78F7B]" /> Solicitar Propiedad
-            </button>
             <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
               <Plus className="h-4 w-4" /> Nueva Propiedad
             </button>

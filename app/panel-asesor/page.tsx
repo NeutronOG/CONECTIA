@@ -25,7 +25,6 @@ import {
   Flame,
   Plus,
   Settings,
-  Camera,
   Diamond,
   Zap,
   Sparkles,
@@ -34,9 +33,6 @@ import {
 import { getPlanById } from '@/data/subscription-plans'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-
-// Lista de asesores autorizados para ver solicitudes del fotógrafo
-const ASESORES_AUTORIZADOS_FOTOGRAFO = ['lizzie@conectia.mx']
 
 export default function PanelAsesorPage() {
   const { user, logout, isAuthenticated, loading } = useAuth()
@@ -206,11 +202,6 @@ export default function PanelAsesorPage() {
                 <p className="text-sm text-[#B0ACA6]">Gestiona tus propiedades y alcanza tus metas</p>
               </div>
               <div className="flex flex-wrap gap-2">
-                {ASESORES_AUTORIZADOS_FOTOGRAFO.includes(user.email) && (
-                  <button onClick={() => router.push('/panel-asesor/solicitudes-fotografo')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-                    <Camera className="w-4 h-4 text-[#C78F7B]" /> Fotógrafo
-                  </button>
-                )}
                 {user.email === 'lizzie@conectia.mx' && (
                   <button onClick={() => router.push('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
                     <Sparkles className="w-4 h-4 text-[#C78F7B]" /> Publicidad
