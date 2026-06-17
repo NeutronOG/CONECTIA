@@ -181,7 +181,7 @@ export default function PanelAsesorPage() {
               </div>
             </div>
             <button
-              onClick={() => { logout(); handleNavigation('/login') }}
+              onClick={async () => { await logout(); router.push('/login') }}
               className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30"
             >
               <LogOut className="w-4 h-4" />

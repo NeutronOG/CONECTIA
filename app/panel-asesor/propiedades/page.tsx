@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { PropertiesStorage } from '@/lib/properties-storage'
@@ -52,7 +52,7 @@ export default function PropiedadesAsesorPage() {
     })
   }
 
-  const propertyIds = propiedades.map(p => p.id)
+  const propertyIds = useMemo(() => propiedades.map(p => p.id), [propiedades])
   const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(analyticsLoaded ? propertyIds : [])
 
   const getAnalyticsForProperty = (id: number) => {

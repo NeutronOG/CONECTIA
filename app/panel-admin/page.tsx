@@ -182,7 +182,7 @@ export default function PanelAdminPage() {
                   <Sparkles className="w-3.5 h-3.5" /> Publicidad
                 </button>
               </div>
-              <button onClick={() => { logout(); router.push('/login') }} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">
+              <button onClick={async () => { await logout(); router.push('/login') }} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Salir</span>
               </button>

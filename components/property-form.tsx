@@ -17,9 +17,10 @@ interface PropertyFormProps {
   asesorNombre: string
   onSubmit: (data: Omit<Propiedad, 'id'>) => void
   onCancel?: () => void
+  submitLabel?: string
 }
 
-export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit, onCancel }: PropertyFormProps) {
+export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit, onCancel, submitLabel }: PropertyFormProps) {
   const [formData, setFormData] = useState<Partial<Propiedad>>(initialData || {
     titulo: "",
     ubicacion: "",
@@ -1102,7 +1103,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               {uploadProgress || 'Procesando...'}
             </>
           ) : (
-            <>{initialData ? 'Actualizar' : 'Publicar'} Propiedad</>
+            <>{submitLabel || `${initialData ? 'Actualizar' : 'Publicar'} Propiedad`}</>
           )}
         </Button>
       </div>

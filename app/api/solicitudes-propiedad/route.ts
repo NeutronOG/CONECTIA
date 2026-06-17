@@ -107,6 +107,14 @@ export async function POST(request: Request) {
       .single()
 
     if (error) {
+      // Si la tabla no existe, devolver error con instrucciones
+      if (error.message.includes('solicitudes_propiedad') && error.message.includes('does not exist')) {
+        return NextResponse.json({
+          error: 'La tabla solicitudes_propiedad no existe en Supabase.',
+          fix: 'Ejecuta el script supabase/create-solicitudes-propiedad-table.sql en el SQL Editor de Supabase.'
+        }, { status: 500 })
+      }
+
       // Si falla por columna datos_extra, intentar sin ella
       if (error.message.includes('datos_extra')) {
         delete insertData.datos_extra

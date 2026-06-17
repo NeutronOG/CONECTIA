@@ -87,7 +87,7 @@ export default function PanelEmpresaPage() {
           </div>
           <div className="flex items-center gap-2">
             <Badge className="bg-conectia-gold text-[#17313A] text-xs px-2 py-0.5 hidden sm:flex items-center gap-1"><Award className="h-3 w-3"/> Team Elite</Badge>
-            <Button variant="ghost" size="sm" onClick={()=>{logout();router.push('/')}} className="text-white hover:text-conectia-gold hover:bg-white/10 text-xs">
+            <Button variant="ghost" size="sm" onClick={async ()=>{await logout();router.push('/')}} className="text-white hover:text-conectia-gold hover:bg-white/10 text-xs">
               <LogOut className="h-4 w-4 mr-1"/> Salir
             </Button>
           </div>

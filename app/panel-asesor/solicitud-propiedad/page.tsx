@@ -127,6 +127,7 @@ export default function SolicitudPropiedadPage() {
           asesorNombre={user?.nombre || ''}
           onSubmit={handleSolicitud}
           onCancel={() => router.push('/panel-asesor/propiedades')}
+          submitLabel="Enviar Solicitud"
         />
       </div>
     </div>

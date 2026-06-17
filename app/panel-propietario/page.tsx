@@ -141,7 +141,7 @@ export default function PanelPropietario() {
                 <span className="hidden sm:inline">Volver al Inicio</span>
               </button>
               <button
-                onClick={() => { logout(); router.push('/login') }}
+                onClick={async () => { await logout(); router.push('/login') }}
                 className="flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all"
               >
                 <LogOut className="w-4 h-4" />
