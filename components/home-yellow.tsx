@@ -15,27 +15,34 @@ export function HomeYellow() {
   return (
     <div className="min-h-screen bg-[#17313A] relative overflow-hidden transition-all duration-500">
       {/* Hero Section — Editorial & Left-Aligned */}
-      <section className="relative min-h-[92dvh] flex flex-col md:flex-row mt-[60px] mx-4 md:mx-8 mb-16 rounded-[40px] overflow-hidden bg-[#17313A] shadow-2xl">
-        {/* Glow Orbs */}
-        <div className="absolute top-20 right-[30%] w-96 h-96 bg-[#C78F7B]/10 rounded-full blur-[120px] pointer-events-none z-0" />
-        <div className="absolute bottom-20 left-[20%] w-64 h-64 bg-[#17313A]/40 rounded-full blur-[80px] pointer-events-none z-0" />
-
-        {/* Mitad Derecha: Imagen que ocupa el 60% */}
-        <div className="absolute right-0 top-0 bottom-0 w-full md:w-[60%] z-0">
+      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[40px] overflow-hidden bg-[#0F2027] shadow-2xl shadow-black/50">
+        {/* Background Image Full Bleed */}
+        <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Architecture"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center scale-105"
           />
-          {/* Gradiente para fundir con la parte izquierda */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#17313A] via-[#17313A]/80 to-transparent md:via-[#17313A]/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#17313A] via-transparent to-transparent" />
+          {/* Dramatic overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027] via-[#0F2027]/90 to-[#0F2027]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027] via-transparent to-[#0F2027]/60" />
         </div>
 
-        {/* Contenido principal superpuesto, alineado a la izquierda */}
-        <div className="relative z-10 flex flex-col justify-center w-full md:w-[50%] p-8 md:p-16 lg:p-24 pb-20">
-          <div className="space-y-8 max-w-xl">
-            <div className="inline-flex items-center gap-3 glass-pill px-4 py-2 rounded-full border border-white/10 backdrop-blur-md">
+        {/* Aurora Glow Effects */}
+        <div className="absolute top-1/4 left-[10%] w-[500px] h-[500px] bg-[#C78F7B]/15 rounded-full blur-[150px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-[20%] w-96 h-96 bg-[#17313A]/50 rounded-full blur-[120px] pointer-events-none z-0" />
+        <div className="absolute top-[60%] left-1/2 -translate-x-1/2 w-72 h-72 bg-[#C78F7B]/8 rounded-full blur-[100px] pointer-events-none z-0" />
+
+        {/* Floating geometric accents */}
+        <div className="absolute top-[15%] right-[15%] w-3 h-3 bg-[#C78F7B]/40 rounded-full animate-pulse pointer-events-none z-0" />
+        <div className="absolute top-[25%] right-[25%] w-2 h-2 bg-[#C78F7B]/30 rounded-full animate-ping pointer-events-none z-0" />
+        <div className="absolute bottom-[30%] left-[8%] w-20 h-[1px] bg-gradient-to-r from-[#C78F7B]/50 to-transparent pointer-events-none z-0 rotate-45" />
+
+        {/* Main Content */}
+        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between w-full h-full p-8 md:p-16 lg:p-24 pb-20">
+          {/* Left: Typography */}
+          <div className="space-y-10 max-w-2xl">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#C78F7B]/30 bg-[#C78F7B]/10 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C78F7B] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C78F7B]"></span>
@@ -45,72 +52,98 @@ export function HomeYellow() {
               </span>
             </div>
 
-            {/* Typography disruptiva */}
             <div className="relative">
-              <h1 className="text-5xl sm:text-6xl md:text-[5rem] lg:text-[6.5rem] font-bold text-[#EAE4DD] leading-[0.9] tracking-tighter">
-                Vive <span className="font-serif italic font-light bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent block mt-2">Diferente</span>
+              {/* Giant blurred glow behind text */}
+              <div className="absolute -top-20 -left-10 w-80 h-60 bg-[#C78F7B]/10 rounded-full blur-[80px] pointer-events-none" />
+              <h1 className="relative text-6xl sm:text-7xl md:text-[6rem] lg:text-[8rem] font-black text-white leading-[0.85] tracking-tighter">
+                Vive
+                <span className="font-serif italic font-light bg-gradient-to-r from-[#C78F7B] via-[#E8A88F] to-[#C78F7B] bg-clip-text text-transparent block mt-1 animate-gradient-x bg-[length:200%_auto]">
+                  Diferente
+                </span>
               </h1>
-              <p className="mt-8 text-base md:text-lg text-[#B0ACA6] max-w-md font-light leading-relaxed border-l-2 border-[#C78F7B] pl-4">
+              <p className="mt-8 text-lg md:text-xl text-[#B0ACA6] max-w-md font-light leading-relaxed border-l-2 border-[#C78F7B] pl-5">
                 La forma más transparente y estética de encontrar tu próxima propiedad. Sin intermediarios complicados.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link href="/propiedades" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold h-14 px-8 rounded-full text-base hover:scale-105 transition-all duration-300 gap-2 border-0 shadow-lg shadow-[#C78F7B]/20">
+                <Button className="w-full sm:w-auto bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold h-14 px-10 rounded-full text-base hover:scale-105 transition-all duration-300 gap-2 border-0 shadow-xl shadow-[#C78F7B]/30">
                   <House className="h-5 w-5" weight="duotone" />
                   Explorar Catálogo
                 </Button>
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="w-full sm:w-auto group flex items-center justify-center gap-3 h-14 px-8 rounded-full bg-white/5 border border-white/15 text-[#EAE4DD] font-medium transition-all duration-300 hover:bg-white/10 hover:border-[#C78F7B]/30"
+                className="w-full sm:w-auto group flex items-center justify-center gap-3 h-14 px-10 rounded-full bg-white/5 border border-white/20 text-[#EAE4DD] font-medium transition-all duration-300 hover:bg-white/10 hover:border-[#C78F7B]/40 backdrop-blur-md"
               >
                 <List className="h-5 w-5 text-[#C78F7B] group-hover:scale-110 transition-transform" weight="duotone" />
                 Categorías
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 pt-10 border-t border-white/10">
-              <div>
-                <p className="text-4xl font-black text-[#EAE4DD] mb-1">+500</p>
-                <p className="text-[11px] text-[#B0ACA6] uppercase tracking-widest font-semibold">Propiedades</p>
-              </div>
-              <div>
-                <p className="text-4xl font-black bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent mb-1">GTO</p>
-                <p className="text-[11px] text-[#B0ACA6] uppercase tracking-widest font-semibold">Mercado Principal</p>
-              </div>
+            {/* Stats with glass cards */}
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              {[
+                { value: '+500', label: 'Propiedades' },
+                { value: '98%', label: 'Satisfacción' },
+                { value: 'GTO', label: 'Mercado' },
+              ].map((stat, i) => (
+                <div key={i} className="relative p-4 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 group hover:bg-white/[0.07] hover:border-[#C78F7B]/20 transition-all duration-500">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <p className={`text-2xl md:text-3xl font-black ${i === 1 ? 'bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent' : 'text-white'} mb-1`}>{stat.value}</p>
+                  <p className="text-[10px] text-[#B0ACA6] uppercase tracking-widest font-semibold">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Floating Glass Card — Right side */}
-        <div className="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 z-20">
-          <div className="bg-white/[0.07] backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl max-w-[260px] space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/20 flex items-center justify-center">
-                <Star className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-white">Premium</p>
-                <p className="text-[10px] text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
+          {/* Right: Stacked Floating Cards */}
+          <div className="hidden lg:flex flex-col gap-4 items-end mt-10 lg:mt-0">
+            {/* Main Property Card */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#C78F7B]/20 to-[#E8A88F]/20 rounded-3xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative w-[280px] bg-white/[0.07] backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+                <div className="h-32 bg-gradient-to-br from-[#17313A] to-[#0F2027] relative">
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center opacity-60" />
+                  <div className="absolute top-3 right-3 bg-[#C78F7B] text-[#0F2027] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Destacada
+                  </div>
+                </div>
+                <div className="p-5 space-y-3">
+                  <div>
+                    <p className="text-xs text-[#C78F7B] font-semibold uppercase tracking-wider mb-1">León, Gto</p>
+                    <p className="text-sm font-bold text-white leading-tight">Residencia Premium en Zona Norte</p>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-black text-[#C78F7B]">$4.2M</span>
+                    <span className="text-[10px] text-[#B0ACA6] uppercase tracking-wider">4 Rec • 3 Baños</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[#B0ACA6]">Satisfacción</span>
-                <span className="text-[#C78F7B] font-bold">98%</span>
+
+            {/* Mini Stats Card */}
+            <div className="w-[220px] bg-white/[0.05] backdrop-blur-md border border-white/15 rounded-2xl p-4 shadow-xl -mt-2 mr-10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/20 flex items-center justify-center">
+                  <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white">Premium</p>
+                  <p className="text-[9px] text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
+                </div>
               </div>
-              <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                 <div className="h-full w-[98%] bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] rounded-full" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Decorativo: Texto gigante cortado en el fondo */}
-        <div className="absolute right-0 bottom-[-10%] opacity-[0.06] pointer-events-none select-none overflow-hidden">
-          <span className="text-[20vw] font-black text-white leading-none tracking-tighter">CONECTIA</span>
+        {/* Giant background text */}
+        <div className="absolute right-0 bottom-[-5%] opacity-[0.04] pointer-events-none select-none overflow-hidden">
+          <span className="text-[18vw] font-black text-white leading-none tracking-tighter">CONECTIA</span>
         </div>
       </section>
 
