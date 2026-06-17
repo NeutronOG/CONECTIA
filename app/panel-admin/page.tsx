@@ -3,28 +3,26 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
+import { useAllPropertyAnalytics } from '@/hooks/use-property-analytics'
 import {
   Building2,
   Users,
-  TrendingUp,
-  DollarSign,
   Eye,
-  FileText,
   LogOut,
-  UserCircle,
   BarChart3,
-  Settings,
   Home,
   Phone,
-  Mail,
-  Clock,
-  CheckCircle2,
   AlertCircle,
   Award,
   ClipboardList,
   Camera,
   Sparkles,
-  History
+  History,
+  ArrowUpRight,
+  Shield,
+  TrendingUp,
+  Share2,
+  Diamond
 } from 'lucide-react'
 import { OwnerSubmissionsStorage } from '@/lib/owner-submissions-storage'
 
@@ -100,228 +98,243 @@ export default function PanelAdminPage() {
 
   const propiedadesDisponibles = propiedades.filter(p => p.status === 'Disponible').length
   const propiedadesExclusivas = propiedades.filter(p => p.status === 'Exclusiva').length
+  const propiedadesReservadas = propiedades.filter(p => p.status === 'Reservada').length
+  const propiedadesVendidas = propiedades.filter(p => p.status === 'Vendida').length
+
+  const { totalViews, totalShares, topProperties } = useAllPropertyAnalytics()
 
   // Helper para obtener el email/id del asesor asignado a una propiedad
   const getPropAsesor = (p: PropiedadDB) => (p.asesorEmail || p.usuarioId || p.usuario_id || '').toLowerCase()
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Disponible': return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-      case 'Exclusiva': return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
-      case 'Reservada': return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-      default: return 'bg-conectia-secondary text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
+      case 'Disponible': return 'bg-green-500/10 text-green-400 border-green-500/20'
+      case 'Exclusiva': return 'bg-[#C78F7B]/10 text-[#C78F7B] border-[#C78F7B]/20'
+      case 'Reservada': return 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+      case 'Vendida': return 'bg-purple-500/10 text-purple-400 border-purple-500/20'
+      default: return 'bg-white/5 text-[#B0ACA6] border-white/10'
+    }
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'Disponible': return <Home className="w-3 h-3" />
+      case 'Exclusiva': return <Diamond className="w-3 h-3" />
+      case 'Reservada': return <ClipboardList className="w-3 h-3" />
+      case 'Vendida': return <TrendingUp className="w-3 h-3" />
+      default: return <Home className="w-3 h-3" />
     }
   }
 
   const getAsesorName = (usuarioId?: string) => {
     if (!usuarioId || usuarioId.trim() === '') return 'Sin asignar'
-    // Buscar por ID o por email
-    const asesor = asesores.find(a => 
-      a.id === usuarioId || 
-      a.email === usuarioId || 
+    const asesor = asesores.find(a =>
+      a.id === usuarioId ||
+      a.email === usuarioId ||
       a.email.toLowerCase() === usuarioId.toLowerCase()
     )
     if (asesor) return asesor.nombre
-    // Si no se encuentra pero tiene formato de email, mostrar el email
     if (usuarioId.includes('@')) return usuarioId
     return 'Sin asignar'
   }
 
+  const getAsesorInitials = (nombre: string) => {
+    return nombre.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+  }
+
   return (
-    <div className="min-h-screen bg-conectia-secondary/70 dark:bg-gray-900">
-      {/* Header */}
-      <header className="bg-conectia-secondary/50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+    <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
+      {/* Glow orbs */}
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Header — Glassmorphism */}
+      <header className="sticky top-0 z-50 bg-[#0F2027]/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-conectia-gold/10 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-conectia-gold" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.3)' }}>
+                <Shield className="w-5 h-5 text-[#C78F7B]" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Panel de Administración
-                </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {user.nombre} • Admin
-                </p>
+                <h1 className="text-lg font-bold text-white">Panel de Administración</h1>
+                <p className="text-xs text-[#B0ACA6]">{user.nombre} • Admin</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push('/panel-admin/propiedades')}
-                className="flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all font-semibold border border-red-200"
-              >
-                <Building2 className="w-4 h-4" />
-                <span className="hidden sm:inline">Gestionar Propiedades</span>
-              </button>
-              <button
-                onClick={() => router.push('/panel-admin/solicitudes-fotografo')}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all font-semibold border border-blue-200"
-              >
-                <Camera className="w-4 h-4" />
-                <span className="hidden sm:inline">Solicitudes Fotógrafo</span>
-              </button>
-              <button
-                onClick={() => router.push('/panel-admin/solicitudes')}
-                className="flex items-center gap-2 px-4 py-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-xl transition-all font-semibold relative"
-              >
-                <ClipboardList className="w-4 h-4" />
-                <span className="hidden sm:inline">Solicitudes</span>
-                {submissionsStats.pending > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {submissionsStats.pending}
-                  </span>
-                )}
-              </button>
-              <button
-                onClick={() => router.push('/panel-admin/auditoria')}
-                className="flex items-center gap-2 px-4 py-2 bg-[#17313A] hover:bg-[#1F3D47] text-[#EAE4DD] border border-[#C78F7B] rounded-xl transition-all font-semibold"
-              >
-                <History className="w-4 h-4 text-[#C78F7B]" />
-                <span className="hidden sm:inline">Auditoría</span>
-              </button>
-              <button
-                onClick={() => router.push('/panel-admin/publicidad')}
-                className="flex items-center gap-2 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-600 rounded-xl transition-all font-semibold border border-purple-200"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span className="hidden sm:inline">Publicidad</span>
-              </button>
-              <button
-                onClick={() => {
-                  logout()
-                  router.push('/login')
-                }}
-                className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-conectia-secondary dark:hover:bg-gray-700 rounded-xl transition-all"
-              >
+            <div className="flex items-center gap-2">
+              <div className="hidden xl:flex items-center gap-2 mr-2">
+                <button onClick={() => router.push('/panel-admin/propiedades')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
+                  <Building2 className="w-3.5 h-3.5" /> Propiedades
+                </button>
+                <button onClick={() => router.push('/panel-admin/solicitudes-fotografo')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
+                  <Camera className="w-3.5 h-3.5" /> Fotógrafo
+                </button>
+                <button onClick={() => router.push('/panel-admin/solicitudes')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10 relative">
+                  <ClipboardList className="w-3.5 h-3.5" /> Solicitudes
+                  {submissionsStats.pending > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] rounded-full flex items-center justify-center font-bold">{submissionsStats.pending}</span>
+                  )}
+                </button>
+                <button onClick={() => router.push('/panel-admin/auditoria')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
+                  <History className="w-3.5 h-3.5" /> Auditoría
+                </button>
+                <button onClick={() => router.push('/panel-admin/publicidad')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
+                  <Sparkles className="w-3.5 h-3.5" /> Publicidad
+                </button>
+              </div>
+              <button onClick={() => { logout(); router.push('/login') }} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">
                 <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">Cerrar Sesión</span>
+                <span className="hidden sm:inline">Salir</span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Tabs */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all whitespace-nowrap ${activeTab === 'overview'
-                ? 'bg-conectia-gold text-white'
-                : 'bg-conectia-secondary/50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-conectia-secondary dark:hover:bg-gray-700'
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        {/* Tabs — Glassmorphism */}
+        <div className="flex gap-1.5 mb-8 overflow-x-auto pb-2">
+          {[
+            { id: 'overview', label: 'Vista General', icon: BarChart3 },
+            { id: 'properties', label: 'Propiedades', icon: Home },
+            { id: 'team', label: 'Equipo', icon: Users },
+          ].map((tabItem) => (
+            <button
+              key={tabItem.id}
+              onClick={() => setActiveTab(tabItem.id as any)}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
+                activeTab === tabItem.id
+                  ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/20'
+                  : 'text-[#B0ACA6] hover:text-white hover:bg-white/5'
               }`}
-          >
-            <BarChart3 className="w-4 h-4" />
-            Vista General
-          </button>
-          <button
-            onClick={() => setActiveTab('properties')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all whitespace-nowrap ${activeTab === 'properties'
-                ? 'bg-conectia-gold text-white'
-                : 'bg-conectia-secondary/50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-conectia-secondary dark:hover:bg-gray-700'
-              }`}
-          >
-            <Home className="w-4 h-4" />
-            Propiedades
-          </button>
-          <button
-            onClick={() => setActiveTab('team')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all whitespace-nowrap ${activeTab === 'team'
-                ? 'bg-conectia-gold text-white'
-                : 'bg-conectia-secondary/50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-conectia-secondary dark:hover:bg-gray-700'
-              }`}
-          >
-            <Users className="w-4 h-4" />
-            Equipo
-          </button>
+            >
+              <tabItem.icon className="w-4 h-4" />
+              {tabItem.label}
+            </button>
+          ))}
         </div>
 
-        {/* Overview Tab */}
+        {/* OVERVIEW TAB */}
         {activeTab === 'overview' && (
-          <>
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-600 dark:text-gray-400 text-sm">Propiedades</span>
-                  <Building2 className="w-5 h-5 text-conectia-gold" />
+          <div className="space-y-8">
+            {/* Hero Stats — 6 cards */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+              {[
+                { label: 'Propiedades', value: totalPropiedades, sub: `${propiedadesDisponibles} disp • ${propiedadesExclusivas} exc`, accent: '#C78F7B', icon: Building2 },
+                { label: 'Asesores', value: totalAsesores, sub: 'Activos en sistema', accent: '#3b82f6', icon: Users },
+                { label: 'Solicitudes', value: submissionsStats.total, sub: `${submissionsStats.pending} pendientes`, accent: '#22c55e', icon: ClipboardList },
+                { label: 'Sin Asignar', value: propiedades.filter(p => !getPropAsesor(p)).length, sub: 'Propiedades libres', accent: '#f97316', icon: AlertCircle },
+                { label: 'Vistas', value: totalViews, sub: 'Totales plataforma', accent: '#8b5cf6', icon: Eye },
+                { label: 'Compartidos', value: totalShares, sub: 'Redes sociales', accent: '#06b6d4', icon: Share2 },
+              ].map((stat, i) => (
+                <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
+                  <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.accent}15` }}>
+                      <stat.icon className="w-5 h-5" style={{ color: stat.accent }} />
+                    </div>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+                  <p className="text-xs text-[#8A8F97] mt-1">{stat.label}</p>
+                  <p className="text-[10px] text-[#4A4F57] mt-0.5">{stat.sub}</p>
                 </div>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{totalPropiedades}</p>
-                <p className="text-xs text-green-600 dark:text-green-400">
-                  {propiedadesDisponibles} disponibles • {propiedadesExclusivas} exclusivas
-                </p>
+              ))}
+            </div>
+
+            {/* Status Breakdown + Top Property */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="lg:col-span-2 relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-6 overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+                <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2 relative">
+                  <BarChart3 className="w-4 h-4 text-[#C78F7B]" /> Distribución de Propiedades
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 relative">
+                  {[
+                    { label: 'Disponibles', value: propiedadesDisponibles, total: totalPropiedades, color: '#22c55e' },
+                    { label: 'Exclusivas', value: propiedadesExclusivas, total: totalPropiedades, color: '#C78F7B' },
+                    { label: 'Reservadas', value: propiedadesReservadas, total: totalPropiedades, color: '#3b82f6' },
+                    { label: 'Vendidas', value: propiedadesVendidas, total: totalPropiedades, color: '#a855f7' },
+                  ].map((s, i) => {
+                    const pct = s.total > 0 ? Math.round((s.value / s.total) * 100) : 0
+                    return (
+                      <div key={i} className="relative bg-white/[0.02] rounded-xl p-4 border border-white/5">
+                        <p className="text-xs text-[#8A8F97] mb-2">{s.label}</p>
+                        <p className="text-2xl font-black text-white">{s.value}</p>
+                        <div className="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: s.color }} />
+                        </div>
+                        <p className="text-[10px] text-[#4A4F57] mt-1">{pct}% del total</p>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
 
-              <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-600 dark:text-gray-400 text-sm">Asesores</span>
-                  <Users className="w-5 h-5 text-blue-500" />
-                </div>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{totalAsesores}</p>
-                <p className="text-xs text-blue-600 dark:text-blue-400">
-                  Activos en el sistema
-                </p>
-              </div>
-
-              <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-600 dark:text-gray-400 text-sm">Solicitudes</span>
-                  <ClipboardList className="w-5 h-5 text-green-500" />
-                </div>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{submissionsStats.total}</p>
-                <p className="text-xs text-green-600 dark:text-green-400">
-                  {submissionsStats.pending} pendientes
-                </p>
-              </div>
-
-              <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-600 dark:text-gray-400 text-sm">Sin Asignar</span>
-                  <AlertCircle className="w-5 h-5 text-orange-500" />
-                </div>
-                <p className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                  {propiedades.filter(p => !getPropAsesor(p)).length}
-                </p>
-                <p className="text-xs text-orange-600 dark:text-orange-400">
-                  Propiedades sin asesor
-                </p>
+              <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-6 overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#8b5cf6]/10 rounded-full blur-[60px] pointer-events-none" />
+                <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2 relative">
+                  <TrendingUp className="w-4 h-4 text-[#8b5cf6]" /> Propiedad Destacada
+                </h3>
+                {topProperties[0]?.propertyId ? (
+                  <div className="space-y-3 relative">
+                    <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center border border-[#8b5cf6]/20">
+                      <Eye className="w-6 h-6 text-[#8b5cf6]" />
+                    </div>
+                    <p className="text-lg font-black text-white">ID: {topProperties[0].propertyId}</p>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <p className="text-xl font-bold text-[#8b5cf6]">{topProperties[0].views}</p>
+                        <p className="text-[10px] text-[#8A8F97]">vistas</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xl font-bold text-[#06b6d4]">{topProperties[0].shares}</p>
+                        <p className="text-[10px] text-[#8A8F97]">shares</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-6">
+                    <Eye className="w-8 h-8 text-[#4A4F57] mx-auto mb-2" />
+                    <p className="text-sm text-[#8A8F97]">Sin datos de analytics aún</p>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Propiedades Recientes */}
-            <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Building2 className="w-5 h-5 text-conectia-gold" />
-                  Propiedades Recientes
-                </h2>
+            {/* Recent Properties */}
+            <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+              <div className="px-6 pt-5 pb-4 border-b border-white/10 flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Building2 className="w-4 h-4 text-[#C78F7B]" /> Propiedades Recientes
+                </h3>
+                <button onClick={() => setActiveTab('properties')} className="text-xs font-bold text-[#C78F7B] hover:text-[#E8A88F] flex items-center gap-1 transition-colors">
+                  Ver todas <ArrowUpRight className="w-3 h-3" />
+                </button>
               </div>
               <div className="p-6">
                 {loading ? (
-                  <p className="text-center text-gray-500">Cargando...</p>
+                  <div className="flex items-center justify-center py-8">
+                    <div className="w-8 h-8 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
+                  </div>
                 ) : propiedades.length === 0 ? (
-                  <p className="text-center text-gray-500">No hay propiedades registradas</p>
+                  <div className="text-center py-8">
+                    <Home className="w-8 h-8 text-[#4A4F57] mx-auto mb-2" />
+                    <p className="text-sm text-[#8A8F97]">No hay propiedades registradas</p>
+                  </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {propiedades.slice(0, 5).map((propiedad) => (
-                      <div key={propiedad.id} className="flex items-start gap-4 p-4 bg-conectia-secondary/70 dark:bg-gray-900 rounded-xl">
-                        <div className="w-10 h-10 bg-conectia-gold/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <Home className="w-5 h-5 text-conectia-gold" />
+                      <div key={propiedad.id} className="flex items-center gap-4 p-4 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/15 transition-all group">
+                        <div className="w-10 h-10 bg-[#C78F7B]/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#C78F7B]/20">
+                          <Home className="w-5 h-5 text-[#C78F7B]" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-gray-900 dark:text-white font-medium">
-                            {propiedad.titulo}
-                          </p>
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                            {propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}
-                          </p>
+                          <p className="text-sm font-semibold text-white truncate">{propiedad.titulo}</p>
+                          <p className="text-xs text-[#B0ACA6] mt-0.5">{propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}</p>
+                          <p className="text-[10px] text-[#4A4F57] mt-0.5">Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}</p>
                         </div>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(propiedad.status)}`}>
-                          {propiedad.status}
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-1 shrink-0 ${getStatusColor(propiedad.status)}`}>
+                          {getStatusIcon(propiedad.status)} {propiedad.status}
                         </span>
                       </div>
                     ))}
@@ -330,48 +343,46 @@ export default function PanelAdminPage() {
               </div>
             </div>
 
-            {/* Asesores del Equipo */}
-            <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Award className="w-5 h-5 text-conectia-gold" />
-                  Equipo de Asesores
-                </h2>
+            {/* Team Section */}
+            <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+              <div className="px-6 pt-5 pb-4 border-b border-white/10 flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Award className="w-4 h-4 text-[#C78F7B]" /> Equipo de Asesores
+                </h3>
+                <button onClick={() => setActiveTab('team')} className="text-xs font-bold text-[#C78F7B] hover:text-[#E8A88F] flex items-center gap-1 transition-colors">
+                  Ver todo <ArrowUpRight className="w-3 h-3" />
+                </button>
               </div>
               <div className="p-6">
                 {loading ? (
-                  <p className="text-center text-gray-500">Cargando...</p>
+                  <div className="flex items-center justify-center py-8">
+                    <div className="w-8 h-8 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
+                  </div>
                 ) : asesores.length === 0 ? (
-                  <p className="text-center text-gray-500">No hay asesores registrados</p>
+                  <div className="text-center py-8">
+                    <Users className="w-8 h-8 text-[#4A4F57] mx-auto mb-2" />
+                    <p className="text-sm text-[#8A8F97]">No hay asesores registrados</p>
+                  </div>
                 ) : (
-                  <div className="space-y-4">
-                    {asesores.map((asesor) => {
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {asesores.slice(0, 6).map((asesor) => {
                       const asesorEmailLower = asesor.email?.toLowerCase() || ''
                       const propiedadesAsesor = propiedades.filter(p => {
                         const pa = getPropAsesor(p)
                         return pa === asesorEmailLower || pa === asesor.id?.toLowerCase()
                       })
-
                       return (
-                        <div key={asesor.id} className="p-4 bg-conectia-secondary/70 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-conectia-gold/10 rounded-xl flex items-center justify-center">
-                                <UserCircle className="w-6 h-6 text-conectia-gold" />
-                              </div>
-                              <div>
-                                <h3 className="font-semibold text-gray-900 dark:text-white">
-                                  {asesor.nombre}
-                                </h3>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                  {asesor.email}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-2xl font-bold text-conectia-gold">{propiedadesAsesor.length}</p>
-                              <p className="text-xs text-gray-600 dark:text-gray-400">propiedades</p>
-                            </div>
+                        <div key={asesor.id} className="flex items-center gap-3 p-4 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/15 transition-all">
+                          <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20 flex-shrink-0">
+                            <span className="text-xs font-bold text-[#C78F7B]">{getAsesorInitials(asesor.nombre)}</span>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-white truncate">{asesor.nombre}</p>
+                            <p className="text-[10px] text-[#8A8F97] truncate">{asesor.email}</p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-lg font-black text-[#C78F7B]">{propiedadesAsesor.length}</p>
+                            <p className="text-[10px] text-[#4A4F57]">props</p>
                           </div>
                         </div>
                       )
@@ -380,43 +391,43 @@ export default function PanelAdminPage() {
                 )}
               </div>
             </div>
-          </>
+          </div>
         )}
 
-        {/* Properties Tab */}
+        {/* PROPERTIES TAB */}
         {activeTab === 'properties' && (
-          <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Home className="w-5 h-5 text-conectia-gold" />
-                Todas las Propiedades
-              </h2>
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+            <div className="px-6 pt-5 pb-4 border-b border-white/10">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Home className="w-4 h-4 text-[#C78F7B]" /> Todas las Propiedades
+                <span className="ml-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C78F7B]/10 text-[#C78F7B] border border-[#C78F7B]/20">{totalPropiedades}</span>
+              </h3>
             </div>
             <div className="p-6">
               {loading ? (
-                <p className="text-center text-gray-500">Cargando...</p>
+                <div className="flex items-center justify-center py-8">
+                  <div className="w-8 h-8 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
+                </div>
               ) : propiedades.length === 0 ? (
-                <p className="text-center text-gray-500">No hay propiedades registradas</p>
+                <div className="text-center py-8">
+                  <Home className="w-8 h-8 text-[#4A4F57] mx-auto mb-2" />
+                  <p className="text-sm text-[#8A8F97]">No hay propiedades registradas</p>
+                </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {propiedades.map((propiedad) => (
-                    <div key={propiedad.id} className="p-4 bg-conectia-secondary/70 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                            {propiedad.titulo}
-                          </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            {propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-500">
-                            Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}
-                          </p>
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(propiedad.status)}`}>
-                          {propiedad.status}
-                        </span>
+                    <div key={propiedad.id} className="flex items-center gap-4 p-4 bg-white/[0.02] rounded-xl border border-white/5 hover:border-white/15 transition-all group">
+                      <div className="w-10 h-10 bg-[#C78F7B]/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#C78F7B]/20">
+                        <Home className="w-5 h-5 text-[#C78F7B]" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-white">{propiedad.titulo}</p>
+                        <p className="text-xs text-[#B0ACA6] mt-0.5">{propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}</p>
+                        <p className="text-[10px] text-[#4A4F57] mt-0.5">Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}</p>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-1 shrink-0 ${getStatusColor(propiedad.status)}`}>
+                        {getStatusIcon(propiedad.status)} {propiedad.status}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -425,57 +436,65 @@ export default function PanelAdminPage() {
           </div>
         )}
 
-        {/* Team Tab */}
+        {/* TEAM TAB */}
         {activeTab === 'team' && (
-          <div className="bg-conectia-secondary/50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-conectia-gold" />
-                Equipo de Asesores
-              </h2>
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
+            <div className="px-6 pt-5 pb-4 border-b border-white/10">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Users className="w-4 h-4 text-[#C78F7B]" /> Equipo de Asesores
+                <span className="ml-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C78F7B]/10 text-[#C78F7B] border border-[#C78F7B]/20">{totalAsesores}</span>
+              </h3>
             </div>
             <div className="p-6">
               {loading ? (
-                <p className="text-center text-gray-500">Cargando...</p>
+                <div className="flex items-center justify-center py-8">
+                  <div className="w-8 h-8 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
+                </div>
               ) : asesores.length === 0 ? (
-                <p className="text-center text-gray-500">No hay asesores registrados</p>
+                <div className="text-center py-8">
+                  <Users className="w-8 h-8 text-[#4A4F57] mx-auto mb-2" />
+                  <p className="text-sm text-[#8A8F97]">No hay asesores registrados</p>
+                </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {asesores.map((asesor) => {
-                    // Contar propiedades por email o ID
                     const asesorEmailLower = asesor.email?.toLowerCase() || ''
                     const propiedadesAsesor = propiedades.filter(p => {
                       const pa = getPropAsesor(p)
                       return pa === asesorEmailLower || pa === asesor.id?.toLowerCase()
                     })
-
+                    const disponibles = propiedadesAsesor.filter(p => p.status === 'Disponible').length
+                    const exclusivas = propiedadesAsesor.filter(p => p.status === 'Exclusiva').length
                     return (
-                      <div key={asesor.id} className="p-6 bg-conectia-secondary/70 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+                      <div key={asesor.id} className="relative bg-white/[0.02] rounded-[20px] p-5 border border-white/5 hover:border-white/15 transition-all group">
                         <div className="flex items-start gap-4 mb-4">
-                          <div className="w-16 h-16 bg-conectia-gold/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <UserCircle className="w-8 h-8 text-conectia-gold" />
+                          <div className="w-12 h-12 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20 flex-shrink-0">
+                            <span className="text-sm font-bold text-[#C78F7B]">{getAsesorInitials(asesor.nombre)}</span>
                           </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-gray-900 dark:text-white text-lg">
-                              {asesor.nombre}
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                              {asesor.email}
-                            </p>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-white text-base">{asesor.nombre}</h3>
+                            <p className="text-xs text-[#B0ACA6] truncate">{asesor.email}</p>
                             {asesor.telefono && (
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <Phone className="w-4 h-4" />
+                              <div className="flex items-center gap-1.5 text-xs text-[#8A8F97] mt-1">
+                                <Phone className="w-3 h-3" />
                                 <span>{asesor.telefono}</span>
                               </div>
                             )}
                           </div>
                         </div>
-
-                        <div className="text-center p-4 bg-conectia-secondary/50 dark:bg-gray-800 rounded-lg">
-                          <p className="text-3xl font-bold text-conectia-gold">
-                            {propiedadesAsesor.length}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">propiedades</p>
+                        <div className="grid grid-cols-3 gap-2">
+                          <div className="text-center p-2 bg-white/[0.02] rounded-lg border border-white/5">
+                            <p className="text-lg font-black text-white">{propiedadesAsesor.length}</p>
+                            <p className="text-[10px] text-[#8A8F97]">Total</p>
+                          </div>
+                          <div className="text-center p-2 bg-green-500/5 rounded-lg border border-green-500/10">
+                            <p className="text-lg font-black text-green-400">{disponibles}</p>
+                            <p className="text-[10px] text-[#8A8F97]">Disp.</p>
+                          </div>
+                          <div className="text-center p-2 bg-[#C78F7B]/5 rounded-lg border border-[#C78F7B]/10">
+                            <p className="text-lg font-black text-[#C78F7B]">{exclusivas}</p>
+                            <p className="text-[10px] text-[#8A8F97]">Exc.</p>
+                          </div>
                         </div>
                       </div>
                     )
