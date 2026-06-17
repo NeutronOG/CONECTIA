@@ -44,7 +44,7 @@ export default function ExclusivosPage() {
               <div className="w-12 h-12 bg-conectia-primary rounded-2xl flex items-center justify-center shadow-lg">
                 <Shield className="h-6 w-6 text-conectia-accent" />
               </div>
-              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">Conectia Select</span>
+              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">CONECTIA</span>
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4">
               Propiedades<br/>

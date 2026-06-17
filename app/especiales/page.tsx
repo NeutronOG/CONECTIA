@@ -50,7 +50,7 @@ export default function EspecialesPage() {
 
           {/* Eyebrow */}
           <p className="text-[10px] uppercase tracking-[0.5em] text-conectia-primary font-bold mb-6">
-            Conectia Select — Premium
+            CONECTIA
           </p>
 
           {/* Título tipo revista de lujo */}

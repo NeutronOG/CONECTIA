@@ -37,7 +37,7 @@ export default function RentaPage() {
               <div className="w-9 h-9 bg-conectia-primary rounded-lg flex items-center justify-center">
                 <Key className="h-4 w-4 text-white" />
               </div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-bold">Conectia Select</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-bold">CONECTIA</span>
             </div>
             <div>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-none">Renta</h1>

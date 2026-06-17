@@ -138,7 +138,7 @@ export default function PropiedadesPage() {
                 style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
                 <Building className="h-5 w-5 text-[#C78F7B]" />
               </div>
-              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">CONECTIA Select</span>
+              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">CONECTIA</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-light text-[#EAE4DD] leading-[1.05] mb-3">
               Propiedades
