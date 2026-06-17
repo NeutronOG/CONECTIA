@@ -103,29 +103,29 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
           <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] text-xs font-semibold border border-[#C78F7B]/25 rounded-full px-3">
             {propiedad.tipo}
           </Badge>
-          <span className="text-lg font-bold text-[#17313A]" style={{fontFamily: "var(--font-titles)"}}>{propiedad.precioTexto}</span>
+          <span className="text-lg font-bold text-[#C78F7B]" style={{fontFamily: "var(--font-titles)"}}>{propiedad.precioTexto}</span>
         </div>
 
         {/* Título */}
-        <h3 className="text-base font-semibold text-[#1D1F24] mb-1.5 line-clamp-2 leading-snug" style={{fontFamily: "var(--font-titles)"}}>
+        <h3 className="text-base font-semibold text-[#C78F7B] mb-1.5 line-clamp-2 leading-snug" style={{fontFamily: "var(--font-titles)"}}>
           {propiedad.titulo}
         </h3>
 
         {/* Ubicación */}
-        <div className="flex items-center text-[#4A4F57] mb-3">
+        <div className="flex items-center text-[#C78F7B] mb-3">
           <MapPin className="h-3.5 w-3.5 mr-1.5 flex-shrink-0 text-[#B0ACA6]" weight="duotone" />
           <span className="text-xs line-clamp-1">{propiedad.ubicacion}</span>
         </div>
 
         {/* Descripción */}
         {propiedad.descripcion && (
-          <p className="text-xs text-[#4A4F57] mb-3 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#C78F7B] mb-3 line-clamp-2 leading-relaxed">
             {propiedad.descripcion}
           </p>
         )}
 
         {/* Stats */}
-        <div className="flex items-center gap-4 text-xs text-[#4A4F57] mb-4 mt-auto pt-3 border-t border-[#17313A]/08">
+        <div className="flex items-center gap-4 text-xs text-[#C78F7B] mb-4 mt-auto pt-3 border-t border-[#17313A]/08">
           {propiedad.habitaciones != null && (
             <span className="flex items-center gap-1">
               <Bed className="h-3.5 w-3.5 text-[#B0ACA6]" weight="duotone" />

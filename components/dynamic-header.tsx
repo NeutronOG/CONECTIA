@@ -369,6 +369,12 @@ export function DynamicHeader() {
                   
                   {isCategoriesOpen && (
                     <div className="mt-2 grid grid-cols-2 gap-2 animate-in slide-in-from-top-2 duration-200">
+                      <Link href="/propiedades" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Tag className="h-4 w-4 text-[#17313A]" />
+                          <span className="text-xs font-medium text-[#1D1F24]">Venta</span>
+                        </button>
+                      </Link>
                       <Link href="/renta" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Key className="h-4 w-4 text-[#17313A]" />
@@ -540,6 +546,12 @@ export function DynamicHeader() {
             }}
           >
             <div className="py-2">
+              <Link href="/propiedades" onClick={() => setIsOtrosMenuOpen(false)}>
+                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+                  <Tag className="h-4 w-4 text-[#17313A]" />
+                  <span>Venta</span>
+                </button>
+              </Link>
               <Link href="/renta" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Key className="h-4 w-4 text-[#17313A]" />
