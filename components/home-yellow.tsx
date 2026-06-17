@@ -42,16 +42,6 @@ export function HomeYellow() {
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between w-full h-full p-8 md:p-16 lg:p-24 pb-20">
           {/* Left: Typography */}
           <div className="space-y-10 max-w-2xl">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[#C78F7B]/30 bg-[#C78F7B]/10 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C78F7B] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C78F7B]"></span>
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-[#EAE4DD] font-semibold">
-                Mercado Premium Activo
-              </span>
-            </div>
-
             <div className="relative">
               {/* Giant blurred glow behind text */}
               <div className="absolute -top-20 -left-10 w-80 h-60 bg-[#C78F7B]/10 rounded-full blur-[80px] pointer-events-none" />
