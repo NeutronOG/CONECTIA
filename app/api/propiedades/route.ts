@@ -74,7 +74,7 @@ export async function GET(request: Request) {
     // Listado completo
     const { data: propiedades, error: propError } = await supabaseAdmin
       .from('propiedades')
-      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono, unidad_superficie')
+      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono')
       .order('created_at', { ascending: false })
 
     if (propError) {
@@ -119,7 +119,6 @@ export async function GET(request: Request) {
       tourVirtual: prop.tour_virtual || undefined,
       galeria: undefined,
       bono: prop.bono || undefined,
-      unidadSuperficie: prop.unidad_superficie || undefined,
       agente: prop.usuario_id && usuariosMap[prop.usuario_id] ? {
         nombre: usuariosMap[prop.usuario_id],
         especialidad: 'Especialista en Propiedades',

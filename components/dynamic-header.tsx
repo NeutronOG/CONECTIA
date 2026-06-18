@@ -26,6 +26,7 @@ import {
   Briefcase,
 } from "lucide-react"
 import { WishlistCounter } from "./wishlist-button"
+import { ModeToggle } from "./mode-toggle"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
@@ -115,9 +116,9 @@ export function DynamicHeader() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center gap-2 min-w-0">
             {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0 px-2 group">
+            <Link href="/" className="flex items-center flex-shrink-0 px-2 group text-[#17313A] dark:text-[#EAE4DD]">
               <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto transition-transform group-hover:scale-105">
-                <text x="0" y="30" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="32" fontWeight="600" fill="#EAE4DD" letterSpacing="2">CONECTIA</text>
+                <text x="0" y="30" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="32" fontWeight="600" fill="currentColor" letterSpacing="2">CONECTIA</text>
               </svg>
             </Link>
 
@@ -169,6 +170,7 @@ export function DynamicHeader() {
               >
                 <Search className="h-3.5 w-3.5" />
               </Button>
+              <ModeToggle />
             </div>
 
             {/* Separator */}
@@ -298,6 +300,9 @@ export function DynamicHeader() {
                     <Heart className="h-4 w-4" />
                   </button>
                 </Link>
+                <div className="flex-shrink-0">
+                  <ModeToggle />
+                </div>
               </div>
             ) : (
               <div className="space-y-4 w-full transition-all duration-300 ease-out">
@@ -312,14 +317,17 @@ export function DynamicHeader() {
                       className="h-8 w-auto object-contain"
                     />
                   </Link>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="rounded-full w-8 h-8 p-0 hover:bg-conectia-accent/10 transition-all duration-300 hover:scale-110 active:scale-95"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <ModeToggle />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="rounded-full w-8 h-8 p-0 hover:bg-conectia-accent/10 transition-all duration-300 hover:scale-110 active:scale-95"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
 
                 {/* Navigation Grid - Apple Style */}

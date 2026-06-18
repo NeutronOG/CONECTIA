@@ -9,6 +9,7 @@ import { WishlistProvider } from "@/components/wishlist-provider"
 import { AuthProvider } from "@/contexts/auth-context"
 import { SWRProvider } from "@/components/swr-provider"
 import { Toaster } from "sonner"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -70,16 +71,18 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${montserrat.variable} ${cormorant.variable} font-sans m-0 p-0`}>
-        <SWRProvider>
-          <AuthProvider>
-            <WishlistProvider>
-              <DynamicHeader />
-              {children}
-              <Footer />
-              <Toaster position="top-right" richColors />
-            </WishlistProvider>
-          </AuthProvider>
-        </SWRProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <SWRProvider>
+            <AuthProvider>
+              <WishlistProvider>
+                <DynamicHeader />
+                {children}
+                <Footer />
+                <Toaster position="top-right" richColors />
+              </WishlistProvider>
+            </AuthProvider>
+          </SWRProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
