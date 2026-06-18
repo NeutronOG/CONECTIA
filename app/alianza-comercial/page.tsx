@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer"
 
 export default function CommercialAlliancePage() {
     return (
-        <main className="min-h-screen bg-[#17313A]">
+        <main className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
             <CommercialAlliance />
         </main>
     )

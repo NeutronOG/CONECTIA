@@ -24,7 +24,7 @@ export default function OfertasPage() {
   }, [properties, tipoFilter])
 
   return (
-    <div className="min-h-screen bg-[#0F2027]">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F2027]">
 
       {/* HERO — Creative dark with glow effects */}
       <section className="relative overflow-hidden">

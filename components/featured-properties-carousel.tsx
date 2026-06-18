@@ -38,8 +38,8 @@ export function FeaturedPropertiesCarousel() {
 
   if (featuredProperties.length === 0) {
     return (
-      <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden bg-[#0F2027] animate-pulse flex items-center justify-center">
-        <p className="text-[#B0ACA6]">Cargando propiedades...</p>
+      <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden bg-[#EAE4DD] dark:bg-[#0F2027] animate-pulse flex items-center justify-center">
+        <p className="text-[#4A4F57] dark:text-[#B0ACA6]">Cargando propiedades...</p>
       </div>
     )
   }
@@ -54,8 +54,8 @@ export function FeaturedPropertiesCarousel() {
         style={{ backgroundImage: `url(${currentProperty.imagen})` }}
       />
       {/* Dark overlay for entire image */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027] via-[#0F2027]/40 to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#0F2027]/90" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027]/80 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/90 via-[#F6F2EE]/40 to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#F6F2EE]/90 dark:from-[#0F2027] dark:via-[#0F2027]/40 dark:to-transparent dark:md:to-[#0F2027]/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/80 via-transparent to-transparent dark:from-[#0F2027]/80" />
 
       {/* Content — Split layout */}
       <div className="relative h-full flex flex-col md:flex-row">
@@ -65,7 +65,7 @@ export function FeaturedPropertiesCarousel() {
         {/* Right: Info Panel */}
         <div className="flex-1 md:w-[45%] flex flex-col justify-end md:justify-center p-6 sm:p-8 md:p-10">
           {/* Glass Card */}
-          <div className="relative bg-[#0F2027]/70 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
+          <div className="relative bg-white/70 dark:bg-[#0F2027]/70 backdrop-blur-xl border border-[#17313A]/10 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
             {/* Glow accent */}
             <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
 
@@ -86,7 +86,7 @@ export function FeaturedPropertiesCarousel() {
               </div>
 
               {/* Title */}
-              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">
+              <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-[#17313A] dark:text-white leading-tight">
                 {currentProperty.titulo}
               </h2>
 
@@ -113,12 +113,12 @@ export function FeaturedPropertiesCarousel() {
               </div>
 
               {/* Divider */}
-              <div className="h-px bg-gradient-to-r from-[#C78F7B]/30 via-white/10 to-transparent" />
+              <div className="h-px bg-gradient-to-r from-[#C78F7B]/30 via-[#17313A]/10 dark:via-white/10 to-transparent" />
 
               {/* Price & CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <p className="text-[10px] text-[#4A4F57] uppercase tracking-widest font-semibold mb-1">Precio</p>
+                  <p className="text-[10px] text-[#4A4F57] dark:text-[#4A4F57] uppercase tracking-widest font-semibold mb-1">Precio</p>
                   <p className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">
                     {currentProperty.precioTexto}
                   </p>
@@ -133,7 +133,7 @@ export function FeaturedPropertiesCarousel() {
                   {currentProperty.tourVirtual && (
                     <Button
                       variant="outline"
-                      className="border-white/20 text-white bg-white/5 hover:bg-white/10 hover:border-[#C78F7B]/30 font-semibold px-4 py-3 rounded-xl transition-all duration-300"
+                      className="border-[#17313A]/15 dark:border-white/20 text-[#17313A] dark:text-white bg-[#17313A]/5 dark:bg-white/5 hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 font-semibold px-4 py-3 rounded-xl transition-all duration-300"
                       onClick={() => window.open(currentProperty.tourVirtual, '_blank')}
                     >
                       <Video className="h-4 w-4" />
@@ -149,15 +149,15 @@ export function FeaturedPropertiesCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/5 border border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/10 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
-        <ChevronLeft className="h-5 w-5 text-white" />
+        <ChevronLeft className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/5 border border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/10 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
-        <ChevronRight className="h-5 w-5 text-white" />
+        <ChevronRight className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>
 
       {/* Dots Navigation */}
@@ -168,7 +168,7 @@ export function FeaturedPropertiesCarousel() {
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${index === currentIndex
               ? 'w-10 h-2.5 bg-gradient-to-r from-[#C78F7B] to-[#E8A88F]'
-              : 'w-2.5 h-2.5 bg-white/20 hover:bg-white/40'
+              : 'w-2.5 h-2.5 bg-[#17313A]/20 dark:bg-white/20 hover:bg-[#17313A]/40 dark:hover:bg-white/40'
             }`}
           />
         ))}

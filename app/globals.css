@@ -244,6 +244,22 @@
     background: rgba(199,143,123,0.30);
     color: var(--foreground);
   }
+
+  /* Glass CTA container - theme aware */
+  .glass-cta {
+    background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(246,242,238,0.55) 50%, rgba(234,228,221,0.45) 100%);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(23,49,58,0.12);
+    border-top-color: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 0 rgba(255,255,255,0.40) inset, 0 32px 80px rgba(23,49,58,0.08), 0 4px 16px rgba(23,49,58,0.05);
+  }
+  .dark .glass-cta {
+    background: linear-gradient(135deg, rgba(234,228,221,0.13) 0%, rgba(199,143,123,0.07) 50%, rgba(23,49,58,0.25) 100%);
+    border: 1px solid rgba(234,228,221,0.20);
+    border-top-color: rgba(255,255,255,0.28);
+    box-shadow: 0 2px 0 rgba(255,255,255,0.10) inset, 0 32px 80px rgba(23,49,58,0.35), 0 4px 16px rgba(23,49,58,0.20);
+  }
 }
 
 /* Utility classes para branding CONECTIA (paleta cálida) */
@@ -260,15 +276,14 @@
   .text-conectia-primary-dark { color: var(--conectia-primary-dark); }
   .bg-conectia-primary-dark { background-color: var(--conectia-primary-dark); }
   .text-conectia-secondary { color: var(--conectia-secondary); }
-  /* Fondos de página → siempre azul petróleo */
-  .bg-conectia-secondary { background-color: #17313A; }
+  .bg-conectia-secondary { background-color: var(--conectia-secondary); }
   .text-conectia-accent { color: var(--conectia-accent); }
-  .bg-conectia-accent { background-color: #17313A; }
+  .bg-conectia-accent { background-color: var(--conectia-accent); }
   .text-conectia-surface { color: var(--conectia-surface); }
-  .bg-conectia-surface { background-color: #17313A; }
-  .bg-conectia-surface-container { background-color: #1A3540; }
-  .bg-conectia-surface-high { background-color: #1F3D47; }
-  .bg-conectia-light-gray { background-color: #17313A; }
+  .bg-conectia-surface { background-color: var(--conectia-surface); }
+  .bg-conectia-surface-container { background-color: var(--conectia-surface-container); }
+  .bg-conectia-surface-high { background-color: var(--conectia-surface-high); }
+  .bg-conectia-light-gray { background-color: #D5D2C9; }
   .text-on-surface { color: var(--conectia-on-surface); }
   .text-on-surface-variant { color: var(--conectia-on-surface-variant); }
   .border-conectia-primary { border-color: var(--conectia-primary); }

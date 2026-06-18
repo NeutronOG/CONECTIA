@@ -13,9 +13,9 @@ import { HomepageAdSlot } from "./homepage-ads"
 export function HomeYellow() {
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
   return (
-    <div className="min-h-screen bg-[#17313A] relative overflow-hidden transition-all duration-500">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A] relative overflow-hidden transition-all duration-500">
       {/* Hero Section — Editorial & Left-Aligned */}
-      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[40px] overflow-hidden bg-[#0F2027] shadow-2xl shadow-black/50">
+      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[40px] overflow-hidden bg-[#EAE4DD] dark:bg-[#0F2027] shadow-2xl shadow-[#17313A]/20 dark:shadow-black/50">
         {/* Background Image Full Bleed */}
         <div className="absolute inset-0 z-0">
           <img
@@ -24,8 +24,8 @@ export function HomeYellow() {
             className="w-full h-full object-cover object-center scale-105"
           />
           {/* Dramatic overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F2027] via-[#0F2027]/90 to-[#0F2027]/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027] via-transparent to-[#0F2027]/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/90 via-[#F6F2EE]/70 to-[#F6F2EE]/30 dark:from-[#0F2027] dark:via-[#0F2027]/90 dark:to-[#0F2027]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/80 via-transparent to-[#F6F2EE]/40 dark:from-[#0F2027] dark:to-[#0F2027]/60" />
         </div>
 
         {/* Aurora Glow Effects */}
@@ -45,13 +45,13 @@ export function HomeYellow() {
             <div className="relative">
               {/* Giant blurred glow behind text */}
               <div className="absolute -top-20 -left-10 w-80 h-60 bg-[#C78F7B]/10 rounded-full blur-[80px] pointer-events-none" />
-              <h1 className="relative text-6xl sm:text-7xl md:text-[6rem] lg:text-[8rem] font-black text-white leading-[0.85] tracking-tighter">
+              <h1 className="relative text-6xl sm:text-7xl md:text-[6rem] lg:text-[8rem] font-black text-[#17313A] dark:text-white leading-[0.85] tracking-tighter">
                 Vive
                 <span className="font-serif italic font-light bg-gradient-to-r from-[#C78F7B] via-[#E8A88F] to-[#C78F7B] bg-clip-text text-transparent block mt-1 animate-gradient-x bg-[length:200%_auto]">
                   Diferente
                 </span>
               </h1>
-              <p className="mt-8 text-lg md:text-xl text-[#B0ACA6] max-w-md font-light leading-relaxed border-l-2 border-[#C78F7B] pl-5">
+              <p className="mt-8 text-lg md:text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-md font-light leading-relaxed border-l-2 border-[#C78F7B] pl-5">
                 La forma más transparente y estética de encontrar tu próxima propiedad. Sin intermediarios complicados.
               </p>
             </div>
@@ -65,7 +65,7 @@ export function HomeYellow() {
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="w-full sm:w-auto group flex items-center justify-center gap-3 h-14 px-10 rounded-full bg-white/5 border border-white/20 text-[#EAE4DD] font-medium transition-all duration-300 hover:bg-white/10 hover:border-[#C78F7B]/40 backdrop-blur-md"
+                className="w-full sm:w-auto group flex items-center justify-center gap-3 h-14 px-10 rounded-full bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/15 dark:border-white/20 text-[#17313A] dark:text-[#EAE4DD] font-medium transition-all duration-300 hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/40 backdrop-blur-md"
               >
                 <List className="h-5 w-5 text-[#C78F7B] group-hover:scale-110 transition-transform" weight="duotone" />
                 Categorías
@@ -79,9 +79,9 @@ export function HomeYellow() {
                 { value: '98%', label: 'Satisfacción' },
                 { value: 'GTO', label: 'Mercado' },
               ].map((stat, i) => (
-                <div key={i} className="relative p-4 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 group hover:bg-white/[0.07] hover:border-[#C78F7B]/20 transition-all duration-500">
+                <div key={i} className="relative p-4 rounded-2xl bg-[#17313A]/[0.04] dark:bg-white/[0.04] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 group hover:bg-[#17313A]/[0.07] dark:hover:bg-white/[0.07] hover:border-[#C78F7B]/20 transition-all duration-500">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <p className={`text-2xl md:text-3xl font-black ${i === 1 ? 'bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent' : 'text-white'} mb-1`}>{stat.value}</p>
+                  <p className={`text-2xl md:text-3xl font-black ${i === 1 ? 'bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent' : 'text-[#17313A] dark:text-white'} mb-1`}>{stat.value}</p>
                   <p className="text-[10px] text-[#B0ACA6] uppercase tracking-widest font-semibold">{stat.label}</p>
                 </div>
               ))}
@@ -93,8 +93,8 @@ export function HomeYellow() {
             {/* Main Property Card */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#C78F7B]/20 to-[#E8A88F]/20 rounded-3xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative w-[280px] bg-white/[0.07] backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl">
-                <div className="h-32 bg-gradient-to-br from-[#17313A] to-[#0F2027] relative">
+              <div className="relative w-[280px] bg-[#17313A]/[0.05] dark:bg-white/[0.07] backdrop-blur-xl border border-[#17313A]/15 dark:border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+                <div className="h-32 bg-gradient-to-br from-[#EAE4DD] to-[#D5D2C9] dark:from-[#17313A] dark:to-[#0F2027] relative">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center opacity-60" />
                   <div className="absolute top-3 right-3 bg-[#C78F7B] text-[#0F2027] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     Destacada
@@ -103,7 +103,7 @@ export function HomeYellow() {
                 <div className="p-5 space-y-3">
                   <div>
                     <p className="text-xs text-[#C78F7B] font-semibold uppercase tracking-wider mb-1">León, Gto</p>
-                    <p className="text-sm font-bold text-white leading-tight">Residencia Exclusiva en Zona Norte</p>
+                    <p className="text-sm font-bold text-[#17313A] dark:text-white leading-tight">Residencia Exclusiva en Zona Norte</p>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-black text-[#C78F7B]">$4.2M</span>
@@ -114,17 +114,17 @@ export function HomeYellow() {
             </div>
 
             {/* Mini Stats Card */}
-            <div className="w-[220px] bg-white/[0.05] backdrop-blur-md border border-white/15 rounded-2xl p-4 shadow-xl -mt-2 mr-10">
+            <div className="w-[220px] bg-[#17313A]/[0.04] dark:bg-white/[0.05] backdrop-blur-md border border-[#17313A]/10 dark:border-white/15 rounded-2xl p-4 shadow-xl -mt-2 mr-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/20 flex items-center justify-center">
                   <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-white">Exclusivo</p>
+                  <p className="text-xs font-bold text-[#17313A] dark:text-white">Exclusivo</p>
                   <p className="text-[9px] text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
                 </div>
               </div>
-              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+              <div className="h-1 bg-[#17313A]/10 dark:bg-white/10 rounded-full overflow-hidden">
                 <div className="h-full w-[98%] bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] rounded-full" />
               </div>
             </div>
@@ -133,7 +133,7 @@ export function HomeYellow() {
 
         {/* Giant background text */}
         <div className="absolute right-0 bottom-[-5%] opacity-[0.04] pointer-events-none select-none overflow-hidden">
-          <span className="text-[18vw] font-black text-white leading-none tracking-tighter">CONECTIA</span>
+          <span className="text-[18vw] font-black text-[#17313A]/[0.06] dark:text-white/[0.04] leading-none tracking-tighter">CONECTIA</span>
         </div>
       </section>
 
@@ -143,7 +143,7 @@ export function HomeYellow() {
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8 mb-10 sm:mb-14">
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold mb-2">Selección</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#EAE4DD] leading-tight" style={{fontFamily:'var(--font-titles)'}}>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight" style={{fontFamily:'var(--font-titles)'}}>
                 Propiedades <span className="text-[#C78F7B]">Destacadas</span>
               </h2>
             </div>
@@ -168,16 +168,7 @@ export function HomeYellow() {
       <section className="relative py-10 sm:py-16 px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
           {/* Contenedor glass principal */}
-          <div className="relative rounded-[28px] overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(234,228,221,0.13) 0%, rgba(199,143,123,0.07) 50%, rgba(23,49,58,0.25) 100%)',
-              backdropFilter: 'blur(32px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(32px) saturate(180%)',
-              border: '1px solid rgba(234,228,221,0.20)',
-              borderTopColor: 'rgba(255,255,255,0.28)',
-              boxShadow: '0 2px 0 rgba(255,255,255,0.10) inset, 0 32px 80px rgba(23,49,58,0.35), 0 4px 16px rgba(23,49,58,0.20)',
-            }}
-          >
+          <div className="relative rounded-[28px] overflow-hidden glass-cta">
             {/* Brillo superior */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#EAE4DD]/40 to-transparent" />
             {/* Orbe arcilla decorativo */}
@@ -194,11 +185,11 @@ export function HomeYellow() {
                   <p className="text-[10px] uppercase tracking-[0.40em] text-[#C78F7B] font-semibold">
                     Únete ahora
                   </p>
-                  <h2 className="font-titles text-4xl sm:text-5xl font-light text-[#EAE4DD] leading-[1.15]">
+                  <h2 className="font-titles text-4xl sm:text-5xl font-light text-[#17313A] dark:text-[#EAE4DD] leading-[1.15]">
                     ¿Listo para el<br />
                     <span className="italic text-[#C78F7B]">siguiente paso?</span>
                   </h2>
-                  <p className="text-[#B0ACA6] text-base leading-relaxed max-w-md">
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base leading-relaxed max-w-md">
                     Únete a nuestros clientes satisfechos y descubre la facilidad de comprar o vender con CONECTIA
                   </p>
                   {/* Línea decorativa */}
@@ -242,10 +233,10 @@ export function HomeYellow() {
               { icon: MapPin, value: 'GTO', label: 'Mercado Principal', color: 'from-[#C78F7B] to-[#E8A88F]' },
               { icon: TrendUp, value: '45d', label: 'Venta Promedio', color: 'from-[#C78F7B] to-[#E8A88F]' },
             ].map((stat, i) => (
-              <div key={i} className="group relative p-6 text-center rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
+              <div key={i} className="group relative p-6 text-center rounded-2xl bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/[0.06] dark:hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#C78F7B]/20 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/15 dark:bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#C78F7B]/25 dark:group-hover:bg-[#C78F7B]/20 transition-colors">
                     <stat.icon className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
                   </div>
                   <p className={`text-2xl sm:text-3xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-1`}>{stat.value}</p>
@@ -262,7 +253,7 @@ export function HomeYellow() {
         <>
           {/* Overlay */}
           <div
-            className="fixed inset-0 bg-[#17313A]/50 backdrop-blur-md z-50 animate-in fade-in duration-200"
+            className="fixed inset-0 bg-[#17313A]/30 dark:bg-[#17313A]/50 backdrop-blur-md z-50 animate-in fade-in duration-200"
             onClick={() => setIsCategoriasMenuOpen(false)}
           />
 
