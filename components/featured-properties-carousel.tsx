@@ -76,7 +76,7 @@ export function FeaturedPropertiesCarousel() {
                   <span className="px-3 py-1 rounded-full bg-[#C78F7B]/20 border border-[#C78F7B]/30 text-[#C78F7B] text-[10px] font-bold uppercase tracking-wider">
                     {currentProperty.status}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-full bg-[#17313A]/10 border border-[#17313A]/20 text-[#17313A]/70 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">
                     {currentProperty.tipo}
                   </span>
                 </div>
@@ -91,13 +91,13 @@ export function FeaturedPropertiesCarousel() {
               </h2>
 
               {/* Location */}
-              <div className="flex items-center gap-2 text-[#B0ACA6]">
+              <div className="flex items-center gap-2 text-[#17313A]/70 dark:text-[#B0ACA6]">
                 <MapPin className="h-4 w-4 text-[#C78F7B]" />
                 <span className="text-sm">{currentProperty.ubicacion}</span>
               </div>
 
               {/* Details */}
-              <div className="flex items-center gap-5 text-[#B0ACA6]">
+              <div className="flex items-center gap-5 text-[#17313A]/70 dark:text-[#B0ACA6]">
                 <div className="flex items-center gap-1.5">
                   <Bed className="h-4 w-4 text-[#C78F7B]" />
                   <span className="text-sm font-medium">{currentProperty.habitaciones} Hab</span>
@@ -149,13 +149,13 @@ export function FeaturedPropertiesCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/10 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
         <ChevronLeft className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/10 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
         <ChevronRight className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>

@@ -154,10 +154,10 @@ export default function PropiedadesPage() {
             <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent leading-tight mb-5">
               Exclusivas
             </h2>
-            <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
+            <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
               Descubre nuestra selección de propiedades únicas y exclusivas
             </p>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] bg-[#17313A]/[0.04] dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/15 backdrop-blur-md">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] bg-[#17313A]/[0.10] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/15 backdrop-blur-md">
               {isLoading ? 'Cargando...' : `${filteredAndSortedProperties.length} de ${propiedades.length} Propiedades`}
             </span>
           </div>
@@ -177,7 +177,7 @@ export default function PropiedadesPage() {
               />
 
               {/* AI Search Button */}
-              <div className="relative bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 rounded-2xl p-4 sm:p-6 overflow-hidden">
+              <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-2xl p-4 sm:p-6 overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#C78F7B]/10 rounded-full blur-[30px] pointer-events-none" />
                 <div className="relative text-center space-y-3 sm:space-y-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#C78F7B]/20 rounded-xl flex items-center justify-center mx-auto">
@@ -187,7 +187,7 @@ export default function PropiedadesPage() {
                     <h3 className="font-serif text-base sm:text-lg font-semibold text-[#17313A] dark:text-white mb-1.5 sm:mb-2">
                       Búsqueda con IA
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#4A4F57] dark:text-[#B0ACA6] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] leading-relaxed">
                       Describe la propiedad que buscas y nuestro asistente inteligente te ayudará a encontrarla
                     </p>
                   </div>
@@ -219,10 +219,10 @@ export default function PropiedadesPage() {
                 <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
                   {/* Sort Dropdown */}
                   <Select value={sortBy} onValueChange={handleSortChange}>
-                    <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/10 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[#C78F7B] rounded-xl text-sm">
+                    <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[#C78F7B] rounded-xl text-sm">
                       <SelectValue placeholder="Ordenar por" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white dark:bg-[#17313A] border-[#17313A]/10 dark:border-white/15 text-[#17313A] dark:text-white">
+                    <SelectContent className="bg-white dark:bg-[#17313A] border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white">
                       <SelectItem value="precio-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Precio: Mayor a menor</SelectItem>
                       <SelectItem value="precio-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Precio: Menor a mayor</SelectItem>
                       <SelectItem value="area-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Área: Mayor a menor</SelectItem>
@@ -233,12 +233,12 @@ export default function PropiedadesPage() {
                   </Select>
 
                   {/* View Mode Toggle */}
-                  <div className="hidden sm:flex bg-[#17313A]/[0.03] dark:bg-white/[0.03] border border-[#17313A]/10 dark:border-white/15 rounded-xl overflow-hidden p-0.5">
+                  <div className="hidden sm:flex bg-[#17313A]/[0.10] dark:bg-white/[0.03] border border-[#17313A]/20 dark:border-white/15 rounded-xl overflow-hidden p-0.5">
                     <Button
                       variant={viewMode === 'grid' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('grid')}
-                      className={`rounded-lg ${viewMode === 'grid' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'grid' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <Grid className="h-4 w-4" />
                     </Button>
@@ -246,7 +246,7 @@ export default function PropiedadesPage() {
                       variant={viewMode === 'list' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('list')}
-                      className={`rounded-lg ${viewMode === 'list' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'list' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <List className="h-4 w-4" />
                     </Button>
@@ -254,7 +254,7 @@ export default function PropiedadesPage() {
                       variant={viewMode === 'map' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('map')}
-                      className={`rounded-lg ${viewMode === 'map' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'map' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <Map className="h-4 w-4" />
                     </Button>
@@ -267,7 +267,7 @@ export default function PropiedadesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                   {paginatedProperties.map((propiedad) => (
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group">
-                      <div className="relative bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[#C78F7B]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
+                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[#C78F7B]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
                         <div className="relative h-52 sm:h-60 overflow-hidden">
                           <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/60 dark:from-[#0F2027]/60 via-transparent to-transparent" />
@@ -278,22 +278,22 @@ export default function PropiedadesPage() {
                           <div className="absolute bottom-4 right-4"><span className="text-xl sm:text-2xl font-black text-white dark:text-white drop-shadow-lg">{propiedad.precioTexto}</span></div>
                         </div>
                         <div className="p-5 sm:p-6 flex-1 flex flex-col">
-                          <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.05] dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/10 text-[#4A4F57] dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{propiedad.tipo}</span>
+                          <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{propiedad.tipo}</span>
                           <h3 className="text-base sm:text-lg font-serif font-bold text-[#17313A] dark:text-white mb-2 line-clamp-2 uppercase">{propiedad.titulo}</h3>
-                          <div className="flex items-center text-[#B0ACA6] mb-3"><MapPin className="h-3.5 w-3.5 mr-1.5 text-[#C78F7B] flex-shrink-0" /><span className="text-xs sm:text-sm line-clamp-1">{propiedad.ubicacion}</span></div>
-                          <p className="text-[#4A4F57]/80 dark:text-[#B0ACA6]/80 text-xs sm:text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
-                          <div className="flex items-center gap-4 mb-4 text-xs text-[#4A4F57] dark:text-[#B0ACA6]">
+                          <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-3.5 w-3.5 mr-1.5 text-[#C78F7B] flex-shrink-0" /><span className="text-xs sm:text-sm line-clamp-1">{propiedad.ubicacion}</span></div>
+                          <p className="text-[#4A4F57]/80 dark:text-[#17313A]/60 dark:text-[#B0ACA6]/80 text-xs sm:text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
+                          <div className="flex items-center gap-4 mb-4 text-xs text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
                             <div className="flex items-center gap-1"><Bed className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.habitaciones}</span></div>
                             <div className="flex items-center gap-1"><Bath className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.banos}</span></div>
                             <div className="flex items-center gap-1"><Square className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-4">
-                            {propiedad.caracteristicas.slice(0, 2).map((c, i) => (<span key={i} className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.04] dark:bg-white/[0.04] text-[#4A4F57] dark:text-[#B0ACA6] text-[10px] font-medium border border-[#17313A]/[0.08] dark:border-white/[0.08]">{c}</span>))}
+                            {propiedad.caracteristicas.slice(0, 2).map((c, i) => (<span key={i} className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.10] dark:bg-white/[0.04] text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-medium border border-[#17313A]/[0.08] dark:border-white/[0.08]">{c}</span>))}
                             {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[#C78F7B]/10 text-[#C78F7B] text-[10px] font-bold border border-[#C78F7B]/20">+{propiedad.caracteristicas.length - 2}</span>)}
                           </div>
                           <div className="flex gap-3 mt-auto">
                             <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); const mensaje = `¡Hola! 👋 Me interesa agendar una visita para la propiedad:\n\n🏠 *${propiedad.titulo}*\n📍 ${propiedad.ubicacion}\n💰 ${propiedad.precioTexto}\n\n¿Podrían darme más información?`; window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`, '_blank'); }}><Calendar className="h-3.5 w-3.5 mr-2" />Agendar Visita</Button>
-                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/10 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">Ver Detalles</Button>
+                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">Ver Detalles</Button>
                           </div>
                         </div>
                       </div>
@@ -307,7 +307,7 @@ export default function PropiedadesPage() {
                 <div className="space-y-5">
                   {paginatedProperties.map((propiedad) => (
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group block">
-                      <div className="relative bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[#C78F7B]/5 transition-all duration-300 overflow-hidden">
+                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[#C78F7B]/5 transition-all duration-300 overflow-hidden">
                         <div className="flex flex-col md:flex-row">
                           <div className="relative md:w-80 h-56 md:h-48 overflow-hidden">
                             <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -321,17 +321,17 @@ export default function PropiedadesPage() {
                               <div className="flex items-start justify-between mb-3">
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                                    <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.05] dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/10 text-[#4A4F57] dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propiedad.tipo}</span>
+                                    <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propiedad.tipo}</span>
                                     <span className="text-xl sm:text-2xl font-black text-[#C78F7B]">{propiedad.precioTexto}</span>
                                   </div>
                                   <h3 className="text-lg sm:text-xl font-serif font-bold text-[#17313A] dark:text-white mb-2 uppercase">{propiedad.titulo}</h3>
-                                  <div className="flex items-center text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[#C78F7B]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
+                                  <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[#C78F7B]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
                                 </div>
                                 <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: propiedad.titulo, price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                               </div>
-                              <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
+                              <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
                               <div className="flex items-center justify-between mt-auto">
-                                <div className="flex items-center gap-5 text-sm text-[#4A4F57] dark:text-[#B0ACA6]">
+                                <div className="flex items-center gap-5 text-sm text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
                                   <div className="flex items-center gap-1"><Bed className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.habitaciones} hab</span></div>
                                   <div className="flex items-center gap-1"><Bath className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.banos} baños</span></div>
                                   <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
@@ -351,12 +351,12 @@ export default function PropiedadesPage() {
 
               {/* Map View */}
               {viewMode === 'map' && (
-                <div className="bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 rounded-[24px] shadow-lg overflow-hidden">
+                <div className="bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg overflow-hidden">
                   <div className="h-96 bg-[#EAE4DD] dark:bg-[#0F2027] flex items-center justify-center">
-                    <div className="text-center text-[#B0ACA6]">
+                    <div className="text-center text-[#17313A]/60 dark:text-[#B0ACA6]">
                       <Map className="h-16 w-16 mx-auto mb-4 text-[#C78F7B]" />
                       <h3 className="text-lg font-semibold mb-2 text-[#17313A] dark:text-white">Vista de Mapa</h3>
-                      <p className="text-[#4A4F57] dark:text-[#B0ACA6]">Mapa interactivo con ubicaciones de propiedades</p>
+                      <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">Mapa interactivo con ubicaciones de propiedades</p>
                       <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#4A4F57]">Próximamente disponible</p>
                     </div>
                   </div>
@@ -366,9 +366,9 @@ export default function PropiedadesPage() {
               {/* Pagination */}
               {totalPages > 1 && viewMode !== 'map' && (
                 <div className="flex items-center justify-center gap-2 mt-10">
-                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/10 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.03] dark:bg-white/[0.03]">← Anterior</button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2).reduce<(number | '...')[]>((acc, p, idx, arr) => { if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push('...'); acc.push(p); return acc; }, []).map((item, i) => item === '...' ? (<span key={`ellipsis-${i}`} className="px-2 text-[#4A4F57] text-sm">…</span>) : (<button key={item} onClick={() => setCurrentPage(item as number)} className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${currentPage === item ? 'bg-[#C78F7B] text-[#0F2027]' : 'border border-[#17313A]/10 dark:border-white/15 text-[#4A4F57] dark:text-[#B0ACA6] hover:border-[#C78F7B]/40 hover:text-[#C78F7B] bg-[#17313A]/[0.03] dark:bg-white/[0.03]'}`}>{item}</button>))}
-                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/10 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.03] dark:bg-white/[0.03]">Siguiente →</button>
+                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">← Anterior</button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2).reduce<(number | '...')[]>((acc, p, idx, arr) => { if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push('...'); acc.push(p); return acc; }, []).map((item, i) => item === '...' ? (<span key={`ellipsis-${i}`} className="px-2 text-[#4A4F57] text-sm">…</span>) : (<button key={item} onClick={() => setCurrentPage(item as number)} className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${currentPage === item ? 'bg-[#C78F7B] text-[#0F2027]' : 'border border-[#17313A]/20 dark:border-white/15 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:border-[#C78F7B]/40 hover:text-[#C78F7B] bg-[#17313A]/[0.10] dark:bg-white/[0.03]'}`}>{item}</button>))}
+                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">Siguiente →</button>
                 </div>
               )}
 
@@ -379,7 +379,7 @@ export default function PropiedadesPage() {
                     <Search className="h-16 w-16 mx-auto mb-4" />
                   </div>
                   <h3 className="text-xl font-semibold text-[#17313A] dark:text-white mb-2">No se encontraron propiedades</h3>
-                  <p className="text-[#4A4F57] dark:text-[#B0ACA6] mb-6">Intenta ajustar tus filtros de búsqueda</p>
+                  <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-6">Intenta ajustar tus filtros de búsqueda</p>
                   <Button onClick={() => setFilters({})} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold rounded-xl">Limpiar Filtros</Button>
                 </div>
               )}
@@ -396,7 +396,7 @@ export default function PropiedadesPage() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#17313A] dark:text-white mb-6">
             ¿Tienes una <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">propiedad exclusiva?</span>
           </h2>
-          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#B0ACA6] mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-8 max-w-2xl mx-auto">
             Únete a nuestro selecto portafolio de propiedades de lujo y accede a compradores exclusivos
           </p>
           <Link href="/propietarios">

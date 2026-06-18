@@ -79,10 +79,10 @@ export function HomeYellow() {
                 { value: '98%', label: 'Satisfacción' },
                 { value: 'GTO', label: 'Mercado' },
               ].map((stat, i) => (
-                <div key={i} className="relative p-4 rounded-2xl bg-[#17313A]/[0.04] dark:bg-white/[0.04] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 group hover:bg-[#17313A]/[0.07] dark:hover:bg-white/[0.07] hover:border-[#C78F7B]/20 transition-all duration-500">
+                <div key={i} className="relative p-4 rounded-2xl bg-[#17313A]/[0.10] dark:bg-white/[0.04] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 group hover:bg-[#17313A]/[0.14] dark:hover:bg-white/[0.07] hover:border-[#C78F7B]/30 transition-all duration-500">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <p className={`text-2xl md:text-3xl font-black ${i === 1 ? 'bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent' : 'text-[#17313A] dark:text-white'} mb-1`}>{stat.value}</p>
-                  <p className="text-[10px] text-[#B0ACA6] uppercase tracking-widest font-semibold">{stat.label}</p>
+                  <p className="text-[10px] text-[#17313A]/70 dark:text-[#B0ACA6] uppercase tracking-widest font-semibold">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -93,7 +93,7 @@ export function HomeYellow() {
             {/* Main Property Card */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#C78F7B]/20 to-[#E8A88F]/20 rounded-3xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative w-[280px] bg-[#17313A]/[0.05] dark:bg-white/[0.07] backdrop-blur-xl border border-[#17313A]/15 dark:border-white/20 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative w-[280px] bg-[#17313A]/[0.10] dark:bg-white/[0.07] backdrop-blur-xl border border-[#17313A]/22 dark:border-white/20 rounded-3xl overflow-hidden shadow-2xl shadow-[#17313A]/10">
                 <div className="h-32 bg-gradient-to-br from-[#EAE4DD] to-[#D5D2C9] dark:from-[#17313A] dark:to-[#0F2027] relative">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80')] bg-cover bg-center opacity-60" />
                   <div className="absolute top-3 right-3 bg-[#C78F7B] text-[#0F2027] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
@@ -107,24 +107,24 @@ export function HomeYellow() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-black text-[#C78F7B]">$4.2M</span>
-                    <span className="text-[10px] text-[#B0ACA6] uppercase tracking-wider">4 Rec • 3 Baños</span>
+                    <span className="text-[10px] text-[#17313A]/60 dark:text-[#B0ACA6] uppercase tracking-wider">4 Rec • 3 Baños</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Mini Stats Card */}
-            <div className="w-[220px] bg-[#17313A]/[0.04] dark:bg-white/[0.05] backdrop-blur-md border border-[#17313A]/10 dark:border-white/15 rounded-2xl p-4 shadow-xl -mt-2 mr-10">
+            <div className="w-[220px] bg-[#17313A]/[0.10] dark:bg-white/[0.05] backdrop-blur-md border border-[#17313A]/20 dark:border-white/15 rounded-2xl p-4 shadow-xl shadow-[#17313A]/8 -mt-2 mr-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/20 flex items-center justify-center">
                   <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#17313A] dark:text-white">Exclusivo</p>
-                  <p className="text-[9px] text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
+                  <p className="text-[9px] text-[#17313A]/60 dark:text-[#B0ACA6] uppercase tracking-wider">Selección exclusiva</p>
                 </div>
               </div>
-              <div className="h-1 bg-[#17313A]/10 dark:bg-white/10 rounded-full overflow-hidden">
+              <div className="h-1 bg-[#17313A]/15 dark:bg-white/10 rounded-full overflow-hidden">
                 <div className="h-full w-[98%] bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] rounded-full" />
               </div>
             </div>
@@ -132,8 +132,8 @@ export function HomeYellow() {
         </div>
 
         {/* Giant background text */}
-        <div className="absolute right-0 bottom-[-5%] opacity-[0.04] pointer-events-none select-none overflow-hidden">
-          <span className="text-[18vw] font-black text-[#17313A]/[0.06] dark:text-white/[0.04] leading-none tracking-tighter">CONECTIA</span>
+        <div className="absolute right-0 bottom-[-5%] opacity-[0.06] pointer-events-none select-none overflow-hidden">
+          <span className="text-[18vw] font-black text-[#17313A]/[0.10] dark:text-white/[0.04] leading-none tracking-tighter">CONECTIA</span>
         </div>
       </section>
 
@@ -233,14 +233,14 @@ export function HomeYellow() {
               { icon: MapPin, value: 'GTO', label: 'Mercado Principal', color: 'from-[#C78F7B] to-[#E8A88F]' },
               { icon: TrendUp, value: '45d', label: 'Venta Promedio', color: 'from-[#C78F7B] to-[#E8A88F]' },
             ].map((stat, i) => (
-              <div key={i} className="group relative p-6 text-center rounded-2xl bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/[0.06] dark:hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
+              <div key={i} className="group relative p-6 text-center rounded-2xl bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 hover:bg-[#17313A]/[0.14] dark:hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
                   <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/15 dark:bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#C78F7B]/25 dark:group-hover:bg-[#C78F7B]/20 transition-colors">
                     <stat.icon className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
                   </div>
                   <p className={`text-2xl sm:text-3xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-1`}>{stat.value}</p>
-                  <p className="text-xs text-[#B0ACA6] uppercase tracking-wider font-semibold">{stat.label}</p>
+                  <p className="text-xs text-[#17313A]/70 dark:text-[#B0ACA6] uppercase tracking-wider font-semibold">{stat.label}</p>
                 </div>
               </div>
             ))}
