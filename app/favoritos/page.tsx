@@ -19,19 +19,19 @@ export default function FavoritosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
       {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-red-50 border border-red-200 rounded-full text-sm font-medium text-red-600 mb-6">
-              <Heart className="h-4 w-4 text-red-500 mr-2 fill-current" />
+            <div className="inline-flex items-center px-4 py-2 bg-[#17313A]/[0.08] dark:bg-white/[0.08] border border-[#17313A]/15 dark:border-white/15 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] mb-6 backdrop-blur-md">
+              <Heart className="h-4 w-4 text-[#C78F7B] mr-2 fill-current" />
               Mis Propiedades Favoritas
             </div>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-conectia-graphite mb-6 leading-tight">
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-6 leading-tight">
               Tus Favoritos
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto">
               {wishlistCount > 0 
                 ? `Tienes ${wishlistCount} ${wishlistCount === 1 ? 'propiedad guardada' : 'propiedades guardadas'} en tu lista de favoritos`
                 : 'Aún no tienes propiedades en tu lista de favoritos'
@@ -47,17 +47,17 @@ export default function FavoritosPage() {
           {wishlistCount === 0 ? (
             /* Empty State */
             <div className="text-center py-16">
-              <div className="w-24 h-24 bg-conectia-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="h-12 w-12 text-gray-400" />
+              <div className="w-24 h-24 bg-[#17313A]/[0.08] dark:bg-white/[0.08] rounded-full flex items-center justify-center mx-auto mb-6 border border-[#17313A]/10 dark:border-white/10">
+                <Heart className="h-12 w-12 text-[#17313A]/40 dark:text-white/40" />
               </div>
-              <h3 className="font-serif text-2xl font-semibold text-gray-900 mb-4">
+              <h3 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white mb-4">
                 No tienes favoritos aún
               </h3>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              <p className="text-[#4A4F57] dark:text-[#B0ACA6] mb-8 max-w-md mx-auto">
                 Explora nuestras propiedades y agrega las que más te gusten a tu lista de favoritos
               </p>
               <Link href="/propiedades">
-                <Button className="bg-gradient-to-r from-conectia-gold to-yellow-400 hover:from-conectia-gold/90 hover:to-yellow-400/90 text-conectia-graphite font-semibold px-8 py-3 rounded-2xl shadow-lg">
+                <Button className="bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white font-semibold px-8 py-3 rounded-2xl shadow-lg">
                   Explorar Propiedades
                 </Button>
               </Link>
@@ -66,7 +66,7 @@ export default function FavoritosPage() {
             /* Properties Grid */
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {wishlist.map((property) => (
-                <Card key={property.id} className="group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-conectia-secondary/50">
+                <Card key={property.id} className="group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-[#17313A]/[0.06] dark:bg-white/[0.06] backdrop-blur-md border border-[#17313A]/10 dark:border-white/10">
                   <div className="relative">
                     <div className="aspect-[4/3] overflow-hidden">
                       <Image
@@ -95,18 +95,18 @@ export default function FavoritosPage() {
                   </div>
 
                   <div className="p-6">
-                    <h3 className="font-serif text-xl font-semibold text-conectia-graphite mb-2 line-clamp-2">
+                    <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-white mb-2 line-clamp-2">
                       {property.title}
                     </h3>
                     
-                    <div className="flex items-center text-gray-600 mb-4">
+                    <div className="flex items-center text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
                       <MapPin className="h-4 w-4 mr-1" />
                       <span className="text-sm">{property.location}</span>
                     </div>
 
                     {/* Property Details */}
                     {(property.bedrooms || property.bathrooms || property.area) && (
-                      <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center space-x-4 text-sm text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
                         {property.bedrooms && (
                           <div className="flex items-center">
                             <Bed className="h-4 w-4 mr-1" />
@@ -140,7 +140,7 @@ export default function FavoritosPage() {
                       <Link href={`/propiedades/${property.id}`} className="flex-1">
                         <Button
                           variant="outline"
-                          className="w-full rounded-xl font-medium py-2 border-conectia-accent bg-conectia-secondary/50 text-conectia-accent hover:bg-conectia-gold hover:text-[#17313A] transition-all duration-300"
+                          className="w-full rounded-xl font-medium py-2 border-[#17313A]/15 dark:border-white/15 bg-[#17313A]/[0.04] dark:bg-white/[0.04] text-[#17313A] dark:text-[#EAE4DD] hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 hover:text-[#C78F7B] transition-all duration-300"
                         >
                           Ver Detalles
                         </Button>

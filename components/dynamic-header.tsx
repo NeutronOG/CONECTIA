@@ -257,7 +257,7 @@ export function DynamicHeader() {
                 <Link href="/login">
                   <Button
                     size="sm"
-                    className="btn-glass-tertiary rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border-0"
+                    className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#C78F7B] hover:bg-[#F6F2EE] hover:text-[#D4987E] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                   >
                     <UserCircle className="h-2.5 w-2.5" />
                     <span>Acceso</span>
@@ -497,7 +497,7 @@ export function DynamicHeader() {
                     </Link>
                     <Link href="/login" className="transition-all duration-200 ease-out">
                       <Button
-                        className="w-full btn-glass-tertiary rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-0"
+                        className="w-full rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border border-[#17313A]/15 bg-white text-[#C78F7B] hover:bg-[#F6F2EE] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
