@@ -22,7 +22,7 @@ export default function EspecialesPage() {
   )
 
   return (
-    <div className="min-h-screen bg-conectia-accent">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
 
       {/* HERO — cinematic full-bleed */}
       <section className="relative h-[95dvh] flex items-center justify-center overflow-hidden">
@@ -87,13 +87,13 @@ export default function EspecialesPage() {
         </div>
       </section>
 
-      {/* GRID — sobre fondo oscuro */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-16 bg-[#1C1A19]">
+      {/* GRID — sobre fondo */}
+      <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-16 bg-[#F6F2EE] dark:bg-[#1C1A19]">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end gap-6 mb-12">
             <div>
               <p className="text-[10px] uppercase tracking-[0.4em] text-conectia-primary font-bold">Colección exclusiva</p>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mt-1">Propiedades disponibles</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-white mt-1">Propiedades disponibles</h3>
             </div>
             <div className="h-px flex-1 bg-conectia-primary/25 hidden sm:block" />
           </div>
@@ -105,7 +105,7 @@ export default function EspecialesPage() {
             {propiedades.length === 0 && (
               <div className="col-span-full py-20 text-center">
                 <Sparkles className="h-12 w-12 text-conectia-primary/40 mx-auto mb-4" />
-                <p className="text-white/40 text-sm">Vuelve pronto para ver propiedades especiales</p>
+                <p className="text-[#4A4F57] dark:text-white/40 text-sm">Vuelve pronto para ver propiedades especiales</p>
               </div>
             )}
           </div>

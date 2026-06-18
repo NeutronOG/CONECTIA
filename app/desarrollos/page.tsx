@@ -242,7 +242,7 @@ function UnidadesSection() {
 
 export default function DesarrollosPage() {
   return (
-    <div className="min-h-screen bg-conectia-secondary">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[320px] sm:min-h-[420px]">
         <div
@@ -281,7 +281,7 @@ export default function DesarrollosPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-10 bg-conectia-secondary border-b border-conectia-accent/10">
+      <section className="py-10 bg-[#F6F2EE] dark:bg-[#17313A] border-b border-conectia-accent/10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
@@ -305,17 +305,17 @@ export default function DesarrollosPage() {
       </section>
 
       {/* Mapa 3D de León */}
-      <section className="py-16 bg-slate-950">
+      <section className="py-16 bg-[#F6F2EE] dark:bg-slate-950">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <Badge className="bg-conectia-gold/20 text-conectia-gold border-conectia-gold/30 mb-4">
               <Map className="h-3 w-3 mr-1" />
               Mapa Interactivo
             </Badge>
-            <h2 className="text-3xl font-bold text-white mb-3">
+            <h2 className="text-3xl font-bold text-[#17313A] dark:text-white mb-3">
               Desarrollos en León, Guanajuato
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
+            <p className="text-[#4A4F57] dark:text-slate-400 max-w-2xl mx-auto">
               Explora nuestros desarrollos por zona. Pasa el cursor o haz clic en un edificio para ver disponibilidad y precios.
             </p>
           </div>
@@ -374,13 +374,13 @@ export default function DesarrollosPage() {
       </section>
 
       {/* Beneficios — Carousel */}
-      <section className="py-16 bg-conectia-secondary/70">
+      <section className="py-16 bg-[#F6F2EE] dark:bg-[#17313A]/70">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-conectia-graphite mb-4">
+            <h2 className="text-3xl font-bold text-[#17313A] dark:text-conectia-graphite mb-4">
               ¿Por qué invertir en desarrollos?
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-[#4A4F57] dark:text-gray-600 max-w-2xl mx-auto">
               Los desarrollos inmobiliarios ofrecen ventajas únicas para inversionistas y compradores.
             </p>
           </div>
@@ -433,12 +433,12 @@ export default function DesarrollosPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-conectia-dark text-white">
+      <section className="py-16 bg-[#EAE4DD] dark:bg-conectia-dark text-[#17313A] dark:text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
             ¿Interesado en algún desarrollo?
           </h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-[#4A4F57] dark:text-gray-300 mb-8 max-w-2xl mx-auto">
             Nuestros asesores especializados te ayudarán a encontrar la mejor opción 
             de inversión según tus objetivos.
           </p>
@@ -450,7 +450,7 @@ export default function DesarrollosPage() {
               </Button>
             </Link>
             <Link href="https://wa.me/524774756951">
-              <Button size="lg" variant="outline" className="border-conectia-accent text-conectia-accent hover:bg-conectia-accent/10">
+              <Button size="lg" variant="outline" className="border-[#17313A] dark:border-conectia-accent text-[#17313A] dark:text-conectia-accent hover:bg-[#17313A]/10 dark:hover:bg-conectia-accent/10">
                 <Phone className="mr-2 h-5 w-5" />
                 WhatsApp
               </Button>

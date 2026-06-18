@@ -38,7 +38,7 @@
         "https://jwevnxyvrktqmzlgfzqj.supabase.co/storage/v1/object/public/propiedades/galeria/1772043564694-w6mzs.jpeg"
       ],
       "createdAt": "2026-02-25T18:13:12.399383+00:00",
-      "updatedAt": "2026-02-25T18:19:26.241607+00:00"
+      "updatedAt": "2026-06-18T01:07:23.779422+00:00"
     },
     {
       "id": 93,
@@ -1765,6 +1765,6 @@
       "updatedAt": "2026-02-20T21:53:11.843684+00:00"
     }
   ],
-  "lastUpdated": "2026-05-27T19:57:34.385Z",
+  "lastUpdated": "2026-06-18T01:40:18.796Z",
   "count": 49
 }

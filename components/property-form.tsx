@@ -499,24 +499,48 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   <SelectValue placeholder="Selecciona tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Departamento">Departamento</SelectItem>
-                  <SelectItem value="Terreno / lote">Terreno / lote</SelectItem>
-                  <SelectItem value="Local comercial">Local comercial</SelectItem>
-                  <SelectItem value="Casa en condominio">Casa en condominio</SelectItem>
                   <SelectItem value="Casa">Casa</SelectItem>
-                  <SelectItem value="Bodega comercial">Bodega comercial</SelectItem>
-                  <SelectItem value="Edificio">Edificio</SelectItem>
-                  <SelectItem value="Dúplex">Dúplex</SelectItem>
-                  <SelectItem value="Nave industrial">Nave industrial</SelectItem>
-                  <SelectItem value="Quinta">Quinta</SelectItem>
-                  <SelectItem value="Terreno comercial">Terreno comercial</SelectItem>
-                  <SelectItem value="Villa">Villa</SelectItem>
-                  <SelectItem value="Oficina">Oficina</SelectItem>
-                  <SelectItem value="Rancho">Rancho</SelectItem>
-                  <SelectItem value="Terreno industrial">Terreno industrial</SelectItem>
+                  <SelectItem value="Casa en condominio">Casa en condominio</SelectItem>
+                  <SelectItem value="Residencia">Residencia</SelectItem>
+                  <SelectItem value="Departamento">Departamento</SelectItem>
                   <SelectItem value="Penthouse">Penthouse</SelectItem>
                   <SelectItem value="Loft">Loft</SelectItem>
-                  <SelectItem value="Residencia">Residencia</SelectItem>
+                  <SelectItem value="Dúplex">Dúplex</SelectItem>
+                  <SelectItem value="Villa">Villa</SelectItem>
+                  <SelectItem value="Quinta">Quinta</SelectItem>
+                  <SelectItem value="Cabaña">Cabaña</SelectItem>
+                  <SelectItem value="Rancho">Rancho</SelectItem>
+                  <SelectItem value="Hacienda">Hacienda</SelectItem>
+                  <SelectItem value="Finca">Finca</SelectItem>
+                  <SelectItem value="Condominio">Condominio</SelectItem>
+                  <SelectItem value="Terreno campestre">Terreno campestre</SelectItem>
+                  <SelectItem value="Históricos">Históricos</SelectItem>
+                  <SelectItem value="Terreno habitacional">Terreno habitacional</SelectItem>
+                  <SelectItem value="Terreno comercial">Terreno comercial</SelectItem>
+                  <SelectItem value="Terreno industrial">Terreno industrial</SelectItem>
+                  <SelectItem value="Terreno agrícola">Terreno agrícola</SelectItem>
+                  <SelectItem value="Terreno mixto">Terreno mixto</SelectItem>
+                  <SelectItem value="Local comercial">Local comercial</SelectItem>
+                  <SelectItem value="Plaza comercial">Plaza comercial</SelectItem>
+                  <SelectItem value="Oficina">Oficina</SelectItem>
+                  <SelectItem value="Consultorio">Consultorio</SelectItem>
+                  <SelectItem value="Edificio comercial">Edificio comercial</SelectItem>
+                  <SelectItem value="Edificio mixto">Edificio mixto</SelectItem>
+                  <SelectItem value="Hotel">Hotel</SelectItem>
+                  <SelectItem value="Hospital">Hospital</SelectItem>
+                  <SelectItem value="Clínica">Clínica</SelectItem>
+                  <SelectItem value="Centro médico">Centro médico</SelectItem>
+                  <SelectItem value="Restaurante">Restaurante</SelectItem>
+                  <SelectItem value="Salón de eventos">Salón de eventos</SelectItem>
+                  <SelectItem value="Nave industrial">Nave industrial</SelectItem>
+                  <SelectItem value="Bodega industrial">Bodega industrial</SelectItem>
+                  <SelectItem value="Bodega comercial">Bodega comercial</SelectItem>
+                  <SelectItem value="Parque industrial">Parque industrial</SelectItem>
+                  <SelectItem value="Patio de maniobras">Patio de maniobras</SelectItem>
+                  <SelectItem value="Complejo habitacional">Complejo habitacional</SelectItem>
+                  <SelectItem value="Centro de negocios">Centro de negocios</SelectItem>
+                  <SelectItem value="Granja">Granja</SelectItem>
+                  <SelectItem value="Motel">Motel</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -319,14 +319,14 @@ export default function PropietariosPage() {
         <Card className="max-w-2xl w-full border-0 shadow-2xl">
           <CardContent className="p-12 text-center">
             <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="h-12 w-12 text-white" />
+              <CheckCircle className="h-12 w-12 text-[#17313A] dark:text-white" />
             </div>
             
-            <h1 className="font-serif text-3xl font-bold text-white mb-4">
+            <h1 className="font-serif text-3xl font-bold text-[#17313A] dark:text-[#17313A] dark:text-white mb-4">
               ¡Registro Exitoso!
             </h1>
             
-            <p className="text-lg text-[#B0ACA6] mb-6">
+            <p className="text-lg text-[#4A4F57] dark:text-[#B0ACA6] mb-6">
               Tu propiedad ha sido registrada exitosamente en CONECTIA
             </p>
 
@@ -335,10 +335,10 @@ export default function PropietariosPage() {
                 <Sparkles className="h-6 w-6 text-conectia-gold mr-2" />
                 <h3 className="font-semibold text-conectia-gold">ID de Registro</h3>
               </div>
-              <p className="text-2xl font-mono font-bold text-white">
+              <p className="text-2xl font-mono font-bold text-[#17313A] dark:text-white">
                 {submissionId}
               </p>
-              <p className="text-sm text-[#B0ACA6] mt-2">
+              <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6] mt-2">
                 Guarda este ID para futuras referencias
               </p>
             </div>
@@ -347,22 +347,22 @@ export default function PropietariosPage() {
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Contacto en 2 horas</p>
-                  <p className="text-sm text-[#B0ACA6]">Un especialista se comunicará contigo</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">Contacto en 2 horas</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Un especialista se comunicará contigo</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Valoración profesional</p>
-                  <p className="text-sm text-[#B0ACA6]">Análisis detallado de tu propiedad</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">Valoración profesional</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Análisis detallado de tu propiedad</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Marketing exclusivo</p>
-                  <p className="text-sm text-[#B0ACA6]">Exposición en nuestros canales exclusivos</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">Marketing exclusivo</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Exposición en nuestros canales exclusivos</p>
                 </div>
               </div>
             </div>
@@ -393,7 +393,7 @@ export default function PropietariosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0F2027] transition-colors duration-500 pt-20">
+    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F2027] transition-colors duration-500 pt-20">
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Progress Header */}
@@ -403,10 +403,10 @@ export default function PropietariosPage() {
               <Star className="h-4 w-4 text-[#C78F7B]" />
               <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">CONECTIA</span>
             </div>
-            <h1 className="font-serif text-4xl md:text-5xl font-black text-white mb-3">
+            <h1 className="font-serif text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#17313A] dark:text-white mb-3">
               Registro de Propiedad Exclusiva
             </h1>
-            <p className="text-lg text-[#B0ACA6] max-w-2xl mx-auto">
+            <p className="text-lg text-[#4A4F57] dark:text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto">
               Proceso guiado para maximizar el valor de tu propiedad
             </p>
           </div>
@@ -417,7 +417,7 @@ export default function PropietariosPage() {
               <span className="text-sm font-medium text-[#C78F7B]">Progreso</span>
               <span className="text-sm font-medium text-[#C78F7B]">{Math.round(progress)}%</span>
             </div>
-            <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[#17313A]/10 dark:bg-white/10 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] rounded-full transition-all duration-700 ease-out"
                 style={{ width: `${progress}%` }}
@@ -433,7 +433,7 @@ export default function PropietariosPage() {
                       ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/30' 
                       : step === currentStep
                         ? 'bg-[#C78F7B]/20 text-[#C78F7B] border-2 border-[#C78F7B] shadow-lg shadow-[#C78F7B]/20'
-                        : 'bg-white/5 text-[#4A4F57] border border-white/10'
+                        : 'bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 text-[#4A4F57] border border-[#17313A]/10 dark:border-[#17313A]/10 dark:border-white/10'
                   }`}>
                     {step < currentStep ? <CheckCircle className="h-5 w-5" /> : step}
                   </div>
@@ -465,25 +465,25 @@ export default function PropietariosPage() {
               { icon: Calendar, title: 'Venta Rápida', desc: 'Promedio 45 días' },
             ].map((item, i) => (
               <CarouselItem key={i} className="pl-3 basis-3/4 sm:basis-1/2 md:basis-1/4">
-                <div className="group relative p-5 text-center h-full rounded-2xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
+                <div className="group relative p-5 text-center h-full rounded-2xl bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/[0.06] dark:hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative">
                     <div className="w-12 h-12 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#C78F7B]/20 transition-colors">
                       <item.icon className="h-5 w-5 text-[#C78F7B]" />
                     </div>
-                    <h3 className="font-semibold text-sm text-white mb-1">{item.title}</h3>
-                    <p className="text-xs text-[#B0ACA6]">{item.desc}</p>
+                    <h3 className="font-semibold text-sm text-[#17313A] dark:text-[#17313A] dark:text-white mb-1">{item.title}</h3>
+                    <p className="text-xs text-[#4A4F57] dark:text-[#4A4F57] dark:text-[#B0ACA6]">{item.desc}</p>
                   </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-3 sm:-left-4 bg-white/5 border-white/10 text-white hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30" />
-          <CarouselNext className="-right-3 sm:-right-4 bg-white/5 border-white/10 text-white hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30" />
+          <CarouselPrevious className="-left-3 sm:-left-4 bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/10 dark:border-[#17313A]/10 dark:border-white/10 text-[#17313A] dark:text-[#17313A] dark:text-white hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30" />
+          <CarouselNext className="-right-3 sm:-right-4 bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/10 dark:border-[#17313A]/10 dark:border-white/10 text-[#17313A] dark:text-[#17313A] dark:text-white hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30" />
         </Carousel>
 
         {/* Multi-Step Form */}
-        <Card className="border-0 shadow-2xl overflow-hidden bg-[#17313A]/50 backdrop-blur-sm border border-white/5">
+        <Card className="border-0 shadow-2xl overflow-hidden bg-[#EAE4DD]/50 dark:bg-[#17313A]/50 backdrop-blur-sm border border-[#17313A]/5 dark:border-[#17313A]/5 dark:border-white/5">
           {/* Step 1: Property Information */}
           {currentStep === 1 && (
             <div className="p-8">
@@ -492,23 +492,23 @@ export default function PropietariosPage() {
                   <Home className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-2xl font-semibold text-white">
+                  <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
                     Información de la Propiedad
                   </h2>
-                  <p className="text-[#B0ACA6]">Cuéntanos sobre tu propiedad exclusiva</p>
+                  <p className="text-[#4A4F57] dark:text-[#4A4F57] dark:text-[#B0ACA6]">Cuéntanos sobre tu propiedad exclusiva</p>
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="property-type" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="property-type" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Tipo de Propiedad *
                   </Label>
                   <Select 
                     value={formData.propertyType} 
                     onValueChange={(value) => setFormData(prev => ({...prev, propertyType: value}))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                    <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                       <SelectValue placeholder="Selecciona el tipo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -535,7 +535,7 @@ export default function PropietariosPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="area" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="area" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Área Total (m²) *
                   </Label>
                   <Input 
@@ -544,12 +544,12 @@ export default function PropietariosPage() {
                     value={formData.area}
                     onChange={(e) => setFormData(prev => ({...prev, area: e.target.value}))}
                     onBlur={calculateEstimate}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="area-construccion" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="area-construccion" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Área de Construcción (m²)
                   </Label>
                   <Input
@@ -559,19 +559,19 @@ export default function PropietariosPage() {
                     placeholder="Ej: 350 (opcional)"
                     value={formData.areaConstruccion}
                     onChange={(e) => setFormData(prev => ({ ...prev, areaConstruccion: e.target.value }))}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="bedrooms" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="bedrooms" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Habitaciones *
                   </Label>
                   <Select 
                     value={formData.bedrooms} 
                     onValueChange={(value) => setFormData(prev => ({...prev, bedrooms: value}))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                    <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                       <SelectValue placeholder="Número de habitaciones" />
                     </SelectTrigger>
                     <SelectContent>
@@ -587,14 +587,14 @@ export default function PropietariosPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="bathrooms" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="bathrooms" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Baños *
                   </Label>
                   <Select 
                     value={formData.bathrooms} 
                     onValueChange={(value) => setFormData(prev => ({...prev, bathrooms: value}))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                    <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                       <SelectValue placeholder="Número de baños" />
                     </SelectTrigger>
                     <SelectContent>
@@ -624,7 +624,7 @@ export default function PropietariosPage() {
                       minimumFractionDigits: 0
                     }).format(priceEstimate)}
                   </p>
-                  <p className="text-sm text-[#B0ACA6] mt-1">
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6] mt-1">
                     Estimación basada en ubicación y características similares
                   </p>
                 </div>
@@ -640,16 +640,16 @@ export default function PropietariosPage() {
                   <MapPin className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-2xl font-semibold text-white">
+                  <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
                     Ubicación Privilegiada
                   </h2>
-                  <p className="text-[#B0ACA6]">La ubicación es clave para maximizar el valor</p>
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6]">La ubicación es clave para maximizar el valor</p>
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="md:col-span-2 space-y-2">
-                  <Label htmlFor="address" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="address" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                     Dirección Completa *
                   </Label>
                   <Input 
@@ -657,12 +657,12 @@ export default function PropietariosPage() {
                     placeholder="Calle, número, colonia"
                     value={formData.address}
                     onChange={(e) => setFormData(prev => ({...prev, address: e.target.value}))}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="neighborhood" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="neighborhood" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                     Colonia/Zona *
                   </Label>
                   <Popover open={neighborhoodOpen} onOpenChange={(open) => {
@@ -677,7 +677,7 @@ export default function PropietariosPage() {
                         variant="outline"
                         role="combobox"
                         aria-expanded={neighborhoodOpen}
-                        className="w-full justify-between bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20 font-normal"
+                        className="w-full justify-between bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20 font-normal"
                       >
                         {formData.neighborhood ? formData.neighborhood : 'Selecciona la zona'}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -740,14 +740,14 @@ export default function PropietariosPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="city" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="city" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                     Ciudad *
                   </Label>
                   <Select 
                     value={formData.city} 
                     onValueChange={(value) => setFormData(prev => ({...prev, city: value}))}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                    <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                       <SelectValue placeholder="Selecciona la ciudad" />
                     </SelectTrigger>
                     <SelectContent>
@@ -760,7 +760,7 @@ export default function PropietariosPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="postal-code" className="text-sm font-medium text-[#EAE4DD]">
+                  <Label htmlFor="postal-code" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                     Código Postal
                   </Label>
                   <Input 
@@ -768,7 +768,7 @@ export default function PropietariosPage() {
                     placeholder="Ej: 11560"
                     value={formData.postalCode}
                     onChange={(e) => setFormData(prev => ({...prev, postalCode: e.target.value}))}
-                    className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                   />
                 </div>
               </div>
@@ -783,17 +783,17 @@ export default function PropietariosPage() {
                   <DollarSign className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-2xl font-semibold text-white">
+                  <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
                     Detalles y Precio
                   </h2>
-                  <p className="text-[#B0ACA6]">Características que hacen única tu propiedad</p>
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6]">Características que hacen única tu propiedad</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="asking-price" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="asking-price" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       {formData.tipoConsulta === 'rentar' ? 'Renta mensual (MXN) *' : 'Precio Solicitado (MXN) *'}
                     </Label>
                     <Input 
@@ -801,19 +801,19 @@ export default function PropietariosPage() {
                       placeholder={formData.tipoConsulta === 'rentar' ? 'Ej: $35,000' : 'Ej: $15,000,000'}
                       value={formData.askingPrice}
                       onChange={(e) => setFormData(prev => ({...prev, askingPrice: e.target.value}))}
-                      className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                      className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="urgency" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="urgency" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Tiempo Ideal de Venta
                     </Label>
                     <Select 
                       value={formData.urgency} 
                       onValueChange={(value) => setFormData(prev => ({...prev, urgency: value}))}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                      <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                         <SelectValue placeholder="Selecciona tiempo ideal" />
                       </SelectTrigger>
                       <SelectContent>
@@ -826,14 +826,14 @@ export default function PropietariosPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="tipo-consulta" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="tipo-consulta" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Tipo de consulta
                     </Label>
                     <Select
                       value={formData.tipoConsulta}
                       onValueChange={(value) => setFormData(prev => ({ ...prev, tipoConsulta: value }))}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                      <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                         <SelectValue placeholder="Selecciona una opción" />
                       </SelectTrigger>
                       <SelectContent>
@@ -848,7 +848,7 @@ export default function PropietariosPage() {
 
                 <div className="space-y-2">
                   <div className="space-y-2">
-                    <Label htmlFor="description" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="description" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Descripción de la Propiedad *
                     </Label>
                     <Textarea
@@ -857,12 +857,12 @@ export default function PropietariosPage() {
                       rows={4}
                       value={formData.description}
                       onChange={(e) => setFormData(prev => ({...prev, description: e.target.value}))}
-                      className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                      className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium text-[#EAE4DD]">
+                    <Label className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Actividades recreativas (opcional)
                     </Label>
                     <p className="text-xs text-[#4A4F57] mb-2">Selecciona las actividades que ofrece el desarrollo</p>
@@ -874,7 +874,7 @@ export default function PropietariosPage() {
                           className={`p-2 rounded-lg border cursor-pointer transition-all ${
                             formData.actividadesRecreativas.includes(actividad)
                               ? 'border-[#C78F7B] bg-[#C78F7B]/10 text-white'
-                              : 'border-white/10 hover:border-[#C78F7B]/50 hover:bg-white/5'
+                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[#C78F7B]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
                           }`}
                         >
                           <div className="flex items-center space-x-2">
@@ -904,7 +904,7 @@ export default function PropietariosPage() {
                     className={`p-3 rounded-lg border cursor-pointer transition-all ${
                       formData.amenities.includes(amenity)
                         ? 'border-[#C78F7B] bg-[#C78F7B]/10 text-white'
-                        : 'border-white/10 hover:border-[#C78F7B]/50 hover:bg-white/5'
+                        : 'border-[#17313A]/10 dark:border-white/10 hover:border-[#C78F7B]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center space-x-2">
@@ -925,13 +925,13 @@ export default function PropietariosPage() {
                 ))}
 
                 {/* Promoción / Bono */}
-                <div className="mt-8 p-6 bg-[#17313A]/50 rounded-xl border border-[#C78F7B]/30">
+                <div className="mt-8 p-6 bg-[#EAE4DD]/50 dark:bg-[#17313A]/50 rounded-xl border border-[#C78F7B]/30">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-conectia-gold rounded-full flex items-center justify-center mr-3">
                       <Star className="h-5 w-5 text-[#17313A]" />
                     </div>
                     <div>
-                      <h3 className="font-serif text-lg font-semibold text-white">
+                      <h3 className="font-serif text-lg font-semibold text-[#17313A] dark:text-white">
                         Promoción o Bono Especial
                       </h3>
                       <p className="text-xs text-[#4A4F57]">Agrega un incentivo para atraer más compradores</p>
@@ -940,14 +940,14 @@ export default function PropietariosPage() {
 
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label className="text-sm font-medium text-[#EAE4DD]">
+                      <Label className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                         Selecciona una promoción (opcional)
                       </Label>
                       <Select
                         value={formData.promocion}
                         onValueChange={(value) => setFormData(prev => ({ ...prev, promocion: value, promocionPersonalizada: value === 'personalizada' ? prev.promocionPersonalizada : '' }))}
                       >
-                        <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                        <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                           <SelectValue placeholder="Sin promoción" />
                         </SelectTrigger>
                         <SelectContent>
@@ -970,21 +970,21 @@ export default function PropietariosPage() {
 
                     {formData.promocion === 'personalizada' && (
                       <div className="space-y-2">
-                        <Label className="text-sm font-medium text-[#EAE4DD]">
+                        <Label className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                           Describe tu promoción personalizada
                         </Label>
                         <Input
                           placeholder="Ej: Regalo de pantalla 65'' al cerrar trato"
                           value={formData.promocionPersonalizada}
                           onChange={(e) => setFormData(prev => ({ ...prev, promocionPersonalizada: e.target.value }))}
-                          className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                          className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                         />
                       </div>
                     )}
 
                     {formData.promocion && formData.promocion !== 'ninguna' && (
                       <div className="p-3 bg-conectia-gold/20 rounded-lg border border-conectia-gold/40">
-                        <p className="text-xs text-[#B0ACA6] mb-1">Vista previa del bono en la publicación:</p>
+                        <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] mb-1">Vista previa del bono en la publicación:</p>
                         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-conectia-gold to-yellow-400 text-[#17313A] px-4 py-2 rounded-full text-sm font-bold shadow-md">
                           <Star className="h-4 w-4" />
                           {formData.promocion === 'escrituras_gratis' && 'Escrituras Gratis'}
@@ -1016,10 +1016,10 @@ export default function PropietariosPage() {
                   <Camera className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-2xl font-semibold text-white">
+                  <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
                     Fotografías Profesionales
                   </h2>
-                  <p className="text-[#B0ACA6]">Las imágenes son clave para atraer compradores</p>
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6]">Las imágenes son clave para atraer compradores</p>
                 </div>
               </div>
 
@@ -1027,10 +1027,10 @@ export default function PropietariosPage() {
                 {/* Upload Area */}
                 <div className="border-2 border-dashed border-[#C78F7B]/30 rounded-xl p-8 text-center bg-[#C78F7B]/5">
                   <Camera className="h-16 w-16 text-conectia-gold mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-semibold text-[#17313A] dark:text-[#17313A] dark:text-white mb-2">
                     Sube las fotos de tu propiedad
                   </h3>
-                  <p className="text-[#B0ACA6] mb-4">
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
                     Arrastra y suelta las imágenes o haz clic para seleccionar
                   </p>
                   <input
@@ -1061,7 +1061,7 @@ export default function PropietariosPage() {
                 {/* Photo Preview */}
                 {uploadedPhotos.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-white mb-4">
+                    <h4 className="font-semibold text-[#17313A] dark:text-[#17313A] dark:text-white mb-4">
                       Fotos subidas ({uploadedPhotos.length})
                     </h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1077,7 +1077,7 @@ export default function PropietariosPage() {
                           <button
                             type="button"
                             onClick={() => removePhoto(index)}
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-[#17313A] dark:text-[#17313A] dark:text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                           >
                             <X className="h-4 w-4" />
                           </button>
@@ -1092,7 +1092,7 @@ export default function PropietariosPage() {
                   <h4 className="font-semibold text-[#C78F7B] mb-2">
                     💡 Tips para mejores fotos
                   </h4>
-                  <ul className="text-sm text-[#B0ACA6] space-y-1">
+                  <ul className="text-sm text-[#4A4F57] dark:text-[#B0ACA6] space-y-1">
                     <li>• Toma fotos con buena iluminación natural</li>
                     <li>• Incluye todas las habitaciones principales</li>
                     <li>• Muestra las amenidades especiales</li>
@@ -1111,17 +1111,17 @@ export default function PropietariosPage() {
                   <User className="h-6 w-6 text-[#17313A]" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-2xl font-semibold text-white">
+                  <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
                     Información de Contacto
                   </h2>
-                  <p className="text-[#B0ACA6]">Finaliza tu registro exclusivo</p>
+                  <p className="text-[#4A4F57] dark:text-[#B0ACA6]">Finaliza tu registro exclusivo</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="owner-name" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="owner-name" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Nombre Completo *
                     </Label>
                     <Input 
@@ -1129,12 +1129,12 @@ export default function PropietariosPage() {
                       placeholder="Tu nombre completo"
                       value={formData.ownerName}
                       onChange={(e) => setFormData(prev => ({...prev, ownerName: e.target.value}))}
-                      className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                      className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="phone" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Teléfono *
                     </Label>
                     <Input 
@@ -1142,12 +1142,12 @@ export default function PropietariosPage() {
                       placeholder="+52 477 123 4567"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
-                      className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                      className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="email" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Correo Electrónico *
                     </Label>
                     <Input 
@@ -1156,19 +1156,19 @@ export default function PropietariosPage() {
                       placeholder="tu@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
-                      className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                      className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="preferred-contact" className="text-sm font-medium text-[#EAE4DD]">
+                    <Label htmlFor="preferred-contact" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Horario Preferido
                     </Label>
                     <Select 
                       value={formData.preferredContact} 
                       onValueChange={(value) => setFormData(prev => ({...prev, preferredContact: value}))}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                      <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
                         <SelectValue placeholder="Selecciona horario" />
                       </SelectTrigger>
                       <SelectContent>
@@ -1183,7 +1183,7 @@ export default function PropietariosPage() {
 
                 {/* Agreement Section */}
                 <div className="bg-gradient-to-br from-conectia-gold/5 to-transparent p-6 rounded-xl border border-conectia-gold/20">
-                  <h3 className="font-serif text-xl font-semibold text-white mb-4">
+                  <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#17313A] dark:text-white mb-4">
                     Acuerdo de Exclusividad
                   </h3>
                   <div className="space-y-4">
@@ -1230,14 +1230,14 @@ export default function PropietariosPage() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="px-8 py-6 bg-[#0F2027]/80 border-t border-white/5">
+          <div className="px-8 py-6 bg-[#EAE4DD]/80 dark:bg-[#0F2027]/80 border-t border-[#17313A]/5 dark:border-white/5">
             <div className="flex justify-between items-center">
               <Button
                 type="button"
                 variant="outline"
                 onClick={prevStep}
                 disabled={currentStep === 1}
-                className="bg-white/5 border-white/20 text-white hover:border-[#C78F7B] hover:text-white"
+                className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white hover:border-[#C78F7B] hover:text-[#17313A] dark:text-white"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Anterior
