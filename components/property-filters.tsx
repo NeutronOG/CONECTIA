@@ -17,6 +17,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
     search: "",
     location: "",
     propertyType: "",
+    surfaceUnit: "",
     priceRange: [0, 50000000],
     bedrooms: "",
     bathrooms: "",
@@ -26,7 +27,6 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
   })
 
   const propertyTypes = [
-    "Penthouse",
     "Villa",
     "Residencia",
     "Departamento",
@@ -36,13 +36,17 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
     "Edificio",
     "Bodega",
     "Nave Industrial",
-    "Terreno (m\u00b2)",
+    "Terreno",
     "Rancho",
-    "Hect\u00e1reas",
     "Local Comercial",
     "Oficina",
     "Hospital",
     "Cl\u00ednica"
+  ]
+
+  const surfaceUnits = [
+    "m\u00b2",
+    "Hect\u00e1reas"
   ]
 
   const locations = [
@@ -96,6 +100,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
       search: "",
       location: "",
       propertyType: "",
+      surfaceUnit: "",
       priceRange: [0, 50000000],
       bedrooms: "",
       bathrooms: "",
@@ -129,7 +134,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             <Faders className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
             Filtros Avanzados
           </span>
-          {(filters.search || filters.location || filters.propertyType || filters.amenities.length > 0) && (
+          {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#C78F7B] text-white">Activos</span>
           )}
         </button>
@@ -209,6 +214,22 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
               </Select>
             </div>
 
+            {/* Surface Unit */}
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#C78F7B] flex items-center gap-1">
+                <ArrowsOut className="h-3 w-3" weight="duotone" /> Unidad de Superficie
+              </label>
+              <Select value={filters.surfaceUnit} onValueChange={(v) => handleFilterChange("surfaceUnit", v)}>
+                <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
+                  style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
+                  <SelectValue placeholder="Todas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {surfaceUnits.map(u => <SelectItem key={u} value={u}>{u}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Price Range */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#C78F7B] flex items-center gap-1">
@@ -257,13 +278,13 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Area */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#C78F7B] flex items-center gap-1">
-                <ArrowsOut className="h-3 w-3" weight="duotone" /> Área (m²)
+                <ArrowsOut className="h-3 w-3" weight="duotone" /> {filters.surfaceUnit || 'Área (m²)'}
               </label>
               <Slider value={filters.areaRange} onValueChange={(v) => handleFilterChange("areaRange", v)}
                 max={1000} min={0} step={50} className="w-full" />
               <div className="flex justify-between text-xs text-[#B0ACA6]">
-                <span>{filters.areaRange[0]} m²</span>
-                <span>{filters.areaRange[1]} m²</span>
+                <span>{filters.areaRange[0]} {filters.surfaceUnit || 'm²'}</span>
+                <span>{filters.areaRange[1]} {filters.surfaceUnit || 'm²'}</span>
               </div>
             </div>
 
@@ -302,7 +323,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             </div>
 
             {/* Active Filters */}
-            {(filters.search || filters.location || filters.propertyType || filters.amenities.length > 0) && (
+            {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
               <div className="pt-3" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
                 <p className="text-[10px] uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">Activos</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -325,6 +346,13 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
                       style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)' }}>
                       {filters.propertyType}
                       <X className="h-2.5 w-2.5 cursor-pointer" onClick={() => handleFilterChange("propertyType", "")} />
+                    </span>
+                  )}
+                  {filters.surfaceUnit && (
+                    <span className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
+                      style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)' }}>
+                      {filters.surfaceUnit}
+                      <X className="h-2.5 w-2.5 cursor-pointer" onClick={() => handleFilterChange("surfaceUnit", "")} />
                     </span>
                   )}
                   {filters.amenities.map((amenity) => (

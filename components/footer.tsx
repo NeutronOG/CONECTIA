@@ -84,10 +84,10 @@ export function Footer() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Explorar</p>
             <ul className="space-y-3">
               {[
-                { label: 'Venta', href: '/propiedades' },
+                { label: 'Compra', href: '/compra' },
+                { label: 'Venta', href: '/venta' },
                 { label: 'Renta', href: '/renta' },
                 { label: 'Ofertas', href: '/ofertas' },
-                { label: 'Exclusivos', href: '/exclusivos' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="group text-sm text-[#B0ACA6] hover:text-[#EAE4DD] transition-colors duration-300 flex items-center gap-1">

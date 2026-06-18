@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowRight, Shield, Star, Users, MapPin, House, Sparkle, List, Tag, Key, Percent, Buildings, X, TrendUp, Heart } from "@phosphor-icons/react"
+import { ArrowRight, Shield, Star, Users, MapPin, House, Sparkle, List, Tag, Key, Percent, Buildings, X, TrendUp, Heart, ShoppingBag } from "@phosphor-icons/react"
 import Link from "next/link"
 import Image from "next/image"
 import { FeaturedPropertiesCarousel } from "./featured-properties-carousel"
@@ -296,12 +296,11 @@ export function HomeYellow() {
               <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
                   {[
-                    { href: '/venta', icon: Tag, label: 'Venta', color: '#C78F7B' },
+                    { href: '/compra', icon: ShoppingBag, label: 'Compra', color: '#C78F7B' },
+                    { href: '/venta', icon: Tag, label: 'Venta', color: '#17313A' },
                     { href: '/renta', icon: Key, label: 'Renta', color: '#17313A' },
                     { href: '/especiales', icon: Sparkle, label: 'Especiales', color: '#B0ACA6' },
                     { href: '/ofertas', icon: Percent, label: 'Ofertas', color: '#C78F7B' },
-                    { href: '/exclusivos', icon: Shield, label: 'Exclusivos', color: '#17313A' },
-                    { href: '/desarrollos', icon: Buildings, label: 'Desarrollos', color: '#17313A' },
                   ].map(({ href, icon: Icon, label, color }) => (
                     <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
                       <button className="w-full p-3 sm:p-4 rounded-2xl glass-card hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2">

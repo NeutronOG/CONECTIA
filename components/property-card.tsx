@@ -158,12 +158,12 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
           </Button>
           <ShareButton
             title={propiedad.titulo}
-            description={`${propiedad.ubicacion} - ${propiedad.precioTexto}`}
             url={`/propiedades/${propiedad.id}`}
             image={imgSrc}
             variant="outline"
             size="sm"
             className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"
+            propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: propiedad.tipo, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
           />
           <Link href={`/propiedades/${propiedad.id}`}>
             <Button

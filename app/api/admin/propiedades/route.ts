@@ -45,6 +45,7 @@ export async function GET() {
       fechaPublicacion: p.fecha_publicacion,
       tourVirtual: p.tour_virtual,
       galeria: p.galeria,
+      unidadSuperficie: p.unidad_superficie || undefined,
       agente: p.agente || null,
       createdAt: p.created_at
     }))

@@ -39,6 +39,7 @@ export interface Propiedad {
   }
   galeria?: string[]
   bono?: string
+  unidadSuperficie?: "m²" | "Hectáreas"
 }
 
 export const propiedades: Propiedad[] = [

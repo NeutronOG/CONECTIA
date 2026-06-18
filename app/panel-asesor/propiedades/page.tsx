@@ -33,6 +33,7 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
+import { ShareButton } from '@/components/share-button'
 
 export default function PropiedadesAsesorPage() {
   const { user, isAuthenticated } = useAuth()
@@ -125,6 +126,7 @@ export default function PropiedadesAsesorPage() {
           tourVirtual: p.tour_virtual || undefined,
           galeria: p.galeria || [],
           bono: p.bono || undefined,
+          unidadSuperficie: p.unidad_superficie || undefined,
           detalles: p.detalles || undefined,
         }))
         setPropiedades(mapped)
@@ -430,6 +432,15 @@ export default function PropiedadesAsesorPage() {
                     <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
                       <Eye className="h-3.5 w-3.5" /> Ver
                     </button>
+                    <ShareButton
+                      title={propiedad.titulo}
+                      url={`/propiedades/${propiedad.id}`}
+                      image={propiedad.imagen}
+                      variant="ghost"
+                      size="sm"
+                      className="px-3 py-2 h-auto bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl text-xs font-semibold"
+                      propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: propiedad.tipo, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
+                    />
                     {(user?.role === 'admin' || (propiedad.agente && propiedad.agente.email === user?.email)) && (
                       <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
                         <Edit className="h-3.5 w-3.5" /> Editar

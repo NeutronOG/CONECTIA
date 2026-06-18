@@ -46,8 +46,11 @@ export default function PropiedadesPage() {
       // Location filter
       if (filters.location && propiedad.ubicacion !== filters.location) return false
 
-      // Property type filter
-      if (filters.propertyType && propiedad.tipo !== filters.propertyType) return false
+      // Property type filter (partial match so filter types match registration types)
+      if (filters.propertyType && !propiedad.tipo.toLowerCase().includes(filters.propertyType.toLowerCase())) return false
+
+      // Surface unit filter
+      if (filters.surfaceUnit && propiedad.unidadSuperficie !== filters.surfaceUnit) return false
 
       // Price range filter
       if (filters.priceRange) {

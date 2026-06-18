@@ -29,6 +29,7 @@ export interface Database {
                     caracteristicas: string[] | null
                     status: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    unidad_superficie: 'm²' | 'Hectáreas' | null
                     fecha_publicacion: string
                     tour_virtual: string | null
                     galeria: string[] | null
@@ -55,6 +56,7 @@ export interface Database {
                     caracteristicas?: string[] | null
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria?: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    unidad_superficie?: 'm²' | 'Hectáreas' | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null
@@ -81,6 +83,7 @@ export interface Database {
                     caracteristicas?: string[] | null
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria?: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    unidad_superficie?: 'm²' | 'Hectáreas' | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null

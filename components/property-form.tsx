@@ -38,7 +38,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
     status: "Disponible",
     categoria: "venta",
     imagen: "",
-    galeria: []
+    galeria: [],
+    unidadSuperficie: "m²"
   })
 
   const [actividadesRecreativasSeleccionadas, setActividadesRecreativasSeleccionadas] = useState<string[]>(
@@ -227,7 +228,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         titulo: formData.titulo || "",
         ubicacion: formData.ubicacion || "",
         precio: formData.precio || 0,
-        precioTexto: formData.tipo === 'Hectáreas'
+        precioTexto: formData.unidadSuperficie === 'Hectáreas'
           ? `$${(formData.precio || 0).toLocaleString('es-MX')}/m²`
           : `$${(formData.precio || 0).toLocaleString('es-MX')}`,
         tipo: formData.tipo || "Departamento",
@@ -270,6 +271,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         } as any,
         galeria: galeriaUrls,
         tourVirtual: undefined,
+        unidadSuperficie: formData.unidadSuperficie || "m²",
         tipoCredito: (formData as any).tipoCredito || undefined,
         observaciones: observaciones || undefined,
         bono: bono.trim() || undefined
@@ -466,7 +468,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
             <div className="space-y-2">
               <Label htmlFor="precio">
-                {formData.tipo === 'Hectáreas' ? 'Precio por m² (MXN) *' : 'Precio (MXN) *'}
+                {formData.unidadSuperficie === 'Hectáreas' ? 'Precio por m² (MXN) *' : 'Precio (MXN) *'}
               </Label>
               <Input
                 id="precio"
@@ -478,11 +480,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   const numValue = parseInt(rawValue) || 0
                   setFormData({ ...formData, precio: numValue })
                 }}
-                placeholder={formData.tipo === 'Hectáreas' ? '150' : '18,500,000'}
+                placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
               />
               {formData.precio && formData.precio > 0 && (
                 <p className="text-xs text-[#C78F7B] font-medium">
-                  ${formData.precio.toLocaleString('es-MX')} MXN{formData.tipo === 'Hectáreas' ? '/m²' : ''}
+                  ${formData.precio.toLocaleString('es-MX')} MXN{formData.unidadSuperficie === 'Hectáreas' ? '/m²' : ''}
                 </p>
               )}
             </div>
@@ -498,21 +500,39 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Departamento">Departamento</SelectItem>
+                  <SelectItem value="Terreno / lote">Terreno / lote</SelectItem>
+                  <SelectItem value="Local comercial">Local comercial</SelectItem>
+                  <SelectItem value="Casa en condominio">Casa en condominio</SelectItem>
                   <SelectItem value="Casa">Casa</SelectItem>
-                  <SelectItem value="Penthouse">Penthouse</SelectItem>
-                  <SelectItem value="Villa">Villa</SelectItem>
+                  <SelectItem value="Bodega comercial">Bodega comercial</SelectItem>
                   <SelectItem value="Edificio">Edificio</SelectItem>
+                  <SelectItem value="Dúplex">Dúplex</SelectItem>
+                  <SelectItem value="Nave industrial">Nave industrial</SelectItem>
+                  <SelectItem value="Quinta">Quinta</SelectItem>
+                  <SelectItem value="Terreno comercial">Terreno comercial</SelectItem>
+                  <SelectItem value="Villa">Villa</SelectItem>
+                  <SelectItem value="Oficina">Oficina</SelectItem>
+                  <SelectItem value="Rancho">Rancho</SelectItem>
+                  <SelectItem value="Terreno industrial">Terreno industrial</SelectItem>
+                  <SelectItem value="Penthouse">Penthouse</SelectItem>
                   <SelectItem value="Loft">Loft</SelectItem>
                   <SelectItem value="Residencia">Residencia</SelectItem>
-                  <SelectItem value="Bodega">Bodega</SelectItem>
-                  <SelectItem value="Nave Industrial">Nave Industrial</SelectItem>
-                  <SelectItem value="Terreno (m²)">Terreno (m²)</SelectItem>
-                  <SelectItem value="Rancho">Rancho</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="unidadSuperficie">Unidad de Superficie</Label>
+              <Select
+                value={formData.unidadSuperficie || 'm²'}
+                onValueChange={(value) => setFormData({ ...formData, unidadSuperficie: value as 'm²' | 'Hectáreas' })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecciona unidad" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="m²">m²</SelectItem>
                   <SelectItem value="Hectáreas">Hectáreas</SelectItem>
-                  <SelectItem value="Local Comercial">Local Comercial</SelectItem>
-                  <SelectItem value="Oficina">Oficina</SelectItem>
-                  <SelectItem value="Hospital">Hospital</SelectItem>
-                  <SelectItem value="Clínica">Clínica</SelectItem>
                 </SelectContent>
               </Select>
             </div>

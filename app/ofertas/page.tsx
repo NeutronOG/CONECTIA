@@ -1,21 +1,27 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { Percent, Flame, Clock, TrendingDown, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { PropertyCard, EmptyProperties } from "@/components/property-card"
+import { SubcategoryFilter } from "@/components/subcategory-filter"
 
 const HERO_IMAGE = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80"
 
 export default function OfertasPage() {
   const { properties } = usePropertiesStatic()
-  const propiedades = useMemo(() =>
-    properties.filter(p => (p as any).bono || p.categoria === 'remate'),
-    [properties]
-  )
+  const [tipoFilter, setTipoFilter] = useState<string[]>([])
+
+  const propiedades = useMemo(() => {
+    let result = properties.filter(p => (p as any).bono || p.categoria === 'remate')
+    if (tipoFilter.length > 0) {
+      result = result.filter(p => tipoFilter.some(t => p.tipo?.toLowerCase() === t.toLowerCase()))
+    }
+    return result
+  }, [properties, tipoFilter])
 
   return (
     <div className="min-h-screen bg-[#0F2027]">
@@ -105,13 +111,14 @@ export default function OfertasPage() {
       {/* GRID */}
       <section className="py-14 sm:py-20 px-4 sm:px-8 lg:px-16 bg-[#0F2027]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-end gap-8 mb-10">
+          <div className="flex items-end gap-8 mb-6">
             <div>
               <span className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold">Aprovecha ahora</span>
               <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">Ofertas vigentes</h2>
             </div>
             <div className="h-px flex-1 bg-[#C78F7B]/20 hidden sm:block" />
           </div>
+          <SubcategoryFilter onChange={setTipoFilter} variant="dark" resultCount={propiedades.length} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {propiedades.map((p) => (<PropertyCard key={p.id} propiedad={p as any} badgeLabel="Oferta" />))}
             {propiedades.length === 0 && (<EmptyProperties label="Vuelve pronto para ver nuevas ofertas" />)}

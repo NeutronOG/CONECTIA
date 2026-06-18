@@ -513,20 +513,20 @@ export default function PropietariosPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="departamento">Departamento</SelectItem>
-                      <SelectItem value="terreno_lote">Terreno / Lote</SelectItem>
-                      <SelectItem value="local_comercial">Local Comercial</SelectItem>
-                      <SelectItem value="casa_condominio">Casa en Condominio</SelectItem>
+                      <SelectItem value="terreno_lote">Terreno / lote</SelectItem>
+                      <SelectItem value="local_comercial">Local comercial</SelectItem>
+                      <SelectItem value="casa_condominio">Casa en condominio</SelectItem>
                       <SelectItem value="casa">Casa</SelectItem>
-                      <SelectItem value="bodega_comercial">Bodega Comercial</SelectItem>
+                      <SelectItem value="bodega_comercial">Bodega comercial</SelectItem>
                       <SelectItem value="edificio">Edificio</SelectItem>
                       <SelectItem value="duplex">Dúplex</SelectItem>
-                      <SelectItem value="nave">Nave</SelectItem>
+                      <SelectItem value="nave">Nave industrial</SelectItem>
                       <SelectItem value="quinta">Quinta</SelectItem>
-                      <SelectItem value="terreno_comercial">Terreno Comercial</SelectItem>
+                      <SelectItem value="terreno_comercial">Terreno comercial</SelectItem>
                       <SelectItem value="villa">Villa</SelectItem>
                       <SelectItem value="oficina">Oficina</SelectItem>
                       <SelectItem value="rancho">Rancho</SelectItem>
-                      <SelectItem value="terreno_industrial">Terreno Industrial</SelectItem>
+                      <SelectItem value="terreno_industrial">Terreno industrial</SelectItem>
                       <SelectItem value="penthouse">Penthouse</SelectItem>
                       <SelectItem value="loft">Loft</SelectItem>
                       <SelectItem value="residencia">Residencia</SelectItem>

@@ -229,6 +229,7 @@ export async function PATCH(request: Request) {
         if (extra.mediosBanos) nuevaPropiedad.medios_banos = Math.round(Number(extra.mediosBanos) || 0)
         if (extra.areaConstruccion) nuevaPropiedad.area_construccion = Math.round(Number(extra.areaConstruccion) || 0)
         if (extra.cochera) nuevaPropiedad.cochera = Math.round(Number(extra.cochera) || 0)
+        if (extra.unidadSuperficie) nuevaPropiedad.unidad_superficie = extra.unidadSuperficie
         if (extra.tipoCredito) nuevaPropiedad.tipo_credito = extra.tipoCredito
         if (extra.tourVirtual) nuevaPropiedad.tour_virtual = extra.tourVirtual
         if (extra.agente) nuevaPropiedad.agente = extra.agente

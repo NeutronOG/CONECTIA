@@ -315,10 +315,9 @@ export function ShepherdTour() {
       text: `
         <p>Tenemos categorías para cada necesidad:</p>
         <ul style="margin:8px 0;padding-left:16px;">
+          <li><strong>Compra:</strong> Propiedades en compra</li>
           <li><strong>Venta:</strong> Propiedades en venta</li>
           <li><strong>Renta:</strong> Propiedades en renta</li>
-          <li><strong>Exclusivos:</strong> Propiedades exclusivas</li>
-          <li><strong>Desarrollos:</strong> Nuevos proyectos con mapa 3D</li>
           <li><strong>Especiales:</strong> Oportunidades únicas</li>
           <li><strong>Ofertas:</strong> Los mejores precios</li>
         </ul>

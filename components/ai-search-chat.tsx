@@ -187,13 +187,19 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
     // ── 7. DETECTAR TIPO DE PROPIEDAD ─────────────────────────────────────────
     const typeMap: Record<string, string[]> = {
       'penthouse': ['penthouse', 'atico', 'pent house'],
-      'casa': ['casa', 'villa', 'residencia', 'vivienda', 'chalet'],
+      'casa': ['casa', 'vivienda', 'chalet'],
+      'villa': ['villa'],
+      'residencia': ['residencia'],
       'departamento': ['departamento', 'depto', 'apartamento', 'dpto', 'flat'],
       'loft': ['loft'],
+      'condominio': ['condominio', 'casa en condominio'],
+      'edificio': ['edificio'],
       'terreno': ['terreno', 'lote', 'predio', 'hectareas', 'hectarea'],
-      'local comercial': ['local', 'comercial', 'negocio'],
+      'rancho': ['rancho'],
+      'local comercial': ['local comercial', 'local', 'comercial', 'negocio'],
       'oficina': ['oficina'],
-      'bodega': ['bodega', 'nave', 'industrial'],
+      'bodega': ['bodega', 'bodega comercial'],
+      'nave industrial': ['nave industrial'],
       'hospital': ['hospital'],
       'clinica': ['clinica'],
     }
