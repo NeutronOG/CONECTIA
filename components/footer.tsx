@@ -55,14 +55,6 @@ export function Footer() {
             <p className="text-sm text-[#B0ACA6] leading-relaxed mb-8 max-w-xs">
               La forma más transparente y estética de encontrar tu próxima propiedad en Guanajuato.
             </p>
-            {/* Social */}
-            <div className="flex gap-3">
-              {['f', 'in', '@'].map((icon) => (
-                <div key={icon} className="w-10 h-10 bg-[#17313A]/5 dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/20 hover:border-[#17313A]/30 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#17313A]/10">
-                  <span className="text-[#17313A] dark:text-[#EAE4DD] font-bold text-sm">{icon}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Links Columns */}

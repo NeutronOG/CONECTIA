@@ -25,9 +25,9 @@ export function HomeYellow() {
       </div>
 
       {/* Hero Section — Elegante y minimalista */}
-      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[32px] overflow-hidden border border-[#C78F7B]/25 dark:border-[#17313A]/50 shadow-xl shadow-[#17313A]/5 dark:shadow-black/30">
+      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[32px] overflow-hidden border border-[#C78F7B]/30 dark:border-[#17313A]/50 shadow-xl shadow-[#17313A]/5 dark:shadow-black/30">
         {/* Fondo limpio */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-[#F8F6F4] to-[#F5F3EF] dark:from-[#17313A] dark:via-[#0F2027] dark:to-[#17313A]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#C78F7B]/95 via-[#D4987E]/90 to-[#C78F7B]/85 backdrop-blur-xl dark:bg-gradient-to-br dark:from-[#17313A] dark:via-[#0F2027] dark:to-[#17313A] dark:backdrop-blur-sm" />
         {/* Líneas decorativas finas */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#17313A]/30 dark:via-[#EAE4DD]/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#17313A]/20 dark:via-[#EAE4DD]/20 to-transparent" />

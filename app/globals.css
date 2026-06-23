@@ -292,6 +292,17 @@
   .border-conectia-secondary { border-color: var(--conectia-secondary); }
   .border-conectia-accent { border-color: var(--conectia-accent); }
 
+  /* Dark mode variants for CONECTIA classes */
+  .dark .text-conectia-accent { color: #EAE4DD; }
+  .dark .bg-conectia-surface { background-color: #0F2027; }
+  .dark .text-conectia-accent\/50 { color: rgba(234, 228, 221, 0.5); }
+  .dark .text-conectia-accent\/55 { color: rgba(234, 228, 221, 0.55); }
+  .dark .text-conectia-accent\/60 { color: rgba(234, 228, 221, 0.6); }
+  .dark .text-conectia-primary\/60 { color: rgba(23, 49, 58, 0.6); }
+  .dark .bg-conectia-primary\/15 { background-color: rgba(23, 49, 58, 0.15); }
+  .dark .border-conectia-primary\/20 { border-color: rgba(23, 49, 58, 0.2); }
+  .dark .border-conectia-primary\/40 { border-color: rgba(23, 49, 58, 0.4); }
+
   /* CONECTIA Font utilities - Branding oficial */
   .font-conectia { font-family: var(--font-conectia); }
   .font-conectia-light { font-family: var(--font-conectia); font-weight: 300; }
