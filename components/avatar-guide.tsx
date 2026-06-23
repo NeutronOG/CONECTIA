@@ -19,7 +19,7 @@ import {
   Heart,
   Search,
   Phone,
-  Sparkles
+  Compass
 } from "lucide-react"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
@@ -39,7 +39,7 @@ const GUIDE_SPEECHES: GuideSpeech[] = [
   {
     id: "welcome",
     title: "¡Bienvenido!",
-    icon: Sparkles,
+    icon: Compass,
     speech: "¡Hola! Soy tu guía virtual de CONECTIA. Te voy a mostrar cómo navegar por nuestra plataforma inmobiliaria de manera rápida y sencilla. Somos tu inmobiliaria de confianza en León, Guanajuato. ¡Empecemos!",
     shortSpeech: "Bienvenido a CONECTIA, tu inmobiliaria de confianza.",
     route: "/",
@@ -48,7 +48,7 @@ const GUIDE_SPEECHES: GuideSpeech[] = [
   {
     id: "dynamic-island",
     title: "Isla Dinámica",
-    icon: Sparkles,
+    icon: Compass,
     speech: "¿Ves esta barra flotante? Es nuestra isla dinámica de navegación. Se adapta a tu pantalla y siempre está disponible. Desde aquí puedes acceder a todas las secciones principales de la plataforma.",
     shortSpeech: "Barra de navegación flotante y adaptable.",
     targetSelector: "div[class*='fixed'][class*='left-1/2']",
@@ -64,7 +64,7 @@ const GUIDE_SPEECHES: GuideSpeech[] = [
   {
     id: "stats",
     title: "Nuestras Estadísticas",
-    icon: Sparkles,
+    icon: Compass,
     speech: "Mira nuestras estadísticas en tiempo real: propiedades activas, clientes satisfechos y años de experiencia. Estos números reflejan nuestra trayectoria y compromiso.",
     shortSpeech: "Estadísticas de nuestro éxito.",
     targetSelector: "section:nth-of-type(2)",
@@ -95,7 +95,7 @@ const GUIDE_SPEECHES: GuideSpeech[] = [
   {
     id: "end",
     title: "¡Listo!",
-    icon: Sparkles,
+    icon: Compass,
     speech: "¡Eso es todo! Ya conoces lo básico de CONECTIA. Recuerda: proceso transparente, sin complicaciones y conexión directa entre compradores y vendedores. ¡Explora y encuentra tu próximo hogar!",
     shortSpeech: "¡Explora y encuentra tu hogar ideal!",
     scrollToTop: true,
@@ -358,7 +358,7 @@ export function AvatarGuide() {
           className="fixed bottom-24 right-4 sm:bottom-28 sm:right-8 w-12 h-12 rounded-full bg-gradient-to-r from-conectia-primary to-conectia-gold hover:from-conectia-gold hover:to-conectia-primary text-conectia-accent shadow-xl hover:shadow-conectia-primary/30 transition-all duration-300 z-40 hover:scale-110 group"
           title="Guía de navegación"
         >
-          <Sparkles className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+          <Compass className="h-5 w-5 group-hover:rotate-12 transition-transform" />
         </Button>
       )}
 

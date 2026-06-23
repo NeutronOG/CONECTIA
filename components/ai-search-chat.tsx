@@ -12,7 +12,6 @@ import {
   User, 
   MessageSquare,
   ExternalLink,
-  Sparkles,
   Search,
   Home,
   MapPin,
@@ -418,9 +417,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
 
   const handleSuggestionClick = (suggestion: string) => {
     if (suggestion === 'Hablar con un especialista') {
-      const whatsappNumber = '+5247712345678'
-      const message = encodeURIComponent('Hola, me interesa obtener ayuda personalizada para encontrar una propiedad exclusiva con CONECTIA.')
-      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank')
+      window.location.href = '/contacto'
       return
     }
     
@@ -455,7 +452,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
                 />
               </div>
               <div>
-                <CardTitle className="text-lg font-bold">Búsqueda con IA</CardTitle>
+                <CardTitle className="text-lg font-bold">Búsqueda Smart</CardTitle>
                 <p className="text-sm font-medium opacity-90">Asistente inteligente CONECTIA</p>
               </div>
             </div>

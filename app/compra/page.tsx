@@ -27,21 +27,21 @@ export default function CompraPage() {
     <div className="min-h-screen bg-conectia-surface">
 
       {/* HERO */}
-      <section className="relative min-h-[85dvh] flex flex-col lg:flex-row bg-[#F6F2EE]">
+      <section className="relative min-h-[85dvh] flex flex-col lg:flex-row bg-[#F6F2EE] dark:bg-[#0F2027]">
 
         <div className="relative flex-1 lg:max-w-[50%] flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 sm:py-20 z-10">
           <div className="max-w-xl space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 border border-[#17313A]/10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 dark:bg-[#EAE4DD]/5 border border-[#17313A]/10 dark:border-[#EAE4DD]/10">
               <ShoppingBag className="h-3.5 w-3.5 text-[#C78F7B]" />
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] font-bold">CONECTIA</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">CONECTIA</span>
             </div>
 
             <div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] leading-[0.95]">Compra</h1>
-              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">tu próximo hogar</p>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">Compra</h1>
+              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] dark:text-[#C78F7B] italic mt-2">tu próximo hogar</p>
             </div>
 
-            <p className="text-[#4A4F57] text-base leading-relaxed max-w-md">
+            <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base leading-relaxed max-w-md">
               Explora nuestra selección de propiedades disponibles para compra. Casas, departamentos y terrenos con las mejores condiciones.
             </p>
 
@@ -63,12 +63,12 @@ export default function CompraPage() {
             <img src={HERO_IMAGE} alt="Propiedades en compra" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
 
-            <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5">
+            <div className="absolute bottom-6 right-6 bg-white/95 dark:bg-[#17313A]/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5 dark:border-[#EAE4DD]/10">
               <div className="flex items-center gap-1 mb-2">
                 {[1,2,3,4,5].map(i => <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
               </div>
-              <p className="text-sm font-bold text-[#17313A]">Clientes satisfechos</p>
-              <p className="text-xs text-[#B0ACA6]">+500 compras exitosas</p>
+              <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">Clientes satisfechos</p>
+              <p className="text-xs text-[#B0ACA6] dark:text-[#B0ACA6]">+500 compras exitosas</p>
             </div>
           </div>
         </div>

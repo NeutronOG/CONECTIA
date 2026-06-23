@@ -16,7 +16,6 @@ import {
   Trash2,
   Eye,
   MousePointer,
-  Sparkles,
   Image as ImageIcon,
   Link as LinkIcon,
   LayoutGrid,
@@ -267,7 +266,7 @@ export default function PublicidadPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {[
-            { label: 'Total', value: ads.length, accent: '#C78F7B', icon: Sparkles },
+            { label: 'Total', value: ads.length, accent: '#C78F7B', icon: Megaphone },
             { label: 'Activos', value: ads.filter(a => a.estado === 'activo').length, accent: '#22c55e', icon: Play },
             { label: 'Impresiones', value: ads.reduce((s, a) => s + (a.impresiones || 0), 0), accent: '#3b82f6', icon: Eye },
             { label: 'Clicks', value: ads.reduce((s, a) => s + (a.clicks || 0), 0), accent: '#f59e0b', icon: MousePointer },
@@ -454,7 +453,7 @@ export default function PublicidadPage() {
             </div>
           ) : ads.length === 0 ? (
             <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-12 text-center">
-              <Sparkles className="h-12 w-12 text-[#4A4F57] mx-auto mb-3" />
+              <Megaphone className="h-12 w-12 text-[#4A4F57] mx-auto mb-3" />
               <p className="text-white font-semibold mb-1">No hay anuncios creados</p>
               <p className="text-sm text-[#8A8F97]">Crea tu primer anuncio para mostrarlo en el homepage</p>
             </div>

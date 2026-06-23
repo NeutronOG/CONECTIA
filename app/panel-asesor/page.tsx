@@ -27,7 +27,7 @@ import {
   Settings,
   Diamond,
   Zap,
-  Sparkles,
+  Megaphone,
   MapPin
 } from 'lucide-react'
 import { getPlanById } from '@/data/subscription-plans'
@@ -215,7 +215,7 @@ export default function PanelAsesorPage() {
               <div className="flex flex-wrap gap-2">
                 {user.email === 'lizzie@conectia.mx' && (
                   <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-                    <Sparkles className="w-4 h-4 text-[#C78F7B]" /> Publicidad
+                    <Megaphone className="w-4 h-4 text-[#C78F7B]" /> Publicidad
                   </button>
                 )}
                 <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">

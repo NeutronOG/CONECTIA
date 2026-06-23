@@ -8,7 +8,7 @@ import { X, Heart, MessageCircle, CheckCircle } from "lucide-react"
 interface NotificationToastProps {
   isOpen: boolean
   onClose: () => void
-  onWhatsApp: () => void
+  onContact: () => void
   propertyTitle: string
   type?: "wishlist" | "success" | "info"
 }
@@ -16,7 +16,7 @@ interface NotificationToastProps {
 export function NotificationToast({ 
   isOpen, 
   onClose, 
-  onWhatsApp, 
+  onContact, 
   propertyTitle,
   type = "wishlist" 
 }: NotificationToastProps) {
@@ -35,8 +35,8 @@ export function NotificationToast({
     }, 300)
   }
 
-  const handleWhatsAppClick = () => {
-    onWhatsApp()
+  const handleContactClick = () => {
+    onContact()
     handleClose()
   }
 
@@ -56,7 +56,7 @@ export function NotificationToast({
       <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
         <Card
           className={`
-            max-w-md w-full bg-white border border-gray-200 shadow-2xl rounded-2xl overflow-hidden
+            max-w-md w-full bg-white dark:bg-[#0F2027] border border-gray-200 dark:border-[#EAE4DD]/20 shadow-2xl rounded-2xl overflow-hidden
             pointer-events-auto transform transition-all duration-300
             ${isVisible ? "translate-y-0 opacity-100 scale-100" : "translate-y-6 opacity-0 scale-95"}
           `}
@@ -97,16 +97,16 @@ export function NotificationToast({
             </h4>
             <p className="text-gray-500 text-sm leading-relaxed mb-5">
               La propiedad ha sido agregada a tu lista de favoritos. ¿Te gustaría contactarnos
-              por WhatsApp para obtener más información y agendar una cita?
+              para obtener más información y agendar una cita?
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
-                onClick={handleWhatsAppClick}
+                onClick={handleContactClick}
                 className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all duration-200 hover:scale-[1.02] shadow-md whitespace-nowrap"
               >
                 <MessageCircle className="h-4 w-4 mr-2 shrink-0" />
-                Contactar por WhatsApp
+                Contactar Asesor
               </Button>
               <Button
                 variant="outline"

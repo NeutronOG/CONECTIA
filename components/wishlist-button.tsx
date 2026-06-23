@@ -47,10 +47,8 @@ export function WishlistButton({
     }
   }
 
-  const handleWhatsAppContact = () => {
-    const message = `Hola CONECTIA, me interesa la propiedad "${property.title}" ubicada en ${property.location} con precio de ${property.price}. ¿Podrían enviarme más información y agendar una cita para verla?`
-    const whatsappUrl = `https://wa.me/5214774756951?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, '_blank')
+  const handleContact = () => {
+    window.location.href = '/contacto'
   }
 
   const sizeClasses = {
@@ -97,7 +95,7 @@ export function WishlistButton({
       <NotificationToast
         isOpen={showNotification}
         onClose={() => setShowNotification(false)}
-        onWhatsApp={handleWhatsAppContact}
+        onContact={handleContact}
         propertyTitle={property.title}
         type="wishlist"
       />

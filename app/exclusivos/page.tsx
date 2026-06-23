@@ -22,9 +22,7 @@ export default function ExclusivosPage() {
   const propiedadesDisplay = propiedades.length > 0 ? propiedades : ejemplos
 
   const handleContacto = (ubicacion: string) => {
-    const mensaje = `Hola, estoy interesado en una propiedad exclusiva en ${ubicacion}. Me gustaría recibir más información.`
-    const whatsappUrl = `https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`
-    window.open(whatsappUrl, '_blank')
+    window.location.href = `/contacto?propiedad=Exclusiva%20en%20${encodeURIComponent(ubicacion)}`
   }
 
   return (
@@ -203,11 +201,11 @@ export default function ExclusivosPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={() => window.open('https://wa.me/5214774756951', '_blank')}
+              onClick={() => window.location.href = '/contacto'}
               className="bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg"
             >
               <Phone className="h-5 w-5 mr-2" />
-              WhatsApp
+              Contacto
             </Button>
             <Button 
               onClick={() => window.location.href = 'mailto:conectiaselect@gmail.com'}

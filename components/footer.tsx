@@ -6,19 +6,19 @@ export function Footer() {
   return (
     <footer className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-white relative overflow-hidden transition-colors duration-300">
       {/* Glow orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C78F7B]/8 dark:bg-[#C78F7B]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#17313A]/10 dark:bg-[#17313A]/60 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#17313A]/8 dark:bg-[#C78F7B]/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#17313A]/10 dark:bg-[#C78F7B]/10 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top gradient line */}
-      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#C78F7B]/30 dark:via-[#C78F7B]/40 to-transparent" />
+      <div className="h-[1px] bg-gradient-to-r from-transparent via-[#17313A]/30 dark:via-[#C78F7B]/30 to-transparent" />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-8 lg:px-16 py-16 sm:py-20">
         {/* Top CTA Row */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 pb-16 border-b border-[#17313A]/10 dark:border-white/10">
           <div className="max-w-lg">
-            <h3 className="font-serif text-3xl sm:text-4xl font-black text-[#17313A] dark:text-white mb-3">
-              ¿Listo para tu <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">próximo hogar?</span>
+            <h3 className="font-serif text-3xl sm:text-4xl font-black text-[#17313A] dark:text-[#C78F7B] mb-3">
+              ¿Listo para tu <span className="bg-gradient-to-r from-[#17313A] to-[#E8A88F] dark:from-[#C78F7B] dark:to-[#E8A88F] bg-clip-text text-transparent">próximo hogar?</span>
             </h3>
             <p className="text-[#B0ACA6] text-base">
               Conectamos directamente compradores y vendedores. Sin complicaciones.
@@ -26,13 +26,13 @@ export function Footer() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
             <Link href="/contacto">
-              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] dark:text-[#0F2027] font-bold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-[#C78F7B]/20">
+              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A] hover:bg-[#D4987E] dark:bg-[#C78F7B] dark:hover:bg-[#D4987E] text-[#EAE4DD] dark:text-[#0F2027] font-bold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-[#17313A]/20 dark:shadow-[#C78F7B]/20">
                 Contactar Ahora
                 <ArrowUpRight className="h-4 w-4" />
               </button>
             </Link>
             <Link href="/propiedades">
-              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/15 dark:border-white/15 text-[#17313A] dark:text-white font-semibold hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 transition-all duration-300">
+              <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/15 dark:border-white/15 text-[#17313A] dark:text-white font-semibold hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#17313A]/30 dark:hover:border-[#C78F7B]/30 transition-all duration-300">
                 Ver Propiedades
               </button>
             </Link>
@@ -58,7 +58,7 @@ export function Footer() {
             {/* Social */}
             <div className="flex gap-3">
               {['f', 'in', '@'].map((icon) => (
-                <div key={icon} className="w-10 h-10 bg-[#17313A]/5 dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#C78F7B]/10">
+                <div key={icon} className="w-10 h-10 bg-[#17313A]/5 dark:bg-white/[0.05] border border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/20 hover:border-[#17313A]/30 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#17313A]/10">
                   <span className="text-[#17313A] dark:text-[#EAE4DD] font-bold text-sm">{icon}</span>
                 </div>
               ))}
@@ -67,11 +67,11 @@ export function Footer() {
 
           {/* Links Columns */}
           <div className="md:col-span-2">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Servicios</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Servicios</p>
             <ul className="space-y-3">
               {['Marketing Digital', 'Tours Virtuales', 'Valoración IA'].map((item) => (
                 <li key={item}>
-                  <Link href="/servicios" className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#EAE4DD] transition-colors duration-300 flex items-center gap-1">
+                  <Link href="/servicios" className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">
                     {item}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </Link>
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Explorar</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Explorar</p>
             <ul className="space-y-3">
               {[
                 { label: 'Compra', href: '/compra' },
@@ -90,7 +90,7 @@ export function Footer() {
                 { label: 'Ofertas', href: '/ofertas' },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#EAE4DD] transition-colors duration-300 flex items-center gap-1">
+                  <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">
                     {item.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </Link>
@@ -101,11 +101,11 @@ export function Footer() {
 
           {/* Contact */}
           <div className="md:col-span-4">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold mb-5">Contacto</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Contacto</p>
             <div className="space-y-4">
               <div className="flex items-start gap-3 group">
-                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
-                  <MapPin className="h-4 w-4 text-[#C78F7B]" />
+                <div className="w-8 h-8 rounded-lg bg-[#17313A]/10 dark:bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/20 dark:hover:bg-[#C78F7B]/20 transition-colors">
+                  <MapPin className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                 </div>
                 <div>
                   <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">Oficina</p>
@@ -113,30 +113,14 @@ export function Footer() {
                 </div>
               </div>
               <div className="flex items-start gap-3 group">
-                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
-                  <Mail className="h-4 w-4 text-[#C78F7B]" />
+                <div className="w-8 h-8 rounded-lg bg-[#17313A]/10 dark:bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/20 dark:hover:bg-[#C78F7B]/20 transition-colors">
+                  <Mail className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                 </div>
                 <div>
                   <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">Email</p>
-                  <Link href="/contacto" className="text-sm text-[#17313A] dark:text-[#EAE4DD] hover:text-[#C78F7B] transition-colors">
+                  <Link href="/contacto" className="text-sm text-[#17313A] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors">
                     conectia@gmail.com
                   </Link>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 group">
-                <div className="w-8 h-8 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C78F7B]/20 transition-colors">
-                  <Phone className="h-4 w-4 text-[#C78F7B]" />
-                </div>
-                <div>
-                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">WhatsApp</p>
-                  <a
-                    href="https://wa.me/5214774756951?text=Hola%20CONECTIA,%20me%20interesa%20obtener%20más%20información%20sobre%20sus%20servicios%20inmobiliarios."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#17313A] dark:text-[#EAE4DD] hover:text-[#C78F7B] transition-colors"
-                  >
-                    +52 1 477 475 6951
-                  </a>
                 </div>
               </div>
             </div>
@@ -148,10 +132,10 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="text-sm text-[#4A4F57]">© 2025 CONECTIA. Todos los derechos reservados.</span>
             <div className="flex gap-6">
-              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#B0ACA6] transition-colors">
+              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors">
                 Política de Privacidad
               </Link>
-              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#B0ACA6] transition-colors">
+              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors">
                 Términos de Servicio
               </Link>
             </div>

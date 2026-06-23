@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { MessageCircle, X, Send, Sparkles, Globe, Navigation, Home, Building, User, Phone, HelpCircle } from "lucide-react"
+import { MessageCircle, X, Send, Bot, Globe, Navigation, Home, Building, User, Phone, HelpCircle } from "lucide-react"
 
 interface Message {
   id: string
@@ -30,7 +30,6 @@ const NAVIGATION_OPTIONS = {
     { label: "🏠 Ver Propiedades", action: "navigate", url: "/propiedades" },
     { label: "💼 Vender Propiedad", action: "navigate", url: "/propietarios" },
     { label: "📞 Llamar con IA", action: "call" },
-    { label: "💚 WhatsApp Directo", action: "whatsapp" },
     { label: "❤️ Mis Favoritos", action: "navigate", url: "/favoritos" },
     { label: "🔐 Acceso Interno", action: "navigate", url: "/login" },
     { label: "ℹ️ Sobre CONECTIA", action: "navigate", url: "/empresa" },
@@ -40,7 +39,6 @@ const NAVIGATION_OPTIONS = {
     { label: "🏠 View Properties", action: "navigate", url: "/propiedades" },
     { label: "💼 Sell Property", action: "navigate", url: "/propietarios" },
     { label: "📞 Call with AI", action: "call" },
-    { label: "💚 WhatsApp Direct", action: "whatsapp" },
     { label: "❤️ My Favorites", action: "navigate", url: "/favoritos" },
     { label: "🔐 Internal Access", action: "navigate", url: "/login" },
     { label: "ℹ️ About CONECTIA", action: "navigate", url: "/empresa" },
@@ -50,7 +48,6 @@ const NAVIGATION_OPTIONS = {
     { label: "🏠 Voir Propriétés", action: "navigate", url: "/propiedades" },
     { label: "💼 Vendre Propriété", action: "navigate", url: "/propietarios" },
     { label: "📞 Appeler avec IA", action: "call" },
-    { label: "💚 WhatsApp Direct", action: "whatsapp" },
     { label: "❤️ Mes Favoris", action: "navigate", url: "/favoritos" },
     { label: "🔐 Accès Interne", action: "navigate", url: "/login" },
     { label: "ℹ️ À propos CONECTIA", action: "navigate", url: "/empresa" },
@@ -63,7 +60,7 @@ const RESPONSES = {
     welcome: "¡Hola! 👋 Soy tu asistente virtual 24/7 de CONECTIA. Estoy aquí para ayudarte a navegar por nuestra plataforma y resolver cualquier duda. ¿En qué puedo ayudarte?",
     help: "Puedo ayudarte con:\n• Navegar por las secciones de la página\n• Cambiar el idioma\n• Información sobre nuestros servicios\n• Contactar con nuestro equipo\n• Buscar propiedades",
     services: "CONECTIA ofrece:\n• Marketing Digital para tu propiedad\n• Tours Virtuales inmersivos\n• Valoración con IA\n• Proceso directo\n• Conexión directa entre compradores y vendedores",
-    contact: "Puedes contactarnos:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\n¿Te gustaría que te redirija a WhatsApp para contacto directo?",
+    contact: "Puedes contactarnos:\n📧 conectiaselect@gmail.com\n📍 León, Guanajuato",
     navigation: "¿A dónde te gustaría ir?",
     languageChanged: "Idioma cambiado exitosamente. ¿En qué más puedo ayudarte?",
   },
@@ -71,7 +68,7 @@ const RESPONSES = {
     welcome: "Hello! 👋 I'm your 24/7 virtual assistant from CONECTIA. I'm here to help you navigate our platform and answer any questions. How can I help you?",
     help: "I can help you with:\n• Navigate through page sections\n• Change language\n• Information about our services\n• Contact our team\n• Search properties",
     services: "CONECTIA offers:\n• Digital Marketing for your property\n• Immersive Virtual Tours\n• AI Valuation\n• Direct process\n• Direct connection between buyers and sellers",
-    contact: "You can contact us:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\nWould you like me to redirect you to WhatsApp for direct contact?",
+    contact: "You can contact us:\n📧 conectiaselect@gmail.com\n📍 León, Guanajuato",
     navigation: "Where would you like to go?",
     languageChanged: "Language changed successfully. How else can I help you?",
   },
@@ -79,7 +76,7 @@ const RESPONSES = {
     welcome: "Bonjour! 👋 Je suis votre assistant virtuel 24/7 d'CONECTIA. Je suis là pour vous aider à naviguer sur notre plateforme et répondre à vos questions. Comment puis-je vous aider?",
     help: "Je peux vous aider avec:\n• Naviguer dans les sections de la page\n• Changer la langue\n• Informations sur nos services\n• Contacter notre équipe\n• Rechercher des propriétés",
     services: "CONECTIA offre:\n• Marketing Digital pour votre propriété\n• Visites Virtuelles immersives\n• Évaluation par IA\n• Processus direct\n• Connexion directe entre acheteurs et vendeurs",
-    contact: "Vous pouvez nous contacter:\n📧 conectiaselect@gmail.com\n📱 +52 1 477 475 6951 (WhatsApp)\n📍 León, Guanajuato\n\nVoulez-vous que je vous redirige vers WhatsApp pour un contact direct?",
+    contact: "Vous pouvez nous contacter:\n📧 conectiaselect@gmail.com\n📍 León, Guanajuato",
     navigation: "Où aimeriez-vous aller?",
     languageChanged: "Langue changée avec succès. Comment puis-je vous aider d'autre?",
   },
@@ -156,10 +153,9 @@ export function AIAgent() {
       })
     } else if (option.action === "whatsapp") {
       simulateTyping(() => {
-        addMessage("Te redirijo a WhatsApp para contacto directo...", "bot")
+        addMessage("Te redirijo a la página de contacto...", "bot")
         setTimeout(() => {
-          const whatsappUrl = "https://wa.me/5214774756951?text=Hola%20CONECTIA%20SELECT,%20me%20interesa%20obtener%20más%20información%20sobre%20sus%20servicios%20inmobiliarios."
-          window.open(whatsappUrl, '_blank')
+          window.location.href = '/contacto'
         }, 1000)
       })
     } else if (option.action === "call") {
@@ -223,7 +219,7 @@ export function AIAgent() {
           <div className="bg-gradient-to-r from-conectia-graphite to-gray-900 text-white p-4 sm:p-6 flex items-center justify-between sm:rounded-t-3xl">
             <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-conectia-gold to-yellow-400 rounded-full flex items-center justify-center shadow-lg">
-                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-graphite" />
+                <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-conectia-graphite" />
               </div>
               <div>
                 <h3 className="font-serif font-semibold text-base sm:text-lg">Asistente CONECTIA</h3>

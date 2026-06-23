@@ -34,7 +34,6 @@ import {
   X,
   Plus,
   Eye,
-  Sparkles,
   ChevronsUpDown,
   ChevronLeft,
   ChevronRight
@@ -332,7 +331,7 @@ export default function PropietariosPage() {
 
             <div className="bg-conectia-gold/10 border border-conectia-gold/20 rounded-xl p-6 mb-8">
               <div className="flex items-center justify-center mb-4">
-                <Sparkles className="h-6 w-6 text-conectia-gold mr-2" />
+                <FileText className="h-6 w-6 text-conectia-gold mr-2" />
                 <h3 className="font-semibold text-conectia-gold">ID de Registro</h3>
               </div>
               <p className="text-2xl font-mono font-bold text-[#17313A] dark:text-white">

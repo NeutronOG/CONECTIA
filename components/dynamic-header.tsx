@@ -19,7 +19,7 @@ import {
   ChevronDown,
   Tag,
   Key,
-  Sparkles,
+  Crown,
   Percent,
   Palette,
   Camera,
@@ -116,7 +116,7 @@ export function DynamicHeader() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center gap-2 min-w-0">
             {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0 px-2 group text-[#17313A] dark:text-[#EAE4DD]">
+            <Link href="/" className="flex items-center flex-shrink-0 px-2 group text-[#17313A] dark:text-[#17313A]">
               <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto transition-transform group-hover:scale-105">
                 <text x="0" y="30" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="32" fontWeight="600" fill="currentColor" letterSpacing="2">CONECTIA</text>
               </svg>
@@ -137,8 +137,8 @@ export function DynamicHeader() {
                       group relative flex items-center justify-center gap-1.5 px-3 py-1.5
                       rounded-full transition-all duration-300 ease-out flex-shrink-0
                       ${isActive(item.href)
-                        ? 'bg-[#17313A]/10 text-[#17313A] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
-                        : 'text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/07'
+                        ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
+                        : 'text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07 dark:hover:bg-[#C78F7B]/07'
                       }
                     `}
                   >
@@ -158,7 +158,7 @@ export function DynamicHeader() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#B0ACA6] hover:bg-conectia-primary/10 hover:text-conectia-primary"
+                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#17313A] hover:bg-conectia-primary/10 hover:text-conectia-primary"
                 >
                   <Heart className="h-3.5 w-3.5" />
                 </Button>
@@ -166,7 +166,7 @@ export function DynamicHeader() {
               <Button
                 variant="ghost"
                 size="sm"
-                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#B0ACA6] hover:bg-conectia-primary/10 hover:text-conectia-primary"
+                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#17313A] hover:bg-conectia-primary/10 hover:text-conectia-primary"
               >
                 <Search className="h-3.5 w-3.5" />
               </Button>
@@ -257,7 +257,7 @@ export function DynamicHeader() {
                 <Link href="/login">
                   <Button
                     size="sm"
-                    className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#C78F7B] hover:bg-[#F6F2EE] hover:text-[#D4987E] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
+                    className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#17313A] hover:bg-[#F6F2EE] hover:text-[#D4987E] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                   >
                     <UserCircle className="h-2.5 w-2.5" />
                     <span>Acceso</span>
@@ -398,13 +398,13 @@ export function DynamicHeader() {
                       </Link>
                       <Link href="/especiales" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Sparkles className="h-4 w-4 text-[#B0ACA6]" />
+                          <Crown className="h-4 w-4 text-[#B0ACA6]" />
                           <span className="text-xs font-medium text-[#1D1F24]">Especiales</span>
                         </button>
                       </Link>
                       <Link href="/ofertas" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Percent className="h-4 w-4 text-[#C78F7B]" />
+                          <Percent className="h-4 w-4 text-[#17313A]" />
                           <span className="text-xs font-medium text-[#1D1F24]">Ofertas</span>
                         </button>
                       </Link>
@@ -497,7 +497,7 @@ export function DynamicHeader() {
                     </Link>
                     <Link href="/login" className="transition-all duration-200 ease-out">
                       <Button
-                        className="w-full rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border border-[#17313A]/15 bg-white text-[#C78F7B] hover:bg-[#F6F2EE] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
+                        className="w-full rounded-2xl font-semibold py-3 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border border-[#17313A]/15 bg-white text-[#17313A] hover:bg-[#F6F2EE] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
@@ -510,7 +510,7 @@ export function DynamicHeader() {
                 {/* Contact Info */}
                 <div className="text-center pt-3 border-t border-[#17313A]/10 transition-all duration-200 ease-out">
                   <div className="flex items-center justify-center space-x-2 text-sm text-[#4A4F57] mb-2">
-                    <MapPin className="h-4 w-4 text-[#C78F7B]" />
+                    <MapPin className="h-4 w-4 text-[#17313A]" />
                     <span>León, Guanajuato</span>
                   </div>
                   <div className="space-y-1 text-sm text-[#4A4F57]">
@@ -563,7 +563,7 @@ export function DynamicHeader() {
               </Link>
               <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#C78F7B]" />
+                  <Crown className="h-4 w-4 text-[#17313A]" />
                   <span>Especiales</span>
                 </button>
               </Link>
@@ -571,24 +571,6 @@ export function DynamicHeader() {
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <ShoppingBag className="h-4 w-4 text-[#17313A]" />
                   <span>Compra</span>
-                </button>
-              </Link>
-              <Link href="/venta" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Tag className="h-4 w-4 text-[#17313A]" />
-                  <span>Venta</span>
-                </button>
-              </Link>
-              <Link href="/renta" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Key className="h-4 w-4 text-[#17313A]" />
-                  <span>Renta</span>
-                </button>
-              </Link>
-              <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#C78F7B]" />
-                  <span>Especiales</span>
                 </button>
               </Link>
               <Link href="/ofertas" onClick={() => setIsOtrosMenuOpen(false)}>

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { subscriptionPlans, teamPlans } from '@/data/subscription-plans'
-import { ArrowLeft, Check, Diamond, Zap, Sparkles, Loader2, Users } from 'lucide-react'
+import { ArrowLeft, Check, Diamond, Zap, HelpCircle, Loader2, Users } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function PlanesPage() {
@@ -305,7 +305,7 @@ export default function PlanesPage() {
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
               <div className="p-3 bg-blue-500 rounded-xl">
-                <Sparkles className="h-6 w-6 text-white" />
+                <HelpCircle className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-conectia-graphite mb-2">

@@ -225,15 +225,13 @@ function UnidadesSection() {
 
         <div className="text-center mt-10">
           <p className="text-slate-400 text-sm mb-4">¿Te interesa alguna unidad? Contáctanos para apartar tu departamento.</p>
-          <a
-            href="https://wa.me/524774756951"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={`/contacto?propiedad=${encodeURIComponent(proyecto.nombre)}`}
             className="inline-flex items-center gap-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold px-6 py-3 rounded-lg transition-all"
           >
             <Phone className="h-4 w-4" />
-            Apartar por WhatsApp
-          </a>
+            Apartar Unidad
+          </Link>
         </div>
       </div>
     </section>
@@ -449,10 +447,10 @@ export default function DesarrollosPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="https://wa.me/524774756951">
+            <Link href="/contacto">
               <Button size="lg" variant="outline" className="border-[#17313A] dark:border-conectia-accent text-[#17313A] dark:text-conectia-accent hover:bg-[#17313A]/10 dark:hover:bg-conectia-accent/10">
                 <Phone className="mr-2 h-5 w-5" />
-                WhatsApp
+                Contacto
               </Button>
             </Link>
           </div>

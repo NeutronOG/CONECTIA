@@ -67,16 +67,16 @@ export function FeaturedPropertiesCarousel() {
           {/* Glass Card */}
           <div className="relative bg-white/70 dark:bg-[#0F2027]/70 backdrop-blur-xl border border-[#17313A]/10 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
             {/* Glow accent */}
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#17313A]/10 dark:bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
 
             <div className="relative space-y-5">
               {/* Top row: Badges + Counter */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full bg-[#C78F7B]/20 border border-[#C78F7B]/30 text-[#C78F7B] text-[10px] font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-full bg-[#17313A]/20 border border-[#17313A]/30 text-[#17313A] dark:bg-[#C78F7B]/20 dark:border-[#C78F7B]/30 dark:text-[#C78F7B] text-[10px] font-bold uppercase tracking-wider">
                     {currentProperty.status}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-[#17313A]/10 border border-[#17313A]/20 text-[#17313A]/70 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-full bg-[#17313A]/10 border border-[#17313A]/20 text-[#17313A]/70 dark:bg-[#C78F7B]/10 dark:border-[#C78F7B]/20 dark:text-[#C78F7B]/70 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">
                     {currentProperty.tipo}
                   </span>
                 </div>
@@ -92,40 +92,40 @@ export function FeaturedPropertiesCarousel() {
 
               {/* Location */}
               <div className="flex items-center gap-2 text-[#17313A]/70 dark:text-[#B0ACA6]">
-                <MapPin className="h-4 w-4 text-[#C78F7B]" />
+                <MapPin className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                 <span className="text-sm">{currentProperty.ubicacion}</span>
               </div>
 
               {/* Details */}
               <div className="flex items-center gap-5 text-[#17313A]/70 dark:text-[#B0ACA6]">
                 <div className="flex items-center gap-1.5">
-                  <Bed className="h-4 w-4 text-[#C78F7B]" />
+                  <Bed className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                   <span className="text-sm font-medium">{currentProperty.habitaciones} Hab</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Bath className="h-4 w-4 text-[#C78F7B]" />
+                  <Bath className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                   <span className="text-sm font-medium">{currentProperty.banos} Baños</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Square className="h-4 w-4 text-[#C78F7B]" />
+                  <Square className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                   <span className="text-sm font-medium">{currentProperty.areaTexto}</span>
                 </div>
               </div>
 
               {/* Divider */}
-              <div className="h-px bg-gradient-to-r from-[#C78F7B]/30 via-[#17313A]/10 dark:via-white/10 to-transparent" />
+              <div className="h-px bg-gradient-to-r from-[#17313A]/30 via-[#17313A]/10 dark:from-[#C78F7B]/30 dark:via-[#C78F7B]/10 dark:via-white/10 to-transparent" />
 
               {/* Price & CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <p className="text-[10px] text-[#4A4F57] dark:text-[#4A4F57] uppercase tracking-widest font-semibold mb-1">Precio</p>
-                  <p className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">
+                  <p className="text-3xl sm:text-4xl font-black text-[#17313A] dark:bg-gradient-to-r dark:from-[#C78F7B] dark:to-[#E8A88F] dark:bg-clip-text dark:text-transparent">
                     {currentProperty.precioTexto}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Link href={`/propiedades/${currentProperty.id}`}>
-                    <Button className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold px-5 py-3 rounded-xl shadow-lg shadow-[#C78F7B]/20 hover:scale-105 transition-all duration-300">
+                    <Button className="bg-[#17313A] hover:bg-[#1F3D47] dark:bg-[#C78F7B] dark:hover:bg-[#D4987E] text-[#EAE4DD] dark:text-[#0F2027] font-bold px-5 py-3 rounded-xl shadow-lg shadow-[#17313A]/20 dark:shadow-[#C78F7B]/20 hover:scale-105 transition-all duration-300">
                       <Eye className="h-4 w-4 mr-2" />
                       Ver Propiedad
                     </Button>
@@ -133,7 +133,7 @@ export function FeaturedPropertiesCarousel() {
                   {currentProperty.tourVirtual && (
                     <Button
                       variant="outline"
-                      className="border-[#17313A]/15 dark:border-white/20 text-[#17313A] dark:text-white bg-[#17313A]/5 dark:bg-white/5 hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 font-semibold px-4 py-3 rounded-xl transition-all duration-300"
+                      className="border-[#17313A]/15 dark:border-white/20 text-[#17313A] dark:text-white bg-[#17313A]/5 dark:bg-white/5 hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#17313A]/30 dark:hover:border-[#C78F7B]/30 font-semibold px-4 py-3 rounded-xl transition-all duration-300"
                       onClick={() => window.open(currentProperty.tourVirtual, '_blank')}
                     >
                       <Video className="h-4 w-4" />
@@ -149,13 +149,13 @@ export function FeaturedPropertiesCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#17313A]/20 dark:hover:bg-[#C78F7B]/20 hover:border-[#17313A]/30 dark:hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
         <ChevronLeft className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#17313A]/10 dark:bg-white/5 border border-[#17313A]/20 dark:border-white/10 hover:bg-[#17313A]/20 dark:hover:bg-[#C78F7B]/20 hover:border-[#17313A]/30 dark:hover:border-[#C78F7B]/30 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
       >
         <ChevronRight className="h-5 w-5 text-[#17313A] dark:text-white" />
       </button>
@@ -167,7 +167,7 @@ export function FeaturedPropertiesCarousel() {
             key={index}
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${index === currentIndex
-              ? 'w-10 h-2.5 bg-gradient-to-r from-[#C78F7B] to-[#E8A88F]'
+              ? 'w-10 h-2.5 bg-gradient-to-r from-[#17313A] to-[#1F3D47] dark:from-[#C78F7B] dark:to-[#E8A88F]'
               : 'w-2.5 h-2.5 bg-[#17313A]/20 dark:bg-white/20 hover:bg-[#17313A]/40 dark:hover:bg-white/40'
             }`}
           />

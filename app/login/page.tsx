@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
-import { Lock, Mail, AlertCircle, Sparkles, Fingerprint, Trash2, CheckCircle2 } from 'lucide-react'
+import { Lock, Mail, AlertCircle, Award, Fingerprint, Trash2, CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -113,8 +113,13 @@ function LoginContent() {
   }
 
   return (
-    <div className="min-h-screen bg-conectia-secondary flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-light flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Orbs decorativos glassmorphism */}
+      <div className="orb orb-blue w-96 h-96 -top-48 -left-48"></div>
+      <div className="orb orb-accent w-80 h-80 -bottom-40 -right-40"></div>
+      <div className="orb orb-blue w-64 h-64 bottom-1/4 left-1/4 opacity-20"></div>
+
+      <div className="w-full max-w-md relative z-10">
         {/* Logo y título */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
@@ -130,35 +135,26 @@ function LoginContent() {
           {/* Mensaje inspirador */}
           {fromPlans ? (
             <div className="mb-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3"
-                style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.30)' }}>
-                <Sparkles className="w-4 h-4 text-[#C78F7B]" />
-                <span className="text-sm font-medium text-[#C78F7B]">Tu éxito comienza aquí</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3 glass-card">
+                <Award className="w-4 h-4 text-[#C78F7B]" />
+                <span className="text-sm font-medium text-ivory">Tu éxito comienza aquí</span>
               </div>
-              <h2 className="font-titles text-2xl font-light text-[#EAE4DD] mb-2">
+              <h2 className="font-titles text-2xl font-light text-[#17313A] mb-2">
                 Bienvenido a CONECTIA
               </h2>
-              <p className="text-[#B0ACA6] text-sm">
+              <p className="text-[#4A4F57] text-sm">
                 Inicia sesión para activar tu plan y potenciar tu carrera inmobiliaria.
               </p>
             </div>
           ) : (
-            <p className="text-[#B0ACA6] text-lg font-medium">
+            <p className="text-[#4A4F57] text-lg font-medium">
               Acceso a Plataforma CONECTIA
             </p>
           )}
         </div>
 
         {/* Formulario */}
-        <div className="rounded-3xl p-8"
-          style={{
-            background: 'linear-gradient(160deg, rgba(234,228,221,0.13) 0%, rgba(23,49,58,0.35) 100%)',
-            backdropFilter: 'blur(32px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(32px) saturate(160%)',
-            border: '1px solid rgba(234,228,221,0.18)',
-            borderTopColor: 'rgba(255,255,255,0.24)',
-            boxShadow: '0 2px 0 rgba(255,255,255,0.08) inset, 0 24px 64px rgba(23,49,58,0.35)',
-          }}>
+        <div className="glass-card rounded-3xl p-8 glow-border">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
@@ -166,14 +162,13 @@ function LoginContent() {
                 Correo electrónico
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0ACA6]" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-[#EAE4DD] placeholder:text-[#B0ACA6]/60 outline-none transition-all"
-                  style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}
+                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
                   placeholder="tu@conectia.mx"
                   required
                 />
@@ -186,14 +181,13 @@ function LoginContent() {
                 Contraseña
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#B0ACA6]" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-[#EAE4DD] placeholder:text-[#B0ACA6]/60 outline-none transition-all"
-                  style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}
+                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
                   placeholder="••••••••"
                   required
                 />
@@ -202,8 +196,8 @@ function LoginContent() {
 
             {/* Error */}
             {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-900/20 border border-red-700/30 rounded-xl text-red-400 text-sm">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <div className="flex items-center gap-2 p-3 rounded-xl text-red-300 text-sm glass-card" style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
+                <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-300" />
                 <span>{error}</span>
               </div>
             )}
@@ -212,8 +206,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ background: loading ? 'rgba(199,143,123,0.5)' : '#C78F7B', color: 'white', boxShadow: '0 8px 24px rgba(199,143,123,0.25)' }}
+              className="w-full py-3 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed glass-primary text-ivory hover:scale-[1.02]"
             >
               {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
             </button>
@@ -221,15 +214,14 @@ function LoginContent() {
 
           {/* Biometric Login */}
           {biometricSupported && hasBiometric && biometricUser && (
-            <div className="mt-6 pt-6" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
+            <div className="mt-6 pt-6 border-t border-white/15">
               <button
                 onClick={handleBiometricLogin}
                 disabled={biometricLoading}
-                className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl font-semibold text-[#EAE4DD] transition-all duration-300 disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg, #1F3D47, #17313A)', border: '1px solid rgba(234,228,221,0.15)', boxShadow: '0 4px 16px rgba(23,49,58,0.40)' }}
+                className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl font-semibold text-ivory transition-all duration-300 disabled:opacity-50 glass-card hover:scale-[1.02]"
               >
                 {biometricLoading ? (
-                  <div className="w-5 h-5 border-2 border-[#EAE4DD]/30 border-t-[#EAE4DD] rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
                     <Fingerprint className="w-5 h-5 text-[#C78F7B]" />
@@ -238,8 +230,8 @@ function LoginContent() {
                 )}
               </button>
               <div className="flex items-center justify-between mt-2">
-                <p className="text-xs text-[#B0ACA6]">
-                  Acceso rápido como <strong className="text-[#EAE4DD]">{biometricUser.nombre || biometricUser.email}</strong>
+                <p className="text-xs text-white/60">
+                  Acceso rápido como <strong className="text-ivory">{biometricUser.nombre || biometricUser.email}</strong>
                 </p>
                 <button
                   onClick={() => {
@@ -247,7 +239,7 @@ function LoginContent() {
                     setHasBiometric(false)
                     setBiometricUser(null)
                   }}
-                  className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors"
+                  className="flex items-center gap-1 text-xs text-red-300 hover:text-red-200 transition-colors"
                   title="Borrar datos biométricos guardados"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -259,15 +251,15 @@ function LoginContent() {
 
           {/* Biometric registration success */}
           {biometricRegistered && (
-            <div className="mt-4 flex items-center gap-2 p-3 bg-green-900/20 border border-green-700/30 rounded-xl text-green-400 text-sm">
-              <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+            <div className="mt-4 flex items-center gap-2 p-3 rounded-xl text-green-300 text-sm glass-card" style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.3)' }}>
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-green-300" />
               <span>Face ID / Huella configurado. La próxima vez podrás acceder más rápido.</span>
             </div>
           )}
 
           {/* Link a registro */}
-          <div className="mt-6 pt-6 text-center" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
-            <p className="text-sm text-[#B0ACA6]">
+          <div className="mt-6 pt-6 text-center border-t border-white/15">
+            <p className="text-sm text-white/60">
               ¿No tienes cuenta?{' '}
               <Link 
                 href={fromPlans ? "/registro?from=planes" : "/registro"} 
@@ -280,7 +272,7 @@ function LoginContent() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-sm text-[#B0ACA6] mt-6">
+        <p className="text-center text-sm text-[#4A4F57] mt-6">
           © 2025 CONECTIA. Todos los derechos reservados.
         </p>
       </div>
@@ -291,11 +283,13 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-conectia-secondary flex items-center justify-center p-4">
-        <div className="w-full max-w-md text-center">
+      <div className="min-h-screen bg-gradient-light flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="orb orb-blue w-96 h-96 -top-48 -left-48"></div>
+        <div className="orb orb-accent w-80 h-80 -bottom-40 -right-40"></div>
+        <div className="w-full max-w-md text-center relative z-10">
           <div className="animate-pulse flex flex-col items-center gap-3">
-            <div className="h-16 w-48 rounded-xl" style={{ background: 'rgba(234,228,221,0.10)' }}></div>
-            <div className="h-4 w-64 rounded-full" style={{ background: 'rgba(234,228,221,0.08)' }}></div>
+            <div className="h-16 w-48 rounded-xl glass-card"></div>
+            <div className="h-4 w-64 rounded-full glass-panel-light"></div>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, Megaphone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface Ad {
@@ -47,7 +47,7 @@ function AdBanner({ ad }: { ad: Ad }) {
           )}
           <div className="flex-1 text-center md:text-left">
             <div className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-conectia-accent/40 mb-2">
-              <Sparkles className="h-3 w-3" />
+              <Megaphone className="h-3 w-3" />
               Patrocinado
             </div>
             <h3 className="font-serif text-lg sm:text-xl font-bold text-conectia-accent mb-2">
@@ -89,7 +89,7 @@ function AdBanner({ ad }: { ad: Ad }) {
         )}
         <div className="relative z-10 p-8 sm:p-12 flex flex-col justify-center min-h-[200px]">
           <div className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-conectia-primary mb-3">
-            <Sparkles className="h-3 w-3" />
+            <Megaphone className="h-3 w-3" />
             Patrocinado
           </div>
           <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 max-w-lg">
@@ -129,7 +129,7 @@ function AdBanner({ ad }: { ad: Ad }) {
         )}
         <div className="flex-1 text-center md:text-left">
           <div className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-conectia-primary/60 mb-3">
-            <Sparkles className="h-3 w-3" />
+            <Megaphone className="h-3 w-3" />
             Patrocinado
           </div>
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-conectia-accent mb-3">

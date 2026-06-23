@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { Sparkles, Star, Diamond } from "lucide-react"
+import { Crown, Star, Diamond } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { PropertyCard, EmptyProperties } from "@/components/property-card"
@@ -11,7 +11,7 @@ const HERO_IMAGE = "https://images.unsplash.com/photo-1613490493576-7fde63acd811
 const ATRIBUTOS = [
   { icon: Star, label: "Ubicaciones prime" },
   { icon: Diamond, label: "Acabados exclusivos" },
-  { icon: Sparkles, label: "Características únicas" },
+  { icon: Crown, label: "Características únicas" },
 ]
 
 export default function EspecialesPage() {
@@ -44,7 +44,7 @@ export default function EspecialesPage() {
           {/* Rule superior */}
           <div className="flex items-center gap-4 justify-center mb-8">
             <div className="h-px flex-1 bg-conectia-primary/50" />
-            <Sparkles className="h-5 w-5 text-conectia-primary" />
+            <Crown className="h-5 w-5 text-conectia-primary" />
             <div className="h-px flex-1 bg-conectia-primary/50" />
           </div>
 
@@ -104,7 +104,7 @@ export default function EspecialesPage() {
             ))}
             {propiedades.length === 0 && (
               <div className="col-span-full py-20 text-center">
-                <Sparkles className="h-12 w-12 text-conectia-primary/40 mx-auto mb-4" />
+                <Crown className="h-12 w-12 text-conectia-primary/40 mx-auto mb-4" />
                 <p className="text-[#4A4F57] dark:text-white/40 text-sm">Vuelve pronto para ver propiedades especiales</p>
               </div>
             )}

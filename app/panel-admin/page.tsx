@@ -16,7 +16,7 @@ import {
   Award,
   ClipboardList,
   Camera,
-  Sparkles,
+  Megaphone,
   History,
   ArrowUpRight,
   Shield,
@@ -179,7 +179,7 @@ export default function PanelAdminPage() {
                   <History className="w-3.5 h-3.5" /> Auditoría
                 </button>
                 <button onClick={() => router.push('/panel-admin/publicidad')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
-                  <Sparkles className="w-3.5 h-3.5" /> Publicidad
+                  <Megaphone className="w-3.5 h-3.5" /> Publicidad
                 </button>
               </div>
               <button onClick={async () => { await logout(); router.push('/login') }} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">

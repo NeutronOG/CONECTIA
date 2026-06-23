@@ -12,10 +12,8 @@ import Image from "next/image"
 export default function FavoritosPage() {
   const { wishlist, wishlistCount } = useWishlist()
 
-  const handleWhatsAppContact = (property: any) => {
-    const message = `Hola CONECTIA, me interesa la propiedad "${property.title}" ubicada en ${property.location} con precio de ${property.price}. ¿Podrían enviarme más información y agendar una cita para verla?`
-    const whatsappUrl = `https://wa.me/5214774756951?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, '_blank')
+  const handleContact = (property: any) => {
+    window.location.href = `/contacto?propiedad=${encodeURIComponent(property.title)}`
   }
 
   return (
@@ -131,11 +129,11 @@ export default function FavoritosPage() {
                     {/* Action Buttons */}
                     <div className="flex space-x-3">
                       <Button
-                        onClick={() => handleWhatsAppContact(property)}
-                        className="flex-1 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium py-2 transition-all duration-300 hover:scale-105"
+                        onClick={() => handleContact(property)}
+                        className="flex-1 bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white rounded-xl font-medium py-2 transition-all duration-300 hover:scale-105"
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
-                        WhatsApp
+                        Contactar
                       </Button>
                       <Link href={`/propiedades/${property.id}`} className="flex-1">
                         <Button

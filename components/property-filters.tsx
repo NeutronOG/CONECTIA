@@ -171,12 +171,12 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
       <div className={`${isOpen ? 'block' : 'hidden'} lg:block`}>
         <div className="rounded-2xl overflow-hidden"
           style={{
-            background: 'linear-gradient(160deg, rgba(234,228,221,0.11) 0%, rgba(23,49,58,0.30) 100%)',
-            backdropFilter: 'blur(28px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(28px) saturate(160%)',
-            border: '1px solid rgba(234,228,221,0.18)',
-            borderTopColor: 'rgba(255,255,255,0.22)',
-            boxShadow: '0 2px 0 rgba(255,255,255,0.08) inset, 0 20px 60px rgba(23,49,58,0.30)',
+            background: 'linear-gradient(160deg, rgba(10, 12, 14, 0.90) 0%, rgba(23, 27, 30, 0.80) 100%)',
+            backdropFilter: 'blur(28px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderTopColor: 'rgba(255, 255, 255, 0.20)',
+            boxShadow: '0 2px 0 rgba(255, 255, 255, 0.06) inset, 0 20px 60px rgba(0, 0, 0, 0.45)',
           }}
         >
           {/* Header */}

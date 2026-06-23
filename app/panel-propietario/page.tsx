@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { propertyProgress, leads, activities } from '@/data/internal-users'
 import { propiedades } from '@/data/propiedades'
-import { Building2, TrendingUp, Users, Eye, Heart, Calendar, Phone, Mail, MapPin, DollarSign, Home, Activity, MessageSquare, CheckCircle2, Clock, XCircle, Sparkles, LogOut } from 'lucide-react'
+import { Building2, TrendingUp, Users, Eye, Heart, Calendar, Phone, Mail, MapPin, DollarSign, Home, Activity, MessageSquare, CheckCircle2, Clock, XCircle, Square, LogOut } from 'lucide-react'
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 export default function PanelPropietario() {
@@ -208,7 +208,7 @@ export default function PanelPropietario() {
             </div>
             <div className="flex items-center gap-3 bg-[#17313A] rounded-xl p-4 border border-gray-700/40">
               <div className="p-3 bg-orange-500/20 rounded-lg">
-                <Sparkles className="w-6 h-6 text-orange-400" />
+                <Square className="w-6 h-6 text-orange-400" />
               </div>
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider">Área</p>

@@ -33,34 +33,34 @@ export default function RentaPage() {
     <div className="min-h-screen bg-conectia-surface">
 
       {/* HERO — Clean modern split */}
-      <section className="relative min-h-[85dvh] flex flex-col lg:flex-row bg-[#F6F2EE]">
+      <section className="relative min-h-[85dvh] flex flex-col lg:flex-row bg-[#F6F2EE] dark:bg-[#0F2027]">
 
         {/* Izquierda: contenido claro */}
         <div className="relative flex-1 lg:max-w-[50%] flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 sm:py-20 z-10">
           <div className="max-w-xl space-y-8">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 border border-[#17313A]/10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 dark:bg-[#EAE4DD]/5 border border-[#17313A]/10 dark:border-[#EAE4DD]/10">
               <Key className="h-3.5 w-3.5 text-[#C78F7B]" />
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] font-bold">CONECTIA</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">CONECTIA</span>
             </div>
 
             {/* Título */}
             <div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] leading-[0.95]">Renta</h1>
-              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">con tranquilidad</p>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">Renta</h1>
+              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] dark:text-[#C78F7B] italic mt-2">con tranquilidad</p>
             </div>
 
             {/* Descripción */}
-            <p className="text-[#4A4F57] text-base leading-relaxed max-w-md">
+            <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base leading-relaxed max-w-md">
               Encuentra el espacio perfecto para vivir. Selección de departamentos, casas y locales con la flexibilidad que necesitas.
             </p>
 
             {/* Beneficios como tarjetas */}
             <div className="flex flex-wrap gap-3">
               {BENEFICIOS.map((b) => (
-                <div key={b.label} className="px-4 py-3 rounded-xl bg-white border border-[#17313A]/8 shadow-sm">
-                  <p className="text-[#17313A] text-sm font-semibold">{b.label}</p>
-                  <p className="text-[#B0ACA6] text-xs mt-0.5">{b.sub}</p>
+                <div key={b.label} className="px-4 py-3 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#17313A]/8 dark:border-[#EAE4DD]/10 shadow-sm">
+                  <p className="text-[#17313A] dark:text-[#EAE4DD] text-sm font-semibold">{b.label}</p>
+                  <p className="text-[#B0ACA6] dark:text-[#B0ACA6] text-xs mt-0.5">{b.sub}</p>
                 </div>
               ))}
             </div>
@@ -86,12 +86,12 @@ export default function RentaPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
 
             {/* Tarjeta flotante */}
-            <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5">
+            <div className="absolute bottom-6 right-6 bg-white/95 dark:bg-[#17313A]/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5 dark:border-[#EAE4DD]/10">
               <div className="flex items-center gap-1 mb-2">
                 {[1,2,3,4,5].map(i => <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}
               </div>
-              <p className="text-sm font-bold text-[#17313A]">Clientes satisfechos</p>
-              <p className="text-xs text-[#B0ACA6]">+200 rentas exitosas</p>
+              <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">Clientes satisfechos</p>
+              <p className="text-xs text-[#B0ACA6] dark:text-[#B0ACA6]">+200 rentas exitosas</p>
             </div>
           </div>
         </div>

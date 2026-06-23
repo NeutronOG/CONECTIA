@@ -44,8 +44,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
       onAgendarVisita(propiedad.id)
       return
     }
-    const msg = `Hola, me interesa agendar una visita para: ${propiedad.titulo} en ${propiedad.ubicacion}`
-    window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(msg)}`, "_blank")
+    window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`
   }
 
   return (

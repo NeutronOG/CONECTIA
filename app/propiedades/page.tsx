@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PropertyFilters } from "@/components/property-filters"
 import { AISearchChat } from "@/components/ai-search-chat"
-import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Sparkles, MessageSquare, RefreshCw, Building } from "lucide-react"
+import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Bot, MessageSquare, RefreshCw, Building } from "lucide-react"
 import Link from "next/link"
 import { WishlistButton } from "@/components/wishlist-button"
 import { Propiedad } from "@/data/propiedades"
@@ -124,10 +124,12 @@ export default function PropiedadesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
-      {/* Glow orbs */}
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
+    <div className="min-h-screen bg-gradient-light dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
+      {/* Orbs decorativos glassmorphism creativos */}
+      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-[#C78F7B]/8 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
+      <div className="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-[#17313A]/40 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed top-1/3 right-0 w-64 h-64 bg-[#C78F7B]/5 rounded-full blur-[80px] pointer-events-none" />
+      <div className="fixed bottom-1/4 left-0 w-80 h-80 bg-[#17313A]/20 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[320px] sm:min-h-[400px] pt-16">
@@ -177,28 +179,28 @@ export default function PropiedadesPage() {
               />
 
               {/* AI Search Button */}
-              <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-2xl p-4 sm:p-6 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#C78F7B]/10 rounded-full blur-[30px] pointer-events-none" />
+              <div className="relative liquid-glass-dark rounded-2xl p-4 sm:p-6 overflow-hidden glow-border">
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#C78F7B]/20 rounded-full blur-[30px] pointer-events-none animate-pulse-slow" />
                 <div className="relative text-center space-y-3 sm:space-y-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#C78F7B]/20 rounded-xl flex items-center justify-center mx-auto">
-                    <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-[#C78F7B]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#C78F7B]/30 rounded-xl flex items-center justify-center mx-auto">
+                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-[#C78F7B]" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-base sm:text-lg font-semibold text-[#17313A] dark:text-white mb-1.5 sm:mb-2">
-                      Búsqueda con IA
+                    <h3 className="font-serif text-base sm:text-lg font-semibold text-ivory mb-1.5 sm:mb-2">
+                      Búsqueda Smart
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                       Describe la propiedad que buscas y nuestro asistente inteligente te ayudará a encontrarla
                     </p>
                   </div>
                   <Button
                     onClick={() => setIsAIChatOpen(true)}
-                    className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold rounded-xl shadow-lg shadow-[#C78F7B]/20 transition-all duration-300 text-sm"
+                    className="w-full glass-primary text-ivory font-bold rounded-xl transition-all duration-300 text-sm hover:scale-[1.02]"
                   >
                     <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />
                     Iniciar Chat IA
                   </Button>
-                  <div className="flex items-center justify-center space-x-1.5 sm:space-x-2 text-[10px] sm:text-xs text-[#4A4F57]">
+                  <div className="flex items-center justify-center space-x-1.5 sm:space-x-2 text-[10px] sm:text-xs text-white/60">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#C78F7B] rounded-full animate-pulse"></div>
                     <span>Asistente disponible 24/7</span>
                   </div>
@@ -292,7 +294,7 @@ export default function PropiedadesPage() {
                             {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[#C78F7B]/10 text-[#C78F7B] text-[10px] font-bold border border-[#C78F7B]/20">+{propiedad.caracteristicas.length - 2}</span>)}
                           </div>
                           <div className="flex gap-3 mt-auto">
-                            <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); const mensaje = `¡Hola! 👋 Me interesa agendar una visita para la propiedad:\n\n🏠 *${propiedad.titulo}*\n📍 ${propiedad.ubicacion}\n💰 ${propiedad.precioTexto}\n\n¿Podrían darme más información?`; window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`, '_blank'); }}><Calendar className="h-3.5 w-3.5 mr-2" />Agendar Visita</Button>
+                            <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />Agendar Visita</Button>
                             <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">Ver Detalles</Button>
                           </div>
                         </div>
@@ -337,7 +339,7 @@ export default function PropiedadesPage() {
                                   <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
                                 </div>
                                 <div className="flex gap-2">
-                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); const mensaje = `¡Hola! 👋 Me interesa agendar una visita para la propiedad:\n\n🏠 *${propiedad.titulo}*\n📍 ${propiedad.ubicacion}\n💰 ${propiedad.precioTexto}\n\n¿Podrían darme más información?`; window.open(`https://wa.me/5214774756951?text=${encodeURIComponent(mensaje)}`, '_blank'); }}><Calendar className="h-4 w-4 mr-2" />Agendar</Button>
+                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-4 w-4 mr-2" />Agendar</Button>
                                 </div>
                               </div>
                             </div>
@@ -357,7 +359,7 @@ export default function PropiedadesPage() {
                       <Map className="h-16 w-16 mx-auto mb-4 text-[#C78F7B]" />
                       <h3 className="text-lg font-semibold mb-2 text-[#17313A] dark:text-white">Vista de Mapa</h3>
                       <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">Mapa interactivo con ubicaciones de propiedades</p>
-                      <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#4A4F57]">Próximamente disponible</p>
+                      <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#B0ACA6]">Próximamente disponible</p>
                     </div>
                   </div>
                 </div>
@@ -375,7 +377,7 @@ export default function PropiedadesPage() {
               {/* No Results */}
               {filteredAndSortedProperties.length === 0 && (
                 <div className="text-center py-16">
-                  <div className="text-[#4A4F57] mb-4">
+                  <div className="text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
                     <Search className="h-16 w-16 mx-auto mb-4" />
                   </div>
                   <h3 className="text-xl font-semibold text-[#17313A] dark:text-white mb-2">No se encontraron propiedades</h3>
