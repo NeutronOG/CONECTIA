@@ -14,9 +14,15 @@ export function HomeYellow() {
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
   return (
     <div className="min-h-screen relative overflow-hidden transition-all duration-500">
-      {/* FONDO ELEGANTE - Gradiente sutil sin orbs */}
+      {/* FONDO ELEGANTE - Gradiente con orbs para glassmorphism */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#F8F6F4] via-[#F5F3EF] to-[#F0EDE8] dark:from-[#0F2027] dark:via-[#17313A] dark:to-[#0F2027]" />
+        
+        {/* Orbs de color sutiles en modo claro que se verán hermosos detrás del glassmorphism */}
+        <div className="absolute top-[10%] left-[15%] w-[450px] h-[450px] bg-[#17313A]/12 rounded-full blur-[110px] dark:opacity-0 animate-pulse-slow" />
+        <div className="absolute bottom-[25%] right-[10%] w-[550px] h-[550px] bg-[#C78F7B]/18 rounded-full blur-[130px] dark:opacity-0 animate-pulse-slow" />
+        <div className="absolute top-[35%] left-[45%] w-[300px] h-[350px] bg-white/45 rounded-full blur-[80px] dark:opacity-0" />
+
         {/* Líneas horizontales sutilmente decorativas */}
         <div className="absolute top-[20%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#17313A]/10 dark:via-[#EAE4DD]/10 to-transparent" />
         <div className="absolute top-[40%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#17313A]/5 dark:via-[#EAE4DD]/5 to-transparent" />
@@ -24,10 +30,12 @@ export function HomeYellow() {
         <div className="absolute top-[80%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#17313A]/5 dark:via-[#EAE4DD]/5 to-transparent" />
       </div>
 
-      {/* Hero Section — Elegante y minimalista */}
-      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[32px] overflow-hidden border border-[#C78F7B]/30 dark:border-[#17313A]/50 shadow-xl shadow-[#17313A]/5 dark:shadow-black/30">
-        {/* Fondo limpio */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#C78F7B]/95 via-[#D4987E]/90 to-[#C78F7B]/85 backdrop-blur-xl dark:bg-gradient-to-br dark:from-[#17313A] dark:via-[#0F2027] dark:to-[#17313A] dark:backdrop-blur-sm" />
+      {/* Hero Section — Elegante y minimalista con Glassmorphism Premium */}
+      <section className="relative min-h-[92dvh] flex flex-col mt-[60px] mx-4 md:mx-8 mb-16 rounded-[32px] overflow-hidden border border-t-white/45 border-l-white/35 border-r-[#C78F7B]/25 border-b-[#C78F7B]/30 dark:border-[#17313A]/50 shadow-2xl shadow-[#17313A]/5 dark:shadow-black/30 transition-all duration-500">
+        {/* Fondo limpio con Glassmorphism translúcido y saturación */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#C78F7B]/50 via-[#D4987E]/35 to-[#C78F7B]/40 backdrop-blur-[32px] saturate-[160%] dark:bg-gradient-to-br dark:from-[#17313A] dark:via-[#0F2027] dark:to-[#17313A] dark:backdrop-blur-sm" />
+        {/* Destello de luz diagonal interno para realismo de vidrio */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.12] pointer-events-none dark:hidden" />
         {/* Líneas decorativas finas */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#17313A]/30 dark:via-[#EAE4DD]/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#17313A]/20 dark:via-[#EAE4DD]/20 to-transparent" />
