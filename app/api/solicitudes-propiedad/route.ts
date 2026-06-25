@@ -220,20 +220,9 @@ export async function PATCH(request: Request) {
           descripcion: solicitud.descripcion || '',
           caracteristicas: extra.caracteristicas || [],
           status: 'Disponible',
-          fecha_publicacion: new Date().toISOString().split('T')[0],
-          asesor_email: solicitud.asesor_email,
-          usuario_id: solicitud.asesor_email,
+          unidad_superficie: extra.unidadSuperficie || 'm²',
+          tour_virtual: extra.tourVirtual || null,
         }
-
-        // Agregar campos extra del PropertyForm si existen
-        if (extra.mediosBanos) nuevaPropiedad.medios_banos = Math.round(Number(extra.mediosBanos) || 0)
-        if (extra.areaConstruccion) nuevaPropiedad.area_construccion = Math.round(Number(extra.areaConstruccion) || 0)
-        if (extra.cochera) nuevaPropiedad.cochera = Math.round(Number(extra.cochera) || 0)
-        if (extra.unidadSuperficie) nuevaPropiedad.unidad_superficie = extra.unidadSuperficie
-        if (extra.tipoCredito) nuevaPropiedad.tipo_credito = extra.tipoCredito
-        if (extra.tourVirtual) nuevaPropiedad.tour_virtual = extra.tourVirtual
-        if (extra.agente) nuevaPropiedad.agente = extra.agente
-        if (extra.detalles) nuevaPropiedad.detalles = extra.detalles
 
         const { data: propData, error: propError } = await supabaseAdmin
           .from('propiedades')
@@ -243,7 +232,12 @@ export async function PATCH(request: Request) {
 
         if (propError) {
           console.error('Error creando propiedad desde solicitud:', propError)
-          // No fallar el PATCH, solo loguear
+          // Reportar el error al cliente para diagnóstico
+          return NextResponse.json({ 
+            solicitud: data,
+            propiedad_creada: false,
+            error_propiedad: propError.message 
+          }, { status: 500 })
         } else if (propData) {
           console.log('Propiedad creada automáticamente:', propData.id, propData.titulo)
           // Vincular propiedad_id en la solicitud
@@ -259,9 +253,13 @@ export async function PATCH(request: Request) {
             propiedad_id: propData.id
           })
         }
-      } catch (propErr) {
+      } catch (propErr: any) {
         console.error('Error en creación automática de propiedad:', propErr)
-        // No fallar, la solicitud ya se actualizó
+        return NextResponse.json({ 
+          solicitud: data,
+          propiedad_creada: false,
+          error_propiedad: propErr.message || 'Error desconocido'
+        }, { status: 500 })
       }
     }
 
