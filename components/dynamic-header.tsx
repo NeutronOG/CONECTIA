@@ -116,10 +116,14 @@ export function DynamicHeader() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center gap-2 min-w-0">
             {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0 px-2 group text-[#17313A] dark:text-[#17313A]">
-              <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto transition-transform group-hover:scale-105">
-                <text x="0" y="30" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="32" fontWeight="600" fill="currentColor" letterSpacing="2">CONECTIA</text>
-              </svg>
+            <Link href="/" className="flex items-center flex-shrink-0 px-2 group">
+              <Image
+                src="/logoconectiaoficial.png"
+                alt="CONECTIA"
+                width={160}
+                height={45}
+                className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </Link>
 
             {/* Separator */}
@@ -274,10 +278,10 @@ export function DynamicHeader() {
                 {/* Mobile Logo */}
                 <Link href="/" className="flex items-center flex-shrink-0">
                   <Image
-                    src="/logo.png"
+                    src="/logoconectiaoficial.png"
                     alt="CONECTIA"
-                    width={120}
-                    height={35}
+                    width={140}
+                    height={40}
                     className="h-7 w-auto object-contain transition-all duration-300"
                   />
                 </Link>
@@ -310,7 +314,7 @@ export function DynamicHeader() {
                 <div className="flex items-center justify-between transition-all duration-200 ease-out">
                   <Link href="/" className="flex items-center space-x-2">
                     <Image
-                      src="/logo.png"
+                      src="/logoconectiaoficial.png"
                       alt="CONECTIA"
                       width={160}
                       height={50}

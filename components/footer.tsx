@@ -45,7 +45,7 @@ export function Footer() {
           <div className="md:col-span-4">
             <div className="mb-6">
               <Image
-                src="/logo.png"
+                src="/logoconectiaoficial.png"
                 alt="CONECTIA"
                 width={200}
                 height={60}
