@@ -114,64 +114,63 @@ export function DynamicHeader() {
           `}
         >
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-between gap-6 w-full">
-            {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0 group">
-              <Image
-                src="/logoconectiaoficial.png"
-                alt="CONECTIA"
-                width={160}
-                height={45}
-                className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
-              />
-            </Link>
+          <div className="hidden md:flex items-center justify-between w-full">
 
-            {/* Separator */}
-            <div className="w-px h-6 bg-gradient-to-b from-transparent via-[#B0ACA6]/25 to-transparent flex-shrink-0"></div>
-
-            {/* Navigation Items */}
-            <nav className="flex items-center gap-2 min-w-0">
-              {navItems.map((item) => {
-                const Icon = item.icon
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`
-                      group relative flex items-center justify-center gap-1.5 px-3 py-1.5
-                      rounded-full transition-all duration-300 ease-out flex-shrink-0
-                      ${isActive(item.href)
-                        ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
-                        : 'text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07 dark:hover:bg-[#C78F7B]/07'
-                      }
-                    `}
-                  >
-                    <Icon className="h-3.5 w-3.5 flex-shrink-0 transition-transform group-hover:scale-110" />
-                    <span className="text-xs font-medium whitespace-nowrap">{item.label}</span>
-                  </Link>
-                )
-              })}
-            </nav>
-
-            <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0"></div>
-
-            {/* Action Buttons — corazón, lupa, luna */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <Link href="/favoritos">
-                <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
-                  <Heart className="h-3.5 w-3.5" />
-                </button>
+            {/* ── IZQUIERDA: Logo + Nav ── */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <Link href="/" className="flex items-center group">
+                <Image
+                  src="/logoconectiaoficial.png"
+                  alt="CONECTIA"
+                  width={160}
+                  height={45}
+                  className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+                />
               </Link>
-              <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
-                <Search className="h-3.5 w-3.5" />
-              </button>
-              <ModeToggle />
+              <div className="w-px h-6 bg-[#B0ACA6]/25 flex-shrink-0" />
+              <nav className="flex items-center gap-1">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`
+                        group relative flex items-center gap-1.5 px-3 py-1.5
+                        rounded-full transition-all duration-300 ease-out
+                        ${isActive(item.href)
+                          ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold'
+                          : 'text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07'
+                        }
+                      `}
+                    >
+                      <Icon className="h-3.5 w-3.5 flex-shrink-0" />
+                      <span className="text-xs font-medium whitespace-nowrap">{item.label}</span>
+                    </Link>
+                  )
+                })}
+              </nav>
             </div>
 
-            <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0"></div>
+            {/* ── DERECHA: Iconos + CTA ── */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {/* Iconos: corazón, lupa, luna */}
+              <div className="flex items-center gap-2">
+                <Link href="/favoritos">
+                  <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
+                    <Heart className="h-3.5 w-3.5" />
+                  </button>
+                </Link>
+                <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
+                  <Search className="h-3.5 w-3.5" />
+                </button>
+                <ModeToggle />
+              </div>
 
-            {/* CTA Buttons */}
-            <div className="flex items-center gap-1 flex-shrink-0">
+              <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0" />
+
+              {/* CTA Buttons */}
+              <div className="flex items-center gap-1 flex-shrink-0">
               {/* Botones Vender y Asesor temporalmente ocultos */}
               <Button
                 ref={otrosButtonRef}
@@ -241,8 +240,9 @@ export function DynamicHeader() {
                   </Button>
                 </Link>
               )}
-            </div>
-          </div>
+              </div>{/* fin CTA Buttons */}
+            </div>{/* fin DERECHA */}
+          </div>{/* fin Desktop Navigation */}
 
           {/* Mobile Navigation */}
           <div className="md:hidden">
