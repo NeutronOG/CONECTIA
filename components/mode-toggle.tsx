@@ -18,7 +18,7 @@ export function ModeToggle() {
       <Button
         variant="ghost"
         size="sm"
-        className="rounded-full w-8 h-8 p-0 flex items-center justify-center"
+        className="rounded-full w-7 h-7 p-0 flex items-center justify-center"
         aria-label="Cambiar tema"
       >
         <span className="sr-only">Cambiar tema</span>
@@ -33,7 +33,7 @@ export function ModeToggle() {
       variant="ghost"
       size="sm"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#17313A] hover:bg-conectia-primary/10 hover:text-conectia-primary"
+      className="rounded-full w-7 h-7 p-0 flex items-center justify-center transition-all duration-300 hover:opacity-60 text-[#17313A] dark:text-[#EAE4DD]"
       aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       title={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
     >

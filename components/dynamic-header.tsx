@@ -154,23 +154,15 @@ export function DynamicHeader() {
             </nav>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-5 flex-shrink-0 px-2 py-1 rounded-full bg-[#17313A]/[0.04] dark:bg-white/[0.06]">
+            <div className="flex items-center flex-shrink-0">
               <Link href="/favoritos">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#17313A] hover:bg-conectia-primary/10 hover:text-conectia-primary"
-                >
+                <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
                   <Heart className="h-3.5 w-3.5" />
-                </Button>
+                </button>
               </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                  className="rounded-full w-8 h-8 p-0 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md text-[#17313A] hover:bg-conectia-primary/10 hover:text-conectia-primary"
-              >
+              <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
                 <Search className="h-3.5 w-3.5" />
-              </Button>
+              </button>
               <ModeToggle />
             </div>
 
