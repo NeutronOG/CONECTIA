@@ -106,7 +106,7 @@ export function DynamicHeader() {
                  shadow-2xl
                  transform scale-100 opacity-100
                  mobile-menu-expanded`
-              : `rounded-[28px] px-6 py-2 w-auto min-w-[840px]
+              : `rounded-[28px] px-6 py-2 w-auto min-w-[980px]
                  glass-nav
                  ${isScrolled ? 'scale-[0.97] shadow-lg' : ''}
                  transform scale-100 opacity-100`
