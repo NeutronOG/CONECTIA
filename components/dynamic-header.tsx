@@ -114,9 +114,9 @@ export function DynamicHeader() {
           `}
         >
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center gap-2 min-w-0">
+          <div className="hidden md:flex items-center justify-center gap-3 min-w-0">
             {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0 px-2 group">
+            <Link href="/" className="flex items-center flex-shrink-0 group">
               <Image
                 src="/logoconectiaoficial.png"
                 alt="CONECTIA"
@@ -153,11 +153,8 @@ export function DynamicHeader() {
               })}
             </nav>
 
-            {/* Separator entre nav y action buttons */}
-            <div className="w-px h-4 bg-[#B0ACA6]/20 mx-2"></div>
-
-            {/* Action Buttons - Lupa pegada al corazón */}
-            <div className="flex items-center gap-1 flex-shrink-0">
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 flex-shrink-0">
               <Link href="/favoritos">
                 <Button
                   variant="ghost"
@@ -177,8 +174,7 @@ export function DynamicHeader() {
               <ModeToggle />
             </div>
 
-            {/* Separator */}
-            <div className="w-px h-4 bg-conectia-accent/20 mx-1"></div>
+            <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0"></div>
 
             {/* CTA Buttons */}
             <div className="flex items-center gap-1 flex-shrink-0">
