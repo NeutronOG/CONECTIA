@@ -182,24 +182,7 @@ export function DynamicHeader() {
 
             {/* CTA Buttons */}
             <div className="flex items-center gap-1 flex-shrink-0">
-              <Link href="/propietarios">
-                <Button
-                  size="sm"
-                  className="btn-glass-primary rounded-xl px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
-                >
-                  <Building className="h-3 w-3" />
-                  Vender
-                </Button>
-              </Link>
-              <Link href="/alianza-comercial">
-                <Button
-                  size="sm"
-                  className="btn-glass-secondary rounded-xl px-4 py-1.5 font-semibold text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
-                >
-                  <User className="h-3 w-3" />
-                  Asesor
-                </Button>
-              </Link>
+              {/* Botones Vender y Asesor temporalmente ocultos */}
               <Button
                 ref={otrosButtonRef}
                 size="sm"
