@@ -30,16 +30,16 @@ export const metadata: Metadata = {
   description: "Exclusividad, Conexión y Confianza. Confía tu propiedad a CONECTIA.",
   generator: "v0.app",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-    shortcut: "/logo.png",
+    icon: "/logoconectiaoficial.png",
+    apple: "/logoconectiaoficial.png",
+    shortcut: "/logoconectiaoficial.png",
   },
   openGraph: {
     title: "CONECTIA - Red Inmobiliaria",
     description: "Conecta oportunidades. Publica con confianza. Vende con resultados.",
     images: [
       {
-        url: "/logo.png",
+        url: "/logoconectiaoficial.png",
         width: 1200,
         height: 630,
         alt: "CONECTIA Logo",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CONECTIA - Red Inmobiliaria",
     description: "Conecta oportunidades. Publica con confianza. Vende con resultados.",
-    images: ["/logo.png"],
+    images: ["/logoconectiaoficial.png"],
   },
 }
 
