@@ -106,7 +106,7 @@ export function DynamicHeader() {
                  shadow-2xl
                  transform scale-100 opacity-100
                  mobile-menu-expanded`
-              : `rounded-[28px] px-6 py-2 w-[740px]
+              : `rounded-[28px] px-6 py-2 w-auto min-w-[840px]
                  glass-nav
                  ${isScrolled ? 'scale-[0.97] shadow-lg' : ''}
                  transform scale-100 opacity-100`
@@ -114,7 +114,7 @@ export function DynamicHeader() {
           `}
         >
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-between gap-4" style={{minWidth:'740px'}}>
+          <div className="hidden md:flex items-center justify-between gap-6 w-full">
             {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 group">
               <Image
@@ -130,7 +130,7 @@ export function DynamicHeader() {
             <div className="w-px h-6 bg-gradient-to-b from-transparent via-[#B0ACA6]/25 to-transparent flex-shrink-0"></div>
 
             {/* Navigation Items */}
-            <nav className="flex items-center gap-1 min-w-0">
+            <nav className="flex items-center gap-2 min-w-0">
               {navItems.map((item) => {
                 const Icon = item.icon
                 return (
@@ -138,7 +138,7 @@ export function DynamicHeader() {
                     key={item.href}
                     href={item.href}
                     className={`
-                      group relative flex items-center justify-center gap-1.5 px-3 py-1.5
+                      group relative flex items-center justify-center gap-1.5 px-5 py-1.5
                       rounded-full transition-all duration-300 ease-out flex-shrink-0
                       ${isActive(item.href)
                         ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
@@ -154,7 +154,7 @@ export function DynamicHeader() {
             </nav>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="flex items-center gap-5 flex-shrink-0 px-2 py-1 rounded-full bg-[#17313A]/[0.04] dark:bg-white/[0.06]">
               <Link href="/favoritos">
                 <Button
                   variant="ghost"
