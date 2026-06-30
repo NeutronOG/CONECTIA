@@ -16,7 +16,7 @@ export default function OfertasPage() {
   const [tipoFilter, setTipoFilter] = useState<string[]>([])
 
   const propiedades = useMemo(() => {
-    let result = properties.filter(p => (p as any).bono || p.categoria === 'remate')
+    let result = properties.filter(p => (p as any).bono || p.categoria === 'remate' || p.categoria === 'oferta')
     if (tipoFilter.length > 0) {
       result = result.filter(p => tipoFilter.some(t => p.tipo?.toLowerCase() === t.toLowerCase()))
     }

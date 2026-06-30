@@ -80,6 +80,8 @@ export function Footer() {
                 { label: 'Venta', href: '/venta' },
                 { label: 'Renta', href: '/renta' },
                 { label: 'Ofertas', href: '/ofertas' },
+                { label: 'Especiales', href: '/especiales' },
+                { label: 'Preventa', href: '/preventa' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">

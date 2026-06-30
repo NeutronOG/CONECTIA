@@ -36,7 +36,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
     descripcion: "",
     caracteristicas: [],
     status: "Disponible",
-    categoria: "venta",
+    categoria: "venta" as any,
     imagen: "",
     galeria: [],
     unidadSuperficie: "m²"
@@ -250,7 +250,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         })(),
         caracteristicas: formData.caracteristicas || [],
         status: formData.status as any,
-        categoria: (formData.categoria as "venta" | "renta") || "venta",
+        categoria: (formData.categoria as any) || "venta",
         fechaPublicacion: new Date().toISOString().split('T')[0],
         agente: {
           nombre: asesorNombre,
@@ -274,7 +274,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         unidadSuperficie: formData.unidadSuperficie || "m²",
         tipoCredito: (formData as any).tipoCredito || undefined,
         observaciones: observaciones || undefined,
-        bono: bono.trim() || undefined
+        bono: bono.trim() || undefined,
+        frente: (formData as any).frente ? Number((formData as any).frente) : undefined,
+        fondo: (formData as any).fondo ? Number((formData as any).fondo) : undefined,
+        colonia: (formData as any).colonia || undefined,
+        ciudad: (formData as any).ciudad || undefined
       } as any
 
       console.log('Enviando propiedad:', propertyData)
@@ -456,13 +460,33 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ubicacion">Ubicación *</Label>
+              <Label htmlFor="ubicacion">Ubicación / Dirección *</Label>
               <Input
                 id="ubicacion"
                 required
                 value={formData.ubicacion}
                 onChange={(e) => setFormData({ ...formData, ubicacion: e.target.value })}
-                placeholder="Ej: Polanco, CDMX"
+                placeholder="Ej: Av. Insurgentes 1234, Col. Del Valle"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="colonia">Colonia / Zona *</Label>
+              <Input
+                id="colonia"
+                value={(formData as any).colonia || ''}
+                onChange={(e) => setFormData({ ...formData, colonia: e.target.value } as any)}
+                placeholder="Ej: Lomas del Moral"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="ciudad">Ciudad *</Label>
+              <Input
+                id="ciudad"
+                value={(formData as any).ciudad || ''}
+                onChange={(e) => setFormData({ ...formData, ciudad: e.target.value } as any)}
+                placeholder="Ej: León, Guanajuato"
               />
             </div>
 
@@ -673,6 +697,33 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               />
             </div>
 
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="frente">Frente (m)</Label>
+                <Input
+                  id="frente"
+                  type="number"
+                  value={(formData as any).frente ?? ''}
+                  onChange={(e) => setFormData({ ...formData, frente: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
+                  placeholder="Ej: 12"
+                  min="0"
+                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fondo">Fondo (m)</Label>
+                <Input
+                  id="fondo"
+                  type="number"
+                  value={(formData as any).fondo ?? ''}
+                  onChange={(e) => setFormData({ ...formData, fondo: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
+                  placeholder="Ej: 20"
+                  min="0"
+                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label>Cochera (Coches)</Label>
               <div className="flex gap-2">
@@ -715,14 +766,18 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Label htmlFor="categoria">Tipo de Operación *</Label>
               <Select
                 value={formData.categoria}
-                onValueChange={(value) => setFormData({ ...formData, categoria: value as "venta" | "renta" })}
+                onValueChange={(value) => setFormData({ ...formData, categoria: value as any })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona tipo de operación" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="compra">Compra</SelectItem>
                   <SelectItem value="venta">Venta</SelectItem>
                   <SelectItem value="renta">Renta</SelectItem>
+                  <SelectItem value="oferta">Oferta</SelectItem>
+                  <SelectItem value="especiales">Especiales</SelectItem>
+                  <SelectItem value="preventa">Preventa</SelectItem>
                 </SelectContent>
               </Select>
             </div>

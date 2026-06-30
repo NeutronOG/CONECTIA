@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -38,6 +38,20 @@ export function DynamicHeader() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isOtrosMenuOpen, setIsOtrosMenuOpen] = useState(false)
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
+  const [language, setLanguage] = useState<'ES' | 'EN'>('ES')
+
+  const toggleLanguage = useCallback(() => {
+    setLanguage(prev => {
+      const next = prev === 'ES' ? 'EN' : 'ES'
+      if (typeof window !== 'undefined') localStorage.setItem('conectia_lang', next)
+      return next
+    })
+  }, [])
+
+  useEffect(() => {
+    const stored = localStorage.getItem('conectia_lang') as 'ES' | 'EN' | null
+    if (stored) setLanguage(stored)
+  }, [])
   const otrosButtonRef = useRef<HTMLButtonElement | null>(null)
   const [otrosRect, setOtrosRect] = useState<{ top: number; right: number } | null>(null)
 
@@ -140,7 +154,7 @@ export function DynamicHeader() {
                         rounded-full transition-all duration-300 ease-out
                         ${isActive(item.href)
                           ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold'
-                          : 'text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07'
+                          : 'text-[#4A4F57] hover:text-[#17313A] dark:text-[#EAE4DD]/70 dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07'
                         }
                       `}
                     >
@@ -165,6 +179,13 @@ export function DynamicHeader() {
                   <Search className="h-3.5 w-3.5" />
                 </button>
                 <ModeToggle />
+                <button
+                  onClick={toggleLanguage}
+                  className="flex items-center justify-center h-7 px-2 py-1 rounded-lg text-[10px] font-bold tracking-widest border border-[#17313A]/20 bg-[#17313A]/5 text-[#17313A] dark:border-[#EAE4DD]/20 dark:bg-white/10 dark:text-[#EAE4DD] transition-all duration-200 hover:scale-105"
+                  title="Cambiar idioma"
+                >
+                  <span>{language}</span>
+                </button>
               </div>
 
               <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0" />

@@ -18,7 +18,9 @@ export interface Propiedad {
   descripcion: string
   caracteristicas: string[]
   status: "Disponible" | "Exclusiva" | "Reservada"
-  categoria: "venta" | "renta" | "especial" | "remate" | "exclusivo"
+  categoria: "venta" | "compra" | "renta" | "oferta" | "especiales" | "preventa" | "especial" | "remate" | "exclusivo"
+  frente?: number
+  fondo?: number
   fechaPublicacion: string
   tourVirtual?: string
   agente?: {
@@ -43,6 +45,46 @@ export interface Propiedad {
 }
 
 export const propiedades: Propiedad[] = [
+  {
+    id: 5,
+    titulo: "penthouseDEMO",
+    ubicacion: "Polanco, CDMX",
+    precio: 18500000,
+    precioTexto: "$18,500,000",
+    tipo: "Penthouse",
+    habitaciones: 4,
+    banos: 4,
+    area: 350,
+    areaTexto: "350 m²",
+    imagen: "/luxury-penthouse-polanco-main.png",
+    descripcion: "Exclusivo penthouse en Polanco IV Sección con acabados de lujo, vistas privilegiadas y distribución optimizada. Una propiedad demo ideal para destacar en el portafolio premium de CONECTIA.",
+    caracteristicas: ["Vista panorámica", "Acabados de lujo", "Polanco IV Sección", "Distribución optimizada", "Iluminación natural", "Espacios amplios"],
+    status: "Disponible",
+    categoria: "exclusivo",
+    fechaPublicacion: "2024-04-01",
+    agente: {
+      nombre: "María Elena Vázquez",
+      especialidad: "Especialista en Propiedades de Lujo",
+      rating: 4.9,
+      ventas: 127,
+      telefono: "+52 1 477 475 6951",
+      email: "maria.vazquez@conectiaselect.mx"
+    },
+    detalles: {
+      tipoPropiedad: "Penthouse",
+      areaTerreno: "350 m²",
+      antiguedad: "2 años",
+      vistas: 1247,
+      favoritos: 89,
+      publicado: "1/4/2024"
+    },
+    galeria: [
+      "/luxury-penthouse-polanco-main.png",
+      "/penthouse-living-room.png",
+      "/penthouse-kitchen.png",
+      "/penthouse-bedroom.png"
+    ]
+  },
   {
     id: 1,
     titulo: "Penthouse Polanco IV",

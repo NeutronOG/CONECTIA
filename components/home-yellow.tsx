@@ -1,15 +1,33 @@
 'use client'
 
-import { useState } from "react"
-import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, ShoppingBag } from "@phosphor-icons/react"
+import { useState, useEffect } from "react"
+import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, ShoppingBag, Bathtub, Ruler } from "@phosphor-icons/react"
 import Link from "next/link"
 import Image from "next/image"
 import { FeaturedPropertiesCarousel } from "./featured-properties-carousel"
 import { CommercialAlliance } from "./commercial-alliance"
 import { HomepageAdSlot } from "./homepage-ads"
+import { Propiedad } from "@/data/propiedades"
 
 export function HomeYellow() {
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
+  const [activeThumb, setActiveThumb] = useState(0)
+  const [featuredProp, setFeaturedProp] = useState<Propiedad | null>(null)
+  const [isLoadingProp, setIsLoadingProp] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/propiedades?id=100')
+      .then(res => res.json())
+      .then(data => {
+        if (data.propiedad) setFeaturedProp(data.propiedad)
+      })
+      .catch(err => console.error('Error fetching featured property:', err))
+      .finally(() => setIsLoadingProp(false))
+  }, [])
+
+  const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder-property.jpg']
+  const formatPrice = (p: number) =>
+    p >= 1_000_000 ? `$${(p / 1_000_000).toFixed(1).replace(/\.0$/, '')}M` : `$${(p / 1_000).toFixed(0)}K`
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
@@ -63,16 +81,27 @@ export function HomeYellow() {
             </div>
           </div>
 
-          {/* Right: gran foto */}
+          {/* Right: gran foto — blob shape */}
           <div className="flex-1 w-full lg:max-w-[52%]">
-            <div className="relative w-full aspect-[4/3] rounded-[28px] overflow-hidden shadow-xl">
-              <Image
-                src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
-                alt="Propiedad destacada"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div
+              className="relative w-full aspect-[4/3] overflow-hidden shadow-2xl bg-[#F3F4F6] dark:bg-[#17313A]/20"
+              style={{ borderRadius: '24px 96px 24px 96px' }}
+            >
+              {isLoadingProp ? (
+                <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
+              ) : (
+                <>
+                  <Image
+                    src={featuredProp!.imagen}
+                    alt={featuredProp!.titulo}
+                    fill
+                    className="object-cover scale-[1.03] hover:scale-[1.06] transition-transform duration-700"
+                    priority
+                  />
+                  {/* subtle gradient overlay at bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -84,25 +113,36 @@ export function HomeYellow() {
           <div className="flex flex-col md:flex-row">
             {/* Galería */}
             <div className="md:w-[55%] p-4 flex flex-col gap-3">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80"
-                  alt="Interior sala"
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3F4F6] dark:bg-[#17313A]/20">
+                {isLoadingProp ? (
+                  <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
+                ) : (
+                  <Image
+                    src={gallery[activeThumb]}
+                    alt={featuredProp!.titulo}
+                    fill
+                    className="object-cover transition-all duration-500"
+                  />
+                )}
               </div>
               <div className="grid grid-cols-4 gap-2">
-                {[
-                  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=300&q=70',
-                  'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=300&q=70',
-                  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=70',
-                  'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=300&q=70',
-                ].map((src, i) => (
-                  <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                    <Image src={src} alt={`foto ${i}`} fill className="object-cover" />
-                  </div>
-                ))}
+                {isLoadingProp ? (
+                  Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 animate-pulse" />
+                  ))
+                ) : (
+                  gallery.slice(0, 4).map((src, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveThumb(i)}
+                      className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                        activeThumb === i ? 'border-[#C78F7B]' : 'border-transparent hover:border-[#C78F7B]/40'
+                      }`}
+                    >
+                      <Image src={src} alt={`foto ${i}`} fill className="object-cover" />
+                    </button>
+                  ))
+                )}
               </div>
             </div>
 
@@ -110,37 +150,49 @@ export function HomeYellow() {
             <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">León, GTO</p>
+                  {isLoadingProp ? (
+                    <div className="h-4 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                  ) : (
+                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp!.ubicacion}</p>
+                  )}
                   <span className="bg-[#C78F7B] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                    Destacada
+                    {isLoadingProp ? '...' : featuredProp!.status}
                   </span>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                  Residencia Exclusiva<br />en Zona Norte
-                </h2>
+                {isLoadingProp ? (
+                  <div className="h-8 w-3/4 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                ) : (
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
+                    {featuredProp!.titulo}
+                  </h2>
+                )}
 
                 <div className="w-8 h-[2px] bg-[#C78F7B] rounded-full" />
 
-                <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">$4.2M</p>
+                {isLoadingProp ? (
+                  <div className="h-10 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                ) : (
+                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">{formatPrice(featuredProp!.precio)}</p>
+                )}
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#6B7280] dark:text-[#B0ACA6]">
                   <span className="flex items-center gap-1.5">
                     <House className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
-                    4 Rec
+                    {isLoadingProp ? '...' : `${featuredProp!.habitaciones} Rec`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
-                    3 Baños
+                    <Bathtub className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    {isLoadingProp ? '...' : `${featuredProp!.banos} Baños`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
-                    2 Estacionamientos
+                    <Ruler className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    {isLoadingProp ? '...' : featuredProp!.areaTexto}
                   </span>
                 </div>
               </div>
 
-              <Link href="/propiedades" className="mt-6">
+              <Link href={isLoadingProp ? '/propiedades' : `/propiedades/${featuredProp!.id}`} className="mt-6">
                 <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#C78F7B]/40 dark:hover:border-[#C78F7B]/40 transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center">

@@ -55,6 +55,7 @@ export default function PropietariosPage() {
   const [zones, setZones] = useState<string[]>([])
   const [placesSuggestions, setPlacesSuggestions] = useState<string[]>([])
   const [formData, setFormData] = useState({
+    titulo: '',
     propertyType: '',
     bedrooms: '',
     bathrooms: '',
@@ -68,6 +69,7 @@ export default function PropietariosPage() {
     tipoConsulta: '',
     urgency: '',
     description: '',
+    gravamen: '',
     amenities: [] as string[],
     actividadesRecreativas: [] as string[],
     photos: [] as File[],
@@ -263,6 +265,7 @@ export default function PropietariosPage() {
     try {
       // Guardar en localStorage
       const submission = OwnerSubmissionsStorage.add({
+        titulo: formData.titulo || undefined,
         propertyType: formData.propertyType,
         bedrooms: formData.bedrooms,
         bathrooms: formData.bathrooms,
@@ -276,6 +279,7 @@ export default function PropietariosPage() {
         tipoConsulta: formData.tipoConsulta || undefined,
         urgency: formData.urgency,
         description: formData.description,
+        gravamen: formData.gravamen || undefined,
         amenities: formData.amenities,
         actividadesRecreativas: formData.actividadesRecreativas || undefined,
         photoCount: uploadedPhotos.length,
@@ -499,6 +503,19 @@ export default function PropietariosPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
+                <div className="md:col-span-2 space-y-2">
+                  <Label htmlFor="titulo" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                    Título de la Propiedad *
+                  </Label>
+                  <Input
+                    id="titulo"
+                    placeholder="Ej: Casa en coto Lomas del Moral"
+                    value={formData.titulo}
+                    onChange={(e) => setFormData(prev => ({...prev, titulo: e.target.value}))}
+                    className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20"
+                  />
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="property-type" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     Tipo de Propiedad *
@@ -511,24 +528,48 @@ export default function PropietariosPage() {
                       <SelectValue placeholder="Selecciona el tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="departamento">Departamento</SelectItem>
-                      <SelectItem value="terreno_lote">Terreno / lote</SelectItem>
-                      <SelectItem value="local_comercial">Local comercial</SelectItem>
-                      <SelectItem value="casa_condominio">Casa en condominio</SelectItem>
-                      <SelectItem value="casa">Casa</SelectItem>
-                      <SelectItem value="bodega_comercial">Bodega comercial</SelectItem>
-                      <SelectItem value="edificio">Edificio</SelectItem>
-                      <SelectItem value="duplex">Dúplex</SelectItem>
-                      <SelectItem value="nave">Nave industrial</SelectItem>
-                      <SelectItem value="quinta">Quinta</SelectItem>
-                      <SelectItem value="terreno_comercial">Terreno comercial</SelectItem>
-                      <SelectItem value="villa">Villa</SelectItem>
-                      <SelectItem value="oficina">Oficina</SelectItem>
-                      <SelectItem value="rancho">Rancho</SelectItem>
-                      <SelectItem value="terreno_industrial">Terreno industrial</SelectItem>
-                      <SelectItem value="penthouse">Penthouse</SelectItem>
-                      <SelectItem value="loft">Loft</SelectItem>
-                      <SelectItem value="residencia">Residencia</SelectItem>
+                      <SelectItem value="Casa">Casa</SelectItem>
+                      <SelectItem value="Casa en condominio">Casa en condominio</SelectItem>
+                      <SelectItem value="Residencia">Residencia</SelectItem>
+                      <SelectItem value="Departamento">Departamento</SelectItem>
+                      <SelectItem value="Penthouse">Penthouse</SelectItem>
+                      <SelectItem value="Loft">Loft</SelectItem>
+                      <SelectItem value="Dúplex">Dúplex</SelectItem>
+                      <SelectItem value="Villa">Villa</SelectItem>
+                      <SelectItem value="Quinta">Quinta</SelectItem>
+                      <SelectItem value="Cabaña">Cabaña</SelectItem>
+                      <SelectItem value="Rancho">Rancho</SelectItem>
+                      <SelectItem value="Hacienda">Hacienda</SelectItem>
+                      <SelectItem value="Finca">Finca</SelectItem>
+                      <SelectItem value="Condominio">Condominio</SelectItem>
+                      <SelectItem value="Terreno campestre">Terreno campestre</SelectItem>
+                      <SelectItem value="Históricos">Históricos</SelectItem>
+                      <SelectItem value="Terreno habitacional">Terreno habitacional</SelectItem>
+                      <SelectItem value="Terreno comercial">Terreno comercial</SelectItem>
+                      <SelectItem value="Terreno industrial">Terreno industrial</SelectItem>
+                      <SelectItem value="Terreno agrícola">Terreno agrícola</SelectItem>
+                      <SelectItem value="Terreno mixto">Terreno mixto</SelectItem>
+                      <SelectItem value="Local comercial">Local comercial</SelectItem>
+                      <SelectItem value="Plaza comercial">Plaza comercial</SelectItem>
+                      <SelectItem value="Oficina">Oficina</SelectItem>
+                      <SelectItem value="Consultorio">Consultorio</SelectItem>
+                      <SelectItem value="Edificio comercial">Edificio comercial</SelectItem>
+                      <SelectItem value="Edificio mixto">Edificio mixto</SelectItem>
+                      <SelectItem value="Hotel">Hotel</SelectItem>
+                      <SelectItem value="Hospital">Hospital</SelectItem>
+                      <SelectItem value="Clínica">Clínica</SelectItem>
+                      <SelectItem value="Centro médico">Centro médico</SelectItem>
+                      <SelectItem value="Restaurante">Restaurante</SelectItem>
+                      <SelectItem value="Salón de eventos">Salón de eventos</SelectItem>
+                      <SelectItem value="Nave industrial">Nave industrial</SelectItem>
+                      <SelectItem value="Bodega industrial">Bodega industrial</SelectItem>
+                      <SelectItem value="Bodega comercial">Bodega comercial</SelectItem>
+                      <SelectItem value="Parque industrial">Parque industrial</SelectItem>
+                      <SelectItem value="Patio de maniobras">Patio de maniobras</SelectItem>
+                      <SelectItem value="Complejo habitacional">Complejo habitacional</SelectItem>
+                      <SelectItem value="Centro de negocios">Centro de negocios</SelectItem>
+                      <SelectItem value="Granja">Granja</SelectItem>
+                      <SelectItem value="Motel">Motel</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -843,6 +884,26 @@ export default function PropietariosPage() {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="gravamen" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                      Gravamen
+                    </Label>
+                    <Select
+                      value={formData.gravamen}
+                      onValueChange={(value) => setFormData(prev => ({ ...prev, gravamen: value }))}
+                    >
+                      <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-[#C78F7B]/20">
+                        <SelectValue placeholder="Selecciona una opción" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="no">Sin gravamen</SelectItem>
+                        <SelectItem value="si">Con gravamen</SelectItem>
+                        <SelectItem value="en_proceso">En proceso de liberación</SelectItem>
+                        <SelectItem value="desconocido">Desconocido</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -896,6 +957,10 @@ export default function PropietariosPage() {
                   </div>
                 </div>
 
+                <div className="space-y-3">
+                  <Label className="text-sm font-semibold text-[#17313A] dark:text-[#EAE4DD]">Amenidades del desarrollo</Label>
+                  <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6]">Selecciona las amenidades disponibles en el desarrollo o condominio</p>
+                  <div className="grid grid-cols-2 gap-2">
                 {amenitiesList.map((amenity) => (
                   <div
                     key={amenity}
@@ -922,6 +987,8 @@ export default function PropietariosPage() {
                     </div>
                   </div>
                 ))}
+                  </div>
+                </div>
 
                 {/* Promoción / Bono */}
                 <div className="mt-8 p-6 bg-[#EAE4DD]/50 dark:bg-[#17313A]/50 rounded-xl border border-[#C78F7B]/30">

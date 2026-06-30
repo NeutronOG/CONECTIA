@@ -1,6 +1,7 @@
 export interface OwnerSubmission {
   id: string
   // Información de la propiedad
+  titulo?: string
   propertyType: string
   bedrooms: string
   bathrooms: string
@@ -16,6 +17,7 @@ export interface OwnerSubmission {
   tipoConsulta?: string
   urgency: string
   description: string
+  gravamen?: string
   amenities: string[]
   actividadesRecreativas?: string[]
   // Fotos (guardamos los nombres/URLs)
