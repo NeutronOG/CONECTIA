@@ -157,7 +157,7 @@ export function DynamicHeader() {
             <div className="w-px h-4 bg-[#B0ACA6]/20 mx-2"></div>
 
             {/* Action Buttons - Lupa pegada al corazón */}
-            <div className="flex items-center gap-0 flex-shrink-0">
+            <div className="flex items-center gap-1 flex-shrink-0">
               <Link href="/favoritos">
                 <Button
                   variant="ghost"
