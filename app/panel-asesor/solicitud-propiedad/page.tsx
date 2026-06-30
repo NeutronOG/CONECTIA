@@ -8,8 +8,10 @@ import { Propiedad } from '@/data/propiedades'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Camera, CheckCircle2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { useLanguage } from '@/lib/i18n'
 
 export default function SolicitudPropiedadPage() {
+  const { t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
   const [enviada, setEnviada] = useState(false)
@@ -43,7 +45,7 @@ export default function SolicitudPropiedadPage() {
 
       if (!res.ok) {
         const data = await res.json()
-        throw new Error(data.error || 'Error al enviar solicitud')
+        throw new Error(data.error || t('panelAsesor.errors.sendRequest'))
       }
 
       const data = await res.json()
@@ -70,10 +72,10 @@ export default function SolicitudPropiedadPage() {
 
       setTituloEnviado(propertyData.titulo)
       setEnviada(true)
-      toast.success('Solicitud enviada al fotógrafo')
+      toast.success(t('panelAsesor.toast.requestSent'))
     } catch (error: any) {
       console.error('Error:', error)
-      toast.error(error.message || 'Error al enviar solicitud')
+      toast.error(error.message || t('panelAsesor.errors.sendRequest'))
     }
   }
 
@@ -87,12 +89,12 @@ export default function SolicitudPropiedadPage() {
             <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="h-8 w-8 text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Solicitud Enviada</h2>
-            <p className="text-sm text-[#B0ACA6] mb-2">Tu solicitud para <strong className="text-white">{tituloEnviado}</strong> ha sido enviada al fotógrafo.</p>
-            <p className="text-xs text-[#4A4F57] mb-6">Santiago recibirá la solicitud y se encargará de completar las fotos y publicar la propiedad.</p>
+            <h2 className="text-2xl font-bold text-white mb-2">{t('panelAsesor.request.successTitle')}</h2>
+            <p className="text-sm text-[#B0ACA6] mb-2">{t('panelAsesor.request.successBody1')} <strong className="text-white">{tituloEnviado}</strong> {t('panelAsesor.request.successBody2')}</p>
+            <p className="text-xs text-[#4A4F57] mb-6">{t('panelAsesor.request.successNote')}</p>
             <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setEnviada(false)} className="flex-1 bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Nueva Solicitud</Button>
-              <Button onClick={() => router.push('/panel-asesor/propiedades')} className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold">Volver a Propiedades</Button>
+              <Button variant="outline" onClick={() => setEnviada(false)} className="flex-1 bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">{t('panelAsesor.request.newRequest')}</Button>
+              <Button onClick={() => router.push('/panel-asesor/propiedades')} className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold">{t('panelAsesor.request.backToProperties')}</Button>
             </div>
           </div>
         </div>
@@ -105,20 +107,20 @@ export default function SolicitudPropiedadPage() {
       <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <button onClick={() => router.push('/panel-asesor/propiedades')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-6 text-sm transition-colors">
-          <ArrowLeft className="h-4 w-4" /> Volver a Propiedades
+          <ArrowLeft className="h-4 w-4" /> {t('panelAsesor.request.backToProperties')}
         </button>
 
         <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">Solicitar Fotografía de Propiedad</h1>
-          <p className="text-sm text-[#B0ACA6]">Llena todos los datos de la propiedad igual que si fueras a publicarla. El fotógrafo recibirá la solicitud y se encargará de completar las fotos profesionales.</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">{t('panelAsesor.request.title')}</h1>
+          <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.request.subtitle')}</p>
         </div>
 
         {/* Info banner */}
         <div className="relative bg-blue-500/5 backdrop-blur-md border border-blue-500/20 rounded-[24px] p-5 mb-6 flex items-start gap-3">
           <Camera className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
           <div>
-            <p className="text-sm font-bold text-blue-400">¿Cómo funciona?</p>
-            <p className="text-xs text-blue-400/70 mt-1">1. Llena todos los datos de la propiedad (puedes subir fotos provisionales o dejar que el fotógrafo las suba) → 2. Envía la solicitud → 3. El fotógrafo recibe la solicitud, sube las fotos profesionales y la completa → 4. La propiedad se publica automáticamente en tu panel</p>
+            <p className="text-sm font-bold text-blue-400">{t('panelAsesor.request.howTitle')}</p>
+            <p className="text-xs text-blue-400/70 mt-1">{t('panelAsesor.request.howSteps')}</p>
           </div>
         </div>
 
@@ -127,7 +129,7 @@ export default function SolicitudPropiedadPage() {
           asesorNombre={user?.nombre || ''}
           onSubmit={handleSolicitud}
           onCancel={() => router.push('/panel-asesor/propiedades')}
-          submitLabel="Enviar Solicitud"
+          submitLabel={t('panelAsesor.request.submitLabel')}
         />
       </div>
     </div>

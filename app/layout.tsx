@@ -10,6 +10,8 @@ import { AuthProvider } from "@/contexts/auth-context"
 import { SWRProvider } from "@/components/swr-provider"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "@/components/theme-provider"
+import { LanguageProvider } from "@/lib/i18n"
+import { LanguageHtml } from "@/components/language-html"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -71,18 +73,21 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${montserrat.variable} ${cormorant.variable} font-sans m-0 p-0`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SWRProvider>
-            <AuthProvider>
-              <WishlistProvider>
-                <DynamicHeader />
-                {children}
-                <Footer />
-                <Toaster position="top-right" richColors />
-              </WishlistProvider>
-            </AuthProvider>
-          </SWRProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <SWRProvider>
+              <AuthProvider>
+                <WishlistProvider>
+                  <LanguageHtml />
+                  <DynamicHeader />
+                  {children}
+                  <Footer />
+                  <Toaster position="top-right" richColors />
+                </WishlistProvider>
+              </AuthProvider>
+            </SWRProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   )

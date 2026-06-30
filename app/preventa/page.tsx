@@ -8,10 +8,12 @@ import Link from "next/link"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { PropertyCard, EmptyProperties } from "@/components/property-card"
 import { SubcategoryFilter } from "@/components/subcategory-filter"
+import { useLanguage } from "@/lib/i18n"
 
 const HERO_IMAGE = "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80"
 
 export default function PreventaPage() {
+  const { t } = useLanguage()
   const { properties } = usePropertiesStatic()
   const [tipoFilter, setTipoFilter] = useState<string[]>([])
 
@@ -32,37 +34,37 @@ export default function PreventaPage() {
           <div className="max-w-xl space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 dark:bg-[#EAE4DD]/5 border border-[#17313A]/10 dark:border-[#EAE4DD]/10">
               <Building2 className="h-3.5 w-3.5 text-[#C78F7B]" />
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">CONECTIA</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">{t('common.appName')}</span>
             </div>
 
             <div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">Preventa</h1>
-              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">oportunidades únicas</p>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">{t('pages.preventa.title')}</h1>
+              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">{t('pages.preventa.subtitleHighlight')}</p>
             </div>
 
             <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base leading-relaxed max-w-md">
-              Adquiere antes de que salga al mercado. Los mejores precios y condiciones están en preventa.
+              {t('pages.preventa.subtitle')}
             </p>
 
             <div className="flex flex-wrap gap-3">
               <div className="px-4 py-3 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#17313A]/8 dark:border-[#EAE4DD]/10 shadow-sm">
-                <p className="text-[#17313A] dark:text-[#EAE4DD] text-sm font-semibold">Precio preferencial</p>
-                <p className="text-[#B0ACA6] text-xs mt-0.5">Antes de precio de lista</p>
+                <p className="text-[#17313A] dark:text-[#EAE4DD] text-sm font-semibold">{t('pages.preventa.priceLabel')}</p>
+                <p className="text-[#B0ACA6] text-xs mt-0.5">{t('pages.preventa.priceDesc')}</p>
               </div>
               <div className="px-4 py-3 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#17313A]/8 dark:border-[#EAE4DD]/10 shadow-sm">
-                <p className="text-[#17313A] dark:text-[#EAE4DD] text-sm font-semibold">Plazos flexibles</p>
-                <p className="text-[#B0ACA6] text-xs mt-0.5">Esquemas de pago adaptables</p>
+                <p className="text-[#17313A] dark:text-[#EAE4DD] text-sm font-semibold">{t('pages.preventa.termsLabel')}</p>
+                <p className="text-[#B0ACA6] text-xs mt-0.5">{t('pages.preventa.termsDesc')}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 pt-2">
               <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] border border-[#C78F7B]/25 text-sm font-semibold px-4 py-2">
                 <Clock className="h-3.5 w-3.5 mr-1.5" />
-                {propiedades.length} en preventa
+                {propiedades.length} {t('pages.preventa.active')}
               </Badge>
               <Link href="/contacto">
                 <Button className="bg-[#17313A] hover:bg-[#0F2027] text-white gap-2 text-sm rounded-xl px-6">
-                  Consultar <ArrowRight className="h-3.5 w-3.5" />
+                  {t('common.contact')} <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>
             </div>
@@ -71,11 +73,11 @@ export default function PreventaPage() {
 
         <div className="relative flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
           <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
-            <img src={HERO_IMAGE} alt="Propiedades en preventa" className="absolute inset-0 w-full h-full object-cover" />
+            <img src={HERO_IMAGE} alt={t('pages.preventa.title')} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
             <div className="absolute bottom-6 right-6 bg-white/95 dark:bg-[#17313A]/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5 dark:border-[#EAE4DD]/10">
-              <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">Disponibilidad limitada</p>
-              <p className="text-xs text-[#B0ACA6] mt-0.5">Reserva con anticipación</p>
+              <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">{t('pages.preventa.cardTitle')}</p>
+              <p className="text-xs text-[#B0ACA6] mt-0.5">{t('pages.preventa.cardDesc')}</p>
             </div>
           </div>
         </div>
@@ -86,15 +88,15 @@ export default function PreventaPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold">Preventa</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-[#EAE4DD] mt-1">Propiedades disponibles</h2>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold">{t('pages.preventa.title')}</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-[#EAE4DD] mt-1">{t('properties.availableTitle')}</h2>
             </div>
             <div className="h-px flex-1 mx-8 bg-[#C78F7B]/20 hidden sm:block" />
           </div>
           <SubcategoryFilter onChange={setTipoFilter} variant="light" resultCount={propiedades.length} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {propiedades.map((p) => (<PropertyCard key={p.id} propiedad={p as any} badgeLabel="Preventa" />))}
-            {propiedades.length === 0 && (<EmptyProperties label="Vuelve pronto para ver nuevas propiedades en preventa" />)}
+            {propiedades.map((p) => (<PropertyCard key={p.id} propiedad={p as any} badgeLabel={t('properties.cards.forPreventa')} />))}
+            {propiedades.length === 0 && (<EmptyProperties label={t('properties.empty.subtitle')} />)}
           </div>
         </div>
       </section>

@@ -43,8 +43,10 @@ import Link from "next/link"
 import { OwnerSubmissionsStorage } from "@/lib/owner-submissions-storage"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useLanguage } from "@/lib/i18n"
 
 export default function PropietariosPage() {
+  const { t } = useLanguage()
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -194,7 +196,7 @@ export default function PropietariosPage() {
     setUploadedPhotos(prev => {
       const combined = [...prev, ...files as File[]]
       if (combined.length > 30) {
-        alert('Máximo 30 fotos permitidas')
+        alert(t('propietarios.maxPhotos'))
         return combined.slice(0, 30)
       }
       return combined
@@ -236,27 +238,27 @@ export default function PropietariosPage() {
   const handleSubmit = async () => {
     // Validar campos requeridos
     if (!formData.propertyType || !formData.area || !formData.bedrooms || !formData.bathrooms) {
-      toast.error('Por favor completa todos los campos requeridos de la propiedad')
+      toast.error(t('propietarios.errors.propertyRequired'))
       return
     }
 
     if (!formData.address || !formData.city || !formData.neighborhood) {
-      toast.error('Por favor completa la información de ubicación')
+      toast.error(t('propietarios.errors.locationRequired'))
       return
     }
 
     if (!formData.askingPrice || !formData.description) {
-      toast.error('Por favor completa el precio y descripción')
+      toast.error(t('propietarios.errors.priceDescriptionRequired'))
       return
     }
 
     if (!formData.ownerName || !formData.phone || !formData.email) {
-      toast.error('Por favor completa tu información de contacto')
+      toast.error(t('propietarios.errors.contactRequired'))
       return
     }
 
     if (!formData.exclusivity || !formData.terms || !formData.privacy) {
-      toast.error('Debes aceptar todos los términos para continuar')
+      toast.error(t('propietarios.errors.termsRequired'))
       return
     }
 
@@ -298,8 +300,8 @@ export default function PropietariosPage() {
       setSubmissionId(submission.id)
       setSubmissionSuccess(true)
       
-      toast.success('¡Registro exitoso!', {
-        description: 'Tu propiedad ha sido registrada. Te contactaremos pronto.'
+      toast.success(t('propietarios.success.toast'), {
+        description: t('propietarios.success.toastDesc')
       })
 
       // Simular envío a servidor (aquí podrías hacer un fetch a tu API)
@@ -307,8 +309,8 @@ export default function PropietariosPage() {
       
     } catch (error) {
       console.error('Error submitting form:', error)
-      toast.error('Error al enviar el formulario', {
-        description: 'Por favor intenta nuevamente'
+      toast.error(t('propietarios.errors.submit'), {
+        description: t('propietarios.errors.tryAgain')
       })
     } finally {
       setIsSubmitting(false)
@@ -326,23 +328,23 @@ export default function PropietariosPage() {
             </div>
             
             <h1 className="font-serif text-3xl font-bold text-[#17313A] dark:text-[#17313A] dark:text-white mb-4">
-              ¡Registro Exitoso!
+              {t('propietarios.success.title')}
             </h1>
             
             <p className="text-lg text-[#4A4F57] dark:text-[#B0ACA6] mb-6">
-              Tu propiedad ha sido registrada exitosamente en CONECTIA
+              {t('propietarios.success.message')}
             </p>
 
             <div className="bg-conectia-gold/10 border border-conectia-gold/20 rounded-xl p-6 mb-8">
               <div className="flex items-center justify-center mb-4">
                 <FileText className="h-6 w-6 text-conectia-gold mr-2" />
-                <h3 className="font-semibold text-conectia-gold">ID de Registro</h3>
+                <h3 className="font-semibold text-conectia-gold">{t('propietarios.success.idLabel')}</h3>
               </div>
               <p className="text-2xl font-mono font-bold text-[#17313A] dark:text-white">
                 {submissionId}
               </p>
               <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6] mt-2">
-                Guarda este ID para futuras referencias
+                {t('propietarios.success.idHint')}
               </p>
             </div>
 
@@ -350,22 +352,22 @@ export default function PropietariosPage() {
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-[#17313A] dark:text-white">Contacto en 2 horas</p>
-                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Un especialista se comunicará contigo</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">{t('propietarios.success.benefits.contact.title')}</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">{t('propietarios.success.benefits.contact.desc')}</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-[#17313A] dark:text-white">Valoración profesional</p>
-                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Análisis detallado de tu propiedad</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">{t('propietarios.success.benefits.valuation.title')}</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">{t('propietarios.success.benefits.valuation.desc')}</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-[#17313A] dark:text-white">Marketing exclusivo</p>
-                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">Exposición en nuestros canales exclusivos</p>
+                  <p className="font-semibold text-[#17313A] dark:text-white">{t('propietarios.success.benefits.marketing.title')}</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6]">{t('propietarios.success.benefits.marketing.desc')}</p>
                 </div>
               </div>
             </div>
@@ -375,19 +377,19 @@ export default function PropietariosPage() {
                 onClick={() => router.push('/')}
                 className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
               >
-                Volver al Inicio
+                {t('propietarios.success.homeButton')}
               </Button>
               <Button
                 onClick={() => router.push('/propiedades')}
                 variant="outline"
                 className="border-conectia-gold text-[#17313A] hover:bg-conectia-gold/10"
               >
-                Ver Propiedades
+                {t('propietarios.success.propertiesButton')}
               </Button>
             </div>
 
             <p className="text-sm text-[#4A4F57] mt-8">
-              📧 Te hemos enviado un correo de confirmación a <strong>{formData.email}</strong>
+              {t('propietarios.success.confirmation', { email: formData.email })}
             </p>
           </CardContent>
         </Card>
@@ -404,20 +406,20 @@ export default function PropietariosPage() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/30 mb-4">
               <Star className="h-4 w-4 text-[#C78F7B]" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">CONECTIA</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">{t('common.appName')}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#17313A] dark:text-white mb-3">
-              Registro de Propiedad Exclusiva
+              {t('propietarios.title')}
             </h1>
             <p className="text-lg text-[#4A4F57] dark:text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto">
-              Proceso guiado para maximizar el valor de tu propiedad
+              {t('propietarios.subtitle')}
             </p>
           </div>
           
           {/* Progress Bar */}
           <div className="max-w-2xl mx-auto">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-[#C78F7B]">Progreso</span>
+              <span className="text-sm font-medium text-[#C78F7B]">{t('propietarios.progress')}</span>
               <span className="text-sm font-medium text-[#C78F7B]">{Math.round(progress)}%</span>
             </div>
             <div className="h-1.5 bg-[#17313A]/10 dark:bg-white/10 rounded-full overflow-hidden">
@@ -443,11 +445,11 @@ export default function PropietariosPage() {
                   <span className={`text-xs mt-2 font-medium ${
                     step <= currentStep ? 'text-[#C78F7B]' : 'text-[#4A4F57]'
                   }`}>
-                    {step === 1 && 'Propiedad'}
-                    {step === 2 && 'Ubicación'}
-                    {step === 3 && 'Detalles'}
-                    {step === 4 && 'Fotos'}
-                    {step === 5 && 'Contacto'}
+                    {step === 1 && t('propietarios.steps.property')}
+                    {step === 2 && t('propietarios.steps.location')}
+                    {step === 3 && t('propietarios.steps.details')}
+                    {step === 4 && t('propietarios.steps.photos')}
+                    {step === 5 && t('propietarios.steps.contact')}
                   </span>
                 </div>
               ))}
@@ -462,10 +464,10 @@ export default function PropietariosPage() {
         >
           <CarouselContent className="-ml-3">
             {[
-              { icon: Shield, title: 'Exclusividad', desc: 'Sin competencia' },
-              { icon: TrendingUp, title: 'Valoración IA', desc: 'Precio óptimo' },
-              { icon: Star, title: 'Marketing Exclusivo', desc: 'Máxima exposición' },
-              { icon: Calendar, title: 'Venta Rápida', desc: 'Promedio 45 días' },
+              { icon: Shield, title: t('propietarios.benefits.exclusivity.title'), desc: t('propietarios.benefits.exclusivity.desc') },
+              { icon: TrendingUp, title: t('propietarios.benefits.valuation.title'), desc: t('propietarios.benefits.valuation.desc') },
+              { icon: Star, title: t('propietarios.benefits.marketing.title'), desc: t('propietarios.benefits.marketing.desc') },
+              { icon: Calendar, title: t('propietarios.benefits.speed.title'), desc: t('propietarios.benefits.speed.desc') },
             ].map((item, i) => (
               <CarouselItem key={i} className="pl-3 basis-3/4 sm:basis-1/2 md:basis-1/4">
                 <div className="group relative p-5 text-center h-full rounded-2xl bg-[#17313A]/[0.03] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/10 dark:border-[#17313A]/10 dark:border-white/10 hover:bg-[#17313A]/[0.06] dark:hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">

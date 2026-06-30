@@ -30,6 +30,7 @@ import { ModeToggle } from "./mode-toggle"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
+import { useLanguage } from "@/lib/i18n"
 import Image from "next/image"
 
 export function DynamicHeader() {
@@ -38,20 +39,9 @@ export function DynamicHeader() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isOtrosMenuOpen, setIsOtrosMenuOpen] = useState(false)
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
-  const [language, setLanguage] = useState<'ES' | 'EN'>('ES')
+  const { language, toggleLanguage, t } = useLanguage()
 
-  const toggleLanguage = useCallback(() => {
-    setLanguage(prev => {
-      const next = prev === 'ES' ? 'EN' : 'ES'
-      if (typeof window !== 'undefined') localStorage.setItem('conectia_lang', next)
-      return next
-    })
-  }, [])
-
-  useEffect(() => {
-    const stored = localStorage.getItem('conectia_lang') as 'ES' | 'EN' | null
-    if (stored) setLanguage(stored)
-  }, [])
+  const langLabel = language.toUpperCase()
   const otrosButtonRef = useRef<HTMLButtonElement | null>(null)
   const [otrosRect, setOtrosRect] = useState<{ top: number; right: number } | null>(null)
 
@@ -83,10 +73,10 @@ export function DynamicHeader() {
   }, [])
 
   const navItems = [
-    { href: "/", label: "Inicio", icon: Home },
-    { href: "/propiedades", label: "Propiedades", icon: Building },
-    { href: "/propietarios", label: "Propietarios", icon: User },
-    { href: "/contacto", label: "Contacto", icon: MapPin },
+    { href: "/", label: t('nav.home'), icon: Home },
+    { href: "/propiedades", label: t('nav.properties'), icon: Building },
+    { href: "/propietarios", label: t('nav.owners'), icon: User },
+    { href: "/contacto", label: t('nav.contact'), icon: MapPin },
   ]
 
   const isActive = (href: string) => {
@@ -115,12 +105,12 @@ export function DynamicHeader() {
             mx-auto md:origin-top origin-bottom
             transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]
             ${isMobileMenuOpen
-              ? `rounded-[32px] px-6 py-6 min-w-[320px] 
+              ? `rounded-[32px] px-5 py-5 min-w-[300px] max-w-[calc(100vw-1.5rem)] overflow-hidden
                  glass-nav
                  shadow-2xl
                  transform scale-100 opacity-100
                  mobile-menu-expanded`
-              : `rounded-[28px] px-6 py-2 w-auto min-w-[980px]
+              : `rounded-[28px] px-4 py-2.5 w-[330px] max-w-[calc(100vw-1.5rem)] overflow-hidden md:w-auto md:min-w-[980px] md:px-6
                  glass-nav
                  ${isScrolled ? 'scale-[0.97] shadow-lg' : ''}
                  transform scale-100 opacity-100`
@@ -182,9 +172,9 @@ export function DynamicHeader() {
                 <button
                   onClick={toggleLanguage}
                   className="flex items-center justify-center h-7 px-2 py-1 rounded-lg text-[10px] font-bold tracking-widest border border-[#17313A]/20 bg-[#17313A]/5 text-[#17313A] dark:border-[#EAE4DD]/20 dark:bg-white/10 dark:text-[#EAE4DD] transition-all duration-200 hover:scale-105"
-                  title="Cambiar idioma"
+                  title={t('common.language')}
                 >
-                  <span>{language}</span>
+                  <span>{langLabel}</span>
                 </button>
               </div>
 
@@ -199,7 +189,7 @@ export function DynamicHeader() {
                 onClick={handleOtrosToggle}
                 className="btn-glass-tertiary rounded-xl px-3 py-1.5 font-medium text-xs h-8 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1.5 border-0"
               >
-                Otros
+                {t('nav.others')}
                 <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${isOtrosMenuOpen ? 'rotate-180' : ''}`} />
               </Button>
 
@@ -230,12 +220,12 @@ export function DynamicHeader() {
                     ) : user.role === 'propietario' ? (
                       <>
                         <Building className="h-2.5 w-2.5" />
-                        <span>Mi Propiedad</span>
+                        <span>{t('nav.myProperty')}</span>
                       </>
                     ) : user.role === 'fotografo' ? (
                       <>
                         <Camera className="h-2.5 w-2.5" />
-                        <span>Mi Panel</span>
+                        <span>{t('nav.dashboard')}</span>
                       </>
                     ) : user.role === 'empresa' ? (
                       <>
@@ -245,7 +235,7 @@ export function DynamicHeader() {
                     ) : (
                       <>
                         <UserCircle className="h-2.5 w-2.5" />
-                        <span>Mi Panel</span>
+                        <span>{t('nav.dashboard')}</span>
                       </>
                     )}
                   </Button>
@@ -268,38 +258,30 @@ export function DynamicHeader() {
           {/* Mobile Navigation */}
           <div className="md:hidden">
             {!isMobileMenuOpen ? (
-              <div className="flex items-center gap-2 px-1">
+              <div className="flex items-center justify-between w-full px-1">
                 {/* Mobile Logo */}
                 <Link href="/" className="flex items-center flex-shrink-0">
                   <Image
                     src="/logoconectiaoficial.png"
                     alt="CONECTIA"
-                    width={140}
-                    height={40}
-                    className="h-7 w-auto object-contain transition-all duration-300"
+                    width={130}
+                    height={36}
+                    className="h-6.5 w-auto object-contain transition-all duration-300"
                   />
                 </Link>
 
-                {/* Divider */}
-                <div className="w-px h-5 bg-[#B0ACA6]/20 mx-1 flex-shrink-0" />
+                <div className="flex items-center gap-2">
+                  {/* Divider */}
+                  <div className="w-px h-5 bg-[#B0ACA6]/20 flex-shrink-0" />
 
-                {/* Menú button — grande y visible */}
-                <button
-                  onClick={() => setIsMobileMenuOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full glass-pill text-[#17313A] active:scale-95 transition-all duration-200 font-semibold text-sm"
-                >
-                  <Menu className="h-4 w-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap tracking-wide">Menú</span>
-                </button>
-
-                {/* Heart icon */}
-                <Link href="/favoritos" className="flex-shrink-0">
-                  <button className="flex items-center justify-center w-9 h-9 rounded-full glass-pill text-[#17313A] hover:scale-110 active:scale-95 transition-all duration-200">
-                    <Heart className="h-4 w-4" />
+                  {/* Menú button — elegante, con texto visible */}
+                  <button
+                    onClick={() => setIsMobileMenuOpen(true)}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full glass-pill text-[#17313A] active:scale-95 transition-all duration-200 font-semibold text-xs"
+                  >
+                    <Menu className="h-3.5 w-3.5 flex-shrink-0" />
+                    <span className="whitespace-nowrap tracking-wide">{t('nav.menuLabel')}</span>
                   </button>
-                </Link>
-                <div className="flex-shrink-0">
-                  <ModeToggle />
                 </div>
               </div>
             ) : (
@@ -370,7 +352,7 @@ export function DynamicHeader() {
                     onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                     className="w-full flex items-center justify-between px-4 py-3 rounded-xl glass-pill hover:opacity-80 transition-all duration-300"
                   >
-                    <span className="text-sm font-semibold text-[#17313A]">Categorías</span>
+                    <span className="text-sm font-semibold text-[#17313A]">{t('home.categories.title')}</span>
                     <ChevronDown className={`h-5 w-5 text-[#17313A] transition-transform duration-300 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
@@ -379,31 +361,31 @@ export function DynamicHeader() {
                       <Link href="/compra" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <ShoppingBag className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">Compra</span>
+                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.buy')}</span>
                         </button>
                       </Link>
                       <Link href="/venta" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Tag className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">Venta</span>
+                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.sell')}</span>
                         </button>
                       </Link>
                       <Link href="/renta" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Key className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">Renta</span>
+                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.rent')}</span>
                         </button>
                       </Link>
                       <Link href="/especiales" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Crown className="h-4 w-4 text-[#B0ACA6]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">Especiales</span>
+                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.especial')}</span>
                         </button>
                       </Link>
                       <Link href="/ofertas" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Percent className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">Ofertas</span>
+                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.ofertas')}</span>
                         </button>
                       </Link>
                     </div>
@@ -418,7 +400,7 @@ export function DynamicHeader() {
                     className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/06 transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     <Search className="h-4 w-4" />
-                    <span className="text-sm">Buscar</span>
+                    <span className="text-sm">{t('common.search')}</span>
                   </Button>
                   <Link href="/favoritos">
                     <Button
@@ -428,7 +410,7 @@ export function DynamicHeader() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <WishlistCounter />
-                      <span className="text-sm">Favoritos</span>
+                      <span className="text-sm">{t('nav.favorites')}</span>
                     </Button>
                   </Link>
                 </div>
@@ -446,7 +428,7 @@ export function DynamicHeader() {
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           <Building className="h-4 w-4 mr-2" />
-                          Mi Propiedad
+                          {t('nav.myProperty')}
                         </Button>
                       </Link>
                     ) : (
@@ -466,7 +448,7 @@ export function DynamicHeader() {
                           ) : (
                             <>
                               <UserCircle className="h-4 w-4 mr-2" />
-                              Mi Panel
+                              {t('nav.dashboard')}
                             </>
                           )}
                         </Button>
@@ -481,7 +463,7 @@ export function DynamicHeader() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <User className="h-4 w-4 mr-2" />
-                        Vender mi Propiedad
+                        {t('nav.sell')}
                       </Button>
                     </Link>
                     <Link href="/alianza-comercial" className="transition-all duration-200 ease-out">
@@ -490,7 +472,7 @@ export function DynamicHeader() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
-                        Soy Asesor
+                        {t('nav.advisor')}
                       </Button>
                     </Link>
                     <Link href="/login" className="transition-all duration-200 ease-out">
@@ -499,7 +481,7 @@ export function DynamicHeader() {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <UserCircle className="h-4 w-4 mr-2" />
-                        Acceso Interno
+                        {t('nav.login')}
                       </Button>
                     </Link>
                   </>
@@ -550,44 +532,44 @@ export function DynamicHeader() {
               <Link href="/propiedades" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Tag className="h-4 w-4 text-[#17313A]" />
-                  <span>Venta</span>
+                  <span>{t('home.search.sell')}</span>
                 </button>
               </Link>
               <Link href="/renta" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Key className="h-4 w-4 text-[#17313A]" />
-                  <span>Renta</span>
+                  <span>{t('home.search.rent')}</span>
                 </button>
               </Link>
               <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Crown className="h-4 w-4 text-[#17313A]" />
-                  <span>Especiales</span>
+                  <span>{t('home.search.especial')}</span>
                 </button>
               </Link>
               <Link href="/compra" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <ShoppingBag className="h-4 w-4 text-[#17313A]" />
-                  <span>Compra</span>
+                  <span>{t('home.search.buy')}</span>
                 </button>
               </Link>
               <Link href="/ofertas" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Percent className="h-4 w-4 text-[#17313A]" />
-                  <span>Ofertas</span>
+                  <span>{t('home.search.ofertas')}</span>
                 </button>
               </Link>
               <div className="my-1.5 mx-4 border-t border-[#B0ACA6]/25" />
               <Link href="/desarrollos" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Building className="h-4 w-4 text-[#17313A]" />
-                  <span>Desarrollos</span>
+                  <span>{t('nav.menu.developments')}</span>
                 </button>
               </Link>
               <Link href="/brokers" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Users className="h-4 w-4 text-[#17313A]" />
-                  <span>Brokers y Notarías</span>
+                  <span>{t('nav.menu.broker')}</span>
                 </button>
               </Link>
             </div>

@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Lock, Shield, Phone, Mail } from "lucide-react"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
+import { useLanguage } from "@/lib/i18n"
 
 export default function ExclusivosPage() {
+  const { t } = useLanguage()
   // Hook optimizado - carga instantánea desde JSON + realtime
   const { properties } = usePropertiesStatic()
   const propiedades = useMemo(() => 
@@ -42,22 +44,22 @@ export default function ExclusivosPage() {
               <div className="w-12 h-12 bg-conectia-primary rounded-2xl flex items-center justify-center shadow-lg">
                 <Shield className="h-6 w-6 text-conectia-accent" />
               </div>
-              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">CONECTIA</span>
+              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">{t('common.appName')}</span>
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4">
-              Propiedades<br/>
-              <span className="text-conectia-primary">Exclusivas</span>
+              {t('pages.exclusivos.heroTitle')}<br/>
+              <span className="text-conectia-primary">{t('pages.exclusivos.heroHighlight')}</span>
             </h1>
             <p className="text-white/80 text-base sm:text-lg mb-6 leading-relaxed">
-              Propiedades de máxima privacidad. Por discreción, solo mostramos ubicaciones generales
+              {t('pages.exclusivos.heroDescription')}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge className="bg-conectia-primary text-conectia-accent border-0 px-4 py-2 text-sm font-semibold shadow-lg">
-                {propiedadesDisplay.length} Propiedades Disponibles
+                {propiedadesDisplay.length} {t('properties.availableTitle')}
               </Badge>
               <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm flex items-center gap-2 backdrop-blur-sm">
                 <Lock className="h-3 w-3" />
-                Información Protegida
+                {t('properties.cards.protectedInfo')}
               </Badge>
             </div>
           </div>
@@ -74,12 +76,10 @@ export default function ExclusivosPage() {
               </div>
               <div>
                 <h3 className="text-lg font-serif font-bold text-conectia-accent mb-2">
-                  Protección de Privacidad
+                  {t('pages.exclusivos.privacyTitle')}
                 </h3>
                 <p className="text-conectia-accent/70 text-sm leading-relaxed">
-                  Estas propiedades pertenecen a clientes que requieren máxima discreción. Por respeto a su privacidad, 
-                  solo mostramos la ubicación general. Para obtener información completa, fotos y detalles específicos, 
-                  contáctanos directamente. Verificaremos tu perfil antes de compartir información sensible.
+                  {t('pages.exclusivos.privacyDescription')}
                 </p>
               </div>
             </div>
@@ -100,7 +100,7 @@ export default function ExclusivosPage() {
                 <div className="relative h-56 overflow-hidden bg-gradient-to-br from-conectia-accent/10 to-conectia-accent/5">
                   <img
                     src={propiedad.imagen || "/placeholder.svg"}
-                    alt="Propiedad exclusiva"
+                    alt={t('properties.cards.protectedInfo')}
                     className="w-full h-full object-cover blur-2xl opacity-30"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -108,12 +108,12 @@ export default function ExclusivosPage() {
                       <div className="inline-flex items-center justify-center w-16 h-16 bg-conectia-primary rounded-full mb-3">
                         <Lock className="h-8 w-8 text-conectia-accent" />
                       </div>
-                      <p className="text-conectia-accent font-semibold">Información Protegida</p>
+                      <p className="text-conectia-accent font-semibold">{t('properties.cards.protectedInfo')}</p>
                     </div>
                   </div>
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-conectia-primary/90 text-conectia-accent backdrop-blur-sm text-xs">
-                      Exclusiva
+                      {t('properties.cards.exclusive')}
                     </Badge>
                   </div>
                 </div>
@@ -124,12 +124,12 @@ export default function ExclusivosPage() {
                     <Badge className="bg-conectia-accent/10 text-conectia-accent text-xs">{propiedad.tipo}</Badge>
                     <Badge className="bg-conectia-primary/10 text-conectia-primary text-xs flex items-center gap-1">
                       <Shield className="h-3 w-3" />
-                      Privada
+                      {t('properties.cards.private')}
                     </Badge>
                   </div>
 
                   <h3 className="text-xl font-serif font-bold text-conectia-accent mb-4">
-                    Propiedad Exclusiva
+                    {t('pages.exclusivos.propertyLabel')}
                   </h3>
 
                   {/* Solo Ubicación Visible */}
@@ -139,28 +139,28 @@ export default function ExclusivosPage() {
                       <span className="text-base font-semibold">{propiedad.ubicacion}</span>
                     </div>
                     <p className="text-conectia-accent/60 text-xs ml-7">
-                      Ubicación general por privacidad del propietario
+                      {t('properties.cards.locationGeneral')}
                     </p>
                   </div>
 
                   {/* Información Oculta */}
                   <div className="space-y-2 mb-6">
                     <div className="flex items-center justify-between text-sm text-conectia-accent/40">
-                      <span>Precio:</span>
+                      <span>{t('common.price')}:</span>
                       <span className="flex items-center gap-1">
-                        <Lock className="h-3 w-3" /> Confidencial
+                        <Lock className="h-3 w-3" /> {t('pages.exclusivos.confidential')}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm text-conectia-accent/40">
-                      <span>Detalles:</span>
+                      <span>{t('common.details')}:</span>
                       <span className="flex items-center gap-1">
-                        <Lock className="h-3 w-3" /> Bajo solicitud
+                        <Lock className="h-3 w-3" /> {t('pages.exclusivos.onRequest')}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm text-conectia-accent/40">
-                      <span>Fotografías:</span>
+                      <span>{t('pages.exclusivos.photos')}:</span>
                       <span className="flex items-center gap-1">
-                        <Lock className="h-3 w-3" /> Previa verificación
+                        <Lock className="h-3 w-3" /> {t('pages.exclusivos.afterVerification')}
                       </span>
                     </div>
                   </div>
@@ -171,7 +171,7 @@ export default function ExclusivosPage() {
                     className="w-full bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent rounded-xl font-semibold"
                   >
                     <Phone className="h-4 w-4 mr-2" />
-                    Solicitar Información
+                    {t('pages.exclusivos.requestInfo')}
                   </Button>
                 </div>
               </div>
@@ -181,8 +181,8 @@ export default function ExclusivosPage() {
           {propiedadesDisplay.length === 0 && (
             <div className="text-center py-16">
               <Shield className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-              <h3 className="text-xl font-semibold text-conectia-accent mb-2">No hay propiedades exclusivas disponibles</h3>
-              <p className="text-conectia-accent/60 mb-6">Vuelve pronto para ver nuevas propiedades</p>
+              <h3 className="text-xl font-semibold text-conectia-accent mb-2">{t('pages.exclusivos.emptyTitle')}</h3>
+              <p className="text-conectia-accent/60 mb-6">{t('properties.empty.subtitle')}</p>
             </div>
           )}
         </div>
@@ -193,11 +193,10 @@ export default function ExclusivosPage() {
         <div className="max-w-4xl mx-auto text-center">
           <Shield className="h-12 w-12 mx-auto mb-6 text-conectia-primary" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-            Máxima Discreción Garantizada
+            {t('pages.exclusivos.ctaTitle')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Contáctanos para recibir información completa de estas propiedades exclusivas. 
-            Verificamos cada solicitud para proteger la privacidad de nuestros clientes.
+            {t('pages.exclusivos.ctaDescription')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
@@ -205,7 +204,7 @@ export default function ExclusivosPage() {
               className="bg-conectia-primary hover:bg-conectia-primary/90 text-conectia-accent px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg"
             >
               <Phone className="h-5 w-5 mr-2" />
-              Contacto
+              {t('common.contact')}
             </Button>
             <Button 
               onClick={() => window.location.href = 'mailto:conectiaselect@gmail.com'}
@@ -213,7 +212,7 @@ export default function ExclusivosPage() {
               className="border-conectia-primary text-conectia-primary hover:bg-conectia-primary hover:text-conectia-accent px-8 py-4 text-lg font-semibold rounded-2xl"
             >
               <Mail className="h-5 w-5 mr-2" />
-              Email
+              {t('propertyDetail.email')}
             </Button>
           </div>
         </div>

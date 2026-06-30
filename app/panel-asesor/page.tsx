@@ -33,8 +33,10 @@ import {
 import { getPlanById } from '@/data/subscription-plans'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { useLanguage } from '@/lib/i18n'
 
 export default function PanelAsesorPage() {
+  const { t } = useLanguage()
   const { user, logout, isAuthenticated, loading } = useAuth()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
@@ -91,11 +93,11 @@ export default function PanelAsesorPage() {
   // Sistema de bonos
   const ventasMes = progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length
   const bonos = [
-    { meta: 3, bono: 2500, descripcion: '3 propiedades' },
-    { meta: 5, bono: 5000, descripcion: '5 propiedades' },
-    { meta: 8, bono: 10000, descripcion: '8 propiedades' },
-    { meta: 12, bono: 20000, descripcion: '12 propiedades' },
-    { meta: 15, bono: 35000, descripcion: '15 propiedades' }
+    { meta: 3, bono: 2500, descripcion: `3 ${t('panelAsesor.stats.properties').toLowerCase()}` },
+    { meta: 5, bono: 5000, descripcion: `5 ${t('panelAsesor.stats.properties').toLowerCase()}` },
+    { meta: 8, bono: 10000, descripcion: `8 ${t('panelAsesor.stats.properties').toLowerCase()}` },
+    { meta: 12, bono: 20000, descripcion: `12 ${t('panelAsesor.stats.properties').toLowerCase()}` },
+    { meta: 15, bono: 35000, descripcion: `15 ${t('panelAsesor.stats.properties').toLowerCase()}` }
   ]
 
   const bonoActual = bonos.find(b => ventasMes < b.meta) || bonos[bonos.length - 1]
@@ -114,20 +116,20 @@ export default function PanelAsesorPage() {
   })
 
   const leadsPorEstatus = [
-    { name: 'Nuevos', value: leads.filter(l => l.status === 'nuevo').length, color: '#3b82f6' },
-    { name: 'Contactados', value: leads.filter(l => l.status === 'contactado').length, color: '#eab308' },
-    { name: 'Calificados', value: leads.filter(l => l.status === 'calificado').length, color: '#22c55e' },
-    { name: 'Descartados', value: leads.filter(l => l.status === 'descartado').length, color: '#6b7280' }
+    { name: t('panelAsesor.leadStatus.new'), value: leads.filter(l => l.status === 'nuevo').length, color: '#3b82f6' },
+    { name: t('panelAsesor.leadStatus.contacted'), value: leads.filter(l => l.status === 'contactado').length, color: '#eab308' },
+    { name: t('panelAsesor.leadStatus.qualified'), value: leads.filter(l => l.status === 'calificado').length, color: '#22c55e' },
+    { name: t('panelAsesor.leadStatus.discarded'), value: leads.filter(l => l.status === 'descartado').length, color: '#6b7280' }
   ]
 
   const actividadSemanal = [
-    { dia: 'Lun', leads: 3, visitas: 2 },
-    { dia: 'Mar', leads: 5, visitas: 3 },
-    { dia: 'Mié', leads: 4, visitas: 2 },
-    { dia: 'Jue', leads: 6, visitas: 4 },
-    { dia: 'Vie', leads: 8, visitas: 5 },
-    { dia: 'Sáb', leads: 2, visitas: 1 },
-    { dia: 'Dom', leads: 1, visitas: 0 }
+    { dia: t('panelAsesor.weekdays.mon'), leads: 3, visitas: 2 },
+    { dia: t('panelAsesor.weekdays.tue'), leads: 5, visitas: 3 },
+    { dia: t('panelAsesor.weekdays.wed'), leads: 4, visitas: 2 },
+    { dia: t('panelAsesor.weekdays.thu'), leads: 6, visitas: 4 },
+    { dia: t('panelAsesor.weekdays.fri'), leads: 8, visitas: 5 },
+    { dia: t('panelAsesor.weekdays.sat'), leads: 2, visitas: 1 },
+    { dia: t('panelAsesor.weekdays.sun'), leads: 1, visitas: 0 }
   ]
 
   const getStatusColor = (status: string) => {
@@ -176,7 +178,7 @@ export default function PanelAsesorPage() {
                 <Building2 className="w-5 h-5 text-[#C78F7B]" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-white">Panel de Asesor</h1>
+                <h1 className="text-lg font-bold text-white">{t('panelAsesor.title')}</h1>
                 <p className="text-xs text-[#B0ACA6]">{user.nombre}</p>
               </div>
             </div>
@@ -185,7 +187,7 @@ export default function PanelAsesorPage() {
               className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Cerrar Sesión</span>
+              <span className="hidden sm:inline">{t('panelAsesor.logout')}</span>
             </button>
           </div>
         </div>
@@ -207,19 +209,19 @@ export default function PanelAsesorPage() {
                     const nombreLower = nombre.toLowerCase()
                     const nombresFemeninos = ['ana', 'maria', 'maría', 'sofia', 'sofía', 'daniela', 'gris', 'lizzie', 'ingrid']
                     const esFemenino = nombresFemeninos.some(n => nombreLower.includes(n))
-                    return esFemenino ? `Bienvenida, ${user.nombre}` : `Bienvenido, ${user.nombre}`
+                    return esFemenino ? `${t('panelAsesor.welcomeFemale')}, ${user.nombre}` : `${t('panelAsesor.welcome')}, ${user.nombre}`
                   })()}
                 </h1>
-                <p className="text-sm text-[#B0ACA6]">Gestiona tus propiedades y alcanza tus metas</p>
+                <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.subtitle')}</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 {user.email === 'lizzie@conectia.mx' && (
                   <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-                    <Megaphone className="w-4 h-4 text-[#C78F7B]" /> Publicidad
+                    <Megaphone className="w-4 h-4 text-[#C78F7B]" /> {t('panelAsesor.advertising')}
                   </button>
                 )}
                 <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
-                  <Settings className="w-4 h-4" /> Gestionar Propiedades
+                  <Settings className="w-4 h-4" /> {t('panelAsesor.manageProperties')}
                 </button>
               </div>
             </div>
@@ -236,29 +238,29 @@ export default function PanelAsesorPage() {
                   <Award className="w-5 h-5 text-[#C78F7B]" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-white">Sistema de Bonos</h2>
-                  <p className="text-xs text-[#B0ACA6]">Alcanza tus metas y gana bonos</p>
+                  <h2 className="text-lg font-bold text-white">{t('panelAsesor.bonusSystem')}</h2>
+                  <p className="text-xs text-[#B0ACA6]">{t('panelAsesor.bonusGoal')}</p>
                 </div>
               </div>
               <div className="text-right">
                 <div className="inline-block px-5 py-2.5 rounded-2xl bg-[#C78F7B]/15 border border-[#C78F7B]/30">
                   <p className="text-2xl font-black text-[#C78F7B]">${bonoActual.bono.toLocaleString()}</p>
                 </div>
-                <p className="text-xs text-[#B0ACA6] mt-1">Próximo bono</p>
+                <p className="text-xs text-[#B0ACA6] mt-1">{t('panelAsesor.nextBonus')}</p>
               </div>
             </div>
 
             {/* Progress bar */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-[#B0ACA6]">Meta: {bonoActual.descripcion}</span>
+                <span className="text-xs text-[#B0ACA6]">{t('panelAsesor.goal')}: {bonoActual.descripcion}</span>
                 {faltanVentas > 0 ? (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-xs font-bold text-red-400">
-                    <TrendingUp className="w-3 h-3" /> ¡Faltan {faltanVentas} {faltanVentas === 1 ? 'venta' : 'ventas'}!
+                    <TrendingUp className="w-3 h-3" /> {t('panelAsesor.missing')} {faltanVentas} {faltanVentas === 1 ? t('panelAsesor.sale') : t('panelAsesor.sales')}!
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-bold text-green-400">
-                    <CheckCircle2 className="w-3 h-3" /> ¡Meta alcanzada!
+                    <CheckCircle2 className="w-3 h-3" /> {t('panelAsesor.goalReached')}
                   </span>
                 )}
               </div>
@@ -269,9 +271,9 @@ export default function PanelAsesorPage() {
                 {progresoBono <= 15 && <div className="absolute inset-0 flex items-center justify-center text-[10px] text-[#B0ACA6] font-medium">{ventasMes}/{bonoActual.meta}</div>}
               </div>
               <div className="flex items-center justify-between mt-1 text-[10px] text-[#4A4F57]">
-                <span>0 ventas</span>
-                <span>{Math.round(progresoBono)}% completado</span>
-                <span>{bonoActual.meta} ventas</span>
+                <span>0 {t('panelAsesor.sales')}</span>
+                <span>{Math.round(progresoBono)}% {t('panelAsesor.completed')}</span>
+                <span>{bonoActual.meta} {t('panelAsesor.sales')}</span>
               </div>
             </div>
 
@@ -285,8 +287,8 @@ export default function PanelAsesorPage() {
                     {ventasMes >= b.meta ? <CheckCircle2 className="w-5 h-5 text-green-400 mx-auto mb-1.5" /> : b.meta === bonoActual.meta ? <Flame className="w-5 h-5 text-[#C78F7B] mx-auto mb-1.5" /> : <Award className="w-5 h-5 text-[#4A4F57] mx-auto mb-1.5" />}
                     <p className="text-[10px] font-medium text-[#B0ACA6] mb-0.5">{b.descripcion}</p>
                     <p className={`text-lg font-black ${ventasMes >= b.meta ? 'text-green-400' : b.meta === bonoActual.meta ? 'text-[#C78F7B]' : 'text-[#4A4F57]'}`}>${(b.bono / 1000).toFixed(0)}k</p>
-                    {b.meta === bonoActual.meta && ventasMes < b.meta && <p className="text-[10px] text-[#C78F7B]/70 mt-0.5">Siguiente meta</p>}
-                    {ventasMes >= b.meta && <p className="text-[10px] text-green-400/70 mt-0.5">¡Ganado!</p>}
+                    {b.meta === bonoActual.meta && ventasMes < b.meta && <p className="text-[10px] text-[#C78F7B]/70 mt-0.5">{t('panelAsesor.nextGoal')}</p>}
+                    {ventasMes >= b.meta && <p className="text-[10px] text-green-400/70 mt-0.5">{t('panelAsesor.earned')}</p>}
                   </div>
                 </div>
               ))}
@@ -297,10 +299,10 @@ export default function PanelAsesorPage() {
         {/* Stats Cards — Glassmorphism */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: Building2, label: 'Propiedades', value: progress.length, sub: `${progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length} cerradas`, badge: `${progress.filter(p => p.status === 'activa').length} activas`, accent: '#C78F7B' },
-            { icon: Users, label: 'Leads totales', value: totalLeads, sub: `${leads.filter(l => l.status === 'calificado').length} calificados`, badge: `${leads.filter(l => l.status === 'nuevo').length} nuevos`, accent: '#3b82f6' },
-            { icon: Eye, label: 'Visitas', value: totalVisitas, sub: `De ${totalLeads} leads`, badge: `${totalLeads > 0 ? Math.round((totalVisitas / totalLeads) * 100) : 0}% tasa`, accent: '#22c55e' },
-            { icon: DollarSign, label: 'Ofertas', value: totalOfertas, sub: `De ${totalVisitas} visitas`, badge: `${totalVisitas > 0 ? Math.round((totalOfertas / totalVisitas) * 100) : 0}% conv.`, accent: '#a855f7' },
+            { icon: Building2, label: t('panelAsesor.stats.properties'), value: progress.length, sub: `${progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length} ${t('panelAsesor.stats.closed')}`, badge: `${progress.filter(p => p.status === 'activa').length} ${t('panelAsesor.stats.active')}`, accent: '#C78F7B' },
+            { icon: Users, label: t('panelAsesor.stats.leads'), value: totalLeads, sub: `${leads.filter(l => l.status === 'calificado').length} ${t('panelAsesor.stats.qualified')}`, badge: `${leads.filter(l => l.status === 'nuevo').length} ${t('panelAsesor.stats.new')}`, accent: '#3b82f6' },
+            { icon: Eye, label: t('panelAsesor.stats.visits'), value: totalVisitas, sub: `${t('panelAsesor.stats.fromLeads')} ${totalLeads} leads`, badge: `${totalLeads > 0 ? Math.round((totalVisitas / totalLeads) * 100) : 0}% ${t('panelAsesor.stats.rate')}`, accent: '#22c55e' },
+            { icon: DollarSign, label: t('panelAsesor.stats.offers'), value: totalOfertas, sub: `${t('panelAsesor.stats.fromVisits')} ${totalVisitas} ${t('panelAsesor.stats.visits').toLowerCase()}`, badge: `${totalVisitas > 0 ? Math.round((totalOfertas / totalVisitas) * 100) : 0}% ${t('panelAsesor.stats.conversion')}`, accent: '#a855f7' },
           ].map((stat, i) => (
             <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
               <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
@@ -322,7 +324,7 @@ export default function PanelAsesorPage() {
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] overflow-hidden">
             <div className="p-5 border-b border-white/10 flex items-center gap-3">
               <div className="w-8 h-8 bg-[#C78F7B]/15 rounded-lg flex items-center justify-center"><TrendingUp className="w-4 h-4 text-[#C78F7B]" /></div>
-              <h2 className="text-sm font-bold text-white">Performance por Propiedad</h2>
+              <h2 className="text-sm font-bold text-white">{t('panelAsesor.charts.performance')}</h2>
             </div>
             <div className="p-6">
               <ResponsiveContainer width="100%" height={280}>
@@ -332,9 +334,9 @@ export default function PanelAsesorPage() {
                   <YAxis tick={{ fill: '#B0ACA6', fontSize: 10 }} />
                   <Tooltip contentStyle={{ backgroundColor: '#17313A', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: '#fff' }} />
                   <Legend wrapperStyle={{ color: '#B0ACA6' }} />
-                  <Bar dataKey="leads" fill="#3b82f6" name="Leads" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="visitas" fill="#22c55e" name="Visitas" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="ofertas" fill="#a855f7" name="Ofertas" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="leads" fill="#3b82f6" name={t('panelAsesor.stats.leads')} radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="visitas" fill="#22c55e" name={t('panelAsesor.stats.visits')} radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="ofertas" fill="#a855f7" name={t('panelAsesor.stats.offers')} radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -343,7 +345,7 @@ export default function PanelAsesorPage() {
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] overflow-hidden">
             <div className="p-5 border-b border-white/10 flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-500/15 rounded-lg flex items-center justify-center"><Users className="w-4 h-4 text-blue-400" /></div>
-              <h2 className="text-sm font-bold text-white">Distribución de Leads</h2>
+              <h2 className="text-sm font-bold text-white">{t('panelAsesor.charts.leadDistribution')}</h2>
             </div>
             <div className="p-6">
               <ResponsiveContainer width="100%" height={220}>
@@ -371,9 +373,9 @@ export default function PanelAsesorPage() {
           <div className="p-5 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-green-500/15 rounded-lg flex items-center justify-center"><TrendingUp className="w-4 h-4 text-green-400" /></div>
-              <h2 className="text-sm font-bold text-white">Actividad de la Semana</h2>
+              <h2 className="text-sm font-bold text-white">{t('panelAsesor.charts.weeklyActivity')}</h2>
             </div>
-            <span className="text-[10px] text-[#B0ACA6] bg-white/5 px-3 py-1 rounded-full border border-white/10">Últimos 7 días</span>
+            <span className="text-[10px] text-[#B0ACA6] bg-white/5 px-3 py-1 rounded-full border border-white/10">{t('panelAsesor.charts.last7Days')}</span>
           </div>
           <div className="p-6">
             <ResponsiveContainer width="100%" height={250}>
@@ -383,8 +385,8 @@ export default function PanelAsesorPage() {
                 <YAxis tick={{ fill: '#B0ACA6' }} />
                 <Tooltip contentStyle={{ backgroundColor: '#17313A', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '12px', color: '#fff' }} />
                 <Legend wrapperStyle={{ color: '#B0ACA6' }} />
-                <Line type="monotone" dataKey="leads" stroke="#3b82f6" strokeWidth={2} name="Leads" dot={{ fill: '#3b82f6', r: 4 }} />
-                <Line type="monotone" dataKey="visitas" stroke="#22c55e" strokeWidth={2} name="Visitas" dot={{ fill: '#22c55e', r: 4 }} />
+                <Line type="monotone" dataKey="leads" stroke="#3b82f6" strokeWidth={2} name={t('panelAsesor.stats.leads')} dot={{ fill: '#3b82f6', r: 4 }} />
+                <Line type="monotone" dataKey="visitas" stroke="#22c55e" strokeWidth={2} name={t('panelAsesor.stats.visits')} dot={{ fill: '#22c55e', r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -397,16 +399,16 @@ export default function PanelAsesorPage() {
             <div className="p-5 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-[#C78F7B]/15 rounded-lg flex items-center justify-center"><Building2 className="w-4 h-4 text-[#C78F7B]" /></div>
-                <h2 className="text-sm font-bold text-white">Mis Propiedades</h2>
+                <h2 className="text-sm font-bold text-white">{t('panelAsesor.myProperties')}</h2>
               </div>
-              <span className="text-[10px] font-bold text-[#C78F7B] bg-[#C78F7B]/10 px-2.5 py-1 rounded-full">{progress.length} total</span>
+              <span className="text-[10px] font-bold text-[#C78F7B] bg-[#C78F7B]/10 px-2.5 py-1 rounded-full">{progress.length} {t('panelAsesor.total')}</span>
             </div>
             <div className="p-5 space-y-3 max-h-[600px] overflow-y-auto">
               {progress.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div className="w-14 h-14 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mb-3"><Building2 className="w-7 h-7 text-[#C78F7B]/40" /></div>
-                  <p className="text-sm text-[#B0ACA6] font-medium mb-1">Sin propiedades asignadas</p>
-                  <p className="text-xs text-[#4A4F57]">Tus propiedades aparecerán aquí</p>
+                  <p className="text-sm text-[#B0ACA6] font-medium mb-1">{t('panelAsesor.noProperties')}</p>
+                  <p className="text-xs text-[#4A4F57]">{t('panelAsesor.propertiesHint')}</p>
                 </div>
               ) : (
                 progress.map((prog) => {
@@ -422,9 +424,9 @@ export default function PanelAsesorPage() {
                         <span className={`ml-2 shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold ${getStatusColor(prog.status)}`}>{prog.status.replace('_', ' ')}</span>
                       </div>
                       <div className="grid grid-cols-3 gap-2 mb-3">
-                        <div className="text-center bg-blue-500/10 rounded-xl p-2"><p className="text-lg font-black text-blue-400">{prog.leads}</p><p className="text-[10px] text-[#4A4F57]">Leads</p></div>
-                        <div className="text-center bg-green-500/10 rounded-xl p-2"><p className="text-lg font-black text-green-400">{prog.visitas}</p><p className="text-[10px] text-[#4A4F57]">Visitas</p></div>
-                        <div className="text-center bg-purple-500/10 rounded-xl p-2"><p className="text-lg font-black text-purple-400">{prog.ofertas}</p><p className="text-[10px] text-[#4A4F57]">Ofertas</p></div>
+                        <div className="text-center bg-blue-500/10 rounded-xl p-2"><p className="text-lg font-black text-blue-400">{prog.leads}</p><p className="text-[10px] text-[#4A4F57]">{t('panelAsesor.stats.leads')}</p></div>
+                        <div className="text-center bg-green-500/10 rounded-xl p-2"><p className="text-lg font-black text-green-400">{prog.visitas}</p><p className="text-[10px] text-[#4A4F57]">{t('panelAsesor.stats.visits')}</p></div>
+                        <div className="text-center bg-purple-500/10 rounded-xl p-2"><p className="text-lg font-black text-purple-400">{prog.ofertas}</p><p className="text-[10px] text-[#4A4F57]">{t('panelAsesor.stats.offers')}</p></div>
                       </div>
                       {prog.notas && (
                         <div className="p-2.5 bg-[#C78F7B]/10 rounded-xl border border-[#C78F7B]/20 mb-2">
@@ -444,16 +446,16 @@ export default function PanelAsesorPage() {
             <div className="p-5 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-blue-500/15 rounded-lg flex items-center justify-center"><Users className="w-4 h-4 text-blue-400" /></div>
-                <h2 className="text-sm font-bold text-white">Leads Recientes</h2>
+                <h2 className="text-sm font-bold text-white">{t('panelAsesor.recentLeads')}</h2>
               </div>
-              <span className="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">{leads.length} leads</span>
+              <span className="text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full">{leads.length} {t('panelAsesor.stats.leads').toLowerCase()}</span>
             </div>
             <div className="p-5 space-y-3 max-h-[600px] overflow-y-auto">
               {leads.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-3"><Users className="w-7 h-7 text-blue-400/40" /></div>
-                  <p className="text-sm text-[#B0ACA6] font-medium mb-1">Sin leads por ahora</p>
-                  <p className="text-xs text-[#4A4F57]">Los leads de tus propiedades aparecerán aquí</p>
+                  <p className="text-sm text-[#B0ACA6] font-medium mb-1">{t('panelAsesor.noLeads')}</p>
+                  <p className="text-xs text-[#4A4F57]">{t('panelAsesor.leadsHint')}</p>
                 </div>
               ) : (
                 leads.map((lead) => {
@@ -487,16 +489,16 @@ export default function PanelAsesorPage() {
           <div className="p-5 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-purple-500/15 rounded-lg flex items-center justify-center"><TrendingUp className="w-4 h-4 text-purple-400" /></div>
-              <h2 className="text-sm font-bold text-white">Actividad Reciente</h2>
+              <h2 className="text-sm font-bold text-white">{t('panelAsesor.recentActivity')}</h2>
             </div>
-            <span className="text-[10px] text-[#B0ACA6] bg-white/5 px-3 py-1 rounded-full border border-white/10">{activities.length} registros</span>
+            <span className="text-[10px] text-[#B0ACA6] bg-white/5 px-3 py-1 rounded-full border border-white/10">{activities.length} {t('panelAsesor.records')}</span>
           </div>
           <div className="p-5">
             {activities.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-3"><TrendingUp className="w-7 h-7 text-purple-400/40" /></div>
-                <p className="text-sm text-[#B0ACA6] font-medium mb-1">Sin actividad registrada</p>
-                <p className="text-xs text-[#4A4F57]">Las acciones del día aparecerán aquí</p>
+                <p className="text-sm text-[#B0ACA6] font-medium mb-1">{t('panelAsesor.noActivity')}</p>
+                <p className="text-xs text-[#4A4F57]">{t('panelAsesor.activityHint')}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -533,8 +535,8 @@ export default function PanelAsesorPage() {
             <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-6 sm:p-8 overflow-hidden">
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
               <div className="relative mb-6">
-                <h2 className="text-2xl font-bold text-white mb-1">Gestión de Desarrollos</h2>
-                <p className="text-sm text-[#B0ACA6]">Administra proyectos, calendario y usa el agente IA</p>
+                <h2 className="text-2xl font-bold text-white mb-1">{t('panelAsesor.developmentManagement')}</h2>
+                <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.developmentManagementDesc')}</p>
               </div>
               <DesarrollosManager userRole="asesor" />
             </div>

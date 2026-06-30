@@ -34,8 +34,10 @@ import {
 import { toast } from 'sonner'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
 import { ShareButton } from '@/components/share-button'
+import { useLanguage } from '@/lib/i18n'
 
 export default function PropiedadesAsesorPage() {
+  const { t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
@@ -147,19 +149,19 @@ export default function PropiedadesAsesorPage() {
       if (editingProperty) {
         const updated = await PropertiesStorage.update(editingProperty.id, data)
         if (!updated) {
-          throw new Error('No se pudo actualizar la propiedad. Verifica que tengas permisos.')
+          throw new Error(t('panelAsesor.propiedades.errors.updateError'))
         }
-        toast.success('Propiedad actualizada exitosamente')
+        toast.success(t('panelAsesor.propiedades.toast.updateSuccess'))
       } else {
         // Usar el email del usuario para identificar quién subió la propiedad
-        if (!user) throw new Error('Usuario no autenticado')
+        if (!user) throw new Error(t('panelAsesor.propiedades.errors.authError'))
 
         // Guardar con el email del usuario para fácil rastreo
         const newProperty = await PropertiesStorage.add(data, user.email)
         if (!newProperty) {
-          throw new Error('No se pudo crear la propiedad')
+          throw new Error(t('panelAsesor.propiedades.errors.createError'))
         }
-        toast.success('Propiedad publicada exitosamente')
+        toast.success(t('panelAsesor.propiedades.toast.createSuccess'))
       }
 
       await loadProperties()
@@ -167,7 +169,7 @@ export default function PropiedadesAsesorPage() {
       setEditingProperty(null)
     } catch (error: any) {
       console.error('Error guardando propiedad:', error)
-      toast.error(error?.message || 'No se pudo guardar la propiedad')
+      toast.error(error?.message || t('panelAsesor.propiedades.errors.saveError'))
     }
   }
 
@@ -178,7 +180,7 @@ export default function PropiedadesAsesorPage() {
 
   const handleDelete = (id: number) => {
     PropertiesStorage.delete(id)
-    toast.success('Propiedad eliminada')
+    toast.success(t('panelAsesor.propiedades.toast.deleteSuccess'))
     loadProperties()
     setDeleteConfirm(null)
   }
@@ -188,10 +190,10 @@ export default function PropiedadesAsesorPage() {
 
     // Si no tiene plan, redirigir a elegir uno
     if (!user.plan) {
-      toast.info('Elige tu plan para comenzar', {
-        description: 'Necesitas seleccionar un plan antes de agregar propiedades',
+      toast.info(t('panelAsesor.propiedades.toast.choosePlanTitle'), {
+        description: t('panelAsesor.propiedades.toast.choosePlanDesc'),
         action: {
-          label: 'Elegir Plan',
+          label: t('panelAsesor.propiedades.toast.choosePlanAction'),
           onClick: () => router.push('/alianza-comercial')
         }
       })
@@ -205,11 +207,11 @@ export default function PropiedadesAsesorPage() {
     if (!canAddProperty(userPlan, propiedades.length, user?.email)) {
       const limit = getPropertyLimit(userPlan)
       toast.error(
-        `Has alcanzado el límite de ${limit} propiedades del ${currentPlan?.name}`,
+        t('panelAsesor.propiedades.toast.limitError', { limit, planName: currentPlan?.name || 'Core' }),
         {
-          description: 'Actualiza a Plan Elite para propiedades ilimitadas',
+          description: t('panelAsesor.propiedades.toast.limitErrorDesc'),
           action: {
-            label: 'Ver Planes',
+            label: t('panelAsesor.propiedades.toast.viewPlansAction'),
             onClick: () => router.push('/panel-asesor/planes')
           }
         }
@@ -223,19 +225,19 @@ export default function PropiedadesAsesorPage() {
 
   const handleNotificarBaja = async (propiedad: Propiedad) => {
     if (!motivoBaja.trim()) {
-      toast.error('Por favor indica el motivo de la baja')
+      toast.error(t('panelAsesor.propiedades.errors.motivoRequired'))
       return
     }
 
     try {
       // Aquí se podría enviar una notificación al admin o guardar en base de datos
       // Por ahora actualizamos el estado de la propiedad a "Baja solicitada"
-      toast.success(`Solicitud de baja enviada para: ${propiedad.titulo}. El administrador será notificado.`)
+      toast.success(t('panelAsesor.propiedades.toast.bajaSent', { titulo: propiedad.titulo }))
       setBajaConfirm(null)
       setMotivoBaja('')
     } catch (error) {
       console.error('Error al notificar baja:', error)
-      toast.error('Error al enviar la solicitud de baja')
+      toast.error(t('panelAsesor.propiedades.errors.bajaError'))
     }
   }
 
@@ -247,15 +249,15 @@ export default function PropiedadesAsesorPage() {
         <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
           <button onClick={() => { setShowForm(false); setEditingProperty(null); }} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-6 text-sm transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Volver
+            <ArrowLeft className="h-4 w-4" /> {t('panelAsesor.propiedades.backButton')}
           </button>
 
           <div className="mb-6">
             <h1 className="text-3xl font-black text-white mb-2">
-              {editingProperty ? 'Editar Propiedad' : 'Nueva Propiedad'}
+              {editingProperty ? t('panelAsesor.propiedades.editProperty') : t('panelAsesor.propiedades.newProperty')}
             </h1>
             <p className="text-sm text-[#B0ACA6]">
-              {editingProperty ? 'Actualiza la información de la propiedad' : 'Completa el formulario para publicar una nueva propiedad'}
+              {editingProperty ? t('panelAsesor.propiedades.updateDesc') : t('panelAsesor.propiedades.createDesc')}
             </p>
           </div>
 
@@ -285,17 +287,17 @@ export default function PropiedadesAsesorPage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div className="w-full sm:w-auto">
             <button onClick={() => handleNavigation('/panel-asesor')} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-3 sm:mb-4 text-sm transition-colors">
-              <ArrowLeft className="h-4 w-4" /> Volver al Panel
+              <ArrowLeft className="h-4 w-4" /> {t('panelAsesor.propiedades.backToPanel')}
             </button>
-            <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">Mis Propiedades</h1>
-            <p className="text-sm text-[#B0ACA6]">Gestiona tu portafolio de propiedades</p>
+            <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">{t('panelAsesor.propiedades.myProperties')}</h1>
+            <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.propiedades.managePortfolio')}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button onClick={() => handleNavigation('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-              <Camera className="h-4 w-4 text-[#C78F7B]" /> Solicitar Propiedad
+              <Camera className="h-4 w-4 text-[#C78F7B]" /> {t('panelAsesor.propiedades.requestProperty')}
             </button>
             <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
-              <Plus className="h-4 w-4" /> Nueva Propiedad
+              <Plus className="h-4 w-4" /> {t('panelAsesor.propiedades.newProperty')}
             </button>
           </div>
         </div>
@@ -313,15 +315,15 @@ export default function PropiedadesAsesorPage() {
                   <h3 className="text-lg font-bold text-white">{getPlanById(user.plan || 'core')?.name}</h3>
                   <p className="text-xs text-[#B0ACA6]">
                     {user.plan === 'elite' || user.email === 'lizzie@conectia.mx'
-                      ? `Propiedades ilimitadas • ${propiedades.length} activas`
-                      : `${propiedades.length} de ${getPropertyLimit(user.plan || 'core')} propiedades`
+                      ? t('panelAsesor.propiedades.unlimitedProperties', { count: propiedades.length })
+                      : t('panelAsesor.propiedades.propertyCount', { current: propiedades.length, limit: getPropertyLimit(user.plan || 'core') })
                     }
                   </p>
                 </div>
               </div>
               {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
                 <button onClick={() => router.push('/panel-asesor/planes')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
-                  <Diamond className="h-4 w-4" /> Actualizar a Elite
+                  <Diamond className="h-4 w-4" /> {t('panelAsesor.propiedades.upgradeToElite')}
                 </button>
               )}
             </div>
@@ -331,10 +333,10 @@ export default function PropiedadesAsesorPage() {
         {/* Stats — Glassmorphism */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {[
-            { label: 'Total Propiedades', value: propiedades.length, accent: '#C78F7B', icon: Building2 },
-            { label: 'Disponibles', value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye },
-            { label: 'Exclusivas', value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: '#C78F7B', icon: Building2 },
-            { label: 'Reservadas', value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.total'), value: propiedades.length, accent: '#C78F7B', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.available'), value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye },
+            { label: t('panelAsesor.propiedades.stats.exclusive'), value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: '#C78F7B', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.reserved'), value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2 },
           ].map((stat, i) => (
             <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
               <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
@@ -357,10 +359,10 @@ export default function PropiedadesAsesorPage() {
             <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
             <div className="relative">
               <div className="w-16 h-16 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><Building2 className="h-8 w-8 text-[#C78F7B]/60" /></div>
-              <h3 className="text-xl font-bold text-white mb-2">No tienes propiedades</h3>
-              <p className="text-sm text-[#B0ACA6] mb-6">Comienza publicando tu primera propiedad</p>
+              <h3 className="text-xl font-bold text-white mb-2">{t('panelAsesor.propiedades.noProperties')}</h3>
+              <p className="text-sm text-[#B0ACA6] mb-6">{t('panelAsesor.propiedades.startFirst')}</p>
               <button onClick={handleNewProperty} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
-                <Plus className="h-4 w-4" /> Publicar Primera Propiedad
+                <Plus className="h-4 w-4" /> {t('panelAsesor.propiedades.publishFirst')}
               </button>
             </div>
           </div>
@@ -388,7 +390,7 @@ export default function PropiedadesAsesorPage() {
                   {propiedad.agente && (
                     <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-[#C78F7B]/10 rounded-xl border border-[#C78F7B]/20">
                       <User className="h-4 w-4 text-[#C78F7B]" />
-                      <div className="flex flex-col"><span className="text-[10px] text-[#B0ACA6]">Publicado por</span><span className="text-xs font-semibold text-white">{propiedad.agente.nombre}</span></div>
+                      <div className="flex flex-col"><span className="text-[10px] text-[#B0ACA6]">{t('panelAsesor.propiedades.publishedBy')}</span><span className="text-xs font-semibold text-white">{propiedad.agente.nombre}</span></div>
                     </div>
                   )}
 
@@ -403,13 +405,13 @@ export default function PropiedadesAsesorPage() {
                         {analytics.views > 0 && (
                           <div className="flex items-center gap-1 px-2 py-1 bg-[#8b5cf6]/10 rounded-lg border border-[#8b5cf6]/20">
                             <BarChart3 className="h-3 w-3 text-[#8b5cf6]" />
-                            <span className="text-[10px] font-bold text-[#8b5cf6]">{analytics.views} vista{analytics.views !== 1 ? 's' : ''}</span>
+                            <span className="text-[10px] font-bold text-[#8b5cf6]">{analytics.views} {t('panelAsesor.propiedades.views')}{analytics.views !== 1 ? t('panelAsesor.propiedades.viewsPlural') : ''}</span>
                           </div>
                         )}
                         {analytics.shares > 0 && (
                           <div className="flex items-center gap-1 px-2 py-1 bg-[#06b6d4]/10 rounded-lg border border-[#06b6d4]/20">
                             <Share2 className="h-3 w-3 text-[#06b6d4]" />
-                            <span className="text-[10px] font-bold text-[#06b6d4]">{analytics.shares} compartido{analytics.shares !== 1 ? 's' : ''}</span>
+                            <span className="text-[10px] font-bold text-[#06b6d4]">{analytics.shares} {t('panelAsesor.propiedades.shared')}{analytics.shares !== 1 ? t('panelAsesor.propiedades.sharedPlural') : ''}</span>
                           </div>
                         )}
                         {analytics.interactionsCount > 0 && (
@@ -430,7 +432,7 @@ export default function PropiedadesAsesorPage() {
 
                   <div className="flex gap-2">
                     <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
-                      <Eye className="h-3.5 w-3.5" /> Ver
+                      <Eye className="h-3.5 w-3.5" /> {t('panelAsesor.propiedades.view')}
                     </button>
                     <ShareButton
                       title={propiedad.titulo}
@@ -443,7 +445,7 @@ export default function PropiedadesAsesorPage() {
                     />
                     {(user?.role === 'admin' || (propiedad.agente && propiedad.agente.email === user?.email)) && (
                       <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
-                        <Edit className="h-3.5 w-3.5" /> Editar
+                        <Edit className="h-3.5 w-3.5" /> {t('panelAsesor.propiedades.edit')}
                       </button>
                     )}
                     <button onClick={() => setBajaConfirm(propiedad)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-400 rounded-xl transition-all text-xs font-semibold" title="Notificar baja">
@@ -465,12 +467,12 @@ export default function PropiedadesAsesorPage() {
         <Dialog open={deleteConfirm !== null} onOpenChange={() => setDeleteConfirm(null)}>
           <DialogContent className="bg-[#17313A]/95 backdrop-blur-xl border-white/10 rounded-[24px]">
             <DialogHeader>
-              <DialogTitle className="text-white">¿Eliminar propiedad?</DialogTitle>
-              <DialogDescription className="text-[#B0ACA6]">Esta acción no se puede deshacer. La propiedad será eliminada permanentemente.</DialogDescription>
+              <DialogTitle className="text-white">{t('panelAsesor.propiedades.deleteConfirm.title')}</DialogTitle>
+              <DialogDescription className="text-[#B0ACA6]">{t('panelAsesor.propiedades.deleteConfirm.description')}</DialogDescription>
             </DialogHeader>
             <div className="flex gap-3 justify-end mt-4">
-              <Button variant="outline" onClick={() => setDeleteConfirm(null)} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Cancelar</Button>
-              <Button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="bg-red-500/80 hover:bg-red-500 text-white rounded-xl">Eliminar</Button>
+              <Button variant="outline" onClick={() => setDeleteConfirm(null)} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">{t('panelAsesor.propiedades.cancel')}</Button>
+              <Button onClick={() => deleteConfirm && handleDelete(deleteConfirm)} className="bg-red-500/80 hover:bg-red-500 text-white rounded-xl">{t('panelAsesor.propiedades.delete')}</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -479,17 +481,17 @@ export default function PropiedadesAsesorPage() {
         <Dialog open={bajaConfirm !== null} onOpenChange={() => { setBajaConfirm(null); setMotivoBaja(''); }}>
           <DialogContent className="bg-[#17313A]/95 backdrop-blur-xl border-white/10 rounded-[24px]">
             <DialogHeader>
-              <DialogTitle className="text-white flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-orange-400" /> Notificar Baja de Propiedad</DialogTitle>
-              <DialogDescription className="text-[#B0ACA6]">{bajaConfirm && (<span>Estás solicitando dar de baja: <strong className="text-white">{bajaConfirm.titulo}</strong></span>)}</DialogDescription>
+              <DialogTitle className="text-white flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-orange-400" /> {t('panelAsesor.propiedades.bajaConfirm.title')}</DialogTitle>
+              <DialogDescription className="text-[#B0ACA6]">{bajaConfirm && (<span>{t('panelAsesor.propiedades.bajaConfirm.description')} <strong className="text-white">{bajaConfirm.titulo}</strong></span>)}</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 mt-4">
               <div>
-                <label className="block text-xs font-medium text-[#B0ACA6] mb-2">Motivo de la baja *</label>
-                <textarea value={motivoBaja} onChange={(e) => setMotivoBaja(e.target.value)} placeholder="Ej: Propiedad vendida, propietario retiró la propiedad, etc." className="w-full p-3 bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-1 focus:ring-[#C78F7B]/20 outline-none" rows={3} />
+                <label className="block text-xs font-medium text-[#B0ACA6] mb-2">{t('panelAsesor.propiedades.bajaConfirm.motivoLabel')}</label>
+                <textarea value={motivoBaja} onChange={(e) => setMotivoBaja(e.target.value)} placeholder={t('panelAsesor.propiedades.bajaConfirm.motivoPlaceholder')} className="w-full p-3 bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-1 focus:ring-[#C78F7B]/20 outline-none" rows={3} />
               </div>
               <div className="flex gap-3 justify-end">
-                <Button variant="outline" onClick={() => { setBajaConfirm(null); setMotivoBaja(''); }} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">Cancelar</Button>
-                <Button onClick={() => bajaConfirm && handleNotificarBaja(bajaConfirm)} className="bg-orange-500/80 hover:bg-orange-500 text-white rounded-xl">Enviar Notificación</Button>
+                <Button variant="outline" onClick={() => { setBajaConfirm(null); setMotivoBaja(''); }} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">{t('panelAsesor.propiedades.cancel')}</Button>
+                <Button onClick={() => bajaConfirm && handleNotificarBaja(bajaConfirm)} className="bg-orange-500/80 hover:bg-orange-500 text-white rounded-xl">{t('panelAsesor.propiedades.bajaConfirm.sendNotification')}</Button>
               </div>
             </div>
           </DialogContent>

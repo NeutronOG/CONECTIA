@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { FileText, Phone, MapPin, Scale } from "lucide-react"
 import { PageHero } from "@/components/page-hero"
+import { useLanguage } from "@/lib/i18n"
 
 const notariasAsociadas = [
   {
@@ -44,14 +45,15 @@ const notariasAsociadas = [
 ]
 
 export default function BrokersPage() {
+  const { t } = useLanguage()
   return (
     <div className="min-h-screen bg-conectia-surface">
       <PageHero
         icon={Scale}
-        title="Brokers"
-        titleAccent="& Notarías"
-        description="Red consolidada de brokers y notarías de confianza que garantizan seguridad jurídica en cada operación inmobiliaria."
-        badge="5 Notarías Asociadas"
+        title={t('pages.brokers.heroTitle')}
+        titleAccent={t('pages.brokers.heroAccent')}
+        description={t('pages.brokers.heroDescription')}
+        badge={t('pages.brokers.heroBadge')}
         bgImage="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80"
       />
 
@@ -59,13 +61,12 @@ export default function BrokersPage() {
       <section className="py-16 sm:py-20 px-4 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
-            <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-semibold">Red Legal Verificada</span>
+            <span className="text-[10px] uppercase tracking-[0.35em] text-conectia-primary font-semibold">{t('pages.brokers.sectionEyebrow')}</span>
             <h2 className="text-2xl sm:text-3xl font-black text-conectia-accent mt-1">
-              Notarías Asociadas
+              {t('pages.brokers.sectionTitle')}
             </h2>
             <p className="text-sm text-conectia-accent/55 mt-2 max-w-xl">
-              Trabajamos con notarías de confianza que garantizan seguridad jurídica 
-              en todas las transacciones inmobiliarias.
+              {t('pages.brokers.sectionDescription')}
             </p>
           </div>
           

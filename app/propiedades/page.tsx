@@ -12,8 +12,10 @@ import { WishlistButton } from "@/components/wishlist-button"
 import { Propiedad } from "@/data/propiedades"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { useAuth } from "@/contexts/auth-context"
+import { useLanguage } from "@/lib/i18n"
 
 export default function PropiedadesPage() {
+  const { t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   // Hook con datos estáticos + realtime - carga instantánea
   const { properties: propiedades, isLoading, refresh, realtimeCount } = usePropertiesStatic()
@@ -148,19 +150,19 @@ export default function PropiedadesPage() {
                 style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
                 <Building className="h-5 w-5 text-[#C78F7B]" />
               </div>
-              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">CONECTIA</span>
+              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">{t('common.appName')}</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-[#17313A] dark:text-white leading-[0.95] mb-2">
-              Propiedades
+              {t('properties.pageTitle')}
             </h1>
             <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent leading-tight mb-5">
-              Exclusivas
+              {t('common.exclusive')}
             </h2>
             <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
-              Descubre nuestra selección de propiedades únicas y exclusivas
+              {t('properties.pageSubtitle')}
             </p>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] bg-[#17313A]/[0.10] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/15 backdrop-blur-md">
-              {isLoading ? 'Cargando...' : `${filteredAndSortedProperties.length} de ${propiedades.length} Propiedades`}
+              {isLoading ? t('properties.loading') : `${filteredAndSortedProperties.length} ${t('common.of')} ${propiedades.length} ${t('properties.pageTitle')}`}
             </span>
           </div>
         </div>
@@ -187,10 +189,10 @@ export default function PropiedadesPage() {
                   </div>
                   <div>
                     <h3 className="font-serif text-base sm:text-lg font-semibold text-ivory mb-1.5 sm:mb-2">
-                      Búsqueda Smart
+                      {t('properties.aiSearch.title')}
                     </h3>
                     <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-                      Describe la propiedad que buscas y nuestro asistente inteligente te ayudará a encontrarla
+                      {t('properties.aiSearch.subtitle')}
                     </p>
                   </div>
                   <Button
@@ -198,11 +200,11 @@ export default function PropiedadesPage() {
                     className="w-full glass-primary text-ivory font-bold rounded-xl transition-all duration-300 text-sm hover:scale-[1.02]"
                   >
                     <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />
-                    Iniciar Chat IA
+                    {t('properties.aiSearch.cta')}
                   </Button>
                   <div className="flex items-center justify-center space-x-1.5 sm:space-x-2 text-[10px] sm:text-xs text-white/60">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#C78F7B] rounded-full animate-pulse"></div>
-                    <span>Asistente disponible 24/7</span>
+                    <span>{t('properties.aiSearch.available')}</span>
                   </div>
                 </div>
               </div>
@@ -214,7 +216,7 @@ export default function PropiedadesPage() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="flex items-center space-x-4">
                   <h2 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-[#17313A] dark:text-white">
-                    {filteredAndSortedProperties.length} <span className="text-[#C78F7B]">Propiedades</span>
+                    {filteredAndSortedProperties.length} <span className="text-[#C78F7B]">{t('properties.pageTitle')}</span>
                   </h2>
                 </div>
 
@@ -222,15 +224,15 @@ export default function PropiedadesPage() {
                   {/* Sort Dropdown */}
                   <Select value={sortBy} onValueChange={handleSortChange}>
                     <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[#C78F7B] rounded-xl text-sm">
-                      <SelectValue placeholder="Ordenar por" />
+                      <SelectValue placeholder={t('properties.sort.sort')} />
                     </SelectTrigger>
                     <SelectContent className="bg-white dark:bg-[#17313A] border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white">
-                      <SelectItem value="precio-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Precio: Mayor a menor</SelectItem>
-                      <SelectItem value="precio-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Precio: Menor a mayor</SelectItem>
-                      <SelectItem value="area-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Área: Mayor a menor</SelectItem>
-                      <SelectItem value="area-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Área: Menor a mayor</SelectItem>
-                      <SelectItem value="fecha-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Más recientes</SelectItem>
-                      <SelectItem value="fecha-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">Más antiguos</SelectItem>
+                      <SelectItem value="precio-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.priceDesc')}</SelectItem>
+                      <SelectItem value="precio-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.priceAsc')}</SelectItem>
+                      <SelectItem value="area-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.areaDesc')}</SelectItem>
+                      <SelectItem value="area-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.areaAsc')}</SelectItem>
+                      <SelectItem value="fecha-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.newest')}</SelectItem>
+                      <SelectItem value="fecha-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.oldest')}</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -294,8 +296,8 @@ export default function PropiedadesPage() {
                             {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[#C78F7B]/10 text-[#C78F7B] text-[10px] font-bold border border-[#C78F7B]/20">+{propiedad.caracteristicas.length - 2}</span>)}
                           </div>
                           <div className="flex gap-3 mt-auto">
-                            <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />Agendar Visita</Button>
-                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">Ver Detalles</Button>
+                            <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />{t('common.scheduleVisit')}</Button>
+                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">{t('common.viewDetails')}</Button>
                           </div>
                         </div>
                       </div>
@@ -339,7 +341,7 @@ export default function PropiedadesPage() {
                                   <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
                                 </div>
                                 <div className="flex gap-2">
-                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-4 w-4 mr-2" />Agendar</Button>
+                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-4 w-4 mr-2" />{t('common.schedule')}</Button>
                                 </div>
                               </div>
                             </div>
@@ -357,9 +359,9 @@ export default function PropiedadesPage() {
                   <div className="h-96 bg-[#EAE4DD] dark:bg-[#0F2027] flex items-center justify-center">
                     <div className="text-center text-[#17313A]/60 dark:text-[#B0ACA6]">
                       <Map className="h-16 w-16 mx-auto mb-4 text-[#C78F7B]" />
-                      <h3 className="text-lg font-semibold mb-2 text-[#17313A] dark:text-white">Vista de Mapa</h3>
-                      <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">Mapa interactivo con ubicaciones de propiedades</p>
-                      <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#B0ACA6]">Próximamente disponible</p>
+                      <h3 className="text-lg font-semibold mb-2 text-[#17313A] dark:text-white">{t('properties.mapView.title')}</h3>
+                      <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">{t('properties.mapView.subtitle')}</p>
+                      <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#B0ACA6]">{t('properties.mapView.comingSoon')}</p>
                     </div>
                   </div>
                 </div>
@@ -368,9 +370,9 @@ export default function PropiedadesPage() {
               {/* Pagination */}
               {totalPages > 1 && viewMode !== 'map' && (
                 <div className="flex items-center justify-center gap-2 mt-10">
-                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">← Anterior</button>
+                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">← {t('common.previous')}</button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2).reduce<(number | '...')[]>((acc, p, idx, arr) => { if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push('...'); acc.push(p); return acc; }, []).map((item, i) => item === '...' ? (<span key={`ellipsis-${i}`} className="px-2 text-[#4A4F57] text-sm">…</span>) : (<button key={item} onClick={() => setCurrentPage(item as number)} className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${currentPage === item ? 'bg-[#C78F7B] text-[#0F2027]' : 'border border-[#17313A]/20 dark:border-white/15 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:border-[#C78F7B]/40 hover:text-[#C78F7B] bg-[#17313A]/[0.10] dark:bg-white/[0.03]'}`}>{item}</button>))}
-                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">Siguiente →</button>
+                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">{t('common.next')} →</button>
                 </div>
               )}
 
@@ -380,9 +382,9 @@ export default function PropiedadesPage() {
                   <div className="text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
                     <Search className="h-16 w-16 mx-auto mb-4" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[#17313A] dark:text-white mb-2">No se encontraron propiedades</h3>
-                  <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-6">Intenta ajustar tus filtros de búsqueda</p>
-                  <Button onClick={() => setFilters({})} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold rounded-xl">Limpiar Filtros</Button>
+                  <h3 className="text-xl font-semibold text-[#17313A] dark:text-white mb-2">{t('properties.empty.title')}</h3>
+                  <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-6">{t('properties.empty.subtitle')}</p>
+                  <Button onClick={() => setFilters({})} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold rounded-xl">{t('common.clearFilters')}</Button>
                 </div>
               )}
             </div>
@@ -396,14 +398,14 @@ export default function PropiedadesPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C78F7B]/8 rounded-full blur-[120px] pointer-events-none" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#17313A] dark:text-white mb-6">
-            ¿Tienes una <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">propiedad exclusiva?</span>
+            {t('properties.cta.title')} <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">{t('properties.cta.highlight')}</span>
           </h2>
           <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-8 max-w-2xl mx-auto">
-            Únete a nuestro selecto portafolio de propiedades de lujo y accede a compradores exclusivos
+            {t('properties.cta.subtitle')}
           </p>
           <Link href="/propietarios">
             <Button className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] px-8 py-4 text-lg font-bold rounded-2xl shadow-xl shadow-[#C78F7B]/20 hover:scale-105 transition-all">
-              Registrar mi Propiedad
+              {t('properties.cta.button')}
             </Button>
           </Link>
         </div>

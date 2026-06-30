@@ -22,6 +22,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
+import { useLanguage } from "@/lib/i18n"
 
 type UnitStatus = 'disponible' | 'reservado' | 'vendido'
 
@@ -100,19 +101,25 @@ const PROYECTOS_UNIDADES: ProyectoUnidades[] = [
   },
 ]
 
-const Leon3DMap = dynamic(() => import("@/components/leon-3d-map").then(mod => mod.Leon3DMap), {
-  ssr: false,
-  loading: () => (
+function MapLoading() {
+  const { t } = useLanguage()
+  return (
     <div className="w-full h-[430px] sm:h-[500px] lg:h-[600px] bg-[#080b14] rounded-2xl flex items-center justify-center border border-slate-800 shadow-2xl">
       <div className="flex flex-col items-center gap-4">
         <div className="w-8 h-8 border-4 border-conectia-gold border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-slate-400 font-medium">Cargando mapa interactivo 3D...</p>
+        <p className="text-slate-400 font-medium">{t('desarrollos.loadingMap')}</p>
       </div>
     </div>
   )
+}
+
+const Leon3DMap = dynamic(() => import("@/components/leon-3d-map").then(mod => mod.Leon3DMap), {
+  ssr: false,
+  loading: () => <MapLoading />
 })
 
 function ProximamenteSection({ titulo, descripcion, icono }: { titulo: string, descripcion: string, icono: React.ReactNode }) {
+  const { t } = useLanguage()
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
       <div className="w-24 h-24 bg-conectia-gold/10 rounded-full flex items-center justify-center mb-6">
@@ -122,14 +129,15 @@ function ProximamenteSection({ titulo, descripcion, icono }: { titulo: string, d
       <p className="text-gray-500 mb-6 max-w-md">{descripcion}</p>
       <div className="flex items-center gap-2 bg-conectia-gold/10 border border-conectia-gold/30 rounded-full px-6 py-3">
         <Clock className="h-4 w-4 text-conectia-gold" />
-        <span className="text-conectia-gold font-semibold text-sm">Próximamente</span>
+        <span className="text-conectia-gold font-semibold text-sm">{t('desarrollos.comingSoon')}</span>
       </div>
-      <p className="text-gray-400 text-sm mt-4">Estamos preparando proyectos exclusivos para esta categoría.</p>
+      <p className="text-gray-400 text-sm mt-4">{t('desarrollos.comingSoonDesc')}</p>
     </div>
   )
 }
 
 function UnidadesSection() {
+  const { t } = useLanguage()
   const [activeIdx, setActiveIdx] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -156,9 +164,9 @@ function UnidadesSection() {
             <Building2 className="h-3 w-3 mr-1" />
             {proyecto.nombre}
           </Badge>
-          <h2 className="text-3xl font-bold text-white mb-3">Disponibilidad de Unidades</h2>
+          <h2 className="text-3xl font-bold text-white mb-3">{t('desarrollos.unitsTitle')}</h2>
           <p className="text-slate-400 max-w-xl mx-auto">
-            {proyecto.zona} · Precios desde {proyecto.precioDesde} MXN
+            {proyecto.zona} · {t('desarrollos.fromPrice')} {proyecto.precioDesde} MXN
           </p>
         </div>
 
@@ -182,9 +190,9 @@ function UnidadesSection() {
         {/* Legend */}
         <div className="flex justify-center gap-6 mb-8">
           {[
-            { color: 'bg-[#e8ff50]', label: 'Disponible' },
-            { color: 'bg-orange-500', label: 'Reservado' },
-            { color: 'bg-slate-700', label: 'Vendido' },
+            { color: 'bg-[#e8ff50]', label: t('desarrollos.status.available') },
+            { color: 'bg-orange-500', label: t('desarrollos.status.reserved') },
+            { color: 'bg-slate-700', label: t('desarrollos.status.sold') },
           ].map(({ color, label }) => (
             <span key={label} className="flex items-center gap-2 text-sm text-slate-300">
               <span className={`w-4 h-4 rounded-sm ${color} inline-block`} />
@@ -214,7 +222,7 @@ function UnidadesSection() {
                         cursor:          isDisp ? 'pointer'   : 'default',
                       }}
                     >
-                      {isDisp ? `D${di + 1}` : isRes ? 'Res.' : 'Vend.'}
+                      {isDisp ? `D${di + 1}` : isRes ? t('desarrollos.status.shortReserved') : t('desarrollos.status.shortSold')}
                     </button>
                   )
                 })}
@@ -224,13 +232,13 @@ function UnidadesSection() {
         </div>
 
         <div className="text-center mt-10">
-          <p className="text-slate-400 text-sm mb-4">¿Te interesa alguna unidad? Contáctanos para apartar tu departamento.</p>
+          <p className="text-slate-400 text-sm mb-4">{t('desarrollos.unitsCta')}</p>
           <Link
             href={`/contacto?propiedad=${encodeURIComponent(proyecto.nombre)}`}
             className="inline-flex items-center gap-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold px-6 py-3 rounded-lg transition-all"
           >
             <Phone className="h-4 w-4" />
-            Apartar Unidad
+            {t('desarrollos.reserveUnit')}
           </Link>
         </div>
       </div>
@@ -239,6 +247,7 @@ function UnidadesSection() {
 }
 
 export default function DesarrollosPage() {
+  const { t } = useLanguage()
   return (
     <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
       {/* Hero Section */}
@@ -255,23 +264,23 @@ export default function DesarrollosPage() {
               <div className="w-12 h-12 bg-conectia-primary rounded-2xl flex items-center justify-center shadow-lg">
                 <Building2 className="h-6 w-6 text-conectia-accent" />
               </div>
-              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">Nuevos Proyectos</span>
+              <span className="text-conectia-primary text-sm font-semibold uppercase tracking-widest">{t('desarrollos.heroBadge')}</span>
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-4">
-              Desarrollos<br/>
-              <span className="text-conectia-primary">Inmobiliarios</span>
+              {t('desarrollos.heroTitle')}<br/>
+              <span className="text-conectia-primary">{t('desarrollos.heroHighlight')}</span>
             </h1>
             <p className="text-white/80 text-base sm:text-lg mb-6 leading-relaxed">
-              Descubre los mejores desarrollos verticales, horizontales y fraccionamientos.
+              {t('desarrollos.heroDescription')}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button size="lg" className="bg-conectia-primary hover:bg-conectia-primary/90 text-[#17313A] font-semibold rounded-xl shadow-lg">
                 <Building2 className="mr-2 h-5 w-5" />
-                Ver Desarrollos
+                {t('desarrollos.heroPrimary')}
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white bg-white/10 hover:bg-white/20 rounded-xl backdrop-blur-sm">
                 <Phone className="mr-2 h-5 w-5" />
-                Contactar Asesor
+                {t('desarrollos.heroSecondary')}
               </Button>
             </div>
           </div>
@@ -284,19 +293,19 @@ export default function DesarrollosPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
               <p className="text-4xl font-bold text-conectia-primary">+3</p>
-              <p className="text-conectia-accent/70 text-sm mt-1">Desarrollos Activos</p>
+              <p className="text-conectia-accent/70 text-sm mt-1">{t('desarrollos.stats.active')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-conectia-primary">25+</p>
-              <p className="text-conectia-accent/70 text-sm mt-1">Unidades Disponibles</p>
+              <p className="text-conectia-accent/70 text-sm mt-1">{t('desarrollos.stats.units')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-conectia-primary">3</p>
-              <p className="text-conectia-accent/70 text-sm mt-1">Ciudades</p>
+              <p className="text-conectia-accent/70 text-sm mt-1">{t('desarrollos.stats.cities')}</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-bold text-conectia-primary">25%</p>
-              <p className="text-conectia-accent/70 text-sm mt-1">Plusvalía Promedio</p>
+              <p className="text-conectia-accent/70 text-sm mt-1">{t('desarrollos.stats.appreciation')}</p>
             </div>
           </div>
         </div>
@@ -308,13 +317,13 @@ export default function DesarrollosPage() {
           <div className="text-center mb-10">
             <Badge className="bg-conectia-gold/20 text-conectia-gold border-conectia-gold/30 mb-4">
               <Map className="h-3 w-3 mr-1" />
-              Mapa Interactivo
+              {t('desarrollos.mapBadge')}
             </Badge>
             <h2 className="text-3xl font-bold text-[#17313A] dark:text-white mb-3">
-              Desarrollos en León, Guanajuato
+              {t('desarrollos.mapTitle')}
             </h2>
             <p className="text-[#4A4F57] dark:text-slate-400 max-w-2xl mx-auto">
-              Explora nuestros desarrollos por zona. Pasa el cursor o haz clic en un edificio para ver disponibilidad y precios.
+              {t('desarrollos.mapDescription')}
             </p>
           </div>
           <Leon3DMap />
@@ -331,39 +340,39 @@ export default function DesarrollosPage() {
               <TabsList className="grid grid-cols-3 w-full max-w-xl">
                 <TabsTrigger value="verticales" className="flex items-center gap-2">
                   <Building className="h-4 w-4" />
-                  <span className="hidden sm:inline">Verticales</span>
+                  <span className="hidden sm:inline">{t('desarrollos.tabs.vertical')}</span>
                 </TabsTrigger>
                 <TabsTrigger value="horizontales" className="flex items-center gap-2">
                   <Home className="h-4 w-4" />
-                  <span className="hidden sm:inline">Horizontales</span>
+                  <span className="hidden sm:inline">{t('desarrollos.tabs.horizontal')}</span>
                 </TabsTrigger>
                 <TabsTrigger value="fraccionamientos" className="flex items-center gap-2">
                   <Landmark className="h-4 w-4" />
-                  <span className="hidden sm:inline">Fraccionamientos</span>
+                  <span className="hidden sm:inline">{t('desarrollos.tabs.subdivisions')}</span>
                 </TabsTrigger>
               </TabsList>
             </div>
 
             <TabsContent value="verticales">
               <ProximamenteSection
-                titulo="Desarrollos Verticales"
-                descripcion="Torres de departamentos y edificios residenciales de lujo"
+                titulo={t('desarrollos.tabs.verticalTitle')}
+                descripcion={t('desarrollos.tabs.verticalDesc')}
                 icono={<Building className="h-12 w-12 text-conectia-gold" />}
               />
             </TabsContent>
 
             <TabsContent value="horizontales">
               <ProximamenteSection
-                titulo="Desarrollos Horizontales"
-                descripcion="Residenciales de casas con amenidades exclusivas"
+                titulo={t('desarrollos.tabs.horizontalTitle')}
+                descripcion={t('desarrollos.tabs.horizontalDesc')}
                 icono={<Home className="h-12 w-12 text-conectia-gold" />}
               />
             </TabsContent>
 
             <TabsContent value="fraccionamientos">
               <ProximamenteSection
-                titulo="Fraccionamientos"
-                descripcion="Lotes residenciales y campestres para construir tu hogar ideal"
+                titulo={t('desarrollos.tabs.subdivisionsTitle')}
+                descripcion={t('desarrollos.tabs.subdivisionsDesc')}
                 icono={<Landmark className="h-12 w-12 text-conectia-gold" />}
               />
             </TabsContent>
@@ -376,10 +385,10 @@ export default function DesarrollosPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#17313A] dark:text-conectia-graphite mb-4">
-              ¿Por qué invertir en desarrollos?
+              {t('desarrollos.benefitsTitle')}
             </h2>
             <p className="text-[#4A4F57] dark:text-gray-600 max-w-2xl mx-auto">
-              Los desarrollos inmobiliarios ofrecen ventajas únicas para inversionistas y compradores.
+              {t('desarrollos.benefitsDescription')}
             </p>
           </div>
 
@@ -389,26 +398,26 @@ export default function DesarrollosPage() {
                 {
                   icon: <TrendingUp className="h-10 w-10 text-green-600" />,
                   bg: 'bg-green-100',
-                  title: 'Alta Plusvalía',
-                  desc: 'Compra en preventa y obtén hasta 30% de plusvalía al momento de la entrega.',
+                  title: t('desarrollos.benefit1.title'),
+                  desc: t('desarrollos.benefit1.desc'),
                 },
                 {
                   icon: <Shield className="h-10 w-10 text-blue-600" />,
                   bg: 'bg-blue-100',
-                  title: 'Seguridad Jurídica',
-                  desc: 'Todos los desarrollos cuentan con permisos y documentación en regla.',
+                  title: t('desarrollos.benefit2.title'),
+                  desc: t('desarrollos.benefit2.desc'),
                 },
                 {
                   icon: <Waves className="h-10 w-10 text-purple-600" />,
                   bg: 'bg-purple-100',
-                  title: 'Amenidades Exclusivas',
-                  desc: 'Disfruta de instalaciones de primer nivel incluidas en tu inversión.',
+                  title: t('desarrollos.benefit3.title'),
+                  desc: t('desarrollos.benefit3.desc'),
                 },
                 {
                   icon: <Car className="h-10 w-10 text-orange-600" />,
                   bg: 'bg-orange-100',
-                  title: 'Ubicaciones Estratégicas',
-                  desc: 'Desarrollos en zonas con alta demanda y excelente conectividad.',
+                  title: t('desarrollos.benefit4.title'),
+                  desc: t('desarrollos.benefit4.desc'),
                 },
               ].map((item, i) => (
                 <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
@@ -434,23 +443,22 @@ export default function DesarrollosPage() {
       <section className="py-16 bg-[#EAE4DD] dark:bg-conectia-dark text-[#17313A] dark:text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            ¿Interesado en algún desarrollo?
+            {t('desarrollos.ctaTitle')}
           </h2>
           <p className="text-[#4A4F57] dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Nuestros asesores especializados te ayudarán a encontrar la mejor opción 
-            de inversión según tus objetivos.
+            {t('desarrollos.ctaDescription')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contacto">
               <Button size="lg" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]">
-                Agendar Cita
+                {t('desarrollos.ctaPrimary')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href="/contacto">
               <Button size="lg" variant="outline" className="border-[#17313A] dark:border-conectia-accent text-[#17313A] dark:text-conectia-accent hover:bg-[#17313A]/10 dark:hover:bg-conectia-accent/10">
                 <Phone className="mr-2 h-5 w-5" />
-                Contacto
+                {t('common.contact')}
               </Button>
             </Link>
           </div>

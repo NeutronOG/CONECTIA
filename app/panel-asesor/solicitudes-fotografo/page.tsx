@@ -19,6 +19,7 @@ import {
   Eye,
   AlertCircle
 } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 interface SolicitudFotografo {
   id: string
@@ -37,6 +38,7 @@ interface SolicitudFotografo {
 const ASESORES_AUTORIZADOS = ['lizzie@conectia.mx']
 
 export default function SolicitudesFotografoAsesorPage() {
+  const { t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
   const [solicitudes, setSolicitudes] = useState<SolicitudFotografo[]>([])
@@ -64,7 +66,7 @@ export default function SolicitudesFotografoAsesorPage() {
     setLoading(true)
     try {
       const res = await fetch('/api/solicitudes-fotografo')
-      if (!res.ok) throw new Error('Error al cargar solicitudes')
+      if (!res.ok) throw new Error(t('panelAsesor.solicitudesFotografo.errors.loadRequests'))
       
       const data = await res.json()
       setSolicitudes(data.solicitudes || [])
@@ -76,7 +78,7 @@ export default function SolicitudesFotografoAsesorPage() {
   }
 
   const confirmarSolicitud = async (solicitud: SolicitudFotografo) => {
-    if (!confirm('¿Confirmar esta solicitud? Se notificará al administrador para su aprobación final.')) return
+    if (!confirm(t('panelAsesor.solicitudesFotografo.confirm.confirmMessage'))) return
 
     setProcessingId(solicitud.id)
     try {
@@ -85,19 +87,19 @@ export default function SolicitudesFotografoAsesorPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: solicitud.id,
-          notas_admin: `[Confirmado por ${user?.nombre}] ${notasAsesor || 'Solicitud verificada y confirmada'}`
+          notas_admin: `[${t('panelAsesor.solicitudesFotografo.confirm.confirmedBy')} ${user?.nombre}] ${notasAsesor || t('panelAsesor.solicitudesFotografo.confirm.verifiedMessage')}`
         })
       })
 
-      if (!res.ok) throw new Error('Error al confirmar')
+      if (!res.ok) throw new Error(t('panelAsesor.solicitudesFotografo.errors.confirmError'))
 
-      alert('Solicitud confirmada. El administrador será notificado.')
+      alert(t('panelAsesor.solicitudesFotografo.confirm.successAlert'))
       setNotasAsesor("")
       setSelectedSolicitud(null)
       loadSolicitudes()
     } catch (error) {
       console.error('Error confirming request:', error)
-      alert('Error al confirmar la solicitud')
+      alert(t('panelAsesor.solicitudesFotografo.confirm.errorAlert'))
     } finally {
       setProcessingId(null)
     }
@@ -105,14 +107,14 @@ export default function SolicitudesFotografoAsesorPage() {
 
   const agregarObservacion = async (solicitud: SolicitudFotografo) => {
     if (!notasAsesor.trim()) {
-      alert('Por favor, agrega una observación')
+      alert(t('panelAsesor.solicitudesFotografo.obs.addObservationAlert'))
       return
     }
 
     setProcessingId(solicitud.id)
     try {
       const notaActual = solicitud.notas_admin || ''
-      const nuevaNota = `${notaActual}\n[Observación de ${user?.nombre}]: ${notasAsesor}`
+      const nuevaNota = `${notaActual}\n[${t('panelAsesor.solicitudesFotografo.obs.observationBy')} ${user?.nombre}]: ${notasAsesor}`
       
       const res = await fetch('/api/solicitudes-fotografo', {
         method: 'PATCH',
@@ -123,15 +125,15 @@ export default function SolicitudesFotografoAsesorPage() {
         })
       })
 
-      if (!res.ok) throw new Error('Error al agregar observación')
+      if (!res.ok) throw new Error(t('panelAsesor.solicitudesFotografo.errors.addObservationError'))
 
-      alert('Observación agregada')
+      alert(t('panelAsesor.solicitudesFotografo.obs.successAlert'))
       setNotasAsesor("")
       setSelectedSolicitud(null)
       loadSolicitudes()
     } catch (error) {
       console.error('Error adding observation:', error)
-      alert('Error al agregar la observación')
+      alert(t('panelAsesor.solicitudesFotografo.obs.errorAlert'))
     } finally {
       setProcessingId(null)
     }
@@ -146,10 +148,10 @@ export default function SolicitudesFotografoAsesorPage() {
         <Card className="max-w-md">
           <CardContent className="p-8 text-center">
             <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">Acceso Restringido</h2>
-            <p className="text-gray-600 mb-4">No tienes permisos para ver esta sección.</p>
+            <h2 className="text-xl font-bold mb-2">{t('panelAsesor.solicitudesFotografo.accessDenied.title')}</h2>
+            <p className="text-gray-600 mb-4">{t('panelAsesor.solicitudesFotografo.accessDenied.message')}</p>
             <Button onClick={() => router.push('/panel-asesor')}>
-              Volver al Panel
+              {t('panelAsesor.solicitudesFotografo.accessDenied.backButton')}
             </Button>
           </CardContent>
         </Card>
@@ -172,15 +174,15 @@ export default function SolicitudesFotografoAsesorPage() {
             className="text-white hover:bg-white/10 mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver al Panel
+            {t('panelAsesor.solicitudesFotografo.header.backButton')}
           </Button>
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-conectia-primary rounded-full flex items-center justify-center">
               <Camera className="h-6 w-6 text-conectia-accent" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Solicitudes del Fotógrafo</h1>
-              <p className="text-gray-300">Revisa y confirma las propiedades enviadas por Santiago</p>
+              <h1 className="text-2xl font-bold">{t('panelAsesor.solicitudesFotografo.header.title')}</h1>
+              <p className="text-gray-300">{t('panelAsesor.solicitudesFotografo.header.subtitle')}</p>
             </div>
           </div>
         </div>
@@ -196,7 +198,7 @@ export default function SolicitudesFotografoAsesorPage() {
                   <Clock className="h-5 w-5 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Pendientes</p>
+                  <p className="text-xs text-gray-500">{t('panelAsesor.solicitudesFotografo.stats.pending')}</p>
                   <p className="text-2xl font-bold text-yellow-600">{pendientes}</p>
                 </div>
               </div>
@@ -210,7 +212,7 @@ export default function SolicitudesFotografoAsesorPage() {
                   <CheckCircle className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Aprobadas</p>
+                  <p className="text-xs text-gray-500">{t('panelAsesor.solicitudesFotografo.stats.approved')}</p>
                   <p className="text-2xl font-bold text-green-600">{aprobadas}</p>
                 </div>
               </div>
@@ -224,7 +226,7 @@ export default function SolicitudesFotografoAsesorPage() {
                   <XCircle className="h-5 w-5 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Rechazadas</p>
+                  <p className="text-xs text-gray-500">{t('panelAsesor.solicitudesFotografo.stats.rejected')}</p>
                   <p className="text-2xl font-bold text-red-600">{rechazadas}</p>
                 </div>
               </div>
@@ -235,17 +237,17 @@ export default function SolicitudesFotografoAsesorPage() {
         {/* Lista de Solicitudes */}
         <Card className="border-0 shadow-lg">
           <CardHeader>
-            <CardTitle>Solicitudes del Fotógrafo ({solicitudes.length})</CardTitle>
+            <CardTitle>{t('panelAsesor.solicitudesFotografo.list.title')} ({solicitudes.length})</CardTitle>
           </CardHeader>
           <CardContent>
             {loading ? (
               <div className="text-center py-12">
-                <p className="text-gray-500">Cargando solicitudes...</p>
+                <p className="text-gray-500">{t('panelAsesor.solicitudesFotografo.list.loading')}</p>
               </div>
             ) : solicitudes.length === 0 ? (
               <div className="text-center py-12">
                 <Camera className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500">No hay solicitudes aún</p>
+                <p className="text-gray-500">{t('panelAsesor.solicitudesFotografo.list.noRequests')}</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -254,17 +256,17 @@ export default function SolicitudesFotografoAsesorPage() {
                     pendiente: {
                       color: 'bg-yellow-100 text-yellow-700 border-yellow-300',
                       icon: Clock,
-                      text: 'Pendiente'
+                      text: t('panelAsesor.solicitudesFotografo.status.pending')
                     },
                     aprobada: {
                       color: 'bg-green-100 text-green-700 border-green-300',
                       icon: CheckCircle,
-                      text: 'Aprobada'
+                      text: t('panelAsesor.solicitudesFotografo.status.approved')
                     },
                     rechazada: {
                       color: 'bg-red-100 text-red-700 border-red-300',
                       icon: XCircle,
-                      text: 'Rechazada'
+                      text: t('panelAsesor.solicitudesFotografo.status.rejected')
                     }
                   }
                   const config = statusConfig[solicitud.status]
@@ -302,7 +304,7 @@ export default function SolicitudesFotografoAsesorPage() {
                               )}
                               <span className="flex items-center gap-1 text-blue-600">
                                 <ImageIcon className="h-4 w-4" />
-                                {solicitud.imagenes.length} foto{solicitud.imagenes.length !== 1 ? 's' : ''}
+                                {solicitud.imagenes.length} {t('panelAsesor.solicitudesFotografo.list.photo')}{solicitud.imagenes.length !== 1 ? t('panelAsesor.solicitudesFotografo.list.photosPlural') : ''}
                               </span>
                               <span className="text-gray-500">
                                 {new Date(solicitud.created_at).toLocaleDateString('es-MX')}
@@ -318,7 +320,7 @@ export default function SolicitudesFotografoAsesorPage() {
                             size="sm"
                           >
                             <Eye className="h-4 w-4 mr-2" />
-                            {isSelected ? 'Ocultar' : 'Revisar'}
+                            {isSelected ? t('panelAsesor.solicitudesFotografo.list.hideButton') : t('panelAsesor.solicitudesFotografo.list.reviewButton')}
                           </Button>
                         </div>
 
@@ -328,7 +330,7 @@ export default function SolicitudesFotografoAsesorPage() {
                             <img
                               key={idx}
                               src={url}
-                              alt={`Foto ${idx + 1}`}
+                              alt={`${t('panelAsesor.solicitudesFotografo.list.photo')} ${idx + 1}`}
                               className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
                               onClick={() => window.open(url, '_blank')}
                             />
@@ -339,7 +341,7 @@ export default function SolicitudesFotografoAsesorPage() {
                         {solicitud.notas_admin && (
                           <div className="p-3 bg-blue-50 rounded-lg">
                             <p className="text-sm text-blue-900 whitespace-pre-line">
-                              <strong>Notas:</strong> {solicitud.notas_admin}
+                              <strong>{t('panelAsesor.solicitudesFotografo.list.notes')}:</strong> {solicitud.notas_admin}
                             </p>
                           </div>
                         )}
@@ -349,12 +351,12 @@ export default function SolicitudesFotografoAsesorPage() {
                           <div className="p-4 bg-gray-50 rounded-lg space-y-4">
                             <div>
                               <label className="block text-sm font-semibold mb-2">
-                                Agregar observación o comentario
+                                {t('panelAsesor.solicitudesFotografo.actions.addObservationLabel')}
                               </label>
                               <Textarea
                                 value={notasAsesor}
                                 onChange={(e) => setNotasAsesor(e.target.value)}
-                                placeholder="Agrega comentarios sobre la propiedad..."
+                                placeholder={t('panelAsesor.solicitudesFotografo.actions.placeholder')}
                                 rows={3}
                                 className="w-full"
                               />
@@ -367,7 +369,7 @@ export default function SolicitudesFotografoAsesorPage() {
                                   className="flex-1 bg-green-600 hover:bg-green-700 text-white"
                                 >
                                   <CheckCircle className="h-4 w-4 mr-2" />
-                                  {processingId === solicitud.id ? 'Procesando...' : 'Confirmar Solicitud'}
+                                  {processingId === solicitud.id ? t('panelAsesor.solicitudesFotografo.actions.processing') : t('panelAsesor.solicitudesFotografo.actions.confirmButton')}
                                 </Button>
                               )}
                               <Button
@@ -376,7 +378,7 @@ export default function SolicitudesFotografoAsesorPage() {
                                 variant="outline"
                                 className="flex-1"
                               >
-                                Agregar Observación
+                                {t('panelAsesor.solicitudesFotografo.actions.addObservationButton')}
                               </Button>
                             </div>
                           </div>

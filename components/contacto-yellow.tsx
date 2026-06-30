@@ -6,8 +6,10 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Calendar, Zap } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 export function ContactoYellow() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -26,18 +28,18 @@ export function ContactoYellow() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#17313A]/10 dark:bg-[#C78F7B]/10 border border-[#17313A]/25 dark:border-[#C78F7B]/25 rounded-full mb-6">
             <Zap className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
             <span className="text-[10px] font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-[0.3em]">
-              Respuesta Inmediata
+              {t('contact.badge')}
             </span>
           </div>
           
           <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-3 leading-tight">
-            Hablemos
+            {t('contact.title')}
           </h1>
           <h2 className="text-xl sm:text-2xl bg-gradient-to-r from-[#17313A] to-[#E8A88F] dark:from-[#C78F7B] dark:to-[#E8A88F] bg-clip-text text-transparent font-bold mb-4">
-            de tu propiedad
+            {t('contact.subtitle')}
           </h2>
           <p className="text-base sm:text-lg text-[#4A4F57] dark:text-[#B0ACA6] max-w-xl">
-            Tu próxima gran decisión inmobiliaria comienza aquí.
+            {t('contact.description')}
           </p>
         </div>
       </section>
@@ -50,7 +52,7 @@ export function ContactoYellow() {
             <div className="space-y-8">
               <div>
                 <h2 className="font-serif text-4xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-4">
-                  ENVÍA TU MENSAJE
+                  {t('contact.formTitle')}
                 </h2>
                 <div className="w-20 h-1 bg-gradient-to-r from-[#17313A] to-[#E8A88F] rounded-full" />
               </div>
@@ -60,73 +62,73 @@ export function ContactoYellow() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                        Nombre
+                        {t('contact.labels.name')}
                       </label>
                       <Input 
                         className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                        placeholder="Juan"
+                        placeholder={t('contact.placeholders.name')}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                        Apellido
+                        {t('contact.labels.lastName')}
                       </label>
                       <Input 
                       className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                      placeholder="Pérez"
+                      placeholder={t('contact.placeholders.lastName')}
                     />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                      Email
+                      {t('contact.labels.email')}
                     </label>
                     <Input 
                     type="email"
                     className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder="juan@email.com"
+                    placeholder={t('contact.placeholders.email')}
                   />
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                      Teléfono
+                      {t('contact.labels.phone')}
                     </label>
                     <Input 
                     type="tel"
                     className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder="+52 477 123 4567"
+                    placeholder={t('contact.placeholders.phone')}
                   />
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                      Tipo de Consulta
+                      {t('contact.labels.type')}
                     </label>
                     <select className="w-full px-4 h-11 rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 font-medium text-[#17313A] dark:text-[#EAE4DD]">
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Vender mi propiedad</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Rentar mi propiedad</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Comprar propiedad</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Consulta general</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Información sobre servicios</option>
+                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.sell')}</option>
+                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.rent')}</option>
+                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.buy')}</option>
+                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.general')}</option>
+                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.services')}</option>
                     </select>
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
-                      Mensaje
+                      {t('contact.labels.message')}
                     </label>
                     <Textarea 
                     rows={5}
                     className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 resize-none font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder="Cuéntanos sobre tu propiedad o consulta..."
+                    placeholder={t('contact.placeholders.message')}
                   />
                   </div>
 
                   <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all">
                     <Send className="h-5 w-5 mr-2" />
-                    ENVIAR MENSAJE
+                    {t('contact.labels.submit')}
                   </Button>
                 </form>
               </Card>
@@ -136,7 +138,7 @@ export function ContactoYellow() {
             <div className="space-y-6">
               <div>
                 <h2 className="font-serif text-4xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-4">
-                  CONTÁCTANOS
+                  {t('contact.infoTitle')}
                 </h2>
                 <div className="w-20 h-1 bg-gradient-to-r from-[#17313A] to-[#E8A88F] rounded-full" />
               </div>
@@ -149,10 +151,10 @@ export function ContactoYellow() {
                       <MapPin className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Oficina Principal</h3>
+                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">{t('contact.office.title')}</h3>
                       <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">
-                        León, Guanajuato<br />
-                        México
+                        {t('contact.office.city')}<br />
+                        {t('contact.office.country')}
                       </p>
                     </div>
                   </div>
@@ -165,9 +167,9 @@ export function ContactoYellow() {
                       <Mail className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Email</h3>
+                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">{t('contact.email.title')}</h3>
                       <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">conectia@gmail.com</p>
-                      <p className="text-[#9CA3AF] dark:text-[#B0ACA6]/70 text-xs mt-0.5">Respuesta en 24h</p>
+                      <p className="text-[#9CA3AF] dark:text-[#B0ACA6]/70 text-xs mt-0.5">{t('contact.email.response')}</p>
                     </div>
                   </div>
                 </Card>
@@ -178,10 +180,10 @@ export function ContactoYellow() {
                       <Clock className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Horario</h3>
+                      <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">{t('contact.hours.title')}</h3>
                       <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">
-                        Lun - Vie: 9:00 - 19:00<br />
-                        Sábados: 10:00 - 14:00
+                        {t('contact.hours.weekdays')}<br />
+                        {t('contact.hours.saturday')}
                       </p>
                     </div>
                   </div>
@@ -195,17 +197,17 @@ export function ContactoYellow() {
                     <Calendar className="h-5 w-5 text-[#C78F7B]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/70 font-semibold">Consulta Gratuita</span>
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/70 font-semibold">{t('contact.cta.badge')}</span>
                     <h3 className="font-serif text-xl font-black text-ivory mt-1">
-                      ¿Listo para vender?
+                      {t('contact.cta.title')}
                     </h3>
                     <p className="text-white/70 text-sm mt-2">
-                      Agenda una consulta gratuita y maximiza el valor de tu propiedad
+                      {t('contact.cta.subtitle')}
                     </p>
                   </div>
                   <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold py-4 rounded-xl hover:scale-[1.02] transition-all">
                     <Calendar className="h-4 w-4 mr-2" />
-                    Agendar Consulta
+                    {t('contact.cta.button')}
                   </Button>
                 </div>
               </Card>

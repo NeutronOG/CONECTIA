@@ -8,8 +8,10 @@ import { FeaturedPropertiesCarousel } from "./featured-properties-carousel"
 import { CommercialAlliance } from "./commercial-alliance"
 import { HomepageAdSlot } from "./homepage-ads"
 import { Propiedad } from "@/data/propiedades"
+import { useLanguage } from "@/lib/i18n"
 
 export function HomeYellow() {
+  const { t } = useLanguage()
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
   const [activeThumb, setActiveThumb] = useState(0)
   const [featuredProp, setFeaturedProp] = useState<Propiedad | null>(null)
@@ -39,21 +41,21 @@ export function HomeYellow() {
           {/* Left */}
           <div className="flex-1 space-y-8">
             <h1 className="text-[5rem] sm:text-[6.5rem] md:text-[8rem] font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.88] tracking-tighter">
-              Vive
+              {t('home.hero.title')}
               <span className="block font-serif italic font-normal text-[#C78F7B]">
-                Diferente
+                {t('home.hero.titleHighlight')}
               </span>
             </h1>
 
             <p className="text-base md:text-lg text-[#6B7280] dark:text-[#B0ACA6] max-w-sm font-normal leading-relaxed">
-              La forma más transparente y estética de encontrar tu próxima propiedad.
+              {t('home.hero.subtitle')}
             </p>
 
             <div className="flex flex-wrap gap-3">
               <Link href="/propiedades">
                 <button className="flex items-center gap-2 bg-[#C78F7B] hover:bg-[#b87c68] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
                   <ArrowRight className="h-4 w-4" weight="bold" />
-                  Explorar
+                  {t('home.hero.ctaPrimary')}
                 </button>
               </Link>
               <button
@@ -61,16 +63,16 @@ export function HomeYellow() {
                 className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#C78F7B]/40 dark:hover:border-[#C78F7B]/40 transition-colors duration-200 text-sm"
               >
                 <List className="h-4 w-4" weight="duotone" />
-                Categorías
+                {t('home.categories.title')}
               </button>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-2">
               {[
-                { icon: House, value: '+500', label: 'PROPIEDADES' },
-                { icon: Star,  value: '98%',  label: 'SATISFACCIÓN' },
-                { icon: MapPin,value: 'CTO',  label: 'MERCADO' },
+                { icon: House, value: '+500', label: t('home.hero.stats.properties').toUpperCase() },
+                { icon: Star,  value: '98%',  label: t('home.hero.stats.happyClients').toUpperCase() },
+                { icon: MapPin,value: 'CTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
                 <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
                   <s.icon className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
@@ -156,7 +158,7 @@ export function HomeYellow() {
                     <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp!.ubicacion}</p>
                   )}
                   <span className="bg-[#C78F7B] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                    {isLoadingProp ? '...' : featuredProp!.status}
+                    {isLoadingProp ? '...' : t('common.featured')}
                   </span>
                 </div>
 
@@ -199,8 +201,8 @@ export function HomeYellow() {
                       <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">Exclusivo</p>
-                      <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">Selección Premium</p>
+                      <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">{t('common.exclusive')}</p>
+                      <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">{t('home.featured.subtitle')}</p>
                     </div>
                   </div>
                   <ArrowRight className="h-4 w-4 text-[#9CA3AF] group-hover:text-[#C78F7B] transition-colors" weight="bold" />
@@ -216,9 +218,9 @@ export function HomeYellow() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8 mb-12 sm:mb-16">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold mb-2">Selección</p>
+              <p className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold mb-2">{t('home.featured.subtitle')}</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                Propiedades <span className="font-serif italic font-normal text-[#C78F7B]">Destacadas</span>
+                {t('properties.pageTitle')} <span className="font-serif italic font-normal text-[#C78F7B]">{t('common.featured')}</span>
               </h2>
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-[#E5E7EB] to-transparent mb-1 hidden sm:block dark:from-[#EAE4DD]/10" />
@@ -241,25 +243,25 @@ export function HomeYellow() {
           <div className="relative rounded-3xl overflow-hidden bg-[#17313A] dark:bg-[#17313A] px-10 sm:px-16 py-14">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
               <div className="space-y-4 md:max-w-lg">
-                <p className="text-[10px] uppercase tracking-[0.40em] text-[#C78F7B] font-semibold">Únete ahora</p>
+                <p className="text-[10px] uppercase tracking-[0.40em] text-[#C78F7B] font-semibold">{t('home.newsletter.title')}</p>
                 <h2 className="text-4xl sm:text-5xl font-black text-[#EAE4DD] leading-[1.1]">
-                  ¿Listo para el<br />
-                  <span className="font-serif italic font-normal text-[#C78F7B]">siguiente paso?</span>
+                  {t('home.cta.title')}<br />
+                  <span className="font-serif italic font-normal text-[#C78F7B]">{t('home.hero.titleHighlight')}?</span>
                 </h2>
                 <p className="text-[#B0ACA6] text-base leading-relaxed max-w-md">
-                  Únete a nuestros clientes satisfechos y descubre la facilidad de comprar o vender con CONECTIA
+                  {t('home.cta.subtitle')}
                 </p>
               </div>
               <div className="flex flex-col gap-3 flex-shrink-0 min-w-[200px]">
                 <Link href="/contacto">
                   <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold bg-[#C78F7B] hover:bg-[#b87c68] text-white transition-colors duration-200">
                     <MapPin className="h-4 w-4" weight="duotone" />
-                    Contactar
+                    {t('common.contact')}
                   </button>
                 </Link>
                 <Link href="/propiedades">
                   <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-[#EAE4DD] border border-[#EAE4DD]/20 hover:border-[#C78F7B]/50 hover:bg-white/5 transition-all duration-200">
-                    Ver Propiedades
+                    {t('common.seeMore')} {t('properties.pageTitle')}
                     <ArrowRight className="h-4 w-4" weight="bold" />
                   </button>
                 </Link>
@@ -274,10 +276,10 @@ export function HomeYellow() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: House,   value: '+500', label: 'Propiedades' },
-              { icon: Users,   value: '98%',  label: 'Clientes Satisfechos' },
-              { icon: MapPin,  value: 'GTO',  label: 'Mercado Principal' },
-              { icon: TrendUp, value: '45d',  label: 'Venta Promedio' },
+              { icon: House,   value: '+500', label: t('home.hero.stats.properties') },
+              { icon: Users,   value: '98%',  label: t('home.hero.stats.happyClients') },
+              { icon: MapPin,  value: 'GTO',  label: t('home.hero.stats.brokers') },
+              { icon: TrendUp, value: '45d',  label: t('home.cta.title') },
             ].map((stat, i) => (
               <div key={i} className="group p-6 text-center rounded-2xl bg-white dark:bg-[#17313A]/10 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-sm hover:border-[#C78F7B]/30 transition-colors duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3">
@@ -311,7 +313,7 @@ export function HomeYellow() {
                   <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center">
                     <List className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
                   </div>
-                  <h3 className="text-base font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-widest">Categorías</h3>
+                  <h3 className="text-base font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-widest">{t('home.categories.title')}</h3>
                 </div>
                 <button
                   onClick={() => setIsCategoriasMenuOpen(false)}
@@ -323,11 +325,11 @@ export function HomeYellow() {
               <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
                   {[
-                    { href: '/compra',     icon: ShoppingBag, label: 'Compra' },
-                    { href: '/venta',      icon: Tag,         label: 'Venta' },
-                    { href: '/renta',      icon: Key,         label: 'Renta' },
-                    { href: '/especiales', icon: Crown,       label: 'Especiales' },
-                    { href: '/ofertas',    icon: Percent,     label: 'Ofertas' },
+                    { href: '/compra',     icon: ShoppingBag, label: t('home.search.buy') },
+                    { href: '/venta',      icon: Tag,         label: t('home.search.sell') },
+                    { href: '/renta',      icon: Key,         label: t('home.search.rent') },
+                    { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
+                    { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
                   ].map(({ href, icon: Icon, label }) => (
                     <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
                       <button className="w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#C78F7B]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
@@ -345,7 +347,7 @@ export function HomeYellow() {
                       <div className="w-9 h-9 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center">
                         <Users className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
                       </div>
-                      <span className="text-sm font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-wide">Brokers y Notarías</span>
+                      <span className="text-sm font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-wide">{t('nav.menu.broker')}</span>
                     </button>
                   </Link>
                 </div>

@@ -1,8 +1,13 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-white relative overflow-hidden transition-colors duration-300">
       {/* Glow orbs */}
@@ -18,22 +23,22 @@ export function Footer() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 pb-16 border-b border-[#17313A]/10 dark:border-white/10">
           <div className="max-w-lg">
             <h3 className="font-serif text-3xl sm:text-4xl font-black text-[#17313A] dark:text-[#C78F7B] mb-3">
-              ¿Listo para tu <span className="bg-gradient-to-r from-[#17313A] to-[#E8A88F] dark:from-[#C78F7B] dark:to-[#E8A88F] bg-clip-text text-transparent">próximo hogar?</span>
+              {t('home.cta.title')} <span className="bg-gradient-to-r from-[#17313A] to-[#E8A88F] dark:from-[#C78F7B] dark:to-[#E8A88F] bg-clip-text text-transparent">{t('home.hero.titleHighlight')}?</span>
             </h3>
             <p className="text-[#B0ACA6] text-base">
-              Conectamos directamente compradores y vendedores. Sin complicaciones.
+              {t('home.cta.subtitle')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
             <Link href="/contacto">
               <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A] hover:bg-[#D4987E] dark:bg-[#C78F7B] dark:hover:bg-[#D4987E] text-[#EAE4DD] dark:text-[#0F2027] font-bold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-[#17313A]/20 dark:shadow-[#C78F7B]/20">
-                Contactar Ahora
+                {t('common.contact')}
                 <ArrowUpRight className="h-4 w-4" />
               </button>
             </Link>
             <Link href="/propiedades">
               <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/15 dark:border-white/15 text-[#17313A] dark:text-white font-semibold hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#17313A]/30 dark:hover:border-[#C78F7B]/30 transition-all duration-300">
-                Ver Propiedades
+                {t('common.seeMore')} {t('properties.pageTitle')}
               </button>
             </Link>
           </div>
@@ -53,18 +58,22 @@ export function Footer() {
               />
             </div>
             <p className="text-sm text-[#B0ACA6] leading-relaxed mb-8 max-w-xs">
-              La forma más transparente y estética de encontrar tu próxima propiedad en Guanajuato.
+              {t('common.tagline')}
             </p>
           </div>
 
           {/* Links Columns */}
           <div className="md:col-span-2">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Servicios</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">{t('footer.company')}</p>
             <ul className="space-y-3">
-              {['Marketing Digital', 'Tours Virtuales', 'Valoración IA'].map((item) => (
-                <li key={item}>
-                  <Link href="/servicios" className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">
-                    {item}
+              {[
+                { label: t('footer.links.about'), href: '/nosotros' },
+                { label: t('footer.links.brokers'), href: '/brokers' },
+                { label: t('footer.links.developments'), href: '/desarrollos' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">
+                    {item.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </Link>
                 </li>
@@ -73,15 +82,14 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Explorar</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">{t('footer.explore')}</p>
             <ul className="space-y-3">
               {[
-                { label: 'Compra', href: '/compra' },
-                { label: 'Venta', href: '/venta' },
-                { label: 'Renta', href: '/renta' },
-                { label: 'Ofertas', href: '/ofertas' },
-                { label: 'Especiales', href: '/especiales' },
-                { label: 'Preventa', href: '/preventa' },
+                { label: t('footer.links.buy'), href: '/compra' },
+                { label: t('footer.links.rent'), href: '/renta' },
+                { label: t('footer.links.ofertas'), href: '/ofertas' },
+                { label: t('footer.links.especial'), href: '/especiales' },
+                { label: t('footer.links.preventa'), href: '/preventa' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors duration-300 flex items-center gap-1">
@@ -95,14 +103,14 @@ export function Footer() {
 
           {/* Contact */}
           <div className="md:col-span-4">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">Contacto</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[#C78F7B] font-bold mb-5">{t('common.contact')}</p>
             <div className="space-y-4">
               <div className="flex items-start gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-[#17313A]/10 dark:bg-[#C78F7B]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/20 dark:hover:bg-[#C78F7B]/20 transition-colors">
                   <MapPin className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                 </div>
                 <div>
-                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">Oficina</p>
+                  <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">{t('common.location')}</p>
                   <p className="text-sm text-[#17313A] dark:text-[#EAE4DD]">León, Guanajuato, México</p>
                 </div>
               </div>
@@ -124,13 +132,13 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#17313A]/10 dark:border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <span className="text-sm text-[#4A4F57]">© 2025 CONECTIA. Todos los derechos reservados.</span>
+            <span className="text-sm text-[#4A4F57]">{t('common.copyright', { year: new Date().getFullYear() })}</span>
             <div className="flex gap-6">
               <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors">
-                Política de Privacidad
+                {t('footer.links.privacy')}
               </Link>
               <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[#C78F7B] transition-colors">
-                Términos de Servicio
+                {t('footer.links.terms')}
               </Link>
             </div>
           </div>

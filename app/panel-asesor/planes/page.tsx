@@ -9,8 +9,10 @@ import { Badge } from '@/components/ui/badge'
 import { subscriptionPlans, teamPlans } from '@/data/subscription-plans'
 import { ArrowLeft, Check, Diamond, Zap, HelpCircle, Loader2, Users } from 'lucide-react'
 import { toast } from 'sonner'
+import { useLanguage } from '@/lib/i18n'
 
 export default function PlanesPage() {
+  const { t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -22,8 +24,8 @@ export default function PlanesPage() {
 
   const handleSelectPlan = async (planId: string) => {
     if (planId === 'core') {
-      toast.info('Ya estás en el Plan Core', {
-        description: 'Este es tu plan actual'
+      toast.info(t('panelAsesor.planes.alreadyOnCore'), {
+        description: t('panelAsesor.planes.currentPlan')
       })
       return
     }
@@ -47,7 +49,7 @@ export default function PlanesPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Error al crear sesión de pago')
+        throw new Error(data.error || t('panelAsesor.planes.errors.createSessionError'))
       }
 
       // Redirigir a Stripe Checkout
@@ -56,8 +58,8 @@ export default function PlanesPage() {
       }
     } catch (error: any) {
       console.error('Error:', error)
-      toast.error('Error al procesar el pago', {
-        description: error.message || 'Intenta nuevamente más tarde'
+      toast.error(t('panelAsesor.planes.errors.paymentError'), {
+        description: error.message || t('panelAsesor.planes.errors.tryAgain')
       })
       setLoading(false)
     }
@@ -76,13 +78,13 @@ export default function PlanesPage() {
             className="mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver al Panel
+            {t('panelAsesor.planes.backButton')}
           </Button>
           <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-conectia-graphite">
-            Planes de Suscripción
+            {t('panelAsesor.planes.title')}
           </h1>
           <p className="text-gray-600 text-lg">
-            Elige el plan que mejor se adapte a tus necesidades
+            {t('panelAsesor.planes.subtitle')}
           </p>
         </div>
 
@@ -138,10 +140,10 @@ export default function PlanesPage() {
                   <div className="mb-6">
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-bold text-conectia-graphite">
-                        {plan.price === 0 ? 'Gratis' : `$${plan.price}`}
+                        {plan.price === 0 ? t('panelAsesor.planes.free') : `$${plan.price}`}
                       </span>
                       {plan.price > 0 && (
-                        <span className="text-gray-500">MXN/mes</span>
+                        <span className="text-gray-500">{t('panelAsesor.planes.perMonth')}</span>
                       )}
                     </div>
                   </div>
@@ -199,12 +201,12 @@ export default function PlanesPage() {
               <Users className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-conectia-graphite">Planes para Equipos</h2>
-              <p className="text-gray-500 text-sm">Para 2 o más miembros · Precio por miembro/mes</p>
+              <h2 className="text-2xl font-bold text-conectia-graphite">{t('panelAsesor.planes.team.title')}</h2>
+              <p className="text-gray-500 text-sm">{t('panelAsesor.planes.team.subtitle')}</p>
             </div>
           </div>
           <p className="text-gray-600 mb-6 ml-1">
-            Ideal para equipos de asesores. Todos los miembros comparten las mismas ventajas a un precio reducido.
+            {t('panelAsesor.planes.team.description')}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -256,9 +258,9 @@ export default function PlanesPage() {
                     <div className="mb-6">
                       <div className="flex items-baseline gap-2">
                         <span className="text-4xl font-bold text-conectia-graphite">${plan.price}</span>
-                        <span className="text-gray-500">MXN/mes por miembro</span>
+                        <span className="text-gray-500">{t('panelAsesor.planes.team.perMonthPerMember')}</span>
                       </div>
-                      <p className="text-xs text-purple-600 font-medium mt-1">Mínimo 2 miembros</p>
+                      <p className="text-xs text-purple-600 font-medium mt-1">{t('panelAsesor.plans.team.minMembers')}</p>
                     </div>
 
                     <div className="space-y-3 mb-6">
@@ -290,7 +292,7 @@ export default function PlanesPage() {
                       ) : isCurrentPlan ? (
                         'Plan Actual'
                       ) : (
-                        <><Users className="h-4 w-4 mr-2" />Seleccionar para Equipo</>
+                        <><Users className="h-4 w-4 mr-2" />{t('panelAsesor.planes.team.selectForTeam')}</>
                       )}
                     </Button>
                   </CardContent>
@@ -309,18 +311,17 @@ export default function PlanesPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-conectia-graphite mb-2">
-                  ¿Necesitas ayuda para elegir?
+                  {t('panelAsesor.planes.help.title')}
                 </h3>
                 <p className="text-gray-700 mb-4">
-                  Nuestro equipo está listo para ayudarte a encontrar el plan perfecto para tu negocio.
-                  Contáctanos para más información sobre características adicionales y opciones personalizadas.
+                  {t('panelAsesor.planes.help.description')}
                 </p>
                 <Button
                   variant="outline"
                   onClick={() => router.push('/contacto')}
                   className="border-blue-500 text-blue-600 hover:bg-blue-50"
                 >
-                  Contactar Soporte
+                  {t('panelAsesor.planes.help.contactButton')}
                 </Button>
               </div>
             </div>
