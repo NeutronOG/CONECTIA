@@ -106,7 +106,7 @@ export function DynamicHeader() {
                  shadow-2xl
                  transform scale-100 opacity-100
                  mobile-menu-expanded`
-              : `rounded-[28px] px-4 py-2 max-w-fit
+              : `rounded-[28px] px-6 py-2 w-auto
                  glass-nav
                  ${isScrolled ? 'scale-[0.97] shadow-lg' : ''}
                  transform scale-100 opacity-100`
@@ -114,7 +114,7 @@ export function DynamicHeader() {
           `}
         >
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center gap-3 min-w-0">
+          <div className="hidden md:flex items-center justify-between gap-4" style={{minWidth:'740px'}}>
             {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 group">
               <Image
