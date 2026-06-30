@@ -138,7 +138,7 @@ export function DynamicHeader() {
                     key={item.href}
                     href={item.href}
                     className={`
-                      group relative flex items-center justify-center gap-1.5 px-5 py-1.5
+                      group relative flex items-center justify-center gap-1.5 px-3 py-1.5
                       rounded-full transition-all duration-300 ease-out flex-shrink-0
                       ${isActive(item.href)
                         ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold shadow-[0_1px_0_rgba(255,255,255,0.60)_inset]'
@@ -153,8 +153,10 @@ export function DynamicHeader() {
               })}
             </nav>
 
-            {/* Action Buttons */}
-            <div className="flex items-center flex-shrink-0">
+            <div className="w-px h-4 bg-[#B0ACA6]/20 flex-shrink-0"></div>
+
+            {/* Action Buttons — corazón, lupa, luna */}
+            <div className="flex items-center gap-2 flex-shrink-0">
               <Link href="/favoritos">
                 <button className="w-7 h-7 flex items-center justify-center text-[#17313A] dark:text-[#EAE4DD] hover:opacity-60 transition-opacity">
                   <Heart className="h-3.5 w-3.5" />

@@ -18,14 +18,7 @@ export function ContactoYellow() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-light relative overflow-hidden">
-      {/* Orbs decorativos glassmorphism */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#17313A]/10 dark:bg-[#C78F7B]/10 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/30 dark:bg-[#17313A]/30 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#17313A]/5 dark:bg-[#C78F7B]/5 rounded-full blur-[80px]" />
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-[#17313A]/20 dark:bg-[#17313A]/20 rounded-full blur-[60px]" />
-      </div>
+    <div className="min-h-screen bg-white dark:bg-[#0F2027] relative overflow-hidden">
 
       {/* Hero */}
       <section className="relative pt-28 pb-16 px-4 sm:px-8 lg:px-16">
@@ -62,7 +55,7 @@ export function ContactoYellow() {
                 <div className="w-20 h-1 bg-gradient-to-r from-[#17313A] to-[#E8A88F] rounded-full" />
               </div>
 
-              <Card className="p-6 sm:p-8 glass-card glow-border rounded-2xl shadow-2xl">
+              <Card className="p-6 sm:p-8 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 rounded-2xl shadow-sm">
                 <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -70,7 +63,7 @@ export function ContactoYellow() {
                         Nombre
                       </label>
                       <Input 
-                        className="rounded-xl glass-input h-11 font-medium text-[#17313A] placeholder:text-[#4A4F57]/60"
+                        className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                         placeholder="Juan"
                       />
                     </div>
@@ -79,7 +72,7 @@ export function ContactoYellow() {
                         Apellido
                       </label>
                       <Input 
-                      className="rounded-xl glass-input h-11 font-medium text-[#17313A] placeholder:text-[#4A4F57]/60"
+                      className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                       placeholder="Pérez"
                     />
                     </div>
@@ -91,7 +84,7 @@ export function ContactoYellow() {
                     </label>
                     <Input 
                     type="email"
-                    className="rounded-xl glass-input h-11 font-medium text-[#17313A] placeholder:text-[#4A4F57]/60"
+                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                     placeholder="juan@email.com"
                   />
                   </div>
@@ -102,7 +95,7 @@ export function ContactoYellow() {
                     </label>
                     <Input 
                     type="tel"
-                    className="rounded-xl glass-input h-11 font-medium text-[#17313A] placeholder:text-[#4A4F57]/60"
+                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                     placeholder="+52 477 123 4567"
                   />
                   </div>
@@ -111,7 +104,7 @@ export function ContactoYellow() {
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[#C78F7B] uppercase tracking-wide">
                       Tipo de Consulta
                     </label>
-                    <select className="w-full px-4 h-11 rounded-xl glass-input font-medium text-[#17313A] dark:text-[#EAE4DD] dark:bg-[#0F2027]/50">
+                    <select className="w-full px-4 h-11 rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Vender mi propiedad</option>
                       <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Rentar mi propiedad</option>
                       <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Comprar propiedad</option>
@@ -126,12 +119,12 @@ export function ContactoYellow() {
                     </label>
                     <Textarea 
                     rows={5}
-                    className="rounded-xl glass-input resize-none font-medium text-[#17313A] placeholder:text-[#4A4F57]/60"
+                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 resize-none font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                     placeholder="Cuéntanos sobre tu propiedad o consulta..."
                   />
                   </div>
 
-                  <Button className="w-full glass-primary text-ivory font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all">
+                  <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all">
                     <Send className="h-5 w-5 mr-2" />
                     ENVIAR MENSAJE
                   </Button>
@@ -150,14 +143,14 @@ export function ContactoYellow() {
 
               {/* Contact Cards */}
               <div className="grid gap-4">
-                <Card className="p-5 glass-card rounded-xl hover:border-[#17313A]/40 dark:hover:border-[#C78F7B]/40 transition-all duration-300 shadow-lg group glow-border">
+                <Card className="p-5 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 rounded-xl hover:border-[#C78F7B]/40 transition-all duration-300 shadow-sm group">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#17313A]/20 dark:bg-[#C78F7B]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/30 dark:group-hover:bg-[#C78F7B]/30 transition-colors">
-                      <MapPin className="h-5 w-5 text-[#17313A] dark:text-[#C78F7B]" />
+                    <div className="w-10 h-10 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
                       <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Oficina Principal</h3>
-                      <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-sm">
+                      <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">
                         León, Guanajuato<br />
                         México
                       </p>
@@ -166,27 +159,27 @@ export function ContactoYellow() {
                 </Card>
 
 
-                <Card className="p-5 glass-card rounded-xl hover:border-[#17313A]/40 dark:hover:border-[#C78F7B]/40 transition-all duration-300 shadow-lg group glow-border">
+                <Card className="p-5 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 rounded-xl hover:border-[#C78F7B]/40 transition-all duration-300 shadow-sm group">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#17313A]/20 dark:bg-[#C78F7B]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/30 dark:group-hover:bg-[#C78F7B]/30 transition-colors">
-                      <Mail className="h-5 w-5 text-[#17313A] dark:text-[#C78F7B]" />
+                    <div className="w-10 h-10 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Mail className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
                       <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Email</h3>
-                      <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-sm">conectia@gmail.com</p>
-                      <p className="text-[#4A4F57]/70 dark:text-[#B0ACA6]/70 text-xs mt-0.5">Respuesta en 24h</p>
+                      <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">conectia@gmail.com</p>
+                      <p className="text-[#9CA3AF] dark:text-[#B0ACA6]/70 text-xs mt-0.5">Respuesta en 24h</p>
                     </div>
                   </div>
                 </Card>
 
-                <Card className="p-5 glass-card rounded-xl hover:border-[#17313A]/40 dark:hover:border-[#C78F7B]/40 transition-all duration-300 shadow-lg group glow-border">
+                <Card className="p-5 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 rounded-xl hover:border-[#C78F7B]/40 transition-all duration-300 shadow-sm group">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#17313A]/20 dark:bg-[#C78F7B]/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#17313A]/30 dark:group-hover:bg-[#C78F7B]/30 transition-colors">
-                      <Clock className="h-5 w-5 text-[#17313A] dark:text-[#C78F7B]" />
+                    <div className="w-10 h-10 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Clock className="h-5 w-5 text-[#C78F7B]" />
                     </div>
                     <div>
                       <h3 className="font-bold text-[#17313A] dark:text-[#EAE4DD] text-sm mb-1 uppercase tracking-wider">Horario</h3>
-                      <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-sm">
+                      <p className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">
                         Lun - Vie: 9:00 - 19:00<br />
                         Sábados: 10:00 - 14:00
                       </p>
@@ -195,7 +188,7 @@ export function ContactoYellow() {
                 </Card>
               </div>
 
-              <Card className="p-7 liquid-glass-dark rounded-2xl shadow-2xl relative overflow-hidden glow-border">
+              <Card className="p-7 bg-[#17313A] dark:bg-[#17313A] rounded-2xl shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#17313A]/20 rounded-full blur-2xl -mr-10 -mt-10 animate-pulse-slow" />
                 <div className="relative space-y-4">
                   <div className="w-10 h-10 bg-[#C78F7B]/20 rounded-lg flex items-center justify-center">
@@ -210,7 +203,7 @@ export function ContactoYellow() {
                       Agenda una consulta gratuita y maximiza el valor de tu propiedad
                     </p>
                   </div>
-                  <Button className="w-full glass-primary text-ivory font-bold py-4 rounded-xl hover:scale-[1.02] transition-all">
+                  <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold py-4 rounded-xl hover:scale-[1.02] transition-all">
                     <Calendar className="h-4 w-4 mr-2" />
                     Agendar Consulta
                   </Button>
