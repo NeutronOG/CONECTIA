@@ -95,7 +95,7 @@ function RegistroContent() {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <Image
-              src="/logo.png"
+              src="/logoconectiaoficial.png"
               alt="CONECTIA"
               width={250}
               height={80}

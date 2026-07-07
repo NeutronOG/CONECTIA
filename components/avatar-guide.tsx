@@ -307,7 +307,7 @@ export function AvatarGuide() {
                 <div className="absolute inset-0 bg-gradient-to-br from-conectia-primary to-conectia-gold rounded-full animate-pulse"></div>
                 <div className="absolute inset-1 bg-conectia-secondary rounded-full flex items-center justify-center">
                   <Image
-                    src="/logo.png"
+                    src="/logoconectiaoficial.png"
                     alt="CONECTIA Guide"
                     width={80}
                     height={80}
@@ -450,7 +450,7 @@ export function AvatarGuide() {
                   <div className="absolute inset-0 bg-gradient-to-br from-conectia-primary to-conectia-gold rounded-full"></div>
                   <div className="absolute inset-1 bg-conectia-secondary rounded-full flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/logo.png"
+                      src="/logoconectiaoficial.png"
                       alt="CONECTIA Guide"
                       width={72}
                       height={72}

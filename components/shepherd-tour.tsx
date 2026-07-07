@@ -76,7 +76,7 @@ export function ShepherdTour() {
       title: "¡Bienvenido a CONECTIA!",
       text: `
         <div style="text-align:center; margin-bottom: 12px;">
-          <img src="/logo.png" alt="CONECTIA" style="height:48px; margin:0 auto; border-radius:12px;" />
+          <img src="/logoconectiaoficial.png" alt="CONECTIA" style="height:48px; margin:0 auto; border-radius:12px;" />
         </div>
         <p>Te voy a guiar paso a paso por toda la plataforma. Descubrirás cómo buscar propiedades, contactar asesores, vender tu propiedad y mucho más.</p>
         <p style="margin-top:8px;opacity:0.7;font-size:13px;">Duración aproximada: 2 minutos</p>

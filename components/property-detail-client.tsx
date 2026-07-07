@@ -281,7 +281,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-5">{t('propertyDetail.contactAgent')}</h3>
               <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 mb-5">
                 <Avatar className="h-12 w-12 border border-[#C78F7B]/30">
-                  <AvatarImage src="/logo.png" />
+                  <AvatarImage src="/logoconectiaoficial.png" />
                   <AvatarFallback className="bg-[#C78F7B]/20 text-[#C78F7B] font-bold">CS</AvatarFallback>
                 </Avatar>
                 <div>

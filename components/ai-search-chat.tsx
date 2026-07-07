@@ -444,7 +444,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2 shadow-md">
                 <Image
-                  src="/logo.png"
+                  src="/logoconectiaoficial.png"
                   alt="CONECTIA"
                   width={48}
                   height={48}
