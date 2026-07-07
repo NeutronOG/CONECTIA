@@ -746,6 +746,10 @@ export const activities: Activity[] = [
 ]
 
 // Función de autenticación simple (en producción usar un sistema real)
+export function getUserByEmail(email: string): User | undefined {
+  return users.find(u => u.email.toLowerCase() === email.toLowerCase())
+}
+
 export function authenticateUser(email: string, password: string): User | null {
   const user = users.find(u => u.email === email)
   if (!user) return null

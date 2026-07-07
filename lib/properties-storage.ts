@@ -1,4 +1,5 @@
 import { Propiedad } from '@/data/propiedades'
+import { getUserByEmail } from '@/data/internal-users'
 import type { Database } from './supabase/database.types'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
@@ -34,6 +35,9 @@ function getAdminClient(): SupabaseClient {
 export class PropertiesStorage {
   // Convertir de formato DB a formato App
   static dbToApp(dbProp: PropiedadRow): Propiedad {
+    const asesorEmail = (dbProp as any).asesor_email || (dbProp as any).usuario_id || undefined
+    const asesorInfo = asesorEmail ? getUserByEmail(asesorEmail) : undefined
+
     return {
       id: Number(dbProp.id),
       usuarioId: (dbProp as any).usuario_id || undefined,
@@ -58,6 +62,14 @@ export class PropertiesStorage {
       tourVirtual: dbProp.tour_virtual || undefined,
       galeria: dbProp.galeria || undefined,
       bono: (dbProp as any).bono || undefined,
+      agente: asesorEmail ? {
+        email: asesorEmail,
+        nombre: asesorInfo?.nombre || asesorEmail,
+        especialidad: asesorInfo?.role === 'asesor' ? 'Asesor Inmobiliario' : asesorInfo?.role || 'Agente',
+        rating: 0,
+        ventas: 0,
+        telefono: asesorInfo?.telefono || '',
+      } : undefined,
     }
 
   }

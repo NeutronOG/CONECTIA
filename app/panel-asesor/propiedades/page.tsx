@@ -35,6 +35,7 @@ import { toast } from 'sonner'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
 import { ShareButton } from '@/components/share-button'
 import { useLanguage } from '@/lib/i18n'
+import { getUserByEmail } from '@/data/internal-users'
 
 export default function PropiedadesAsesorPage() {
   const { t } = useLanguage()
@@ -103,34 +104,46 @@ export default function PropiedadesAsesorPage() {
         const data = await res.json()
         console.log('Loaded properties:', data.total, data.debug)
         // Mapear campos DB a campos App (snake_case -> camelCase)
-        const mapped = (data.propiedades || []).map((p: any) => ({
-          id: Number(p.id),
-          usuarioId: p.usuario_id || undefined,
-          titulo: p.titulo,
-          ubicacion: p.ubicacion,
-          precio: Number(p.precio),
-          precioTexto: p.precio_texto,
-          tipo: p.tipo,
-          habitaciones: p.habitaciones,
-          banos: p.banos,
-          mediosBanos: p.medios_banos || 0,
-          area: p.area,
-          areaConstruccion: p.area_construccion || 0,
-          cochera: p.cochera || 0,
-          amueblado: p.amueblado || undefined,
-          areaTexto: p.area_texto,
-          imagen: p.imagen || '',
-          descripcion: p.descripcion || '',
-          caracteristicas: p.caracteristicas || [],
-          status: p.status,
-          categoria: p.categoria,
-          fechaPublicacion: p.created_at || p.fecha_publicacion,
-          tourVirtual: p.tour_virtual || undefined,
-          galeria: p.galeria || [],
-          bono: p.bono || undefined,
-          unidadSuperficie: p.unidad_superficie || undefined,
-          detalles: p.detalles || undefined,
-        }))
+        const mapped = (data.propiedades || []).map((p: any) => {
+          const asesorEmail = p.asesor_email || p.usuario_id || undefined
+          const asesorInfo = asesorEmail ? getUserByEmail(asesorEmail) : undefined
+          return {
+            id: Number(p.id),
+            usuarioId: p.usuario_id || undefined,
+            titulo: p.titulo,
+            ubicacion: p.ubicacion,
+            precio: Number(p.precio),
+            precioTexto: p.precio_texto,
+            tipo: p.tipo,
+            habitaciones: p.habitaciones,
+            banos: p.banos,
+            mediosBanos: p.medios_banos || 0,
+            area: p.area,
+            areaConstruccion: p.area_construccion || 0,
+            cochera: p.cochera || 0,
+            amueblado: p.amueblado || undefined,
+            areaTexto: p.area_texto,
+            imagen: p.imagen || '',
+            descripcion: p.descripcion || '',
+            caracteristicas: p.caracteristicas || [],
+            status: p.status,
+            categoria: p.categoria,
+            fechaPublicacion: p.created_at || p.fecha_publicacion,
+            tourVirtual: p.tour_virtual || undefined,
+            galeria: p.galeria || [],
+            bono: p.bono || undefined,
+            unidadSuperficie: p.unidad_superficie || undefined,
+            detalles: p.detalles || undefined,
+            agente: asesorEmail ? {
+              email: asesorEmail,
+              nombre: asesorInfo?.nombre || asesorEmail,
+              especialidad: asesorInfo?.role === 'asesor' ? 'Asesor Inmobiliario' : asesorInfo?.role || 'Agente',
+              rating: 0,
+              ventas: 0,
+              telefono: asesorInfo?.telefono || '',
+            } : undefined,
+          }
+        })
         setPropiedades(mapped)
       } else {
         console.error('Error loading properties:', await res.text())
