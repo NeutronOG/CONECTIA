@@ -178,7 +178,7 @@ export default function PanelPropietario() {
             </div>
           </div>
           
-          <div className="p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             <div className="flex items-center gap-3 bg-[#17313A] rounded-xl p-4 border border-gray-700/40">
               <div className="p-3 bg-blue-500/20 rounded-lg">
                 <DollarSign className="w-6 h-6 text-blue-400" />
@@ -190,7 +190,25 @@ export default function PanelPropietario() {
             </div>
             <div className="flex items-center gap-3 bg-[#17313A] rounded-xl p-4 border border-gray-700/40">
               <div className="p-3 bg-green-500/20 rounded-lg">
-                <Building2 className="w-6 h-6 text-green-400" />
+                <DollarSign className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Comisión Asesor (2%)</p>
+                <p className="text-lg font-bold text-white">${(miPropiedad.precio * 0.02).toLocaleString('es-MX')} MXN</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-[#17313A] rounded-xl p-4 border border-gray-700/40">
+              <div className="p-3 bg-emerald-500/20 rounded-lg">
+                <DollarSign className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Comisión Propietario (2%)</p>
+                <p className="text-lg font-bold text-white">${(miPropiedad.precio * 0.02).toLocaleString('es-MX')} MXN</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-[#17313A] rounded-xl p-4 border border-gray-700/40">
+              <div className="p-3 bg-indigo-500/20 rounded-lg">
+                <Building2 className="w-6 h-6 text-indigo-400" />
               </div>
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider">Tipo</p>

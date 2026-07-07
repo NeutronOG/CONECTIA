@@ -407,7 +407,13 @@ export default function PropiedadesAsesorPage() {
                     </div>
                   )}
 
-                  <p className="text-2xl font-black text-[#C78F7B] mb-4">{propiedad.precioTexto}</p>
+                  <p className="text-2xl font-black text-[#C78F7B] mb-2">{propiedad.precioTexto}</p>
+                  <p className="text-xs font-medium text-[#C78F7B]/80 mb-1">
+                    Tu comisión (2%): ${(propiedad.precio * 0.02).toLocaleString('es-MX')} MXN
+                  </p>
+                  <p className="text-xs font-medium text-[#C78F7B]/80 mb-4">
+                    Comisión propietario (2%): ${(propiedad.precio * 0.02).toLocaleString('es-MX')} MXN
+                  </p>
 
                   {/* Mini analytics bar */}
                   {(() => {

@@ -507,9 +507,17 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
               />
               {formData.precio && formData.precio > 0 && (
-                <p className="text-xs text-[#C78F7B] font-medium">
-                  ${formData.precio.toLocaleString('es-MX')} MXN{formData.unidadSuperficie === 'Hectáreas' ? '/m²' : ''}
-                </p>
+                <div className="mt-2 p-3 rounded-xl bg-[#C78F7B]/10 border border-[#C78F7B]/20 space-y-1">
+                  <p className="text-xs text-[#C78F7B] font-medium">
+                    Precio: ${formData.precio.toLocaleString('es-MX')} MXN{formData.unidadSuperficie === 'Hectáreas' ? '/m²' : ''}
+                  </p>
+                  <p className="text-xs text-[#C78F7B] font-medium">
+                    Comisión asesor (2%): ${(formData.precio * 0.02).toLocaleString('es-MX')} MXN
+                  </p>
+                  <p className="text-xs text-[#C78F7B] font-medium">
+                    Comisión propietario (2%): ${(formData.precio * 0.02).toLocaleString('es-MX')} MXN
+                  </p>
+                </div>
               )}
             </div>
 
