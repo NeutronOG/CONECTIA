@@ -53,11 +53,11 @@ export function CommercialAlliance() {
     const individualPlans = [
         {
             id: "core",
-            name: "Plan Core",
+            name: "Plan Cimientos",
             price: "$99",
             period: "/mes",
             properties: "Hasta 6 propiedades",
-            description: "Perfecto para comenzar tu carrera como asesor inmobiliario.",
+            description: "Comienza a construir tu carrera como asesor inmobiliario.",
             features: [
                 "Hasta 6 propiedades activas",
                 "Panel de gestión básico",
@@ -84,11 +84,11 @@ export function CommercialAlliance() {
         },
         {
             id: "elite",
-            name: "Plan Elite",
+            name: "Plan Torre",
             price: "$399",
             period: "/mes",
             properties: "Hasta 40 propiedades",
-            description: "Para asesores profesionales que buscan maximizar su potencial.",
+            description: "Eleva tu portafolio y llega más alto en el mercado.",
             features: [
                 "Hasta 40 propiedades activas",
                 "Asistente con Inteligencia Artificial",
@@ -122,11 +122,11 @@ export function CommercialAlliance() {
     const teamPlans = [
         {
             id: "team-core",
-            name: "Core Equipo",
+            name: "Plan Conjunto",
             price: "$59",
             period: "/mes por miembro",
             properties: "Hasta 6 propiedades por miembro",
-            description: "Plan Core para equipos de 2 o más miembros.",
+            description: "Construye en equipo. Unidos crean más oportunidades.",
             features: [
                 "Hasta 6 propiedades activas por miembro",
                 "Panel de gestión básico",
@@ -153,11 +153,11 @@ export function CommercialAlliance() {
         },
         {
             id: "team-elite",
-            name: "Elite Equipo",
+            name: "Plan Ciudad",
             price: "$249",
             period: "/mes por miembro",
             properties: "Hasta 40 propiedades por miembro",
-            description: "Plan Elite para equipos de 2 o más miembros.",
+            description: "Un equipo que domina el territorio y escala sin límites.",
             features: [
                 "Hasta 40 propiedades activas por miembro",
                 "Asistente con Inteligencia Artificial",
