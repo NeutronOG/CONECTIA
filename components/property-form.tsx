@@ -440,7 +440,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 [&_label]:text-white/80 [&_input]:text-white [&_input]:border-white/20 [&_input]:bg-white/5 [&_input]:placeholder:text-white/30 [&_textarea]:text-white [&_textarea]:border-white/20 [&_textarea]:bg-white/5 [&_textarea]:placeholder:text-white/30 [&_[data-slot=select-trigger]]:text-white [&_[data-slot=select-trigger]]:border-white/20 [&_[data-slot=select-trigger]]:bg-white/5">
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
           <h3 className="text-lg font-bold text-white">Información Básica</h3>
