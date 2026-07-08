@@ -168,6 +168,7 @@ function LoginContent() {
                 <input
                   id="email"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
@@ -187,6 +188,7 @@ function LoginContent() {
                 <input
                   id="password"
                   type="password"
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
