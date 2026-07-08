@@ -1,0 +1,145 @@
+{
+  "name": "CONECTIA - Ficha Tecnica de Propiedad",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ficha-tecnica",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "ficha-tecnica"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.CONECTIA_BASE_URL }}/api/n8n/ficha-tecnica",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.body.propiedadId || $json.query.propiedadId }}"
+            },
+            {
+              "name": "format",
+              "value": "={{ $json.body.formato || 'json' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-ficha-tecnica",
+      "name": "Obtener Ficha Tecnica",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $json;\nconst ficha = input.fichaTecnica || input;\n\nconst mensaje = `📋 *FICHA TÉCNICA - CONECTIA*\\n\\n` +\n`🏠 *${ficha.propiedad.titulo}*\\n` +\n`📍 ${ficha.propiedad.ubicacion}\\n` +\n`🏷️ ${ficha.propiedad.tipo} · ${ficha.propiedad.status}\\n\\n` +\n`─── FINANCIERO ───\\n` +\n`💰 Precio: ${ficha.financiero.precioTexto}\\n` +\n`👔 Comisión asesor: ${ficha.financiero.comisionAsesorTexto}\\n` +\n`🏠 Comisión propietario: ${ficha.financiero.comisionPropietarioTexto}\\n\\n` +\n`─── DIMENSIONES ───\\n` +\n`📐 Área: ${ficha.dimensiones.area}\\n` +\n`🛏️ Habitaciones: ${ficha.distribucion.habitaciones}\\n` +\n`🚿 Baños: ${ficha.distribucion.banos}\\n\\n` +\n`─── CARACTERÍSTICAS ───\\n` +\n`${(ficha.caracteristicas || []).map(c => `• ${c}`).join('\\n')}\\n\\n` +\n`─── ASESOR ───\\n` +\n`👤 ${ficha.asesor.nombre}\\n` +\n`📧 ${ficha.asesor.email}\\n` +\n`📞 ${ficha.asesor.telefono}\\n\\n` +\n`Folio: ${ficha.header.folio}`;\n\nreturn { json: { mensajeTelegram: mensaje, ficha } };"
+      },
+      "id": "code-formatear",
+      "name": "Formatear para Envio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.mensajeTelegram }}",
+        "options": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "telegram-enviar",
+      "name": "Enviar por Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "jsonProperty": "ficha"
+      },
+      "id": "webhook-response",
+      "name": "Responder al Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        850,
+        500
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "CONECTIA",
+      "id": "conectia-tag"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Obtener Ficha Tecnica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Ficha Tecnica": {
+      "main": [
+        [
+          {
+            "node": "Formatear para Envio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear para Envio": {
+      "main": [
+        [
+          {
+            "node": "Enviar por Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Responder al Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "name": "CONECTIA - Reporte Semanal de Actividad",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0,
+              "triggerOnWeekDay": 1
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.CONECTIA_BASE_URL }}/api/n8n/reporte-actividad",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "dias",
+              "value": "7"
+            },
+            {
+              "name": "format",
+              "value": "json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-reporte",
+      "name": "Obtener Reporte",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const reporte = $json.reporte || $json;\nconst r = reporte.resumen;\nconst asesores = reporte.porAsesor || [];\n\nconst mensaje = `📊 *REPORTE CONECTIA - ${r.dias || 7} DÍAS*\\n\\n` +\n`🏠 Propiedades\\n` +\n`• Nuevas: ${r.propiedadesNuevas}\\n` +\n`• Activas: ${r.propiedadesActivas}\\n` +\n`• Reservadas: ${r.propiedadesReservadas}\\n` +\n`• Exclusivas: ${r.propiedadesExclusivas}\\n\\n` +\n`👤 Leads\\n` +\n`• Nuevos: ${r.leadsNuevos}\\n` +\n`• Pendientes: ${r.leadsPendientes}\\n` +\n`• Atendidos: ${r.leadsAtendidos}\\n\\n` +\n`📷 Solicitudes fotografía: ${r.solicitudesFotografia}\\n\\n` +\n`💰 Financiero\\n` +\n`• Portafolio: ${r.valorPortafolioTexto}\\n` +\n`• Comisión potencial: ${r.comisionPotencialTexto}\\n\\n` +\n(asesores.length ? `🏆 Top asesores\\n${asesores.slice(0, 3).map((a, i) => `${i + 1}. ${a.nombre} - ${a.propiedades} props`).join('\\n')}\\n\\n` : '') +\n`─ CONECTIA · Reporte automático ─`;\n\nreturn { json: { mensajeTelegram: mensaje } };"
+      },
+      "id": "code-formatear-reporte",
+      "name": "Formatear Reporte",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "={{ $json.mensajeTelegram }}",
+        "options": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "telegram-reporte",
+      "name": "Enviar Reporte Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        850,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "CONECTIA",
+      "id": "conectia-tag"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Obtener Reporte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Reporte": {
+      "main": [
+        [
+          {
+            "node": "Formatear Reporte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear Reporte": {
+      "main": [
+        [
+          {
+            "node": "Enviar Reporte Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
