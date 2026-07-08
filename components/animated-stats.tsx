@@ -20,10 +20,11 @@ export function AnimatedStats() {
       description: 'Visitas programadas en 24 horas y proceso de compra ágil y transparente',
       gradient: 'from-conectia-primary to-yellow-500'
     },
-    { 
-      icon: Shield, 
-      title: 'Confianza Total', 
+    {
+      icon: Shield,
+      title: 'Confianza Total',
       description: 'Asesoría legal completa y garantía en cada transacción inmobiliaria',
+      descriptionWithHighlight: true,
       gradient: 'from-green-500 to-emerald-500'
     },
   ]
@@ -86,7 +87,18 @@ export function AnimatedStats() {
                   {currentFeature.title}
                 </h3>
                 <p className="text-conectia-accent/70 text-base sm:text-lg leading-relaxed transition-all duration-500">
-                  {currentFeature.description}
+                  {currentFeature.descriptionWithHighlight ? (
+                    <span>
+                      {currentFeature.description.split('inmobiliaria').map((part, i, arr) => (
+                        <span key={i}>
+                          {part}
+                          {i < arr.length - 1 && <span className="text-[#C78F7B]">inmobiliaria</span>}
+                        </span>
+                      ))}
+                    </span>
+                  ) : (
+                    currentFeature.description
+                  )}
                 </p>
               </div>
             </div>

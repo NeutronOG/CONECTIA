@@ -273,7 +273,7 @@ export default function PanelAdminPage() {
               <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-6 overflow-hidden">
                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#8b5cf6]/10 rounded-full blur-[60px] pointer-events-none" />
                 <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2 relative">
-                  <TrendingUp className="w-4 h-4 text-[#8b5cf6]" /> Propiedad Destacada
+                  <TrendingUp className="w-4 h-4 text-[#8b5cf6]" /> Propiedades Destacadas
                 </h3>
                 {topProperties[0]?.propertyId ? (
                   <div className="space-y-3 relative">

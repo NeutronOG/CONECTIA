@@ -18,8 +18,66 @@ import {
 } from '@/lib/biometric-auth'
 import { useLanguage } from '@/lib/i18n'
 
+const LOGIN_TEXT_FALLBACK = {
+  es: {
+    title: 'Acceso a Plataforma CONECTIA',
+    emailLabel: 'Correo electrónico',
+    passwordLabel: 'Contraseña',
+    signInButton: 'Iniciar Sesión',
+    signingIn: 'Iniciando sesión...',
+    noAccount: '¿No tienes cuenta?',
+    createAdvisorAccount: 'Crear cuenta de asesor',
+    footer: '© 2025 CONECTIA. Todos los derechos reservados.',
+    fromPlans: {
+      successBegins: 'Tu éxito comienza aquí',
+      welcome: 'Bienvenido a CONECTIA',
+      subtitle: 'Inicia sesión para activar tu plan y potenciar tu carrera inmobiliaria.',
+    },
+    biometric: {
+      accessButton: 'Acceder con Face ID / Huella',
+      quickAccess: 'Acceso rápido como {{nombre}}',
+      deleteButton: 'Borrar biométrico',
+      deleteTitle: 'Borrar datos biométricos guardados',
+      registeredSuccess: 'Face ID / Huella configurado. La próxima vez podrás acceder más rápido.',
+    },
+    errors: {
+      invalidCredentials: 'Credenciales incorrectas',
+      credentialsExpired: 'Credenciales expiradas. Por favor inicia sesión con tu contraseña para reactivar el acceso biométrico.',
+      biometricError: 'Error en autenticación biométrica',
+    },
+  },
+  en: {
+    title: 'Access CONECTIA Platform',
+    emailLabel: 'Email',
+    passwordLabel: 'Password',
+    signInButton: 'Sign In',
+    signingIn: 'Signing in...',
+    noAccount: "Don't have an account?",
+    createAdvisorAccount: 'Create advisor account',
+    footer: '© 2025 CONECTIA. All rights reserved.',
+    fromPlans: {
+      successBegins: 'Your success starts here',
+      welcome: 'Welcome to CONECTIA',
+      subtitle: 'Sign in to activate your plan and boost your real estate career.',
+    },
+    biometric: {
+      accessButton: 'Access with Face ID / Fingerprint',
+      quickAccess: 'Quick access as {{nombre}}',
+      deleteButton: 'Delete biometric',
+      deleteTitle: 'Delete saved biometric data',
+      registeredSuccess: 'Face ID / Fingerprint configured. Next time you can access faster.',
+    },
+    errors: {
+      invalidCredentials: 'Invalid credentials',
+      credentialsExpired: 'Credentials expired. Please sign in with your password to reactivate biometric access.',
+      biometricError: 'Biometric authentication error',
+    },
+  },
+} as const
+
 function LoginContent() {
-  const { t } = useLanguage()
+  const { language, dict } = useLanguage()
+  const loginText = (dict as any)?.login ?? LOGIN_TEXT_FALLBACK[language]
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -70,7 +128,7 @@ function LoginContent() {
 
       redirectAfterLogin(userData)
     } catch (err: any) {
-      setError(err.message || t('login.errors.invalidCredentials'))
+      setError(err.message || loginText.errors.invalidCredentials)
     } finally {
       setLoading(false)
     }
@@ -100,7 +158,7 @@ function LoginContent() {
       // Step 2: Get stored login credentials
       const loginData = getBiometricLoginData()
       if (!loginData) {
-        setError(t('login.errors.credentialsExpired'))
+        setError(loginText.errors.credentialsExpired)
         return
       }
 
@@ -108,7 +166,7 @@ function LoginContent() {
       const userData = await login(loginData.email, loginData.password)
       redirectAfterLogin(userData)
     } catch (err: any) {
-      setError(err.message || t('login.errors.biometricError'))
+      setError(err.message || loginText.errors.biometricError)
     } finally {
       setBiometricLoading(false)
     }
@@ -139,18 +197,18 @@ function LoginContent() {
             <div className="mb-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3 glass-card">
                 <Award className="w-4 h-4 text-[#C78F7B]" />
-                <span className="text-sm font-medium text-ivory">{t('login.fromPlans.successBegins')}</span>
+                <span className="text-sm font-medium text-ivory">{loginText.fromPlans.successBegins}</span>
               </div>
               <h2 className="font-titles text-2xl font-light text-[#17313A] mb-2">
-                {t('login.fromPlans.welcome')}
+                {loginText.fromPlans.welcome}
               </h2>
               <p className="text-[#4A4F57] text-sm">
-                {t('login.fromPlans.subtitle')}
+                {loginText.fromPlans.subtitle}
               </p>
             </div>
           ) : (
             <p className="text-[#4A4F57] text-lg font-medium">
-              {t('login.title')}
+              {loginText.title}
             </p>
           )}
         </div>
@@ -161,7 +219,7 @@ function LoginContent() {
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
-                {t('login.emailLabel')}
+                {loginText.emailLabel}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
@@ -181,7 +239,7 @@ function LoginContent() {
             {/* Password */}
             <div>
               <label htmlFor="password" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
-                {t('login.passwordLabel')}
+                {loginText.passwordLabel}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
@@ -212,7 +270,7 @@ function LoginContent() {
               disabled={loading}
               className="w-full py-3 font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed glass-primary text-ivory hover:scale-[1.02]"
             >
-              {loading ? t('login.signingIn') : t('login.signInButton')}
+              {loading ? loginText.signingIn : loginText.signInButton}
             </button>
           </form>
 
@@ -229,13 +287,13 @@ function LoginContent() {
                 ) : (
                   <>
                     <Fingerprint className="w-5 h-5 text-[#C78F7B]" />
-                    <span>{t('login.biometric.accessButton')}</span>
+                    <span>{loginText.biometric.accessButton}</span>
                   </>
                 )}
               </button>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-xs text-white/60">
-                  {t('login.biometric.quickAccess', { nombre: biometricUser.nombre || biometricUser.email })}
+                  {loginText.biometric.quickAccess.replace('{{nombre}}', biometricUser.nombre || biometricUser.email)}
                 </p>
                 <button
                   onClick={() => {
@@ -244,10 +302,10 @@ function LoginContent() {
                     setBiometricUser(null)
                   }}
                   className="flex items-center gap-1 text-xs text-red-300 hover:text-red-200 transition-colors"
-                  title={t('login.biometric.deleteTitle')}
+                  title={loginText.biometric.deleteTitle}
                 >
                   <Trash2 className="w-3 h-3" />
-                  {t('login.biometric.deleteButton')}
+                  {loginText.biometric.deleteButton}
                 </button>
               </div>
             </div>
@@ -257,19 +315,19 @@ function LoginContent() {
           {biometricRegistered && (
             <div className="mt-4 flex items-center gap-2 p-3 rounded-xl text-green-300 text-sm glass-card" style={{ background: 'rgba(34, 197, 94, 0.15)', borderColor: 'rgba(34, 197, 94, 0.3)' }}>
               <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-green-300" />
-              <span>{t('login.biometric.registeredSuccess')}</span>
+              <span>{loginText.biometric.registeredSuccess}</span>
             </div>
           )}
 
           {/* Link a registro */}
           <div className="mt-6 pt-6 text-center border-t border-white/15">
             <p className="text-sm text-white/60">
-              {t('login.noAccount')}{' '}
+              {loginText.noAccount}{' '}
               <Link 
                 href={fromPlans ? "/registro?from=planes" : "/registro"} 
                 className="text-[#C78F7B] hover:text-[#D4987E] underline font-medium transition-colors"
               >
-                {t('login.createAdvisorAccount')}
+                {loginText.createAdvisorAccount}
               </Link>
             </p>
           </div>
@@ -277,7 +335,7 @@ function LoginContent() {
 
         {/* Footer */}
         <p className="text-center text-sm text-[#4A4F57] mt-6">
-          {t('login.footer')}
+          {loginText.footer}
         </p>
       </div>
     </div>

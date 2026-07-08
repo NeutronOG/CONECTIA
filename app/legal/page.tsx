@@ -43,7 +43,7 @@ export default function LegalPage() {
           <div className="prose prose-gray max-w-none">
             <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Servicios</h3>
             <p className="mb-4">
-              CONECTIA proporciona servicios de intermediación inmobiliaria exclusiva para propiedades de lujo.
+              CONECTIA proporciona servicios de intermediación <span className="text-[#C78F7B]">inmobiliaria</span> exclusiva para propiedades de lujo.
             </p>
             <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Responsabilidades del cliente</h3>
             <ul className="list-disc pl-6 mb-4">

@@ -5,6 +5,7 @@
       "title": "¡Bienvenido!",
       "speech": "¡Hola! Soy tu guía virtual de CONECTIA. Te voy a mostrar cómo navegar por nuestra plataforma inmobiliaria de manera rápida y sencilla. Somos tu inmobiliaria de confianza en León, Guanajuato. ¡Empecemos!",
       "shortSpeech": "Bienvenido a CONECTIA, tu inmobiliaria de confianza.",
+      "speechWithHighlight": true,
       "route": "/",
       "scrollToTop": true
     },

@@ -58,7 +58,12 @@ export function Footer() {
               />
             </div>
             <p className="text-sm text-[#B0ACA6] leading-relaxed mb-8 max-w-xs">
-              {t('common.tagline')}
+              {t('common.tagline').split('inmobiliaria').map((part, i, arr) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && <span className="text-[#C78F7B]">inmobiliaria</span>}
+                </span>
+              ))}
             </p>
           </div>
 

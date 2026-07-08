@@ -33,6 +33,7 @@ interface GuideSpeech {
   route?: string
   targetSelector?: string
   scrollToTop?: boolean
+  speechWithHighlight?: boolean
 }
 
 const GUIDE_SPEECHES: GuideSpeech[] = [
@@ -42,6 +43,7 @@ const GUIDE_SPEECHES: GuideSpeech[] = [
     icon: Compass,
     speech: "¡Hola! Soy tu guía virtual de CONECTIA. Te voy a mostrar cómo navegar por nuestra plataforma inmobiliaria de manera rápida y sencilla. Somos tu inmobiliaria de confianza en León, Guanajuato. ¡Empecemos!",
     shortSpeech: "Bienvenido a CONECTIA, tu inmobiliaria de confianza.",
+    speechWithHighlight: true,
     route: "/",
     scrollToTop: true,
   },
@@ -470,7 +472,18 @@ export function AvatarGuide() {
               {/* Speech Text */}
               <div className="bg-conectia-accent/5 rounded-2xl p-4 min-h-[100px]">
                 <p className="text-conectia-accent text-sm leading-relaxed">
-                  {currentSpeech.speech}
+                  {currentSpeech.speechWithHighlight ? (
+                    <span>
+                      {currentSpeech.speech.split('inmobiliaria').map((part, i, arr) => (
+                        <span key={i}>
+                          {part}
+                          {i < arr.length - 1 && <span className="text-[#C78F7B]">inmobiliaria</span>}
+                        </span>
+                      ))}
+                    </span>
+                  ) : (
+                    currentSpeech.speech
+                  )}
                 </p>
               </div>
 

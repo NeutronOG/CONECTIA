@@ -206,7 +206,7 @@ export function CommercialAlliance() {
                         </Badge>
                         <h1 className="font-serif text-4xl md:text-6xl font-black text-[#17313A] dark:text-[#C78F7B] tracking-tight leading-tight">
                             Impulsa tu carrera <br />
-                            <span className="text-[#17313A] dark:text-[#C78F7B] italic">inmobiliaria</span>
+                            <span className="text-[#C78F7B] italic">inmobiliaria</span>
                         </h1>
                         <p className="text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto font-light">
                             Únete a la red de asesores más exclusiva. Elige el plan que mejor se adapte a tu portafolio.

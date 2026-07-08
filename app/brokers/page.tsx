@@ -39,6 +39,7 @@ const notariasAsociadas = [
     nombre: "Notaría 82",
     notario: "Lic. Enrique Duran Llamas",
     especialidad: "Compraventa Inmobiliaria",
+    especialidadDisplay: "Compraventa <span class='text-[#C78F7B]'>Inmobiliaria</span>",
     ubicacion: "León, Guanajuato",
     telefono: "+52 477 475 6951"
   }
@@ -88,7 +89,7 @@ export default function BrokersPage() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-xs text-conectia-accent/60">
                       <FileText className="h-3.5 w-3.5 text-conectia-primary/60" />
-                      <span>{notaria.especialidad}</span>
+                      <span dangerouslySetInnerHTML={{ __html: notaria.especialidadDisplay || notaria.especialidad }} />
                     </div>
                     <div className="flex items-center gap-2 text-xs text-conectia-accent/60">
                       <MapPin className="h-3.5 w-3.5 text-conectia-primary/60" />
