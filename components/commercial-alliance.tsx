@@ -227,21 +227,29 @@ export function CommercialAlliance() {
                             <button
                                 onClick={() => setIsTeam(false)}
                                 className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-300 ${
-                                    !isTeam ? 'text-[#17313A] dark:text-white' : 'text-[#17313A]/50 dark:text-white/50 hover:text-[#17313A] dark:hover:text-white'
+                                    !isTeam 
+                                        ? 'text-white dark:text-[#17313A]' 
+                                        : 'text-[#17313A]/60 dark:text-[#EAE4DD]/60 hover:text-[#17313A] dark:hover:text-[#EAE4DD]'
                                 }`}
                             >
-                                <Buildings className="h-4 w-4" weight="duotone" />
+                                <Buildings className="h-4 w-4" weight={!isTeam ? "fill" : "duotone"} />
                                 Individual
                             </button>
                             <button
                                 onClick={() => setIsTeam(true)}
                                 className={`relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-300 ${
-                                    isTeam ? 'text-[#17313A] dark:text-white' : 'text-[#17313A]/50 dark:text-white/50 hover:text-[#17313A] dark:hover:text-white'
+                                    isTeam 
+                                        ? 'text-white dark:text-[#17313A]' 
+                                        : 'text-[#17313A]/60 dark:text-[#EAE4DD]/60 hover:text-[#17313A] dark:hover:text-[#EAE4DD]'
                                 }`}
                             >
-                                <Users className="h-4 w-4" weight="duotone" />
+                                <Users className="h-4 w-4" weight={isTeam ? "fill" : "duotone"} />
                                 Equipo
-                                <span className="ml-1 text-xs bg-[#17313A]/10 dark:bg-[#C78F7B]/10 text-[#17313A] dark:text-[#C78F7B] px-1.5 py-0.5 rounded-full font-bold">
+                                <span className={`ml-1 text-xs px-1.5 py-0.5 rounded-full font-bold transition-colors duration-300 ${
+                                    isTeam
+                                        ? 'bg-white/20 text-white dark:bg-[#17313A]/15 dark:text-[#17313A]'
+                                        : 'bg-[#17313A]/10 dark:bg-[#C78F7B]/10 text-[#17313A] dark:text-[#C78F7B]'
+                                }`}>
                                     -40%
                                 </span>
                             </button>
