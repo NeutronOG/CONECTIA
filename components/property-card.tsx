@@ -52,7 +52,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
   }
 
   return (
-    <div className="group relative rounded-3xl overflow-hidden h-[420px] transition-all duration-400 shadow-lg hover:shadow-xl">
+    <div className="group relative rounded-3xl overflow-hidden h-[420px] transition-all duration-400 shadow-xl hover:shadow-2xl border border-[#17313A]/10 dark:border-white/10">
       {/* Imagen de fondo completa */}
       <img
         src={imgSrc}
