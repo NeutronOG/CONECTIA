@@ -11,6 +11,13 @@ import { Propiedad } from "@/data/propiedades"
 import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 
+const labelClass = "text-sm font-semibold text-white/90"
+const inputClass = "bg-white/5 border-white/20 text-white placeholder:text-white/30 focus-visible:ring-[#C78F7B]/50 h-11 rounded-xl"
+const textareaClass = "bg-white/5 border-white/20 text-white placeholder:text-white/30 focus-visible:ring-[#C78F7B]/50 rounded-xl"
+const selectTriggerClass = "bg-white/5 border-white/20 text-white focus:ring-[#C78F7B]/50 h-11 rounded-xl"
+const selectContentClass = "bg-[#17313A] border-white/10 text-white"
+const selectItemClass = "text-white/90 focus:bg-white/10 focus:text-white"
+
 interface PropertyFormProps {
   initialData?: Propiedad
   asesorEmail: string
@@ -440,7 +447,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 [&_label]:text-white/80 [&_input]:text-white [&_input]:border-white/20 [&_input]:bg-white/5 [&_input]:placeholder:text-white/30 [&_textarea]:text-white [&_textarea]:border-white/20 [&_textarea]:bg-white/5 [&_textarea]:placeholder:text-white/30 [&_[data-slot=select-trigger]]:text-white [&_[data-slot=select-trigger]]:border-white/20 [&_[data-slot=select-trigger]]:bg-white/5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
           <h3 className="text-lg font-bold text-white">Información Básica</h3>
@@ -449,49 +456,53 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="titulo">Título *</Label>
+              <Label htmlFor="titulo" className={labelClass}>Título *</Label>
               <Input
                 id="titulo"
                 required
                 value={formData.titulo}
                 onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
                 placeholder="Ej: Penthouse Polanco IV"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ubicacion">Ubicación / Dirección *</Label>
+              <Label htmlFor="ubicacion" className={labelClass}>Ubicación / Dirección *</Label>
               <Input
                 id="ubicacion"
                 required
                 value={formData.ubicacion}
                 onChange={(e) => setFormData({ ...formData, ubicacion: e.target.value })}
                 placeholder="Ej: Av. Insurgentes 1234, Col. Del Valle"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="colonia">Colonia / Zona *</Label>
+              <Label htmlFor="colonia" className={labelClass}>Colonia / Zona *</Label>
               <Input
                 id="colonia"
                 value={(formData as any).colonia || ''}
                 onChange={(e) => setFormData({ ...formData, colonia: e.target.value } as any)}
                 placeholder="Ej: Lomas del Moral"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ciudad">Ciudad *</Label>
+              <Label htmlFor="ciudad" className={labelClass}>Ciudad *</Label>
               <Input
                 id="ciudad"
                 value={(formData as any).ciudad || ''}
                 onChange={(e) => setFormData({ ...formData, ciudad: e.target.value } as any)}
                 placeholder="Ej: León, Guanajuato"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="precio">
+              <Label htmlFor="precio" className={labelClass}>
                 {formData.unidadSuperficie === 'Hectáreas' ? 'Precio por m² (MXN) *' : 'Precio (MXN) *'}
               </Label>
               <Input
@@ -505,6 +516,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   setFormData({ ...formData, precio: numValue })
                 }}
                 placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
+                className={inputClass}
               />
               {formData.precio && formData.precio > 0 && (
                 <div className="mt-2 p-3 rounded-xl bg-[#C78F7B]/10 border border-[#C78F7B]/20 space-y-1">
@@ -522,79 +534,79 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tipo">Tipo de Propiedad *</Label>
+              <Label htmlFor="tipo" className={labelClass}>Tipo de Propiedad *</Label>
               <Select
                 value={formData.tipo}
                 onValueChange={(value) => setFormData({ ...formData, tipo: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona tipo" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Casa">Casa</SelectItem>
-                  <SelectItem value="Casa en condominio">Casa en condominio</SelectItem>
-                  <SelectItem value="Residencia">Residencia</SelectItem>
-                  <SelectItem value="Departamento">Departamento</SelectItem>
-                  <SelectItem value="Penthouse">Penthouse</SelectItem>
-                  <SelectItem value="Loft">Loft</SelectItem>
-                  <SelectItem value="Dúplex">Dúplex</SelectItem>
-                  <SelectItem value="Villa">Villa</SelectItem>
-                  <SelectItem value="Quinta">Quinta</SelectItem>
-                  <SelectItem value="Cabaña">Cabaña</SelectItem>
-                  <SelectItem value="Rancho">Rancho</SelectItem>
-                  <SelectItem value="Hacienda">Hacienda</SelectItem>
-                  <SelectItem value="Finca">Finca</SelectItem>
-                  <SelectItem value="Condominio">Condominio</SelectItem>
-                  <SelectItem value="Terreno campestre">Terreno campestre</SelectItem>
-                  <SelectItem value="Históricos">Históricos</SelectItem>
-                  <SelectItem value="Terreno habitacional">Terreno habitacional</SelectItem>
-                  <SelectItem value="Terreno comercial">Terreno comercial</SelectItem>
-                  <SelectItem value="Terreno industrial">Terreno industrial</SelectItem>
-                  <SelectItem value="Terreno agrícola">Terreno agrícola</SelectItem>
-                  <SelectItem value="Terreno mixto">Terreno mixto</SelectItem>
-                  <SelectItem value="Local comercial">Local comercial</SelectItem>
-                  <SelectItem value="Plaza comercial">Plaza comercial</SelectItem>
-                  <SelectItem value="Oficina">Oficina</SelectItem>
-                  <SelectItem value="Consultorio">Consultorio</SelectItem>
-                  <SelectItem value="Edificio comercial">Edificio comercial</SelectItem>
-                  <SelectItem value="Edificio mixto">Edificio mixto</SelectItem>
-                  <SelectItem value="Hotel">Hotel</SelectItem>
-                  <SelectItem value="Hospital">Hospital</SelectItem>
-                  <SelectItem value="Clínica">Clínica</SelectItem>
-                  <SelectItem value="Centro médico">Centro médico</SelectItem>
-                  <SelectItem value="Restaurante">Restaurante</SelectItem>
-                  <SelectItem value="Salón de eventos">Salón de eventos</SelectItem>
-                  <SelectItem value="Nave industrial">Nave industrial</SelectItem>
-                  <SelectItem value="Bodega industrial">Bodega industrial</SelectItem>
-                  <SelectItem value="Bodega comercial">Bodega comercial</SelectItem>
-                  <SelectItem value="Parque industrial">Parque industrial</SelectItem>
-                  <SelectItem value="Patio de maniobras">Patio de maniobras</SelectItem>
-                  <SelectItem value="Complejo habitacional">Complejo habitacional</SelectItem>
-                  <SelectItem value="Centro de negocios">Centro de negocios</SelectItem>
-                  <SelectItem value="Granja">Granja</SelectItem>
-                  <SelectItem value="Motel">Motel</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="Casa" className={selectItemClass}>Casa</SelectItem>
+                  <SelectItem value="Casa en condominio" className={selectItemClass}>Casa en condominio</SelectItem>
+                  <SelectItem value="Residencia" className={selectItemClass}>Residencia</SelectItem>
+                  <SelectItem value="Departamento" className={selectItemClass}>Departamento</SelectItem>
+                  <SelectItem value="Penthouse" className={selectItemClass}>Penthouse</SelectItem>
+                  <SelectItem value="Loft" className={selectItemClass}>Loft</SelectItem>
+                  <SelectItem value="Dúplex" className={selectItemClass}>Dúplex</SelectItem>
+                  <SelectItem value="Villa" className={selectItemClass}>Villa</SelectItem>
+                  <SelectItem value="Quinta" className={selectItemClass}>Quinta</SelectItem>
+                  <SelectItem value="Cabaña" className={selectItemClass}>Cabaña</SelectItem>
+                  <SelectItem value="Rancho" className={selectItemClass}>Rancho</SelectItem>
+                  <SelectItem value="Hacienda" className={selectItemClass}>Hacienda</SelectItem>
+                  <SelectItem value="Finca" className={selectItemClass}>Finca</SelectItem>
+                  <SelectItem value="Condominio" className={selectItemClass}>Condominio</SelectItem>
+                  <SelectItem value="Terreno campestre" className={selectItemClass}>Terreno campestre</SelectItem>
+                  <SelectItem value="Históricos" className={selectItemClass}>Históricos</SelectItem>
+                  <SelectItem value="Terreno habitacional" className={selectItemClass}>Terreno habitacional</SelectItem>
+                  <SelectItem value="Terreno comercial" className={selectItemClass}>Terreno comercial</SelectItem>
+                  <SelectItem value="Terreno industrial" className={selectItemClass}>Terreno industrial</SelectItem>
+                  <SelectItem value="Terreno agrícola" className={selectItemClass}>Terreno agrícola</SelectItem>
+                  <SelectItem value="Terreno mixto" className={selectItemClass}>Terreno mixto</SelectItem>
+                  <SelectItem value="Local comercial" className={selectItemClass}>Local comercial</SelectItem>
+                  <SelectItem value="Plaza comercial" className={selectItemClass}>Plaza comercial</SelectItem>
+                  <SelectItem value="Oficina" className={selectItemClass}>Oficina</SelectItem>
+                  <SelectItem value="Consultorio" className={selectItemClass}>Consultorio</SelectItem>
+                  <SelectItem value="Edificio comercial" className={selectItemClass}>Edificio comercial</SelectItem>
+                  <SelectItem value="Edificio mixto" className={selectItemClass}>Edificio mixto</SelectItem>
+                  <SelectItem value="Hotel" className={selectItemClass}>Hotel</SelectItem>
+                  <SelectItem value="Hospital" className={selectItemClass}>Hospital</SelectItem>
+                  <SelectItem value="Clínica" className={selectItemClass}>Clínica</SelectItem>
+                  <SelectItem value="Centro médico" className={selectItemClass}>Centro médico</SelectItem>
+                  <SelectItem value="Restaurante" className={selectItemClass}>Restaurante</SelectItem>
+                  <SelectItem value="Salón de eventos" className={selectItemClass}>Salón de eventos</SelectItem>
+                  <SelectItem value="Nave industrial" className={selectItemClass}>Nave industrial</SelectItem>
+                  <SelectItem value="Bodega industrial" className={selectItemClass}>Bodega industrial</SelectItem>
+                  <SelectItem value="Bodega comercial" className={selectItemClass}>Bodega comercial</SelectItem>
+                  <SelectItem value="Parque industrial" className={selectItemClass}>Parque industrial</SelectItem>
+                  <SelectItem value="Patio de maniobras" className={selectItemClass}>Patio de maniobras</SelectItem>
+                  <SelectItem value="Complejo habitacional" className={selectItemClass}>Complejo habitacional</SelectItem>
+                  <SelectItem value="Centro de negocios" className={selectItemClass}>Centro de negocios</SelectItem>
+                  <SelectItem value="Granja" className={selectItemClass}>Granja</SelectItem>
+                  <SelectItem value="Motel" className={selectItemClass}>Motel</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="unidadSuperficie">Unidad de Superficie</Label>
+              <Label htmlFor="unidadSuperficie" className={labelClass}>Unidad de Superficie</Label>
               <Select
                 value={formData.unidadSuperficie || 'm²'}
                 onValueChange={(value) => setFormData({ ...formData, unidadSuperficie: value as 'm²' | 'Hectáreas' })}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona unidad" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="m²">m²</SelectItem>
-                  <SelectItem value="Hectáreas">Hectáreas</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="m²" className={selectItemClass}>m²</SelectItem>
+                  <SelectItem value="Hectáreas" className={selectItemClass}>Hectáreas</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Habitaciones *</Label>
+              <Label className={labelClass}>Habitaciones *</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
@@ -616,7 +628,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label>Baños Completos *</Label>
+              <Label className={labelClass}>Baños Completos *</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
@@ -638,7 +650,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label>Medios Baños</Label>
+              <Label className={labelClass}>Medios Baños</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3].map((num) => (
                   <button
@@ -660,7 +672,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="area">Área Terreno (m²) *</Label>
+              <Label htmlFor="area" className={labelClass}>Área Terreno (m²) *</Label>
               <Input
                 id="area"
                 type="number"
@@ -671,29 +683,29 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   setFormData({ ...formData, area: raw === '' ? undefined : Number(raw) })
                 }}
                 placeholder="450"
-                className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="amueblado">Amueblado</Label>
+              <Label htmlFor="amueblado" className={labelClass}>Amueblado</Label>
               <Select
                 value={formData.amueblado || ''}
                 onValueChange={(value) => setFormData({ ...formData, amueblado: value as any })}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona una opción" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="amueblado">Amueblado</SelectItem>
-                  <SelectItem value="semiamueblado">Semiamueblado</SelectItem>
-                  <SelectItem value="sin_amueblar">Sin amueblar</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="amueblado" className={selectItemClass}>Amueblado</SelectItem>
+                  <SelectItem value="semiamueblado" className={selectItemClass}>Semiamueblado</SelectItem>
+                  <SelectItem value="sin_amueblar" className={selectItemClass}>Sin amueblar</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="areaConstruccion">Área Construcción (m²)</Label>
+              <Label htmlFor="areaConstruccion" className={labelClass}>Área Construcción (m²)</Label>
               <Input
                 id="areaConstruccion"
                 type="number"
@@ -701,13 +713,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 onChange={(e) => setFormData({ ...formData, areaConstruccion: e.target.value === '' ? undefined : Number(e.target.value) })}
                 placeholder="350"
                 min="0"
-                className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label htmlFor="frente">Frente (m)</Label>
+                <Label htmlFor="frente" className={labelClass}>Frente (m)</Label>
                 <Input
                   id="frente"
                   type="number"
@@ -715,11 +727,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   onChange={(e) => setFormData({ ...formData, frente: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
                   placeholder="Ej: 12"
                   min="0"
-                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="fondo">Fondo (m)</Label>
+                <Label htmlFor="fondo" className={labelClass}>Fondo (m)</Label>
                 <Input
                   id="fondo"
                   type="number"
@@ -727,13 +739,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   onChange={(e) => setFormData({ ...formData, fondo: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
                   placeholder="Ej: 20"
                   min="0"
-                  className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label>Cochera (Coches)</Label>
+              <Label className={labelClass}>Cochera (Coches)</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
@@ -755,105 +767,105 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="status">Estado *</Label>
+              <Label htmlFor="status" className={labelClass}>Estado *</Label>
               <Select
                 value={formData.status}
                 onValueChange={(value) => setFormData({ ...formData, status: value as any })}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona estado" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Disponible">Disponible</SelectItem>
-                  <SelectItem value="Exclusiva">Exclusiva</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="Disponible" className={selectItemClass}>Disponible</SelectItem>
+                  <SelectItem value="Exclusiva" className={selectItemClass}>Exclusiva</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="categoria">Tipo de Operación *</Label>
+              <Label htmlFor="categoria" className={labelClass}>Tipo de Operación *</Label>
               <Select
                 value={formData.categoria}
                 onValueChange={(value) => setFormData({ ...formData, categoria: value as any })}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona tipo de operación" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="compra">Compra</SelectItem>
-                  <SelectItem value="venta">Venta</SelectItem>
-                  <SelectItem value="renta">Renta</SelectItem>
-                  <SelectItem value="oferta">Oferta</SelectItem>
-                  <SelectItem value="especiales">Especiales</SelectItem>
-                  <SelectItem value="preventa">Preventa</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="compra" className={selectItemClass}>Compra</SelectItem>
+                  <SelectItem value="venta" className={selectItemClass}>Venta</SelectItem>
+                  <SelectItem value="renta" className={selectItemClass}>Renta</SelectItem>
+                  <SelectItem value="oferta" className={selectItemClass}>Oferta</SelectItem>
+                  <SelectItem value="especiales" className={selectItemClass}>Especiales</SelectItem>
+                  <SelectItem value="preventa" className={selectItemClass}>Preventa</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tipoCredito">Tipo de Crédito</Label>
+              <Label htmlFor="tipoCredito" className={labelClass}>Tipo de Crédito</Label>
               <Select
                 value={(formData as any).tipoCredito || ''}
                 onValueChange={(value) => setFormData({ ...formData, tipoCredito: value } as any)}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona tipo de crédito" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Contado">Contado</SelectItem>
-                  <SelectItem value="Crédito Bancario">Crédito Bancario</SelectItem>
-                  <SelectItem value="Infonavit">Infonavit</SelectItem>
-                  <SelectItem value="Fovissste">Fovissste</SelectItem>
-                  <SelectItem value="Cofinavit">Cofinavit</SelectItem>
-                  <SelectItem value="Crédito Puente">Crédito Puente</SelectItem>
-                  <SelectItem value="Cualquier Crédito">Cualquier Crédito</SelectItem>
-                  <SelectItem value="Otro">Otro</SelectItem>
-                  <SelectItem value="No aplica">No aplica</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="Contado" className={selectItemClass}>Contado</SelectItem>
+                  <SelectItem value="Crédito Bancario" className={selectItemClass}>Crédito Bancario</SelectItem>
+                  <SelectItem value="Infonavit" className={selectItemClass}>Infonavit</SelectItem>
+                  <SelectItem value="Fovissste" className={selectItemClass}>Fovissste</SelectItem>
+                  <SelectItem value="Cofinavit" className={selectItemClass}>Cofinavit</SelectItem>
+                  <SelectItem value="Crédito Puente" className={selectItemClass}>Crédito Puente</SelectItem>
+                  <SelectItem value="Cualquier Crédito" className={selectItemClass}>Cualquier Crédito</SelectItem>
+                  <SelectItem value="Otro" className={selectItemClass}>Otro</SelectItem>
+                  <SelectItem value="No aplica" className={selectItemClass}>No aplica</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="antiguedad">Antigüedad</Label>
+              <Label htmlFor="antiguedad" className={labelClass}>Antigüedad</Label>
               <Select
                 value={(formData as any).antiguedad || ''}
                 onValueChange={(value) => setFormData({ ...formData, antiguedad: value } as any)}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona antigüedad" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Nueva">Nueva (Estrenar)</SelectItem>
-                  <SelectItem value="1-5 años">1-5 años</SelectItem>
-                  <SelectItem value="6-10 años">6-10 años</SelectItem>
-                  <SelectItem value="11-20 años">11-20 años</SelectItem>
-                  <SelectItem value="21-30 años">21-30 años</SelectItem>
-                  <SelectItem value="Más de 30 años">Más de 30 años</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="Nueva" className={selectItemClass}>Nueva (Estrenar)</SelectItem>
+                  <SelectItem value="1-5 años" className={selectItemClass}>1-5 años</SelectItem>
+                  <SelectItem value="6-10 años" className={selectItemClass}>6-10 años</SelectItem>
+                  <SelectItem value="11-20 años" className={selectItemClass}>11-20 años</SelectItem>
+                  <SelectItem value="21-30 años" className={selectItemClass}>21-30 años</SelectItem>
+                  <SelectItem value="Más de 30 años" className={selectItemClass}>Más de 30 años</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="gravamen">¿Tiene Gravamen?</Label>
+              <Label htmlFor="gravamen" className={labelClass}>¿Tiene Gravamen?</Label>
               <Select
                 value={(formData as any).gravamen || ''}
                 onValueChange={(value) => setFormData({ ...formData, gravamen: value } as any)}
               >
-                <SelectTrigger>
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona una opción" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="no">No tiene gravamen</SelectItem>
-                  <SelectItem value="si">Sí tiene gravamen</SelectItem>
-                  <SelectItem value="en_proceso">En proceso de liberación</SelectItem>
-                  <SelectItem value="desconocido">Desconocido</SelectItem>
+                <SelectContent className={selectContentClass}>
+                  <SelectItem value="no" className={selectItemClass}>No tiene gravamen</SelectItem>
+                  <SelectItem value="si" className={selectItemClass}>Sí tiene gravamen</SelectItem>
+                  <SelectItem value="en_proceso" className={selectItemClass}>En proceso de liberación</SelectItem>
+                  <SelectItem value="desconocido" className={selectItemClass}>Desconocido</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="descripcion">Descripción *</Label>
+            <Label htmlFor="descripcion" className={labelClass}>Descripción *</Label>
             <Textarea
               id="descripcion"
               required
@@ -861,11 +873,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
               placeholder="Describe la propiedad..."
               rows={4}
+              className={textareaClass}
             />
           </div>
 
           <div className="space-y-2">
-            <Label>Actividades recreativas (opcional)</Label>
+            <Label className={labelClass}>Actividades recreativas (opcional)</Label>
             <p className="text-xs text-gray-500 mb-2">Selecciona las actividades que ofrece el desarrollo</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {actividadesRecreativasDisponibles.map((actividad) => (
@@ -893,13 +906,14 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="observaciones">Observaciones de la Propiedad</Label>
+            <Label htmlFor="observaciones" className={labelClass}>Observaciones de la Propiedad</Label>
             <Textarea
               id="observaciones"
               value={observaciones}
               onChange={(e) => setObservaciones(e.target.value)}
               placeholder="Agrega observaciones adicionales sobre la propiedad (estado, reparaciones necesarias, etc.)..."
               rows={3}
+              className={textareaClass}
             />
           </div>
         </div>
@@ -936,6 +950,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               onChange={(e) => setCaracteristicaPersonalizada(e.target.value)}
               placeholder="Agregar otra característica..."
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCaracteristicaPersonalizada())}
+              className={inputClass}
             />
             <Button type="button" onClick={addCaracteristicaPersonalizada}>
               <Plus className="h-4 w-4" />
@@ -1008,7 +1023,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="imagen">Imagen Principal *</Label>
+            <Label htmlFor="imagen" className={labelClass}>Imagen Principal *</Label>
 
             {!imagePreview ? (
               <div 
@@ -1084,7 +1099,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="galeria">Imágenes de la Galería</Label>
+            <Label htmlFor="galeria" className={labelClass}>Imágenes de la Galería</Label>
 
             <div 
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
@@ -1158,13 +1173,14 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="bono">Texto del bono</Label>
+            <Label htmlFor="bono" className={labelClass}>Texto del bono</Label>
             <Input
               id="bono"
               value={bono}
               onChange={(e) => setBono(e.target.value)}
               placeholder="Ej: BONO DE $500,000 PESOS"
               maxLength={60}
+              className={inputClass}
             />
             <p className="text-xs text-gray-500">Máximo 60 caracteres. Déjalo vacío si no hay bono.</p>
           </div>
