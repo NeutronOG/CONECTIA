@@ -23,7 +23,7 @@ export function Footer() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 pb-16 border-b border-[#17313A]/10 dark:border-white/10">
           <div className="max-w-lg">
             <h3 className="font-serif text-3xl sm:text-4xl font-black text-[#17313A] dark:text-[#C78F7B] mb-3">
-              {t('home.cta.title')} <span className="bg-gradient-to-r from-[#17313A] to-[#E8A88F] dark:from-[#C78F7B] dark:to-[#E8A88F] bg-clip-text text-transparent">{t('home.hero.titleHighlight')}?</span>
+              {t('home.cta.title')}
             </h3>
             <p className="text-[#B0ACA6] text-base">
               {t('home.cta.subtitle')}

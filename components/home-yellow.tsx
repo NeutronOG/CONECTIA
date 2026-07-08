@@ -245,8 +245,7 @@ export function HomeYellow() {
               <div className="space-y-4 md:max-w-lg">
                 <p className="text-[10px] uppercase tracking-[0.40em] text-[#C78F7B] font-semibold">{t('home.newsletter.title')}</p>
                 <h2 className="text-4xl sm:text-5xl font-black text-[#EAE4DD] leading-[1.1]">
-                  {t('home.cta.title')}<br />
-                  <span className="font-serif italic font-normal text-[#C78F7B]">{t('home.hero.titleHighlight')}?</span>
+                  {t('home.cta.title')}
                 </h2>
                 <p className="text-[#B0ACA6] text-base leading-relaxed max-w-md">
                   {t('home.cta.subtitle')}
