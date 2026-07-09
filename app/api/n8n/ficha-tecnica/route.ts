@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { getComisionAsesor, getComisionAsesorTexto, getPrecioTotal } from '@/lib/commission'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -54,12 +55,18 @@ export async function GET(request: Request) {
       .eq('propiedad_id', id)
       .order('created_at', { ascending: false })
 
-    // 4. Calcular comisiones según el porcentaje elegido por el asesor
-    const precio = Number(prop.precio) || 0
-    const comisionPct = Number(prop.comision_asesor_pct) || 4
-    const comisionAsesorPct = comisionPct / 2
-    const comisionAsesor = Math.round(precio * (comisionAsesorPct / 100))
-    const comisionEmpresa = Math.round(precio * (comisionAsesorPct / 100))
+    // 4. Calcular comisiones según el porcentaje elegido por el asesor y precio total
+    const propForCalc = {
+      precio: Number(prop.precio) || 0,
+      area: Number(prop.area) || 0,
+      unidadSuperficie: prop.unidad_superficie === 'Hectáreas' ? 'Hectáreas' as const : 'm²' as const,
+      comisionAsesorPct: Number(prop.comision_asesor_pct) || 4,
+    }
+    const precioTotal = getPrecioTotal(propForCalc)
+    const comisionAsesor = getComisionAsesor(propForCalc)
+    const comisionAsesorTexto = `$${comisionAsesor.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})`
+    const comisionEmpresa = getComisionAsesor(propForCalc)
+    const comisionEmpresaTexto = `$${comisionEmpresa.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})`
 
     // 5. Construir ficha técnica estructurada
     const fichaTecnica = {
@@ -95,13 +102,13 @@ export async function GET(request: Request) {
         amueblado: prop.amueblado || 'no_especificado',
       },
       financiero: {
-        precio: precio,
-        precioTexto: prop.precio_texto || `$${precio.toLocaleString('es-MX')} MXN`,
-        comisionTotalPct: comisionPct,
+        precio: precioTotal,
+        precioTexto: prop.precio_texto || `$${precioTotal.toLocaleString('es-MX')} MXN`,
+        comisionTotalPct: propForCalc.comisionAsesorPct,
         comisionAsesor: comisionAsesor,
-        comisionAsesorTexto: `$${comisionAsesor.toLocaleString('es-MX')} MXN (${comisionAsesorPct}%)`,
+        comisionAsesorTexto: comisionAsesorTexto,
         comisionEmpresa: comisionEmpresa,
-        comisionEmpresaTexto: `$${comisionEmpresa.toLocaleString('es-MX')} MXN (${comisionAsesorPct}%)`,
+        comisionEmpresaTexto: comisionEmpresaTexto,
         bono: prop.bono || null,
       },
       caracteristicas: prop.caracteristicas || [],

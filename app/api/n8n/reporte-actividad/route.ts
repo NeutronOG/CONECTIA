@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { getComisionAsesor } from '@/lib/commission'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -72,8 +73,12 @@ export async function GET(request: Request) {
 
     const valorPortafolio = (todasPropiedades || []).reduce((sum: number, p: any) => sum + (Number(p.precio) || 0), 0)
     const comisionPotencial = Math.round((todasPropiedades || []).reduce((sum: number, p: any) => {
-      const pct = Number((p as any).comision_asesor_pct) || 4
-      return sum + (Number(p.precio) || 0) * (pct / 100 / 2)
+      return sum + getComisionAsesor({
+        precio: Number(p.precio) || 0,
+        area: Number((p as any).area) || 0,
+        unidadSuperficie: (p as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+        comisionAsesorPct: Number((p as any).comision_asesor_pct) || 4,
+      })
     }, 0))
 
     const leadsPendientes = (leadsNuevos || []).filter((l: any) => l.estado === 'pendiente')
@@ -93,9 +98,13 @@ export async function GET(request: Request) {
           comisionPotencial: 0,
         }
       }
-      const pctAsesor = Number((prop as any).comision_asesor_pct) || 4
       porAsesor[prop.usuario_id].propiedades++
-      porAsesor[prop.usuario_id].comisionPotencial += Math.round((Number(prop.precio) || 0) * (pctAsesor / 100 / 2))
+      porAsesor[prop.usuario_id].comisionPotencial += getComisionAsesor({
+        precio: Number(prop.precio) || 0,
+        area: Number((prop as any).area) || 0,
+        unidadSuperficie: (prop as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+        comisionAsesorPct: Number((prop as any).comision_asesor_pct) || 4,
+      })
     }
 
     // 7. Construir reporte
@@ -133,7 +142,12 @@ export async function GET(request: Request) {
         categoria: p.categoria,
         fecha: p.created_at,
         asesor: p.usuario_id && usuariosMap[p.usuario_id] ? usuariosMap[p.usuario_id].nombre : 'Sin asignar',
-        comisionAsesor: Math.round((Number(p.precio) || 0) * ((Number((p as any).comision_asesor_pct) || 4) / 100 / 2)),
+        comisionAsesor: getComisionAsesor({
+          precio: Number(p.precio) || 0,
+          area: Number((p as any).area) || 0,
+          unidadSuperficie: (p as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+          comisionAsesorPct: Number((p as any).comision_asesor_pct) || 4,
+        }),
       })),
       leads: (leadsNuevos || []).map((l: any) => ({
         id: l.id,

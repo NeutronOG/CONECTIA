@@ -33,6 +33,7 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { logAudit } from '@/lib/audit-log'
+import { getComisionAsesor, getComisionAsesorTexto } from "@/lib/commission"
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
 import { ShareButton } from '@/components/share-button'
 import { useLanguage } from '@/lib/i18n'
@@ -451,7 +452,7 @@ export default function PropiedadesAsesorPage() {
 
                   <p className="text-2xl font-black text-[#C78F7B] mb-2">{propiedad.precioTexto}</p>
                   <p className="text-xs font-medium text-[#C78F7B]/80 mb-4">
-                    Tu comisión ({(propiedad.comisionAsesorPct || 4) / 2}%): ${(propiedad.precio * ((propiedad.comisionAsesorPct || 4) / 100 / 2)).toLocaleString('es-MX')} MXN
+                    Tu comisión ({getComisionAsesorTexto(propiedad)}): ${getComisionAsesor(propiedad).toLocaleString('es-MX')} MXN
                   </p>
 
                   {/* Mini analytics bar */}
