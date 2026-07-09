@@ -48,6 +48,8 @@ export async function POST(request: Request) {
           : 'Consultar precio'
 
         const areaNum = Math.round(Number(solicitud.area) || 0)
+        const habitacionesNum = Math.round(Number(String(solicitud.habitaciones || '0').replace(/\+.*/, '')) || 0)
+        const banosNum = Math.round(Number(String(solicitud.banos || '0').replace(/\+.*/, '')) || 0)
 
         const nuevaPropiedad: any = {
           titulo: solicitud.titulo,
@@ -56,8 +58,8 @@ export async function POST(request: Request) {
           precio_texto: precioTexto,
           tipo: solicitud.tipo || 'Departamento',
           categoria: solicitud.categoria || 'venta',
-          habitaciones: Math.round(Number(solicitud.habitaciones) || 0),
-          banos: Math.round(Number(solicitud.banos) || 0),
+          habitaciones: habitacionesNum,
+          banos: banosNum,
           area: areaNum,
           area_texto: areaNum > 0 ? `${areaNum} m²` : '0 m²',
           imagen: imagenPrincipal,

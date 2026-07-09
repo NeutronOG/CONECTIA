@@ -624,7 +624,7 @@ export default function PropietariosPage() {
                       <SelectItem value="3">3 habitaciones</SelectItem>
                       <SelectItem value="4">4 habitaciones</SelectItem>
                       <SelectItem value="5">5 habitaciones</SelectItem>
-                      <SelectItem value="6+">6+ habitaciones</SelectItem>
+                      <SelectItem value="6">6+ habitaciones</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -647,7 +647,7 @@ export default function PropietariosPage() {
                       <SelectItem value="3">3 baños</SelectItem>
                       <SelectItem value="4">4 baños</SelectItem>
                       <SelectItem value="5">5 baños</SelectItem>
-                      <SelectItem value="6+">6+ baños</SelectItem>
+                      <SelectItem value="6">6+ baños</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -186,6 +186,32 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // Validar campos requeridos
+    if (!formData.titulo?.trim()) {
+      alert('Por favor ingresa el título de la propiedad')
+      return
+    }
+    if (!formData.ubicacion?.trim()) {
+      alert('Por favor ingresa la ubicación de la propiedad')
+      return
+    }
+    if (!formData.precio || formData.precio <= 0) {
+      alert('Por favor ingresa un precio válido')
+      return
+    }
+    if (!formData.area || formData.area <= 0) {
+      alert('Por favor ingresa el área del terreno')
+      return
+    }
+    if (formData.habitaciones === undefined || formData.habitaciones === null) {
+      alert('Por favor selecciona el número de habitaciones')
+      return
+    }
+    if (formData.banos === undefined || formData.banos === null) {
+      alert('Por favor selecciona el número de baños')
+      return
+    }
+
     // Validar imagen principal si no hay datos iniciales
     if (!initialData && !imagePreview) {
       alert('Por favor sube una imagen principal')
