@@ -787,21 +787,23 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="categoria" className={labelClass}>Tipo de Operación *</Label>
+              <Label htmlFor="categoria" className={labelClass}>Categoría pública *</Label>
               <Select
                 value={formData.categoria}
                 onValueChange={(value) => setFormData({ ...formData, categoria: value as any })}
               >
                 <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue placeholder="Selecciona tipo de operación" />
+                  <SelectValue placeholder="Selecciona dónde se mostrará" />
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
-                  <SelectItem value="compra" className={selectItemClass}>Compra</SelectItem>
                   <SelectItem value="venta" className={selectItemClass}>Venta</SelectItem>
                   <SelectItem value="renta" className={selectItemClass}>Renta</SelectItem>
-                  <SelectItem value="oferta" className={selectItemClass}>Oferta</SelectItem>
-                  <SelectItem value="especiales" className={selectItemClass}>Especiales</SelectItem>
+                  <SelectItem value="compra" className={selectItemClass}>Compra</SelectItem>
                   <SelectItem value="preventa" className={selectItemClass}>Preventa</SelectItem>
+                  <SelectItem value="exclusivo" className={selectItemClass}>Exclusivo</SelectItem>
+                  <SelectItem value="especiales" className={selectItemClass}>Especiales</SelectItem>
+                  <SelectItem value="oferta" className={selectItemClass}>Oferta</SelectItem>
+                  <SelectItem value="remate" className={selectItemClass}>Remate</SelectItem>
                 </SelectContent>
               </Select>
             </div>
