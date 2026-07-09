@@ -36,6 +36,7 @@ import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscripti
 import { ShareButton } from '@/components/share-button'
 import { useLanguage } from '@/lib/i18n'
 import { getUserByEmail } from '@/data/internal-users'
+import { isSuperUser } from '@/lib/super-users'
 
 export default function PropiedadesAsesorPage() {
   const { t } = useLanguage()
@@ -276,8 +277,8 @@ export default function PropiedadesAsesorPage() {
 
           <PropertyForm
             initialData={editingProperty || undefined}
-            asesorEmail={user.email}
-            asesorNombre={user.nombre || ''}
+            asesorEmail={editingProperty?.agente?.email || user.email}
+            asesorNombre={editingProperty?.agente?.nombre || user.nombre || ''}
             onSubmit={handleSubmit}
             onCancel={() => { 
               setShowForm(false)
@@ -462,7 +463,7 @@ export default function PropiedadesAsesorPage() {
                       className="px-3 py-2 h-auto bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl text-xs font-semibold"
                       propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: propiedad.tipo, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
                     />
-                    {(user?.role === 'admin' || (propiedad.agente && propiedad.agente.email === user?.email)) && (
+                    {(isSuperUser(user) || (propiedad.agente && propiedad.agente.email === user?.email)) && (
                       <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
                         <Edit className="h-3.5 w-3.5" /> {t('panelAsesor.propiedades.edit')}
                       </button>
@@ -470,7 +471,7 @@ export default function PropiedadesAsesorPage() {
                     <button onClick={() => setBajaConfirm(propiedad)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-400 rounded-xl transition-all text-xs font-semibold" title="Notificar baja">
                       <AlertTriangle className="h-3.5 w-3.5" />
                     </button>
-                    {user?.role === 'admin' && (
+                    {isSuperUser(user) && (
                       <button onClick={() => setDeleteConfirm(propiedad.id)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 rounded-xl transition-all text-xs font-semibold" title="Eliminar">
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>

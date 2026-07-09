@@ -386,7 +386,7 @@ export class PropertiesStorage {
   // Eliminar propiedad
   static async delete(id: number): Promise<boolean> {
     try {
-      const db = getDbClient()
+      const db = getAdminClient()
 
       const { error } = await db
         .from('propiedades')
