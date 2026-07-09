@@ -96,7 +96,7 @@ export default function AuditoriaPage() {
     loadLogs()
   }, [isAuthenticated, user, router])
 
-  const loadLogs = () => {
+  const loadLogs = async () => {
     let filteredLogs: AuditLog[] = []
     
     switch (filter) {
@@ -110,6 +110,38 @@ export default function AuditoriaPage() {
         break
       default:
         filteredLogs = getAuditLogs()
+    }
+
+    // También cargar logs desde Supabase para tener registro centralizado de todos los usuarios
+    try {
+      const res = await fetch('/api/audit-log?limit=500')
+      if (res.ok) {
+        const data = await res.json()
+        const remoteLogs: AuditLog[] = (data.logs || []).map((log: any) => ({
+          id: log.id,
+          timestamp: log.timestamp,
+          userId: log.user_id,
+          userEmail: log.user_email,
+          userName: log.user_name,
+          action: log.action,
+          entityType: log.entity_type,
+          entityId: log.entity_id,
+          entityName: log.entity_name,
+          details: typeof log.details === 'string' ? JSON.parse(log.details) : log.details,
+          ipAddress: log.ip_address,
+          userAgent: log.user_agent,
+        }))
+        
+        // Merge evitando duplicados por id
+        const existingIds = new Set(filteredLogs.map(l => l.id))
+        remoteLogs.forEach((log: AuditLog) => {
+          if (!existingIds.has(log.id)) {
+            filteredLogs.push(log)
+          }
+        })
+      }
+    } catch (error) {
+      console.error('Error loading remote audit logs:', error)
     }
 
     if (actionFilter !== 'all') {

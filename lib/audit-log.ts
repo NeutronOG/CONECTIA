@@ -1,3 +1,5 @@
+import { SUPER_USER_EMAILS } from './super-users'
+
 // Sistema de Auditoría para CONECTIA
 // Registra todas las actividades de usuarios, especialmente Ari
 
@@ -91,8 +93,8 @@ export async function logAudit(
   logs.push(log)
   saveAuditLogs(logs)
 
-  // Si es Ari, también enviar a Supabase para persistencia central
-  if (user.email === 'ari@conectia.mx') {
+  // Si es super usuario (Ari, admin, Lizzie), también enviar a Supabase para persistencia central
+  if (user.email === 'ari@conectia.mx' || SUPER_USER_EMAILS.includes(user.email.toLowerCase())) {
     try {
       await sendToSupabase(log)
     } catch (error) {

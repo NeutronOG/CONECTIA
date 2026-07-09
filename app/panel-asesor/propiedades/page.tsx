@@ -32,6 +32,7 @@ import {
   Camera
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { logAudit } from '@/lib/audit-log'
 import { getPlanById, canAddProperty, getPropertyLimit } from '@/data/subscription-plans'
 import { ShareButton } from '@/components/share-button'
 import { useLanguage } from '@/lib/i18n'
@@ -166,6 +167,14 @@ export default function PropiedadesAsesorPage() {
           throw new Error(t('panelAsesor.propiedades.errors.updateError'))
         }
         toast.success(t('panelAsesor.propiedades.toast.updateSuccess'))
+        logAudit(
+          { id: user.id, email: user.email, nombre: user.nombre || user.email },
+          'propiedad_actualizada',
+          'propiedad',
+          String(editingProperty.id),
+          data.titulo,
+          { ubicacion: data.ubicacion, precio: data.precio, categoria: data.categoria, status: data.status, previousOwner: editingProperty.agente?.email }
+        )
       } else {
         // Usar el email del usuario para identificar quién subió la propiedad
         if (!user) throw new Error(t('panelAsesor.propiedades.errors.authError'))
@@ -176,6 +185,14 @@ export default function PropiedadesAsesorPage() {
           throw new Error(t('panelAsesor.propiedades.errors.createError'))
         }
         toast.success(t('panelAsesor.propiedades.toast.createSuccess'))
+        logAudit(
+          { id: user.id, email: user.email, nombre: user.nombre || user.email },
+          'propiedad_creada',
+          'propiedad',
+          String(newProperty.id),
+          data.titulo,
+          { ubicacion: data.ubicacion, precio: data.precio, categoria: data.categoria, status: data.status }
+        )
       }
 
       await loadProperties()
@@ -192,9 +209,22 @@ export default function PropiedadesAsesorPage() {
     setShowForm(true)
   }
 
-  const handleDelete = (id: number) => {
-    PropertiesStorage.delete(id)
-    toast.success(t('panelAsesor.propiedades.toast.deleteSuccess'))
+  const handleDelete = async (id: number) => {
+    const propiedad = propiedades.find(p => p.id === id)
+    const deleted = await PropertiesStorage.delete(id)
+    if (deleted) {
+      toast.success(t('panelAsesor.propiedades.toast.deleteSuccess'))
+      if (user && propiedad) {
+        logAudit(
+          { id: user.id, email: user.email, nombre: user.nombre || user.email },
+          'propiedad_eliminada',
+          'propiedad',
+          String(propiedad.id),
+          propiedad.titulo,
+          { ubicacion: propiedad.ubicacion, precio: propiedad.precio, categoria: propiedad.categoria, owner: propiedad.agente?.email }
+        )
+      }
+    }
     loadProperties()
     setDeleteConfirm(null)
   }
@@ -247,6 +277,16 @@ export default function PropiedadesAsesorPage() {
       // Aquí se podría enviar una notificación al admin o guardar en base de datos
       // Por ahora actualizamos el estado de la propiedad a "Baja solicitada"
       toast.success(t('panelAsesor.propiedades.toast.bajaSent', { titulo: propiedad.titulo }))
+      if (user) {
+        logAudit(
+          { id: user.id, email: user.email, nombre: user.nombre || user.email },
+          'propiedad_desactivada',
+          'propiedad',
+          String(propiedad.id),
+          propiedad.titulo,
+          { motivo: motivoBaja.trim(), ubicacion: propiedad.ubicacion, owner: propiedad.agente?.email }
+        )
+      }
       setBajaConfirm(null)
       setMotivoBaja('')
     } catch (error) {
