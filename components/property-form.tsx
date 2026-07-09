@@ -46,7 +46,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
     categoria: "venta" as any,
     imagen: "",
     galeria: [],
-    unidadSuperficie: "m²"
+    unidadSuperficie: "m²",
+    comisionAsesorPct: ((initialData as Propiedad | undefined)?.comisionAsesorPct) || 4
   })
 
   const [actividadesRecreativasSeleccionadas, setActividadesRecreativasSeleccionadas] = useState<string[]>(
@@ -305,6 +306,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         galeria: galeriaUrls,
         tourVirtual: undefined,
         unidadSuperficie: formData.unidadSuperficie || "m²",
+        comisionAsesorPct: formData.comisionAsesorPct || 4,
         tipoCredito: (formData as any).tipoCredito || undefined,
         observaciones: observaciones || undefined,
         bono: bono.trim() || undefined,
@@ -544,16 +546,31 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
                 className={inputClass}
               />
+              <div className="space-y-2 mt-4">
+                <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
+                <Select
+                  value={String(formData.comisionAsesorPct || 4)}
+                  onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
+                >
+                  <SelectTrigger className={selectTriggerClass}>
+                    <SelectValue placeholder="Selecciona el porcentaje" />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentClass}>
+                    {[1, 2, 3, 4, 5, 6].map((pct) => (
+                      <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
+                        {pct}% total — tú recibes {pct / 2}%
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               {formData.precio && formData.precio > 0 && (
                 <div className="mt-2 p-3 rounded-xl bg-[#C78F7B]/10 border border-[#C78F7B]/20 space-y-1">
                   <p className="text-xs text-[#C78F7B] font-medium">
                     Precio: ${formData.precio.toLocaleString('es-MX')} MXN{formData.unidadSuperficie === 'Hectáreas' ? '/m²' : ''}
                   </p>
                   <p className="text-xs text-[#C78F7B] font-medium">
-                    Comisión asesor (2%): ${(formData.precio * 0.02).toLocaleString('es-MX')} MXN
-                  </p>
-                  <p className="text-xs text-[#C78F7B] font-medium">
-                    Comisión propietario (2%): ${(formData.precio * 0.02).toLocaleString('es-MX')} MXN
+                    Tu comisión ({(formData.comisionAsesorPct || 4) / 2}%): ${(formData.precio * ((formData.comisionAsesorPct || 4) / 100 / 2)).toLocaleString('es-MX')} MXN
                   </p>
                 </div>
               )}

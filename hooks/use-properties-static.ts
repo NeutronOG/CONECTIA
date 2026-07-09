@@ -66,6 +66,7 @@ export function usePropertiesStatic() {
               fechaPublicacion: newProp.fecha_publicacion,
               tourVirtual: newProp.tour_virtual || undefined,
               galeria: newProp.galeria || undefined,
+              comisionAsesorPct: newProp.comision_asesor_pct || undefined,
             }
 
             setRealtimeUpdates((prev) => {

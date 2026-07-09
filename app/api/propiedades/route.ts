@@ -58,6 +58,7 @@ export async function GET(request: Request) {
         tourVirtual: prop.tour_virtual || undefined,
         galeria: prop.galeria || [],
         unidadSuperficie: prop.unidad_superficie || undefined,
+        comisionAsesorPct: prop.comision_asesor_pct || undefined,
         agente: {
           nombre: agenteNombre,
           especialidad: 'Especialista en Propiedades',
@@ -74,7 +75,7 @@ export async function GET(request: Request) {
     // Listado completo
     const { data: propiedades, error: propError } = await supabaseAdmin
       .from('propiedades')
-      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono')
+      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono, comision_asesor_pct')
       .order('created_at', { ascending: false })
 
     if (propError) {
@@ -119,6 +120,7 @@ export async function GET(request: Request) {
       tourVirtual: prop.tour_virtual || undefined,
       galeria: undefined,
       bono: prop.bono || undefined,
+      comisionAsesorPct: prop.comision_asesor_pct || undefined,
       agente: prop.usuario_id && usuariosMap[prop.usuario_id] ? {
         nombre: usuariosMap[prop.usuario_id],
         especialidad: 'Especialista en Propiedades',

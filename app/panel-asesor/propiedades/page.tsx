@@ -134,6 +134,7 @@ export default function PropiedadesAsesorPage() {
             tourVirtual: p.tour_virtual || undefined,
             galeria: p.galeria || [],
             bono: p.bono || undefined,
+            comisionAsesorPct: p.comision_asesor_pct || undefined,
             unidadSuperficie: p.unidad_superficie || undefined,
             detalles: p.detalles || undefined,
             agente: asesorEmail ? {
@@ -449,11 +450,8 @@ export default function PropiedadesAsesorPage() {
                   )}
 
                   <p className="text-2xl font-black text-[#C78F7B] mb-2">{propiedad.precioTexto}</p>
-                  <p className="text-xs font-medium text-[#C78F7B]/80 mb-1">
-                    Tu comisión (2%): ${(propiedad.precio * 0.02).toLocaleString('es-MX')} MXN
-                  </p>
                   <p className="text-xs font-medium text-[#C78F7B]/80 mb-4">
-                    Comisión propietario (2%): ${(propiedad.precio * 0.02).toLocaleString('es-MX')} MXN
+                    Tu comisión ({(propiedad.comisionAsesorPct || 4) / 2}%): ${(propiedad.precio * ((propiedad.comisionAsesorPct || 4) / 100 / 2)).toLocaleString('es-MX')} MXN
                   </p>
 
                   {/* Mini analytics bar */}

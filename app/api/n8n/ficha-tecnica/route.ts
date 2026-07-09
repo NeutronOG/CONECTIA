@@ -54,10 +54,12 @@ export async function GET(request: Request) {
       .eq('propiedad_id', id)
       .order('created_at', { ascending: false })
 
-    // 4. Calcular comisiones (2% asesor + 2% propietario)
+    // 4. Calcular comisiones según el porcentaje elegido por el asesor
     const precio = Number(prop.precio) || 0
-    const comisionAsesor = Math.round(precio * 0.02)
-    const comisionPropietario = Math.round(precio * 0.02)
+    const comisionPct = Number(prop.comision_asesor_pct) || 4
+    const comisionAsesorPct = comisionPct / 2
+    const comisionAsesor = Math.round(precio * (comisionAsesorPct / 100))
+    const comisionEmpresa = Math.round(precio * (comisionAsesorPct / 100))
 
     // 5. Construir ficha técnica estructurada
     const fichaTecnica = {
@@ -95,10 +97,11 @@ export async function GET(request: Request) {
       financiero: {
         precio: precio,
         precioTexto: prop.precio_texto || `$${precio.toLocaleString('es-MX')} MXN`,
+        comisionTotalPct: comisionPct,
         comisionAsesor: comisionAsesor,
-        comisionAsesorTexto: `$${comisionAsesor.toLocaleString('es-MX')} MXN (2%)`,
-        comisionPropietario: comisionPropietario,
-        comisionPropietarioTexto: `$${comisionPropietario.toLocaleString('es-MX')} MXN (2%)`,
+        comisionAsesorTexto: `$${comisionAsesor.toLocaleString('es-MX')} MXN (${comisionAsesorPct}%)`,
+        comisionEmpresa: comisionEmpresa,
+        comisionEmpresaTexto: `$${comisionEmpresa.toLocaleString('es-MX')} MXN (${comisionAsesorPct}%)`,
         bono: prop.bono || null,
       },
       caracteristicas: prop.caracteristicas || [],
@@ -158,8 +161,8 @@ Amueblado: ${prop.amueblado || 'No especificado'}
 
 ─── INFORMACIÓN FINANCIERA ───
 Precio: ${fichaTecnica.financiero.precioTexto}
-Comisión Asesor (2%): ${fichaTecnica.financiero.comisionAsesorTexto}
-Comisión Propietario (2%): ${fichaTecnica.financiero.comisionPropietarioTexto}
+Comisión Asesor (${fichaTecnica.financiero.comisionTotalPct / 2}%): ${fichaTecnica.financiero.comisionAsesorTexto}
+Comisión Empresa (${fichaTecnica.financiero.comisionTotalPct / 2}%): ${fichaTecnica.financiero.comisionEmpresaTexto}
 ${prop.bono ? `Bono: ${prop.bono}` : ''}
 
 ─── CARACTERÍSTICAS ───

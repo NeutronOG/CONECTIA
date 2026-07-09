@@ -21,6 +21,7 @@ export interface Propiedad {
   categoria: "venta" | "compra" | "renta" | "oferta" | "especiales" | "preventa" | "especial" | "remate" | "exclusivo"
   frente?: number
   fondo?: number
+  comisionAsesorPct?: number
   fechaPublicacion: string
   tourVirtual?: string
   agente?: {

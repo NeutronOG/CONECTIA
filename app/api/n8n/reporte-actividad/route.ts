@@ -71,7 +71,10 @@ export async function GET(request: Request) {
     const propiedadesExclusivas = (todasPropiedades || []).filter((p: any) => p.status === 'Exclusiva')
 
     const valorPortafolio = (todasPropiedades || []).reduce((sum: number, p: any) => sum + (Number(p.precio) || 0), 0)
-    const comisionPotencial = Math.round(valorPortafolio * 0.02)
+    const comisionPotencial = Math.round((todasPropiedades || []).reduce((sum: number, p: any) => {
+      const pct = Number((p as any).comision_asesor_pct) || 4
+      return sum + (Number(p.precio) || 0) * (pct / 100 / 2)
+    }, 0))
 
     const leadsPendientes = (leadsNuevos || []).filter((l: any) => l.estado === 'pendiente')
     const leadsAtendidos = (leadsNuevos || []).filter((l: any) => l.estado !== 'pendiente')
@@ -90,8 +93,9 @@ export async function GET(request: Request) {
           comisionPotencial: 0,
         }
       }
+      const pctAsesor = Number((prop as any).comision_asesor_pct) || 4
       porAsesor[prop.usuario_id].propiedades++
-      porAsesor[prop.usuario_id].comisionPotencial += Math.round((Number(prop.precio) || 0) * 0.02)
+      porAsesor[prop.usuario_id].comisionPotencial += Math.round((Number(prop.precio) || 0) * (pctAsesor / 100 / 2))
     }
 
     // 7. Construir reporte
@@ -129,7 +133,7 @@ export async function GET(request: Request) {
         categoria: p.categoria,
         fecha: p.created_at,
         asesor: p.usuario_id && usuariosMap[p.usuario_id] ? usuariosMap[p.usuario_id].nombre : 'Sin asignar',
-        comisionAsesor: Math.round((Number(p.precio) || 0) * 0.02),
+        comisionAsesor: Math.round((Number(p.precio) || 0) * ((Number((p as any).comision_asesor_pct) || 4) / 100 / 2)),
       })),
       leads: (leadsNuevos || []).map((l: any) => ({
         id: l.id,
@@ -171,7 +175,7 @@ export async function GET(request: Request) {
 
 💰 *Financiero*
 • Valor portafolio: ${r.valorPortafolioTexto}
-• Comision potencial (2%): ${r.comisionPotencialTexto}
+• Comisión potencial a asesores: ${r.comisionPotencialTexto}
 
 ${reporte.porAsesor.length > 0 ? `🏆 *Top Asesores*\n${reporte.porAsesor.slice(0, 3).map((a, i) => `${i + 1}. ${a.nombre} - ${a.propiedades} props - $${a.comisionPotencial.toLocaleString('es-MX')} MXN`).join('\n')}` : ''}
 

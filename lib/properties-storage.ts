@@ -62,6 +62,7 @@ export class PropertiesStorage {
       tourVirtual: dbProp.tour_virtual || undefined,
       galeria: dbProp.galeria || undefined,
       bono: (dbProp as any).bono || undefined,
+      comisionAsesorPct: (dbProp as any).comision_asesor_pct || undefined,
       agente: asesorEmail ? {
         email: asesorEmail,
         nombre: asesorInfo?.nombre || asesorEmail,
@@ -167,6 +168,7 @@ export class PropertiesStorage {
       tour_virtual: appProp.tourVirtual,
       galeria: appProp.galeria,
       bono: (appProp as any).bono || null,
+      comision_asesor_pct: (appProp as any).comisionAsesorPct || null,
     }
     
     // NOTA: Los campos medios_banos, area_construccion, cochera y tipo_credito

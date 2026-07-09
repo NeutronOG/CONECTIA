@@ -229,6 +229,7 @@ ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS usuario_id UUID REFERENCES auth
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS tipo_credito TEXT;
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS asesor_email TEXT;
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS bono NUMERIC;
+ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS comision_asesor_pct NUMERIC DEFAULT 4;
 
 -- =====================
 -- 6. TABLA ANUNCIOS
