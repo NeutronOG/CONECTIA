@@ -209,6 +209,7 @@ export default function NuevaSolicitudPage() {
                 </label>
                 <Input
                   type="number"
+                  step="0.01"
                   value={formData.precio_estimado}
                   onChange={(e) => setFormData({...formData, precio_estimado: e.target.value})}
                   placeholder="Ej: 3500000"

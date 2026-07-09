@@ -597,6 +597,7 @@ export default function PropietariosPage() {
                   <Input
                     id="area-construccion"
                     type="number"
+                    step="0.01"
                     min="0"
                     placeholder="Ej: 350 (opcional)"
                     value={formData.areaConstruccion}

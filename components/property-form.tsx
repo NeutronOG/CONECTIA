@@ -676,6 +676,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Input
                 id="area"
                 type="number"
+                step="0.01"
                 required
                 value={formData.area ?? ''}
                 onChange={(e) => {
@@ -709,6 +710,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Input
                 id="areaConstruccion"
                 type="number"
+                step="0.01"
                 value={formData.areaConstruccion === undefined ? '' : formData.areaConstruccion}
                 onChange={(e) => setFormData({ ...formData, areaConstruccion: e.target.value === '' ? undefined : Number(e.target.value) })}
                 placeholder="350"
@@ -723,6 +725,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 <Input
                   id="frente"
                   type="number"
+                  step="0.01"
                   value={(formData as any).frente ?? ''}
                   onChange={(e) => setFormData({ ...formData, frente: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
                   placeholder="Ej: 12"
@@ -735,6 +738,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 <Input
                   id="fondo"
                   type="number"
+                  step="0.01"
                   value={(formData as any).fondo ?? ''}
                   onChange={(e) => setFormData({ ...formData, fondo: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
                   placeholder="Ej: 20"
