@@ -325,8 +325,8 @@ export function DynamicHeader() {
                           hover:scale-105 active:scale-95
                           opacity-100
                           ${isActive(item.href)
-                            ? 'glass-panel text-[#17313A] font-medium'
-                            : 'text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/05'
+                            ? 'glass-panel text-[#17313A] dark:text-[#EAE4DD] font-medium'
+                            : 'text-[#4A4F57] dark:text-[#EAE4DD]/70 hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/05 dark:hover:bg-white/10'
                           }
                         `}
                       >
@@ -334,8 +334,8 @@ export function DynamicHeader() {
                           w-10 h-10 rounded-xl flex items-center justify-center
                           transition-all duration-300 ease-out
                           ${isActive(item.href)
-                            ? 'bg-[#17313A]/15'
-                            : 'bg-[#17313A]/08'
+                            ? 'bg-[#C78F7B]/25 dark:bg-white/15'
+                            : 'bg-[#17313A]/08 dark:bg-white/10'
                           }
                         `}>
                           <Icon className="h-5 w-5" />
@@ -352,40 +352,40 @@ export function DynamicHeader() {
                     onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
                     className="w-full flex items-center justify-between px-4 py-3 rounded-xl glass-pill hover:opacity-80 transition-all duration-300"
                   >
-                    <span className="text-sm font-semibold text-[#17313A]">{t('home.categories.title')}</span>
-                    <ChevronDown className={`h-5 w-5 text-[#17313A] transition-transform duration-300 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
+                    <span className="text-sm font-semibold text-[#17313A] dark:text-[#EAE4DD]">{t('home.categories.title')}</span>
+                    <ChevronDown className={`h-5 w-5 text-[#17313A] dark:text-[#EAE4DD] transition-transform duration-300 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
                   </button>
                   
                   {isCategoriesOpen && (
                     <div className="mt-2 grid grid-cols-2 gap-2 animate-in slide-in-from-top-2 duration-200">
                       <Link href="/compra" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <ShoppingBag className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.buy')}</span>
+                          <ShoppingBag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.buy')}</span>
                         </button>
                       </Link>
                       <Link href="/venta" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Tag className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.sell')}</span>
+                          <Tag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.sell')}</span>
                         </button>
                       </Link>
                       <Link href="/renta" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Key className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.rent')}</span>
+                          <Key className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.rent')}</span>
                         </button>
                       </Link>
                       <Link href="/especiales" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Crown className="h-4 w-4 text-[#B0ACA6]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.especial')}</span>
+                          <Crown className="h-4 w-4 text-[#B0ACA6] dark:text-[#C78F7B]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.especial')}</span>
                         </button>
                       </Link>
                       <Link href="/ofertas" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Percent className="h-4 w-4 text-[#17313A]" />
-                          <span className="text-xs font-medium text-[#1D1F24]">{t('home.search.ofertas')}</span>
+                          <Percent className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.ofertas')}</span>
                         </button>
                       </Link>
                     </div>
@@ -393,11 +393,11 @@ export function DynamicHeader() {
                 </div>
 
                 {/* Action Buttons Row */}
-                <div className="flex items-center justify-between pt-3 border-t border-[#17313A]/10 transition-all duration-200 ease-out">
+                <div className="flex items-center justify-between pt-3 border-t border-[#17313A]/10 dark:border-white/10 transition-all duration-200 ease-out">
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/06 transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     <Search className="h-4 w-4" />
                     <span className="text-sm">{t('common.search')}</span>
@@ -406,7 +406,7 @@ export function DynamicHeader() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] hover:text-[#17313A] hover:bg-[#17313A]/06 transition-all duration-300 hover:scale-105 active:scale-95"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <WishlistCounter />
@@ -488,12 +488,12 @@ export function DynamicHeader() {
                 )}
 
                 {/* Contact Info */}
-                <div className="text-center pt-3 border-t border-[#17313A]/10 transition-all duration-200 ease-out">
-                  <div className="flex items-center justify-center space-x-2 text-sm text-[#4A4F57] mb-2">
-                    <MapPin className="h-4 w-4 text-[#17313A]" />
+                <div className="text-center pt-3 border-t border-[#17313A]/10 dark:border-white/10 transition-all duration-200 ease-out">
+                  <div className="flex items-center justify-center space-x-2 text-sm text-[#4A4F57] dark:text-[#EAE4DD]/80 mb-2">
+                    <MapPin className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
                     <span>León, Guanajuato</span>
                   </div>
-                  <div className="space-y-1 text-sm text-[#4A4F57]">
+                  <div className="space-y-1 text-sm text-[#4A4F57] dark:text-[#EAE4DD]/80">
                     <div>+52 1 477 475 6951</div>
                     <div>conectiaselect@gmail.com</div>
                   </div>
