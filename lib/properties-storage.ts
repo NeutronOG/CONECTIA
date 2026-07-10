@@ -63,6 +63,7 @@ export class PropertiesStorage {
       galeria: dbProp.galeria || undefined,
       bono: (dbProp as any).bono || undefined,
       comisionAsesorPct: (dbProp as any).comision_asesor_pct || undefined,
+      unidadSuperficie: (dbProp as any).unidad_superficie || undefined,
       agente: asesorEmail ? {
         email: asesorEmail,
         nombre: asesorInfo?.nombre || asesorEmail,
@@ -169,6 +170,7 @@ export class PropertiesStorage {
       galeria: appProp.galeria,
       bono: (appProp as any).bono || null,
       comision_asesor_pct: (appProp as any).comisionAsesorPct || null,
+      unidad_superficie: (appProp as any).unidadSuperficie || 'm²',
     }
     
     // NOTA: Los campos medios_banos, area_construccion, cochera y tipo_credito
@@ -184,16 +186,16 @@ export class PropertiesStorage {
       dbData.tipo_credito = (appProp as any).tipoCredito
     }
     
-    // Descomentar cuando las columnas existan en la DB:
-    // if (appProp.mediosBanos !== undefined) {
-    //   dbData.medios_banos = appProp.mediosBanos
-    // }
-    // if (appProp.areaConstruccion !== undefined) {
-    //   dbData.area_construccion = appProp.areaConstruccion
-    // }
-    // if (appProp.cochera !== undefined) {
-    //   dbData.cochera = appProp.cochera
-    // }
+    // Las columnas ya existen en la DB según la migración completa
+    if (appProp.mediosBanos !== undefined) {
+      dbData.medios_banos = appProp.mediosBanos
+    }
+    if (appProp.areaConstruccion !== undefined) {
+      dbData.area_construccion = appProp.areaConstruccion
+    }
+    if (appProp.cochera !== undefined) {
+      dbData.cochera = appProp.cochera
+    }
 
     // Guardar el email del asesor en asesor_email (nueva columna TEXT)
     if (usuarioId) {
@@ -342,7 +344,8 @@ export class PropertiesStorage {
 
       const dbData = this.appToDb(property, usuarioId)
 
-      const db = getDbClient()
+      // Usar admin client para bypassar RLS y permitir que admins/super users creen propiedades
+      const db = getAdminClient()
 
       const { data, error } = await db
         .from('propiedades')
