@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Propiedad } from "@/data/propiedades"
 import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
-import { getPrecioTotal, getComisionAsesor, getComisionAsesorTexto } from "@/lib/commission"
+import { getComisionAsesorTexto } from "@/lib/commission"
 
 const labelClass = "text-sm font-semibold text-white/90"
 const inputClass = "bg-white/5 border-white/20 text-white placeholder:text-white/30 focus-visible:ring-[#C78F7B]/50 h-11 rounded-xl"
@@ -567,17 +567,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
               {formData.precio && formData.precio > 0 && (
                 <div className="mt-2 p-3 rounded-xl bg-[#C78F7B]/10 border border-[#C78F7B]/20 space-y-1">
-                  {formData.unidadSuperficie === 'Hectáreas' ? (
-                    <p className="text-xs text-[#C78F7B] font-medium">
-                      Precio: ${formData.precio.toLocaleString('es-MX')} MXN/m² × {formData.area || 0} m² = ${getPrecioTotal(formData).toLocaleString('es-MX')} MXN
-                    </p>
-                  ) : (
-                    <p className="text-xs text-[#C78F7B] font-medium">
-                      Precio: ${formData.precio.toLocaleString('es-MX')} MXN
-                    </p>
-                  )}
                   <p className="text-xs text-[#C78F7B] font-medium">
-                    Tu comisión ({getComisionAsesorTexto(formData)}): ${getComisionAsesor(formData).toLocaleString('es-MX')} MXN
+                    Tu comisión: {getComisionAsesorTexto(formData)}
                   </p>
                 </div>
               )}
