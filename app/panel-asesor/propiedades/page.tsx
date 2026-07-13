@@ -212,8 +212,13 @@ export default function PropiedadesAsesorPage() {
   }
 
   const handleDelete = async (id: number) => {
+    console.log('🗑️ PanelAsesor.handleDelete - Iniciando eliminación ID:', id)
     const propiedad = propiedades.find(p => p.id === id)
+    console.log('🔍 Propiedad encontrada:', propiedad?.titulo)
+    
     const deleted = await PropertiesStorage.delete(id)
+    console.log('📋 Resultado de PropertiesStorage.delete:', deleted)
+    
     if (deleted) {
       toast.success(t('panelAsesor.propiedades.toast.deleteSuccess'))
       if (user && propiedad) {
@@ -226,9 +231,14 @@ export default function PropiedadesAsesorPage() {
           { ubicacion: propiedad.ubicacion, precio: propiedad.precio, categoria: propiedad.categoria, owner: propiedad.agente?.email }
         )
       }
+    } else {
+      toast.error(t('panelAsesor.propiedades.errors.deleteError') || 'No se pudo eliminar la propiedad')
     }
-    loadProperties()
+    
+    console.log('🔄 Recargando propiedades...')
+    await loadProperties()
     setDeleteConfirm(null)
+    console.log('✅ handleDelete completado')
   }
 
   const handleNewProperty = () => {

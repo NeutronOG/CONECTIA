@@ -918,7 +918,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               required
               value={formData.descripcion}
               onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
-              placeholder="Describe la propiedad..."
+              placeholder="Describe la propiedad (ej: Hermosa casa con jardín y alberca)"
               rows={4}
               className={textareaClass}
             />

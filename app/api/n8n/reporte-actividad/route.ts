@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     const leadsAtendidos = (leadsNuevos || []).filter((l: any) => l.estado !== 'pendiente')
 
     // Propiedades por asesor
-    const porAsesor: Record<string, { nombre: string; email: string; propiedades: number; comisionPotencial: number }> = {}
+    const porAsesor: Record<string, { nombre: string; email: string; propiedades: number; comisionPotencial: number; comisionPotencialPorcentaje: number }> = {}
     for (const prop of (todasPropiedades || [])) {
       if (!prop.usuario_id) continue
       const usuario = usuariosMap[prop.usuario_id]
@@ -96,15 +96,18 @@ export async function GET(request: Request) {
           email: usuario.email,
           propiedades: 0,
           comisionPotencial: 0,
+          comisionPotencialPorcentaje: 0,
         }
       }
       porAsesor[prop.usuario_id].propiedades++
-      porAsesor[prop.usuario_id].comisionPotencial += getComisionAsesor({
+      const comisionAsesor = getComisionAsesor({
         precio: Number(prop.precio) || 0,
         area: Number((prop as any).area) || 0,
         unidadSuperficie: (prop as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
         comisionAsesorPct: Number((prop as any).comision_asesor_pct) || 4,
       })
+      porAsesor[prop.usuario_id].comisionPotencial += comisionAsesor
+      porAsesor[prop.usuario_id].comisionPotencialPorcentaje += Math.round(comisionAsesor / (Number(prop.precio) || 1) * 100)
     }
 
     // 7. Construir reporte
@@ -130,6 +133,7 @@ export async function GET(request: Request) {
         valorPortafolioTexto: `$${valorPortafolio.toLocaleString('es-MX')} MXN`,
         comisionPotencial: comisionPotencial,
         comisionPotencialTexto: `$${comisionPotencial.toLocaleString('es-MX')} MXN`,
+        comisionPotencialPorcentaje: Math.round(comisionPotencial / valorPortafolio * 100) || 0,
       },
       propiedadesNuevas: (propiedadesNuevas || []).map((p: any) => ({
         id: p.id,
@@ -189,9 +193,9 @@ export async function GET(request: Request) {
 
 💰 *Financiero*
 • Valor portafolio: ${r.valorPortafolioTexto}
-• Comisión potencial a asesores: ${r.comisionPotencialTexto}
+• Comisión potencial a asesores: ${r.comisionPotencialPorcentaje}%
 
-${reporte.porAsesor.length > 0 ? `🏆 *Top Asesores*\n${reporte.porAsesor.slice(0, 3).map((a, i) => `${i + 1}. ${a.nombre} - ${a.propiedades} props - $${a.comisionPotencial.toLocaleString('es-MX')} MXN`).join('\n')}` : ''}
+${reporte.porAsesor.length > 0 ? `🏆 *Top Asesores*\n${reporte.porAsesor.slice(0, 3).map((a, i) => `${i + 1}. ${a.nombre} - ${a.propiedades} props - ${a.comisionPotencialPorcentaje}%`).join('\n')}` : ''}
 
 ─ CONECTIA · Reporte automatico ─`
 

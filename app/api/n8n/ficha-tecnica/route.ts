@@ -168,8 +168,8 @@ Amueblado: ${prop.amueblado || 'No especificado'}
 
 ─── INFORMACIÓN FINANCIERA ───
 Precio: ${fichaTecnica.financiero.precioTexto}
-Comisión Asesor (${fichaTecnica.financiero.comisionTotalPct / 2}%): ${fichaTecnica.financiero.comisionAsesorTexto}
-Comisión Empresa (${fichaTecnica.financiero.comisionTotalPct / 2}%): ${fichaTecnica.financiero.comisionEmpresaTexto}
+Comisión Asesor: ${fichaTecnica.financiero.comisionTotalPct / 2}%
+Comisión Empresa: ${fichaTecnica.financiero.comisionTotalPct / 2}%
 ${prop.bono ? `Bono: ${prop.bono}` : ''}
 
 ─── CARACTERÍSTICAS ───

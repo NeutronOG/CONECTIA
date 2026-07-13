@@ -74,6 +74,7 @@ export default function PropietariosPage() {
     gravamen: '',
     amenities: [] as string[],
     actividadesRecreativas: [] as string[],
+    caracteristicasEspeciales: [] as string[],
     photos: [] as File[],
     ownerName: '',
     phone: '',
@@ -82,6 +83,7 @@ export default function PropietariosPage() {
     promocion: '',
     promocionPersonalizada: '',
     exclusivity: false,
+    nonExclusivity: false,
     terms: false,
     privacy: false
   })
@@ -191,6 +193,15 @@ export default function PropietariosPage() {
     }))
   }
 
+  const handleCaracteristicaToggle = (caracteristica: string) => {
+    setFormData(prev => ({
+      ...prev,
+      caracteristicasEspeciales: prev.caracteristicasEspeciales.includes(caracteristica)
+        ? prev.caracteristicasEspeciales.filter(c => c !== caracteristica)
+        : [...prev.caracteristicasEspeciales, caracteristica]
+    }))
+  }
+
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || [])
     setUploadedPhotos(prev => {
@@ -257,7 +268,7 @@ export default function PropietariosPage() {
       return
     }
 
-    if (!formData.exclusivity || !formData.terms || !formData.privacy) {
+    if ((!formData.exclusivity && !formData.nonExclusivity) || !formData.terms || !formData.privacy) {
       toast.error(t('propietarios.errors.termsRequired'))
       return
     }
@@ -284,6 +295,7 @@ export default function PropietariosPage() {
         gravamen: formData.gravamen || undefined,
         amenities: formData.amenities,
         actividadesRecreativas: formData.actividadesRecreativas || undefined,
+        caracteristicasEspeciales: formData.caracteristicasEspeciales || undefined,
         photoCount: uploadedPhotos.length,
         ownerName: formData.ownerName,
         phone: formData.phone,
@@ -926,6 +938,56 @@ export default function PropietariosPage() {
 
                   <div className="space-y-2">
                     <Label className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                      Características Especiales
+                    </Label>
+                    <p className="text-xs text-[#4A4F57] mb-2">Selecciona las características especiales de tu propiedad</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        'Tinaco',
+                        'Aljibe',
+                        'Calentador solar',
+                        'Cisterna',
+                        'Tanque estacionario',
+                        'Sistema de purificación',
+                        'Instalación de gas',
+                        'Aire acondicionado',
+                        'Calefacción',
+                        'Ventanas de aluminio',
+                        'Loseta de alta calidad',
+                        'Mampostería',
+                        'Plafón',
+                        'Cloreto'
+                      ].map((caracteristica) => (
+                        <div
+                          key={caracteristica}
+                          onClick={() => handleCaracteristicaToggle(caracteristica)}
+                          className={`p-2 rounded-lg border cursor-pointer transition-all ${
+                            formData.caracteristicasEspeciales?.includes(caracteristica)
+                              ? 'border-[#C78F7B] bg-[#C78F7B]/10 text-white'
+                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[#C78F7B]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
+                          }`}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <div
+                              className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+                                formData.caracteristicasEspeciales?.includes(caracteristica)
+                                  ? 'border-[#C78F7B] bg-[#C78F7B]'
+                                  : 'border-white/30'
+                              }`}
+                            >
+                              {formData.caracteristicasEspeciales?.includes(caracteristica) && (
+                                <CheckCircle className="h-3 w-3 text-[#0F2027]" />
+                              )}
+                            </div>
+                            <span className="text-sm">{caracteristica}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
                       Actividades recreativas (opcional)
                     </Label>
                     <p className="text-xs text-[#4A4F57] mb-2">Selecciona las actividades que ofrece el desarrollo</p>
@@ -1253,19 +1315,34 @@ export default function PropietariosPage() {
                 {/* Agreement Section */}
                 <div className="bg-gradient-to-br from-conectia-gold/5 to-transparent p-6 rounded-xl border border-conectia-gold/20">
                   <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#17313A] dark:text-white mb-4">
-                    Acuerdo de Exclusividad
+                    Tipo de Acuerdo
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Checkbox 
                         id="exclusivity" 
                         checked={formData.exclusivity}
-                        onCheckedChange={(checked) => setFormData(prev => ({...prev, exclusivity: checked as boolean}))}
+                        onCheckedChange={(checked) => {
+                          setFormData(prev => ({...prev, exclusivity: checked as boolean, nonExclusivity: false}))
+                        }}
                         className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
                       />
                       <Label htmlFor="exclusivity" className="text-sm leading-relaxed">
-                        <strong>Acepto la exclusividad de 6 meses</strong> para maximizar el valor de mi propiedad. 
-                        Entiendo que esto garantiza atención personalizada, marketing exclusivo y mejores resultados.
+                        <strong>CON Exclusividad (6 meses)</strong> - Maximiza el valor de tu propiedad con atención personalizada, 
+                        marketing exclusivo y mejores resultados.
+                      </Label>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Checkbox 
+                        id="nonExclusivity" 
+                        checked={formData.nonExclusivity}
+                        onCheckedChange={(checked) => {
+                          setFormData(prev => ({...prev, nonExclusivity: checked as boolean, exclusivity: false}))
+                        }}
+                        className="mt-1 border-white/30 data-[state=checked]:bg-[#C78F7B] data-[state=checked]:border-[#C78F7B]"
+                      />
+                      <Label htmlFor="nonExclusivity" className="text-sm leading-relaxed">
+                        <strong>SIN Exclusividad</strong> - Flexibilidad total para trabajar con múltiples agentes.
                       </Label>
                     </div>
                     <div className="flex items-start space-x-3">

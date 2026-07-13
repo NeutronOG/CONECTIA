@@ -53,14 +53,14 @@ export function HomeYellow() {
 
             <div className="flex flex-wrap gap-3">
               <Link href="/propiedades">
-                <button className="flex items-center gap-2 bg-[#C78F7B] hover:bg-[#b87c68] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
+                <button className="flex items-center gap-2 bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
                   <ArrowRight className="h-4 w-4" weight="bold" />
                   {t('home.hero.ctaPrimary')}
                 </button>
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#C78F7B]/40 dark:hover:border-[#C78F7B]/40 transition-colors duration-200 text-sm"
+                className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[#C78F7B]/40 transition-colors duration-200 text-sm"
               >
                 <List className="h-4 w-4" weight="duotone" />
                 {t('home.categories.title')}
@@ -75,7 +75,7 @@ export function HomeYellow() {
                 { icon: MapPin,value: 'CTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
                 <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
-                  <s.icon className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                  <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
                   <p className="text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-none">{s.value}</p>
                   <p className="text-[9px] uppercase tracking-widest text-[#9CA3AF] dark:text-[#B0ACA6] font-semibold">{s.label}</p>
                 </div>
@@ -157,7 +157,7 @@ export function HomeYellow() {
                   ) : (
                     <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp!.ubicacion}</p>
                   )}
-                  <span className="bg-[#C78F7B] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <span className="bg-[#1e40af] dark:bg-[#C78F7B] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                     {isLoadingProp ? '...' : t('common.featured')}
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export function HomeYellow() {
                   </h2>
                 )}
 
-                <div className="w-8 h-[2px] bg-[#C78F7B] rounded-full" />
+                <div className="w-8 h-[2px] bg-[#1e40af] dark:bg-[#C78F7B] rounded-full" />
 
                 {isLoadingProp ? (
                   <div className="h-10 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
@@ -180,32 +180,32 @@ export function HomeYellow() {
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#6B7280] dark:text-[#B0ACA6]">
                   <span className="flex items-center gap-1.5">
-                    <House className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    <House className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
                     {isLoadingProp ? '...' : `${featuredProp!.habitaciones} Rec`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Bathtub className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    <Bathtub className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
                     {isLoadingProp ? '...' : `${featuredProp!.banos} Baños`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Ruler className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    <Ruler className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
                     {isLoadingProp ? '...' : featuredProp!.areaTexto}
                   </span>
                 </div>
               </div>
 
               <Link href={isLoadingProp ? '/propiedades' : `/propiedades/${featuredProp!.id}`} className="mt-6">
-                <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#C78F7B]/40 dark:hover:border-[#C78F7B]/40 transition-colors cursor-pointer group">
+                <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[#C78F7B]/40 transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center">
-                      <Star className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                    <div className="w-9 h-9 rounded-xl bg-[#1e40af]/10 dark:bg-[#C78F7B]/10 flex items-center justify-center">
+                      <Star className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">{t('common.exclusive')}</p>
                       <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">{t('home.featured.subtitle')}</p>
                     </div>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[#9CA3AF] group-hover:text-[#C78F7B] transition-colors" weight="bold" />
+                  <ArrowRight className="h-4 w-4 text-[#9CA3AF] group-hover:text-[#1e40af] dark:group-hover:text-[#C78F7B] transition-colors" weight="bold" />
                 </div>
               </Link>
             </div>
@@ -325,7 +325,7 @@ export function HomeYellow() {
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
                   {[
                     { href: '/compra',     icon: ShoppingBag, label: t('home.search.buy') },
-                    { href: '/venta',      icon: Tag,         label: t('home.search.sell') },
+                    { href: '/venta',      icon: Tag,         label: `${t('home.search.sell')} vender` },
                     { href: '/renta',      icon: Key,         label: t('home.search.rent') },
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },

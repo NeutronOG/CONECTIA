@@ -391,18 +391,23 @@ export class PropertiesStorage {
   // Eliminar propiedad
   static async delete(id: number): Promise<boolean> {
     try {
+      console.log('🗑️ PropertiesStorage.delete - Iniciando eliminación de propiedad ID:', id)
       const db = getAdminClient()
 
-      const { error } = await db
+      const { error, count } = await db
         .from('propiedades')
         .delete()
         .eq('id', id)
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ PropertiesStorage.delete - Error de Supabase:', error)
+        throw error
+      }
       
+      console.log('✅ PropertiesStorage.delete - Propiedad eliminada exitosamente. Count:', count)
       return true
     } catch (error) {
-      console.error('Error deleting property:', error)
+      console.error('❌ PropertiesStorage.delete - Error eliminando propiedad:', error)
       return false
     }
   }
