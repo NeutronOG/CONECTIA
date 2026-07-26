@@ -9,7 +9,7 @@ export function VirtualToursSection() {
     <section className="py-20 px-4 sm:px-6 relative overflow-hidden bg-[#F6F2EE] dark:bg-[#17313A]">
       {/* Background Decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C78F7B]/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--conectia-arcilla)]/8 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#EAE4DD]/6 rounded-full blur-3xl" />
       </div>
 

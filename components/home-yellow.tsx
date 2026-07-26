@@ -42,7 +42,7 @@ export function HomeYellow() {
           <div className="flex-1 space-y-8">
             <h1 className="text-[5rem] sm:text-[6.5rem] md:text-[8rem] font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.88] tracking-tighter">
               {t('home.hero.title')}
-              <span className="block font-serif italic font-normal text-[#C78F7B]">
+              <span className="block font-serif italic font-normal text-[var(--conectia-arcilla)]">
                 {t('home.hero.titleHighlight')}
               </span>
             </h1>
@@ -60,7 +60,7 @@ export function HomeYellow() {
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[#C78F7B]/40 transition-colors duration-200 text-sm"
+                className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors duration-200 text-sm"
               >
                 <List className="h-4 w-4" weight="duotone" />
                 {t('home.categories.title')}
@@ -75,7 +75,7 @@ export function HomeYellow() {
                 { icon: MapPin,value: 'CTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
                 <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
-                  <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
+                  <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                   <p className="text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-none">{s.value}</p>
                   <p className="text-[9px] uppercase tracking-widest text-[#9CA3AF] dark:text-[#B0ACA6] font-semibold">{s.label}</p>
                 </div>
@@ -138,7 +138,7 @@ export function HomeYellow() {
                       key={i}
                       onClick={() => setActiveThumb(i)}
                       className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-                        activeThumb === i ? 'border-[#C78F7B]' : 'border-transparent hover:border-[#C78F7B]/40'
+                        activeThumb === i ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                       }`}
                     >
                       <Image src={src} alt={`foto ${i}`} fill className="object-cover" />
@@ -157,7 +157,7 @@ export function HomeYellow() {
                   ) : (
                     <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp!.ubicacion}</p>
                   )}
-                  <span className="bg-[#1e40af] dark:bg-[#C78F7B] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                  <span className="bg-[#1e40af] dark:bg-[var(--conectia-arcilla)] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                     {isLoadingProp ? '...' : t('common.featured')}
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export function HomeYellow() {
                   </h2>
                 )}
 
-                <div className="w-8 h-[2px] bg-[#1e40af] dark:bg-[#C78F7B] rounded-full" />
+                <div className="w-8 h-[2px] bg-[#1e40af] dark:bg-[var(--conectia-arcilla)] rounded-full" />
 
                 {isLoadingProp ? (
                   <div className="h-10 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
@@ -180,32 +180,32 @@ export function HomeYellow() {
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#6B7280] dark:text-[#B0ACA6]">
                   <span className="flex items-center gap-1.5">
-                    <House className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
+                    <House className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                     {isLoadingProp ? '...' : `${featuredProp!.habitaciones} Rec`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Bathtub className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
+                    <Bathtub className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                     {isLoadingProp ? '...' : `${featuredProp!.banos} Baños`}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Ruler className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
+                    <Ruler className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                     {isLoadingProp ? '...' : featuredProp!.areaTexto}
                   </span>
                 </div>
               </div>
 
               <Link href={isLoadingProp ? '/propiedades' : `/propiedades/${featuredProp!.id}`} className="mt-6">
-                <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[#C78F7B]/40 transition-colors cursor-pointer group">
+                <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#1e40af]/10 dark:bg-[#C78F7B]/10 flex items-center justify-center">
-                      <Star className="h-4 w-4 text-[#1e40af] dark:text-[#C78F7B]" weight="duotone" />
+                    <div className="w-9 h-9 rounded-xl bg-[#1e40af]/10 dark:bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
+                      <Star className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">{t('common.exclusive')}</p>
                       <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wider">{t('home.featured.subtitle')}</p>
                     </div>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[#9CA3AF] group-hover:text-[#1e40af] dark:group-hover:text-[#C78F7B] transition-colors" weight="bold" />
+                  <ArrowRight className="h-4 w-4 text-[#9CA3AF] group-hover:text-[#1e40af] dark:group-hover:text-[var(--conectia-arcilla)] transition-colors" weight="bold" />
                 </div>
               </Link>
             </div>
@@ -218,9 +218,9 @@ export function HomeYellow() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8 mb-12 sm:mb-16">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold mb-2">{t('home.featured.subtitle')}</p>
+              <p className="text-[10px] uppercase tracking-[0.35em] text-[var(--conectia-arcilla)] font-bold mb-2">{t('home.featured.subtitle')}</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                {t('properties.pageTitle')} <span className="font-serif italic font-normal text-[#C78F7B]">{t('common.featured')}</span>
+                {t('properties.pageTitle')} <span className="font-serif italic font-normal text-[var(--conectia-arcilla)]">{t('common.featured')}</span>
               </h2>
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-[#E5E7EB] to-transparent mb-1 hidden sm:block dark:from-[#EAE4DD]/10" />
@@ -243,7 +243,7 @@ export function HomeYellow() {
           <div className="relative rounded-3xl overflow-hidden bg-[#17313A] dark:bg-[#17313A] px-10 sm:px-16 py-14">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
               <div className="space-y-4 md:max-w-lg">
-                <p className="text-[10px] uppercase tracking-[0.40em] text-[#C78F7B] font-semibold">{t('home.newsletter.title')}</p>
+                <p className="text-[10px] uppercase tracking-[0.40em] text-[var(--conectia-arcilla)] font-semibold">{t('home.newsletter.title')}</p>
                 <h2 className="text-4xl sm:text-5xl font-black text-[#EAE4DD] leading-[1.1]">
                   {t('home.cta.title')}
                 </h2>
@@ -253,13 +253,13 @@ export function HomeYellow() {
               </div>
               <div className="flex flex-col gap-3 flex-shrink-0 min-w-[200px]">
                 <Link href="/contacto">
-                  <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold bg-[#C78F7B] hover:bg-[#b87c68] text-white transition-colors duration-200">
+                  <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white transition-colors duration-200">
                     <MapPin className="h-4 w-4" weight="duotone" />
                     {t('common.contact')}
                   </button>
                 </Link>
                 <Link href="/propiedades">
-                  <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-[#EAE4DD] border border-[#EAE4DD]/20 hover:border-[#C78F7B]/50 hover:bg-white/5 transition-all duration-200">
+                  <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-[#EAE4DD] border border-[#EAE4DD]/20 hover:border-[var(--conectia-arcilla)]/50 hover:bg-white/5 transition-all duration-200">
                     {t('common.seeMore')} {t('properties.pageTitle')}
                     <ArrowRight className="h-4 w-4" weight="bold" />
                   </button>
@@ -280,9 +280,9 @@ export function HomeYellow() {
               { icon: MapPin,  value: 'GTO',  label: t('home.hero.stats.brokers') },
               { icon: TrendUp, value: '45d',  label: t('home.cta.title') },
             ].map((stat, i) => (
-              <div key={i} className="group p-6 text-center rounded-2xl bg-white dark:bg-[#17313A]/10 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-sm hover:border-[#C78F7B]/30 transition-colors duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center mx-auto mb-3">
-                  <stat.icon className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
+              <div key={i} className="group p-6 text-center rounded-2xl bg-white dark:bg-[#17313A]/10 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-sm hover:border-[var(--conectia-arcilla)]/30 transition-colors duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center mx-auto mb-3">
+                  <stat.icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                 </div>
                 <p className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-1">{stat.value}</p>
                 <p className="text-xs text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-wider font-semibold">{stat.label}</p>
@@ -309,8 +309,8 @@ export function HomeYellow() {
               </div>
               <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5E7EB] dark:border-[#EAE4DD]/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center">
-                    <List className="h-4 w-4 text-[#C78F7B]" weight="duotone" />
+                  <div className="w-8 h-8 bg-[var(--conectia-arcilla)]/10 rounded-lg flex items-center justify-center">
+                    <List className="h-4 w-4 text-[var(--conectia-arcilla)]" weight="duotone" />
                   </div>
                   <h3 className="text-base font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-widest">{t('home.categories.title')}</h3>
                 </div>
@@ -331,9 +331,9 @@ export function HomeYellow() {
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
                   ].map(({ href, icon: Icon, label }) => (
                     <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
-                      <button className="w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#C78F7B]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
-                        <div className="w-10 h-10 bg-[#C78F7B]/8 rounded-lg flex items-center justify-center group-hover:bg-[#C78F7B]/15 transition-colors">
-                          <Icon className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
+                      <button className="w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
+                        <div className="w-10 h-10 bg-[var(--conectia-arcilla)]/8 rounded-lg flex items-center justify-center group-hover:bg-[var(--conectia-arcilla)]/15 transition-colors">
+                          <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                         </div>
                         <span className="text-xs font-bold text-[#17313A] dark:text-[#EAE4DD]">{label}</span>
                       </button>
@@ -342,9 +342,9 @@ export function HomeYellow() {
                 </div>
                 <div className="mt-4">
                   <Link href="/brokers" onClick={() => setIsCategoriasMenuOpen(false)}>
-                    <button className="w-full p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#C78F7B]/40 transition-all duration-200 group flex items-center justify-center gap-3 shadow-sm">
-                      <div className="w-9 h-9 bg-[#C78F7B]/10 rounded-lg flex items-center justify-center">
-                        <Users className="h-5 w-5 text-[#C78F7B]" weight="duotone" />
+                    <button className="w-full p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 transition-all duration-200 group flex items-center justify-center gap-3 shadow-sm">
+                      <div className="w-9 h-9 bg-[var(--conectia-arcilla)]/10 rounded-lg flex items-center justify-center">
+                        <Users className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                       </div>
                       <span className="text-sm font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-wide">{t('nav.menu.broker')}</span>
                     </button>

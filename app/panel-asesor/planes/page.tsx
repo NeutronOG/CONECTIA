@@ -168,7 +168,7 @@ export default function PlanesPage() {
                     disabled={isCurrentPlan || loading}
                     className={`w-full ${
                       isElite
-                        ? 'bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]'
+                        ? 'bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]'
                         : 'bg-blue-600 hover:bg-blue-700 text-white'
                     }`}
                   >

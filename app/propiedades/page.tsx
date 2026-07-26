@@ -128,9 +128,9 @@ export default function PropiedadesPage() {
   return (
     <div className="min-h-screen bg-gradient-light dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
       {/* Orbs decorativos glassmorphism creativos */}
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-[#C78F7B]/8 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
+      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/8 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
       <div className="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-[#17313A]/40 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed top-1/3 right-0 w-64 h-64 bg-[#C78F7B]/5 rounded-full blur-[80px] pointer-events-none" />
+      <div className="fixed top-1/3 right-0 w-64 h-64 bg-[var(--conectia-arcilla)]/5 rounded-full blur-[80px] pointer-events-none" />
       <div className="fixed bottom-1/4 left-0 w-80 h-80 bg-[#17313A]/20 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Hero Section */}
@@ -141,21 +141,21 @@ export default function PropiedadesPage() {
         />
         <div className="absolute inset-0 bg-[#F6F2EE]/80 dark:bg-[#0F2027]/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE] via-[#F6F2EE]/70 to-transparent dark:from-[#0F2027] dark:via-[#0F2027]/70 dark:to-transparent" />
-        <div className="absolute top-20 right-20 w-72 h-72 bg-[#C78F7B]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-20 flex items-center">
           <div className="max-w-xl">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
                 style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
-                <Building className="h-5 w-5 text-[#C78F7B]" />
+                <Building className="h-5 w-5 text-[var(--conectia-arcilla)]" />
               </div>
-              <span className="text-[#C78F7B] text-[10px] font-semibold uppercase tracking-[0.35em]">{t('common.appName')}</span>
+              <span className="text-[var(--conectia-arcilla)] text-[10px] font-semibold uppercase tracking-[0.35em]">{t('common.appName')}</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-[#17313A] dark:text-white leading-[0.95] mb-2">
               {t('properties.pageTitle')}
             </h1>
-            <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent leading-tight mb-5">
+            <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-soft)] bg-clip-text text-transparent leading-tight mb-5">
               {t('common.exclusive')}
             </h2>
             <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
@@ -182,10 +182,10 @@ export default function PropiedadesPage() {
 
               {/* AI Search Button */}
               <div className="relative liquid-glass-dark rounded-2xl p-4 sm:p-6 overflow-hidden glow-border">
-                <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#C78F7B]/20 rounded-full blur-[30px] pointer-events-none animate-pulse-slow" />
+                <div className="absolute -top-10 -right-10 w-24 h-24 bg-[var(--conectia-arcilla)]/20 rounded-full blur-[30px] pointer-events-none animate-pulse-slow" />
                 <div className="relative text-center space-y-3 sm:space-y-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#C78F7B]/30 rounded-xl flex items-center justify-center mx-auto">
-                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-[#C78F7B]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--conectia-arcilla)]/30 rounded-xl flex items-center justify-center mx-auto">
+                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-[var(--conectia-arcilla)]" />
                   </div>
                   <div>
                     <h3 className="font-serif text-base sm:text-lg font-semibold text-ivory mb-1.5 sm:mb-2">
@@ -203,7 +203,7 @@ export default function PropiedadesPage() {
                     {t('properties.aiSearch.cta')}
                   </Button>
                   <div className="flex items-center justify-center space-x-1.5 sm:space-x-2 text-[10px] sm:text-xs text-white/60">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#C78F7B] rounded-full animate-pulse"></div>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[var(--conectia-arcilla)] rounded-full animate-pulse"></div>
                     <span>{t('properties.aiSearch.available')}</span>
                   </div>
                 </div>
@@ -216,23 +216,23 @@ export default function PropiedadesPage() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="flex items-center space-x-4">
                   <h2 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-[#17313A] dark:text-white">
-                    {filteredAndSortedProperties.length} <span className="text-[#C78F7B]">{t('properties.pageTitle')}</span>
+                    {filteredAndSortedProperties.length} <span className="text-[var(--conectia-arcilla)]">{t('properties.pageTitle')}</span>
                   </h2>
                 </div>
 
                 <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
                   {/* Sort Dropdown */}
                   <Select value={sortBy} onValueChange={handleSortChange}>
-                    <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[#C78F7B] rounded-xl text-sm">
+                    <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[var(--conectia-arcilla)] rounded-xl text-sm">
                       <SelectValue placeholder={t('properties.sort.sort')} />
                     </SelectTrigger>
                     <SelectContent className="bg-white dark:bg-[#17313A] border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white">
-                      <SelectItem value="precio-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.priceDesc')}</SelectItem>
-                      <SelectItem value="precio-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.priceAsc')}</SelectItem>
-                      <SelectItem value="area-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.areaDesc')}</SelectItem>
-                      <SelectItem value="area-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.areaAsc')}</SelectItem>
-                      <SelectItem value="fecha-desc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.newest')}</SelectItem>
-                      <SelectItem value="fecha-asc" className="focus:bg-[#C78F7B]/20 focus:text-[#C78F7B]">{t('properties.sort.oldest')}</SelectItem>
+                      <SelectItem value="precio-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.priceDesc')}</SelectItem>
+                      <SelectItem value="precio-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.priceAsc')}</SelectItem>
+                      <SelectItem value="area-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.areaDesc')}</SelectItem>
+                      <SelectItem value="area-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.areaAsc')}</SelectItem>
+                      <SelectItem value="fecha-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.newest')}</SelectItem>
+                      <SelectItem value="fecha-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.oldest')}</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -242,7 +242,7 @@ export default function PropiedadesPage() {
                       variant={viewMode === 'grid' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('grid')}
-                      className={`rounded-lg ${viewMode === 'grid' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'grid' ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] hover:bg-[var(--conectia-arcilla-hover)]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <Grid className="h-4 w-4" />
                     </Button>
@@ -250,7 +250,7 @@ export default function PropiedadesPage() {
                       variant={viewMode === 'list' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('list')}
-                      className={`rounded-lg ${viewMode === 'list' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'list' ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] hover:bg-[var(--conectia-arcilla-hover)]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <List className="h-4 w-4" />
                     </Button>
@@ -258,7 +258,7 @@ export default function PropiedadesPage() {
                       variant={viewMode === 'map' ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setViewMode('map')}
-                      className={`rounded-lg ${viewMode === 'map' ? 'bg-[#C78F7B] text-[#0F2027] hover:bg-[#D4987E]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
+                      className={`rounded-lg ${viewMode === 'map' ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] hover:bg-[var(--conectia-arcilla-hover)]' : 'text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-white hover:bg-[#17313A]/5 dark:hover:bg-white/5'}`}
                     >
                       <Map className="h-4 w-4" />
                     </Button>
@@ -271,12 +271,12 @@ export default function PropiedadesPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                   {paginatedProperties.map((propiedad) => (
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group">
-                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[#C78F7B]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
+                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
                         <div className="relative h-52 sm:h-60 overflow-hidden">
                           <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/60 dark:from-[#0F2027]/60 via-transparent to-transparent" />
                           <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[#C78F7B]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
                           </div>
                           <div className="absolute top-4 right-4"><WishlistButton property={{ id: propiedad.id.toString(), title: propiedad.titulo, price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                           <div className="absolute bottom-4 right-4"><span className="text-xl sm:text-2xl font-black text-white dark:text-white drop-shadow-lg">{propiedad.precioTexto}</span></div>
@@ -284,20 +284,20 @@ export default function PropiedadesPage() {
                         <div className="p-5 sm:p-6 flex-1 flex flex-col">
                           <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{propiedad.tipo}</span>
                           <h3 className="text-base sm:text-lg font-serif font-bold text-[#17313A] dark:text-white mb-2 line-clamp-2 uppercase">{propiedad.titulo}</h3>
-                          <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-3.5 w-3.5 mr-1.5 text-[#C78F7B] flex-shrink-0" /><span className="text-xs sm:text-sm line-clamp-1">{propiedad.ubicacion}</span></div>
+                          <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-3.5 w-3.5 mr-1.5 text-[var(--conectia-arcilla)] flex-shrink-0" /><span className="text-xs sm:text-sm line-clamp-1">{propiedad.ubicacion}</span></div>
                           <p className="text-[#4A4F57]/80 dark:text-[#17313A]/60 dark:text-[#B0ACA6]/80 text-xs sm:text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
                           <div className="flex items-center gap-4 mb-4 text-xs text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
-                            <div className="flex items-center gap-1"><Bed className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.habitaciones}</span></div>
-                            <div className="flex items-center gap-1"><Bath className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.banos}</span></div>
-                            <div className="flex items-center gap-1"><Square className="h-3.5 w-3.5 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
+                            <div className="flex items-center gap-1"><Bed className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.habitaciones}</span></div>
+                            <div className="flex items-center gap-1"><Bath className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.banos}</span></div>
+                            <div className="flex items-center gap-1"><Square className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.areaTexto}</span></div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-4">
                             {propiedad.caracteristicas.slice(0, 2).map((c, i) => (<span key={i} className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.10] dark:bg-white/[0.04] text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-medium border border-[#17313A]/[0.08] dark:border-white/[0.08]">{c}</span>))}
-                            {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[#C78F7B]/10 text-[#C78F7B] text-[10px] font-bold border border-[#C78F7B]/20">+{propiedad.caracteristicas.length - 2}</span>)}
+                            {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] text-[10px] font-bold border border-[var(--conectia-arcilla)]/20">+{propiedad.caracteristicas.length - 2}</span>)}
                           </div>
                           <div className="flex gap-3 mt-auto">
-                            <Button className="flex-1 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[#C78F7B]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />{t('common.scheduleVisit')}</Button>
-                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#C78F7B]/30 rounded-xl text-sm">{t('common.viewDetails')}</Button>
+                            <Button className="flex-1 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />{t('common.scheduleVisit')}</Button>
+                            <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[var(--conectia-arcilla)]/30 rounded-xl text-sm">{t('common.viewDetails')}</Button>
                           </div>
                         </div>
                       </div>
@@ -311,13 +311,13 @@ export default function PropiedadesPage() {
                 <div className="space-y-5">
                   {paginatedProperties.map((propiedad) => (
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group block">
-                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[#C78F7B]/5 transition-all duration-300 overflow-hidden">
+                      <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-300 overflow-hidden">
                         <div className="flex flex-col md:flex-row">
                           <div className="relative md:w-80 h-56 md:h-48 overflow-hidden">
                             <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/40 dark:from-[#0F2027]/40 via-transparent to-transparent" />
                             <div className="absolute top-4 left-4">
-                              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[#C78F7B]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
+                              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
                             </div>
                           </div>
                           <div className="flex-1 p-5 sm:p-6">
@@ -326,22 +326,22 @@ export default function PropiedadesPage() {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                                     <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propiedad.tipo}</span>
-                                    <span className="text-xl sm:text-2xl font-black text-[#C78F7B]">{propiedad.precioTexto}</span>
+                                    <span className="text-xl sm:text-2xl font-black text-[var(--conectia-arcilla)]">{propiedad.precioTexto}</span>
                                   </div>
                                   <h3 className="text-lg sm:text-xl font-serif font-bold text-[#17313A] dark:text-white mb-2 uppercase">{propiedad.titulo}</h3>
-                                  <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[#C78F7B]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
+                                  <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[var(--conectia-arcilla)]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
                                 </div>
                                 <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: propiedad.titulo, price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                               </div>
                               <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
                               <div className="flex items-center justify-between mt-auto">
                                 <div className="flex items-center gap-5 text-sm text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
-                                  <div className="flex items-center gap-1"><Bed className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.habitaciones} hab</span></div>
-                                  <div className="flex items-center gap-1"><Bath className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.banos} baños</span></div>
-                                  <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[#C78F7B]" /><span>{propiedad.areaTexto}</span></div>
+                                  <div className="flex items-center gap-1"><Bed className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.habitaciones} hab</span></div>
+                                  <div className="flex items-center gap-1"><Bath className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.banos} baños</span></div>
+                                  <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.areaTexto}</span></div>
                                 </div>
                                 <div className="flex gap-2">
-                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-4 w-4 mr-2" />{t('common.schedule')}</Button>
+                                  <Button size="sm" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl font-bold" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-4 w-4 mr-2" />{t('common.schedule')}</Button>
                                 </div>
                               </div>
                             </div>
@@ -358,7 +358,7 @@ export default function PropiedadesPage() {
                 <div className="bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg overflow-hidden">
                   <div className="h-96 bg-[#EAE4DD] dark:bg-[#0F2027] flex items-center justify-center">
                     <div className="text-center text-[#17313A]/60 dark:text-[#B0ACA6]">
-                      <Map className="h-16 w-16 mx-auto mb-4 text-[#C78F7B]" />
+                      <Map className="h-16 w-16 mx-auto mb-4 text-[var(--conectia-arcilla)]" />
                       <h3 className="text-lg font-semibold mb-2 text-[#17313A] dark:text-white">{t('properties.mapView.title')}</h3>
                       <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">{t('properties.mapView.subtitle')}</p>
                       <p className="text-sm mt-2 text-[#4A4F57] dark:text-[#B0ACA6]">{t('properties.mapView.comingSoon')}</p>
@@ -370,9 +370,9 @@ export default function PropiedadesPage() {
               {/* Pagination */}
               {totalPages > 1 && viewMode !== 'map' && (
                 <div className="flex items-center justify-center gap-2 mt-10">
-                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">← {t('common.previous')}</button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2).reduce<(number | '...')[]>((acc, p, idx, arr) => { if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push('...'); acc.push(p); return acc; }, []).map((item, i) => item === '...' ? (<span key={`ellipsis-${i}`} className="px-2 text-[#4A4F57] text-sm">…</span>) : (<button key={item} onClick={() => setCurrentPage(item as number)} className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${currentPage === item ? 'bg-[#C78F7B] text-[#0F2027]' : 'border border-[#17313A]/20 dark:border-white/15 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:border-[#C78F7B]/40 hover:text-[#C78F7B] bg-[#17313A]/[0.10] dark:bg-white/[0.03]'}`}>{item}</button>))}
-                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[#C78F7B]/40 hover:text-[#C78F7B] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">{t('common.next')} →</button>
+                  <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[var(--conectia-arcilla)]/40 hover:text-[var(--conectia-arcilla)] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">← {t('common.previous')}</button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2).reduce<(number | '...')[]>((acc, p, idx, arr) => { if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push('...'); acc.push(p); return acc; }, []).map((item, i) => item === '...' ? (<span key={`ellipsis-${i}`} className="px-2 text-[#4A4F57] text-sm">…</span>) : (<button key={item} onClick={() => setCurrentPage(item as number)} className={`w-9 h-9 rounded-xl text-sm font-semibold transition-colors ${currentPage === item ? 'bg-[var(--conectia-arcilla)] text-[#0F2027]' : 'border border-[#17313A]/20 dark:border-white/15 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] hover:border-[var(--conectia-arcilla)]/40 hover:text-[var(--conectia-arcilla)] bg-[#17313A]/[0.10] dark:bg-white/[0.03]'}`}>{item}</button>))}
+                  <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="px-4 py-2 rounded-xl border border-[#17313A]/20 dark:border-white/15 text-sm font-medium text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] disabled:opacity-30 hover:border-[var(--conectia-arcilla)]/40 hover:text-[var(--conectia-arcilla)] transition-colors bg-[#17313A]/[0.10] dark:bg-white/[0.03]">{t('common.next')} →</button>
                 </div>
               )}
 
@@ -384,7 +384,7 @@ export default function PropiedadesPage() {
                   </div>
                   <h3 className="text-xl font-semibold text-[#17313A] dark:text-white mb-2">{t('properties.empty.title')}</h3>
                   <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-6">{t('properties.empty.subtitle')}</p>
-                  <Button onClick={() => setFilters({})} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold rounded-xl">{t('common.clearFilters')}</Button>
+                  <Button onClick={() => setFilters({})} className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-bold rounded-xl">{t('common.clearFilters')}</Button>
                 </div>
               )}
             </div>
@@ -395,16 +395,16 @@ export default function PropiedadesPage() {
       {/* CTA Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE] via-[#EAE4DD] to-[#F6F2EE] dark:from-[#0F2027] dark:via-[#17313A] dark:to-[#0F2027]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C78F7B]/8 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--conectia-arcilla)]/8 rounded-full blur-[120px] pointer-events-none" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#17313A] dark:text-white mb-6">
-            {t('properties.cta.title')} <span className="bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] bg-clip-text text-transparent">{t('properties.cta.highlight')}</span>
+            {t('properties.cta.title')} <span className="bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-soft)] bg-clip-text text-transparent">{t('properties.cta.highlight')}</span>
           </h2>
           <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] mb-8 max-w-2xl mx-auto">
             {t('properties.cta.subtitle')}
           </p>
           <Link href="/propietarios">
-            <Button className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] px-8 py-4 text-lg font-bold rounded-2xl shadow-xl shadow-[#C78F7B]/20 hover:scale-105 transition-all">
+            <Button className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] px-8 py-4 text-lg font-bold rounded-2xl shadow-xl shadow-[var(--conectia-arcilla)]/20 hover:scale-105 transition-all">
               {t('properties.cta.button')}
             </Button>
           </Link>

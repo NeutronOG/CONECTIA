@@ -88,22 +88,22 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
   }
 
   const groupBase = "flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap"
-  const groupActive = isDark ? "bg-[#C78F7B] text-[#0F2027]" : "bg-[#17313A] text-white shadow-sm"
+  const groupActive = isDark ? "bg-[var(--conectia-arcilla)] text-[#0F2027]" : "bg-[#17313A] text-white shadow-sm"
   const groupInactive = isDark
     ? "bg-white/8 text-white/70 border border-white/10 hover:bg-white/15 hover:text-white"
     : "bg-white border border-[#17313A]/12 text-[#4A4F57] hover:border-[#17313A]/30 hover:text-[#17313A] shadow-sm"
 
   const subBase = "flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap"
-  const subActive = "bg-[#C78F7B] text-white shadow-sm"
+  const subActive = "bg-[var(--conectia-arcilla)] text-white shadow-sm"
   const subInactive = isDark
     ? "bg-white/5 text-white/60 border border-white/10 hover:bg-white/12 hover:text-white"
-    : "bg-white border border-[#17313A]/10 text-[#4A4F57] hover:border-[#C78F7B]/40 hover:text-[#C78F7B] shadow-sm"
+    : "bg-white border border-[#17313A]/10 text-[#4A4F57] hover:border-[var(--conectia-arcilla)]/40 hover:text-[var(--conectia-arcilla)] shadow-sm"
 
   return (
     <div className="space-y-3 mb-8">
       {/* Header row */}
       <div className="flex items-center justify-between">
-        <p className={`text-[10px] uppercase tracking-[0.35em] font-bold ${isDark ? "text-[#C78F7B]" : "text-[#17313A]/50"}`}>
+        <p className={`text-[10px] uppercase tracking-[0.35em] font-bold ${isDark ? "text-[var(--conectia-arcilla)]" : "text-[#17313A]/50"}`}>
           Subcategoría
         </p>
         {(selectedGroup || selectedSub) && (

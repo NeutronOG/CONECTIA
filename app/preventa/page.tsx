@@ -33,13 +33,13 @@ export default function PreventaPage() {
         <div className="relative flex-1 lg:max-w-[50%] flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 sm:py-20 z-10">
           <div className="max-w-xl space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 dark:bg-[#EAE4DD]/5 border border-[#17313A]/10 dark:border-[#EAE4DD]/10">
-              <Building2 className="h-3.5 w-3.5 text-[#C78F7B]" />
+              <Building2 className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" />
               <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">{t('common.appName')}</span>
             </div>
 
             <div>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">{t('pages.preventa.title')}</h1>
-              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] italic mt-2">{t('pages.preventa.subtitleHighlight')}</p>
+              <p className="text-2xl sm:text-3xl font-light text-[var(--conectia-arcilla)] italic mt-2">{t('pages.preventa.subtitleHighlight')}</p>
             </div>
 
             <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base leading-relaxed max-w-md">
@@ -58,7 +58,7 @@ export default function PreventaPage() {
             </div>
 
             <div className="flex items-center gap-4 pt-2">
-              <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] border border-[#C78F7B]/25 text-sm font-semibold px-4 py-2">
+              <Badge className="bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/25 text-sm font-semibold px-4 py-2">
                 <Clock className="h-3.5 w-3.5 mr-1.5" />
                 {propiedades.length} {t('pages.preventa.active')}
               </Badge>
@@ -88,10 +88,10 @@ export default function PreventaPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold">{t('pages.preventa.title')}</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--conectia-arcilla)] font-bold">{t('pages.preventa.title')}</span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-[#EAE4DD] mt-1">{t('properties.availableTitle')}</h2>
             </div>
-            <div className="h-px flex-1 mx-8 bg-[#C78F7B]/20 hidden sm:block" />
+            <div className="h-px flex-1 mx-8 bg-[var(--conectia-arcilla)]/20 hidden sm:block" />
           </div>
           <SubcategoryFilter onChange={setTipoFilter} variant="light" resultCount={propiedades.length} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

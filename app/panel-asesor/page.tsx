@@ -165,7 +165,7 @@ export default function PanelAsesorPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header — Glassmorphism */}
@@ -175,7 +175,7 @@ export default function PanelAsesorPage() {
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                 style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.3)' }}>
-                <Building2 className="w-5 h-5 text-[#C78F7B]" />
+                <Building2 className="w-5 h-5 text-[var(--conectia-arcilla)]" />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-white">{t('panelAsesor.title')}</h1>
@@ -184,7 +184,7 @@ export default function PanelAsesorPage() {
             </div>
             <button
               onClick={async () => { await logout(); router.push('/login') }}
-              className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30"
+              className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[var(--conectia-arcilla)]/30"
             >
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">{t('panelAsesor.logout')}</span>
@@ -197,10 +197,10 @@ export default function PanelAsesorPage() {
         {/* Welcome Hero */}
         <div className="mb-8">
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-6 sm:p-8 overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[60px] pointer-events-none" />
             <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
               <div>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/25 text-[#C78F7B] text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/25 text-[var(--conectia-arcilla)] text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
                   <Diamond className="w-3 h-3" /> {getPlanById(user.plan || 'core')?.name}
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-black text-white mb-1">
@@ -216,11 +216,11 @@ export default function PanelAsesorPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {user.email === 'lizzie@conectia.mx' && (
-                  <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-                    <Megaphone className="w-4 h-4 text-[#C78F7B]" /> {t('panelAsesor.advertising')}
+                  <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+                    <Megaphone className="w-4 h-4 text-[var(--conectia-arcilla)]" /> {t('panelAsesor.advertising')}
                   </button>
                 )}
-                <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+                <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
                   <Settings className="w-4 h-4" /> {t('panelAsesor.manageProperties')}
                 </button>
               </div>
@@ -230,12 +230,12 @@ export default function PanelAsesorPage() {
 
         {/* Bonus System — Glassmorphism Card */}
         <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-6 sm:p-8 mb-8 overflow-hidden">
-          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#C78F7B]/10 rounded-full blur-[40px] pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[40px] pointer-events-none" />
           <div className="relative">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/20 flex items-center justify-center">
-                  <Award className="w-5 h-5 text-[#C78F7B]" />
+                <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/20 flex items-center justify-center">
+                  <Award className="w-5 h-5 text-[var(--conectia-arcilla)]" />
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-white">{t('panelAsesor.bonusSystem')}</h2>
@@ -243,8 +243,8 @@ export default function PanelAsesorPage() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="inline-block px-5 py-2.5 rounded-2xl bg-[#C78F7B]/15 border border-[#C78F7B]/30">
-                  <p className="text-2xl font-black text-[#C78F7B]">${bonoActual.bono.toLocaleString()}</p>
+                <div className="inline-block px-5 py-2.5 rounded-2xl bg-[var(--conectia-arcilla)]/15 border border-[var(--conectia-arcilla)]/30">
+                  <p className="text-2xl font-black text-[var(--conectia-arcilla)]">${bonoActual.bono.toLocaleString()}</p>
                 </div>
                 <p className="text-xs text-[#B0ACA6] mt-1">{t('panelAsesor.nextBonus')}</p>
               </div>
@@ -265,7 +265,7 @@ export default function PanelAsesorPage() {
                 )}
               </div>
               <div className="relative h-6 bg-white/5 rounded-full overflow-hidden border border-white/10">
-                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#C78F7B] to-[#E8A88F] rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-2" style={{ width: `${Math.min(progresoBono, 100)}%` }}>
+                <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-soft)] rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-2" style={{ width: `${Math.min(progresoBono, 100)}%` }}>
                   {progresoBono > 15 && <span className="text-[10px] font-bold text-[#0F2027]">{ventasMes}/{bonoActual.meta}</span>}
                 </div>
                 {progresoBono <= 15 && <div className="absolute inset-0 flex items-center justify-center text-[10px] text-[#B0ACA6] font-medium">{ventasMes}/{bonoActual.meta}</div>}
@@ -281,13 +281,13 @@ export default function PanelAsesorPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {bonos.map((b, idx) => (
                 <div key={idx} className={`p-3 rounded-xl border transition-all relative overflow-hidden ${
-                  ventasMes >= b.meta ? 'bg-green-500/10 border-green-500/30 shadow-lg shadow-green-500/10' : b.meta === bonoActual.meta ? 'bg-[#C78F7B]/10 border-[#C78F7B]/30 shadow-lg shadow-[#C78F7B]/10' : 'bg-white/[0.02] border-white/10 opacity-50'
+                  ventasMes >= b.meta ? 'bg-green-500/10 border-green-500/30 shadow-lg shadow-green-500/10' : b.meta === bonoActual.meta ? 'bg-[var(--conectia-arcilla)]/10 border-[var(--conectia-arcilla)]/30 shadow-lg shadow-[var(--conectia-arcilla)]/10' : 'bg-white/[0.02] border-white/10 opacity-50'
                 }`}>
                   <div className="text-center relative z-10">
-                    {ventasMes >= b.meta ? <CheckCircle2 className="w-5 h-5 text-green-400 mx-auto mb-1.5" /> : b.meta === bonoActual.meta ? <Flame className="w-5 h-5 text-[#C78F7B] mx-auto mb-1.5" /> : <Award className="w-5 h-5 text-[#4A4F57] mx-auto mb-1.5" />}
+                    {ventasMes >= b.meta ? <CheckCircle2 className="w-5 h-5 text-green-400 mx-auto mb-1.5" /> : b.meta === bonoActual.meta ? <Flame className="w-5 h-5 text-[var(--conectia-arcilla)] mx-auto mb-1.5" /> : <Award className="w-5 h-5 text-[#4A4F57] mx-auto mb-1.5" />}
                     <p className="text-[10px] font-medium text-[#B0ACA6] mb-0.5">{b.descripcion}</p>
-                    <p className={`text-lg font-black ${ventasMes >= b.meta ? 'text-green-400' : b.meta === bonoActual.meta ? 'text-[#C78F7B]' : 'text-[#4A4F57]'}`}>${(b.bono / 1000).toFixed(0)}k</p>
-                    {b.meta === bonoActual.meta && ventasMes < b.meta && <p className="text-[10px] text-[#C78F7B]/70 mt-0.5">{t('panelAsesor.nextGoal')}</p>}
+                    <p className={`text-lg font-black ${ventasMes >= b.meta ? 'text-green-400' : b.meta === bonoActual.meta ? 'text-[var(--conectia-arcilla)]' : 'text-[#4A4F57]'}`}>${(b.bono / 1000).toFixed(0)}k</p>
+                    {b.meta === bonoActual.meta && ventasMes < b.meta && <p className="text-[10px] text-[var(--conectia-arcilla)]/70 mt-0.5">{t('panelAsesor.nextGoal')}</p>}
                     {ventasMes >= b.meta && <p className="text-[10px] text-green-400/70 mt-0.5">{t('panelAsesor.earned')}</p>}
                   </div>
                 </div>
@@ -299,7 +299,7 @@ export default function PanelAsesorPage() {
         {/* Stats Cards — Glassmorphism */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: Building2, label: t('panelAsesor.stats.properties'), value: progress.length, sub: `${progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length} ${t('panelAsesor.stats.closed')}`, badge: `${progress.filter(p => p.status === 'activa').length} ${t('panelAsesor.stats.active')}`, accent: '#C78F7B' },
+            { icon: Building2, label: t('panelAsesor.stats.properties'), value: progress.length, sub: `${progress.filter(p => p.status === 'vendida' || p.status === 'rentada').length} ${t('panelAsesor.stats.closed')}`, badge: `${progress.filter(p => p.status === 'activa').length} ${t('panelAsesor.stats.active')}`, accent: 'var(--conectia-arcilla)' },
             { icon: Users, label: t('panelAsesor.stats.leads'), value: totalLeads, sub: `${leads.filter(l => l.status === 'calificado').length} ${t('panelAsesor.stats.qualified')}`, badge: `${leads.filter(l => l.status === 'nuevo').length} ${t('panelAsesor.stats.new')}`, accent: '#3b82f6' },
             { icon: Eye, label: t('panelAsesor.stats.visits'), value: totalVisitas, sub: `${t('panelAsesor.stats.fromLeads')} ${totalLeads} leads`, badge: `${totalLeads > 0 ? Math.round((totalVisitas / totalLeads) * 100) : 0}% ${t('panelAsesor.stats.rate')}`, accent: '#22c55e' },
             { icon: DollarSign, label: t('panelAsesor.stats.offers'), value: totalOfertas, sub: `${t('panelAsesor.stats.fromVisits')} ${totalVisitas} ${t('panelAsesor.stats.visits').toLowerCase()}`, badge: `${totalVisitas > 0 ? Math.round((totalOfertas / totalVisitas) * 100) : 0}% ${t('panelAsesor.stats.conversion')}`, accent: '#a855f7' },
@@ -323,7 +323,7 @@ export default function PanelAsesorPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] overflow-hidden">
             <div className="p-5 border-b border-white/10 flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#C78F7B]/15 rounded-lg flex items-center justify-center"><TrendingUp className="w-4 h-4 text-[#C78F7B]" /></div>
+              <div className="w-8 h-8 bg-[var(--conectia-arcilla)]/15 rounded-lg flex items-center justify-center"><TrendingUp className="w-4 h-4 text-[var(--conectia-arcilla)]" /></div>
               <h2 className="text-sm font-bold text-white">{t('panelAsesor.charts.performance')}</h2>
             </div>
             <div className="p-6">
@@ -398,15 +398,15 @@ export default function PanelAsesorPage() {
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] overflow-hidden">
             <div className="p-5 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#C78F7B]/15 rounded-lg flex items-center justify-center"><Building2 className="w-4 h-4 text-[#C78F7B]" /></div>
+                <div className="w-8 h-8 bg-[var(--conectia-arcilla)]/15 rounded-lg flex items-center justify-center"><Building2 className="w-4 h-4 text-[var(--conectia-arcilla)]" /></div>
                 <h2 className="text-sm font-bold text-white">{t('panelAsesor.myProperties')}</h2>
               </div>
-              <span className="text-[10px] font-bold text-[#C78F7B] bg-[#C78F7B]/10 px-2.5 py-1 rounded-full">{progress.length} {t('panelAsesor.total')}</span>
+              <span className="text-[10px] font-bold text-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/10 px-2.5 py-1 rounded-full">{progress.length} {t('panelAsesor.total')}</span>
             </div>
             <div className="p-5 space-y-3 max-h-[600px] overflow-y-auto">
               {progress.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-14 h-14 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mb-3"><Building2 className="w-7 h-7 text-[#C78F7B]/40" /></div>
+                  <div className="w-14 h-14 bg-[var(--conectia-arcilla)]/10 rounded-2xl flex items-center justify-center mb-3"><Building2 className="w-7 h-7 text-[var(--conectia-arcilla)]/40" /></div>
                   <p className="text-sm text-[#B0ACA6] font-medium mb-1">{t('panelAsesor.noProperties')}</p>
                   <p className="text-xs text-[#4A4F57]">{t('panelAsesor.propertiesHint')}</p>
                 </div>
@@ -419,7 +419,7 @@ export default function PanelAsesorPage() {
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-white text-sm mb-1 truncate">{propiedad.titulo}</h3>
-                          <p className="text-[10px] text-[#B0ACA6] flex items-center gap-1"><MapPin className="w-3 h-3 text-[#C78F7B]" /> {propiedad.ubicacion}</p>
+                          <p className="text-[10px] text-[#B0ACA6] flex items-center gap-1"><MapPin className="w-3 h-3 text-[var(--conectia-arcilla)]" /> {propiedad.ubicacion}</p>
                         </div>
                         <span className={`ml-2 shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold ${getStatusColor(prog.status)}`}>{prog.status.replace('_', ' ')}</span>
                       </div>
@@ -429,8 +429,8 @@ export default function PanelAsesorPage() {
                         <div className="text-center bg-purple-500/10 rounded-xl p-2"><p className="text-lg font-black text-purple-400">{prog.ofertas}</p><p className="text-[10px] text-[#4A4F57]">{t('panelAsesor.stats.offers')}</p></div>
                       </div>
                       {prog.notas && (
-                        <div className="p-2.5 bg-[#C78F7B]/10 rounded-xl border border-[#C78F7B]/20 mb-2">
-                          <p className="text-[10px] text-[#C78F7B]">📝 {prog.notas}</p>
+                        <div className="p-2.5 bg-[var(--conectia-arcilla)]/10 rounded-xl border border-[var(--conectia-arcilla)]/20 mb-2">
+                          <p className="text-[10px] text-[var(--conectia-arcilla)]">📝 {prog.notas}</p>
                         </div>
                       )}
                       <div className="flex items-center gap-1.5 text-[10px] text-[#4A4F57]"><Clock className="w-3 h-3" /><span>{formatDate(prog.ultimaActividad)}</span></div>
@@ -470,10 +470,10 @@ export default function PanelAsesorPage() {
                         </div>
                         <span className={`ml-2 shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold ${getLeadStatusColor(lead.status)}`}>{lead.status}</span>
                       </div>
-                      <p className="text-xs text-[#B0ACA6] mb-3 p-2.5 bg-white/[0.03] rounded-xl italic border-l-2 border-[#C78F7B]/30">“{lead.mensaje}”</p>
+                      <p className="text-xs text-[#B0ACA6] mb-3 p-2.5 bg-white/[0.03] rounded-xl italic border-l-2 border-[var(--conectia-arcilla)]/30">“{lead.mensaje}”</p>
                       <div className="flex flex-col sm:flex-row gap-2 mb-3">
-                        <a href={`tel:${lead.telefono}`} className="flex items-center gap-1.5 text-[10px] text-[#B0ACA6] hover:text-[#C78F7B] transition-colors bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/10"><Phone className="w-3 h-3" />{lead.telefono}</a>
-                        <a href={`mailto:${lead.email}`} className="flex items-center gap-1.5 text-[10px] text-[#B0ACA6] hover:text-[#C78F7B] transition-colors bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/10"><Mail className="w-3 h-3" /><span className="truncate">{lead.email}</span></a>
+                        <a href={`tel:${lead.telefono}`} className="flex items-center gap-1.5 text-[10px] text-[#B0ACA6] hover:text-[var(--conectia-arcilla)] transition-colors bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/10"><Phone className="w-3 h-3" />{lead.telefono}</a>
+                        <a href={`mailto:${lead.email}`} className="flex items-center gap-1.5 text-[10px] text-[#B0ACA6] hover:text-[var(--conectia-arcilla)] transition-colors bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/10"><Mail className="w-3 h-3" /><span className="truncate">{lead.email}</span></a>
                       </div>
                       <div className="flex items-center gap-1.5 text-[10px] text-[#4A4F57]"><Clock className="w-3 h-3" /><span>{formatDate(lead.fecha)}</span></div>
                     </div>
@@ -533,7 +533,7 @@ export default function PanelAsesorPage() {
         {user.email === 'ana@conectia.mx' && (
           <div className="mb-8">
             <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-6 sm:p-8 overflow-hidden">
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[60px] pointer-events-none" />
               <div className="relative mb-6">
                 <h2 className="text-2xl font-bold text-white mb-1">{t('panelAsesor.developmentManagement')}</h2>
                 <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.developmentManagementDesc')}</p>

@@ -297,7 +297,7 @@ export default function PanelFotografoPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header — Glassmorphism */}
@@ -306,14 +306,14 @@ export default function PanelFotografoPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(199,143,123,0.15)', border: '1px solid rgba(199,143,123,0.3)' }}>
-                <Camera className="w-5 h-5 text-[#C78F7B]" />
+                <Camera className="w-5 h-5 text-[var(--conectia-arcilla)]" />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-white">Panel de Fotografía</h1>
                 <p className="text-xs text-[#B0ACA6]">{user.nombre || 'Santiago Canales'} · Fotógrafo & Videógrafo</p>
               </div>
             </div>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[#C78F7B]/30">
+            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[var(--conectia-arcilla)]/30">
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Cerrar Sesión</span>
             </button>
@@ -328,7 +328,7 @@ export default function PanelFotografoPage() {
             { label: 'Solicitudes Pendientes', value: solicitudesPendientes.length, sub: `${solicitudesEnProceso.length} en proceso`, accent: '#ef4444', icon: Inbox, badge: 'Urgente' },
             { label: 'Propiedades', value: totalPropiedades, sub: `${propiedadesVendidas.length} vendidas`, accent: '#3b82f6', icon: Home, badge: 'Total' },
             { label: 'Con Fotos', value: propiedadesConFotos, sub: `De ${totalPropiedades}`, accent: '#22c55e', icon: Camera, badge: `${totalPropiedades > 0 ? Math.round((propiedadesConFotos / totalPropiedades) * 100) : 0}%` },
-            { label: 'Comisiones', value: `$${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`, sub: `${propiedadesVendidas.length} venta${propiedadesVendidas.length !== 1 ? 's' : ''}`, accent: '#C78F7B', icon: DollarSign, badge: 'Ganadas' },
+            { label: 'Comisiones', value: `$${totalComisiones.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`, sub: `${propiedadesVendidas.length} venta${propiedadesVendidas.length !== 1 ? 's' : ''}`, accent: 'var(--conectia-arcilla)', icon: DollarSign, badge: 'Ganadas' },
             { label: 'Vistas Totales', value: totalVistasPropiedades, sub: `${totalViews} global`, accent: '#8b5cf6', icon: BarChart3, badge: 'Analytics' },
             { label: 'Compartidos', value: totalCompartidosPropiedades, sub: `${totalShares} global`, accent: '#06b6d4', icon: Share2, badge: 'Social' },
           ].map((stat, i) => (
@@ -378,10 +378,10 @@ export default function PanelFotografoPage() {
           </div>
 
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C78F7B]/10 rounded-full blur-[40px] pointer-events-none" />
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[40px] pointer-events-none" />
             <div className="relative flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-                <Eye className="w-6 h-6 text-[#C78F7B]" />
+              <div className="w-12 h-12 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+                <Eye className="w-6 h-6 text-[var(--conectia-arcilla)]" />
               </div>
               <div>
                 <p className="text-xs text-[#8A8F97] uppercase tracking-wider font-bold">Top Propiedad</p>
@@ -398,7 +398,7 @@ export default function PanelFotografoPage() {
             onClick={() => { setTab('solicitudes'); setSolicitudDetalle(null) }}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               tab === 'solicitudes'
-                ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/20'
+                ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] shadow-lg shadow-[var(--conectia-arcilla)]/20'
                 : 'text-[#B0ACA6] hover:text-white hover:bg-white/5'
             }`}
           >
@@ -416,7 +416,7 @@ export default function PanelFotografoPage() {
             onClick={() => setTab('propiedades')}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
               tab === 'propiedades'
-                ? 'bg-[#C78F7B] text-[#0F2027] shadow-lg shadow-[#C78F7B]/20'
+                ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] shadow-lg shadow-[var(--conectia-arcilla)]/20'
                 : 'text-[#B0ACA6] hover:text-white hover:bg-white/5'
             }`}
           >
@@ -431,12 +431,12 @@ export default function PanelFotografoPage() {
             <div className="p-5 border-b border-white/10 px-6 pt-5 pb-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20 flex items-center justify-center">
-                    <Inbox className="h-4 w-4 text-[#C78F7B]" />
+                  <div className="w-8 h-8 bg-[var(--conectia-arcilla)]/10 rounded-lg border border-[var(--conectia-arcilla)]/20 flex items-center justify-center">
+                    <Inbox className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                   </div>
                   Solicitudes de Propiedades
                 </h2>
-                <span className="text-xs font-semibold text-[#C78F7B] bg-[#C78F7B]/10 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/10 px-3 py-1 rounded-full">
                   {solicitudes.length} total
                 </span>
               </div>
@@ -444,13 +444,13 @@ export default function PanelFotografoPage() {
             <div className="p-5">
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-12">
-                  <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin mb-4" />
+                  <div className="w-10 h-10 border-2 border-[var(--conectia-arcilla)]/30 border-t-[var(--conectia-arcilla)] rounded-full animate-spin mb-4" />
                   <p className="text-[#B0ACA6]">Cargando solicitudes...</p>
                 </div>
               ) : solicitudes.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mb-4">
-                    <Inbox className="h-8 w-8 text-[#C78F7B]/40" />
+                  <div className="w-16 h-16 bg-[var(--conectia-arcilla)]/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Inbox className="h-8 w-8 text-[var(--conectia-arcilla)]/40" />
                   </div>
                   <h3 className="text-base font-semibold text-white mb-1">Sin solicitudes</h3>
                   <p className="text-sm text-[#8A8F97] max-w-md">
@@ -472,7 +472,7 @@ export default function PanelFotografoPage() {
                       <div
                         key={sol.id}
                         onClick={() => { setSolicitudDetalle(sol); setNotaFotografo(sol.notas_fotografo || '') }}
-                        className="p-4 bg-white/[0.02] border border-white/10 rounded-xl hover:border-[#C78F7B]/40 transition-all cursor-pointer group"
+                        className="p-4 bg-white/[0.02] border border-white/10 rounded-xl hover:border-[var(--conectia-arcilla)]/40 transition-all cursor-pointer group"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex-1 min-w-0">
@@ -494,7 +494,7 @@ export default function PanelFotografoPage() {
                               <span>{new Date(sol.created_at).toLocaleDateString('es-MX')}</span>
                             </div>
                           </div>
-                          <ChevronRight className="h-5 w-5 text-[#4A4F57] group-hover:text-[#C78F7B] transition-colors shrink-0" />
+                          <ChevronRight className="h-5 w-5 text-[#4A4F57] group-hover:text-[var(--conectia-arcilla)] transition-colors shrink-0" />
                         </div>
                       </div>
                     )
@@ -510,7 +510,7 @@ export default function PanelFotografoPage() {
           <div className="space-y-5">
             <button
               onClick={() => setSolicitudDetalle(null)}
-              className="flex items-center gap-2 text-sm text-[#B0ACA6] hover:text-[#C78F7B] transition-colors"
+              className="flex items-center gap-2 text-sm text-[#B0ACA6] hover:text-[var(--conectia-arcilla)] transition-colors"
             >
               <ChevronRight className="h-4 w-4 rotate-180" />
               Volver a solicitudes
@@ -584,17 +584,17 @@ export default function PanelFotografoPage() {
                 {solicitudDetalle.descripcion && (
                   <div>
                     <p className="text-sm font-semibold text-white mb-2 flex items-center gap-1.5">
-                      <FileText className="h-4 w-4 text-[#C78F7B]" />
+                      <FileText className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                       Notas del asesor:
                     </p>
-                    <p className="text-sm text-white bg-[#17313A] p-4 rounded-xl border-l-2 border-[#C78F7B]/30">{solicitudDetalle.descripcion}</p>
+                    <p className="text-sm text-white bg-[#17313A] p-4 rounded-xl border-l-2 border-[var(--conectia-arcilla)]/30">{solicitudDetalle.descripcion}</p>
                   </div>
                 )}
 
                 {/* === SECCIÓN DE FOTOS === */}
                 <div className="border-t border-gray-700/60 pt-5">
                   <p className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                    <Camera className="h-4 w-4 text-[#C78F7B]" />
+                    <Camera className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                     Fotos de la propiedad ({(solicitudDetalle.imagenes || []).length})
                   </p>
 
@@ -607,7 +607,7 @@ export default function PanelFotografoPage() {
                           <div className="absolute inset-0 bg-[#17313A]/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
                             <button
                               onClick={() => window.open(imgUrl, '_blank')}
-                              className="text-white hover:text-[#C78F7B]"
+                              className="text-white hover:text-[var(--conectia-arcilla)]"
                             >
                               <Eye className="h-5 w-5" />
                             </button>
@@ -624,7 +624,7 @@ export default function PanelFotografoPage() {
                   )}
 
                   {/* Subir nuevas fotos */}
-                  <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-[#C78F7B]/50 transition-colors mb-4 cursor-pointer">
+                  <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-[var(--conectia-arcilla)]/50 transition-colors mb-4 cursor-pointer">
                     <input
                       type="file"
                       multiple
@@ -662,7 +662,7 @@ export default function PanelFotografoPage() {
                       {uploading && (
                         <div className="mb-3">
                           <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                            <div className="h-full bg-[#C78F7B] rounded-full transition-all duration-300" style={{ width: `${uploadProgress}%` }} />
+                            <div className="h-full bg-[var(--conectia-arcilla)] rounded-full transition-all duration-300" style={{ width: `${uploadProgress}%` }} />
                           </div>
                           <p className="text-xs text-[#8A8F97] mt-1 text-center">{uploadProgress}%</p>
                         </div>
@@ -671,7 +671,7 @@ export default function PanelFotografoPage() {
                       <Button
                         onClick={handleUploadToSolicitud}
                         disabled={uploading}
-                        className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold rounded-xl"
+                        className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold rounded-xl"
                       >
                         {uploading ? (
                           <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Subiendo...</>
@@ -690,7 +690,7 @@ export default function PanelFotografoPage() {
                     value={notaFotografo}
                     onChange={(e) => setNotaFotografo(e.target.value)}
                     placeholder="Agrega notas sobre la sesión de fotos, horarios, observaciones..."
-                    className="min-h-[80px] bg-white/5 border-white/15 text-white placeholder:text-[#4A4F57] focus:border-[#C78F7B]/50"
+                    className="min-h-[80px] bg-white/5 border-white/15 text-white placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)]/50"
                   />
                 </div>
 
@@ -837,7 +837,7 @@ export default function PanelFotografoPage() {
                           <Button
                             size="sm"
                             onClick={() => router.push(`/panel-fotografo/propiedades/${propiedad.id}`)}
-                            className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold shrink-0"
+                            className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold shrink-0"
                           >
                             <Upload className="h-4 w-4 mr-1" />
                             Fotos
@@ -856,8 +856,8 @@ export default function PanelFotografoPage() {
         <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden overflow-hidden shadow-xl mt-6">
           <div className="p-5 border-b border-white/10 px-6 pt-5 pb-4">
             <h2 className="text-base font-bold text-white flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20 flex items-center justify-center">
-                <Banknote className="h-4 w-4 text-[#C78F7B]" />
+              <div className="w-8 h-8 bg-[var(--conectia-arcilla)]/10 rounded-lg border border-[var(--conectia-arcilla)]/20 flex items-center justify-center">
+                <Banknote className="h-4 w-4 text-[var(--conectia-arcilla)]" />
               </div>
               Estructura de Comisiones
             </h2>
@@ -869,9 +869,9 @@ export default function PanelFotografoPage() {
                 <p className="text-4xl font-black text-white">2%</p>
                 <p className="text-xs text-[#8A8F97] mt-1">del precio de venta</p>
               </div>
-              <div className="text-center p-5 bg-[#C78F7B]/10 rounded-xl border-2 border-[#C78F7B]/40 shadow-lg shadow-[#C78F7B]/10">
+              <div className="text-center p-5 bg-[var(--conectia-arcilla)]/10 rounded-xl border-2 border-[var(--conectia-arcilla)]/40 shadow-lg shadow-[var(--conectia-arcilla)]/10">
                 <p className="text-xs text-[#B0ACA6] uppercase tracking-wider mb-2">Tu Comisión</p>
-                <p className="text-4xl font-black text-[#C78F7B]">13.5%</p>
+                <p className="text-4xl font-black text-[var(--conectia-arcilla)]">13.5%</p>
                 <p className="text-xs text-[#B0ACA6] mt-1">de la comisión CONECTIA</p>
               </div>
               <div className="text-center p-5 bg-green-500/10 rounded-xl border border-green-500/20">

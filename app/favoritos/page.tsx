@@ -23,7 +23,7 @@ export default function FavoritosPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-[#17313A]/[0.08] dark:bg-white/[0.08] border border-[#17313A]/15 dark:border-white/15 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] mb-6 backdrop-blur-md">
-              <Heart className="h-4 w-4 text-[#C78F7B] mr-2 fill-current" />
+              <Heart className="h-4 w-4 text-[var(--conectia-arcilla)] mr-2 fill-current" />
               Mis Propiedades Favoritas
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-6 leading-tight">
@@ -55,7 +55,7 @@ export default function FavoritosPage() {
                 Explora nuestras propiedades y agrega las que más te gusten a tu lista de favoritos
               </p>
               <Link href="/propiedades">
-                <Button className="bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white font-semibold px-8 py-3 rounded-2xl shadow-lg">
+                <Button className="bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white font-semibold px-8 py-3 rounded-2xl shadow-lg">
                   Explorar Propiedades
                 </Button>
               </Link>
@@ -130,7 +130,7 @@ export default function FavoritosPage() {
                     <div className="flex space-x-3">
                       <Button
                         onClick={() => handleContact(property)}
-                        className="flex-1 bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white rounded-xl font-medium py-2 transition-all duration-300 hover:scale-105"
+                        className="flex-1 bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white rounded-xl font-medium py-2 transition-all duration-300 hover:scale-105"
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
                         Contactar
@@ -138,7 +138,7 @@ export default function FavoritosPage() {
                       <Link href={`/propiedades/${property.id}`} className="flex-1">
                         <Button
                           variant="outline"
-                          className="w-full rounded-xl font-medium py-2 border-[#17313A]/15 dark:border-white/15 bg-[#17313A]/[0.04] dark:bg-white/[0.04] text-[#17313A] dark:text-[#EAE4DD] hover:bg-[#C78F7B]/20 hover:border-[#C78F7B]/30 hover:text-[#C78F7B] transition-all duration-300"
+                          className="w-full rounded-xl font-medium py-2 border-[#17313A]/15 dark:border-white/15 bg-[#17313A]/[0.04] dark:bg-white/[0.04] text-[#17313A] dark:text-[#EAE4DD] hover:bg-[var(--conectia-arcilla)]/20 hover:border-[var(--conectia-arcilla)]/30 hover:text-[var(--conectia-arcilla)] transition-all duration-300"
                         >
                           Ver Detalles
                         </Button>

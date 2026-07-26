@@ -78,7 +78,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-28 pb-16">
-        <Link href="/propiedades" className="inline-flex items-center text-[#C78F7B] hover:text-[#b87c68] mb-8 transition-colors text-sm font-medium">
+        <Link href="/propiedades" className="inline-flex items-center text-[var(--conectia-arcilla)] hover:text-[var(--conectia-arcilla-deep)] mb-8 transition-colors text-sm font-medium">
           <ArrowLeft className="h-4 w-4 mr-2" />
           {t('propertyDetail.back')}
         </Link>
@@ -90,12 +90,12 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 rounded-full bg-[#C78F7B]/15 text-[#C78F7B] text-[10px] font-bold uppercase tracking-wider">{propertyData.status}</span>
+                  <span className="px-3 py-1 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold uppercase tracking-wider">{propertyData.status}</span>
                   <span className="px-3 py-1 rounded-full bg-[#F3F4F6] dark:bg-[#17313A]/30 text-[#6B7280] dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propertyData.tipo}</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">{propertyData.titulo}</h1>
                 <div className="flex items-center gap-1.5 mt-3 text-[#6B7280] dark:text-[#B0ACA6]">
-                  <MapPin className="h-4 w-4 text-[#C78F7B]" />
+                  <MapPin className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                   <span className="text-sm">{propertyData.ubicacion}</span>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             {/* Price */}
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[#9CA3AF] font-bold mb-2">{t('common.price')}</p>
-              <p className="text-4xl sm:text-5xl font-black text-[#C78F7B]">{propertyData.precioTexto}</p>
+              <p className="text-4xl sm:text-5xl font-black text-[var(--conectia-arcilla)]">{propertyData.precioTexto}</p>
             </div>
 
             {/* Main image — blob shape */}
@@ -126,13 +126,13 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/90 dark:bg-[#17313A]/80 border border-[#E5E7EB] dark:border-white/10 hover:border-[#C78F7B]/40 rounded-full flex items-center justify-center text-[#17313A] dark:text-white transition-all z-10"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/90 dark:bg-[#17313A]/80 border border-[#E5E7EB] dark:border-white/10 hover:border-[var(--conectia-arcilla)]/40 rounded-full flex items-center justify-center text-[#17313A] dark:text-white transition-all z-10"
                   >
                     <ArrowLeft className="h-5 w-5" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/90 dark:bg-[#17313A]/80 border border-[#E5E7EB] dark:border-white/10 hover:border-[#C78F7B]/40 rounded-full flex items-center justify-center text-[#17313A] dark:text-white transition-all z-10"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/90 dark:bg-[#17313A]/80 border border-[#E5E7EB] dark:border-white/10 hover:border-[var(--conectia-arcilla)]/40 rounded-full flex items-center justify-center text-[#17313A] dark:text-white transition-all z-10"
                   >
                     <ArrowRight className="h-5 w-5" />
                   </button>
@@ -145,7 +145,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   {propertyData.tourVirtual && (
                     <button
                       onClick={() => window.open(propertyData.tourVirtual, '_blank')}
-                      className="absolute top-4 left-4 px-5 py-2.5 bg-[#C78F7B] hover:bg-[#b87c68] text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg transition-all z-10"
+                      className="absolute top-4 left-4 px-5 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white rounded-full font-bold text-sm flex items-center gap-2 shadow-lg transition-all z-10"
                     >
                       <Play className="h-4 w-4 fill-current" />
                       {t('propertyDetail.tour')}
@@ -166,7 +166,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
                     className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all ${
-                      i === currentImageIndex ? 'border-[#C78F7B]' : 'border-transparent hover:border-[#C78F7B]/40'
+                      i === currentImageIndex ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                     }`}
                   >
                     <img src={src} alt={`${propertyData.titulo} ${i + 1}`} className="w-full h-full object-cover" />
@@ -183,8 +183,8 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 { icon: Square, value: propertyData.areaTexto || '—' }
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
-                  <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center">
-                    <item.icon className="h-5 w-5 text-[#C78F7B]" />
+                  <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
+                    <item.icon className="h-5 w-5 text-[var(--conectia-arcilla)]" />
                   </div>
                   <span className="text-sm font-bold text-[#17313A] dark:text-[#EAE4DD]">{item.value}</span>
                 </div>
@@ -199,7 +199,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <p className="text-[#6B7280] dark:text-[#B0ACA6] leading-relaxed whitespace-pre-line">{propertyData.descripcion || t('propertyDetail.noDescription')}</p>
                 {propertyData.tourVirtual && (
                   <div className="pt-6 mt-6 border-t border-[#E5E7EB] dark:border-[#EAE4DD]/10">
-                    <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold rounded-xl py-5" asChild>
+                    <Button className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold rounded-xl py-5" asChild>
                       <a href={propertyData.tourVirtual} target="_blank" rel="noopener noreferrer"><Play className="h-4 w-4 mr-2" />{t('propertyDetail.tour360')}</a>
                     </Button>
                   </div>
@@ -215,8 +215,8 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       const Icon = amenityIcons[car] || Shield
                       return (
                         <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10">
-                          <div className="w-9 h-9 rounded-lg bg-[#C78F7B]/10 flex items-center justify-center">
-                            <Icon className="h-4 w-4 text-[#C78F7B]" />
+                          <div className="w-9 h-9 rounded-lg bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
+                            <Icon className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                           </div>
                           <span className="text-xs font-medium text-[#17313A] dark:text-[#EAE4DD] leading-tight">{car}</span>
                         </div>
@@ -250,7 +250,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     {[{ icon: Camera, label: t('propertyDetail.views'), value: propertyData.detalles.vistas?.toLocaleString() }, { icon: Heart, label: t('propertyDetail.favorites'), value: propertyData.detalles.favoritos?.toLocaleString() }].map((stat, i) => (
                       <div key={i} className="p-4 rounded-2xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10">
                         <div className="flex items-center gap-2 mb-2">
-                          <stat.icon className="h-4 w-4 text-[#C78F7B]" />
+                          <stat.icon className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                           <span className="text-xs text-[#6B7280] dark:text-[#B0ACA6] font-medium">{stat.label}</span>
                         </div>
                         <p className="text-2xl font-black text-[#17313A] dark:text-[#EAE4DD]">{stat.value || '0'}</p>
@@ -264,7 +264,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               <div className="rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 p-6 sm:p-8">
                 <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-4">{t('common.location')}</h3>
                 <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10">
-                  <MapPin className="h-5 w-5 text-[#C78F7B] mt-0.5" />
+                  <MapPin className="h-5 w-5 text-[var(--conectia-arcilla)] mt-0.5" />
                   <div>
                     <p className="font-semibold text-[#17313A] dark:text-[#EAE4DD]">{propertyData.ubicacion}</p>
                     <p className="text-sm text-[#6B7280] dark:text-[#B0ACA6] mt-1">{t('propertyDetail.locationDesc')}</p>
@@ -280,9 +280,9 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             <div className="rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 p-6 shadow-lg">
               <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-5">{t('propertyDetail.contactAgent')}</h3>
               <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 mb-5">
-                <Avatar className="h-12 w-12 border border-[#C78F7B]/30">
+                <Avatar className="h-12 w-12 border border-[var(--conectia-arcilla)]/30">
                   <AvatarImage src="/logoconectiaoficial.png" />
-                  <AvatarFallback className="bg-[#C78F7B]/20 text-[#C78F7B] font-bold">CS</AvatarFallback>
+                  <AvatarFallback className="bg-[var(--conectia-arcilla)]/20 text-[var(--conectia-arcilla)] font-bold">CS</AvatarFallback>
                 </Avatar>
                 <div>
                   <p className="font-semibold text-[#17313A] dark:text-[#EAE4DD] text-sm">{t('propertyDetail.agent')}</p>
@@ -290,15 +290,15 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 </div>
               </div>
               <div className="space-y-3">
-                <Button className="w-full bg-[#C78F7B] hover:bg-[#b87c68] text-white font-bold rounded-xl py-5">
+                <Button className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold rounded-xl py-5">
                   <MessageCircle className="h-4 w-4 mr-2" />
                   WhatsApp
                 </Button>
-                <Button variant="outline" className="w-full border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] hover:border-[#C78F7B]/40 rounded-xl font-semibold py-5">
+                <Button variant="outline" className="w-full border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] hover:border-[var(--conectia-arcilla)]/40 rounded-xl font-semibold py-5">
                   <Phone className="h-4 w-4 mr-2" />
                   {t('propertyDetail.call')}
                 </Button>
-                <Button variant="outline" className="w-full border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] hover:border-[#C78F7B]/40 rounded-xl font-semibold py-5">
+                <Button variant="outline" className="w-full border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] hover:border-[var(--conectia-arcilla)]/40 rounded-xl font-semibold py-5">
                   <Mail className="h-4 w-4 mr-2" />
                   {t('propertyDetail.email')}
                 </Button>
@@ -311,7 +311,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-[#6B7280] dark:text-[#B0ACA6]">{t('propertyDetail.propertyId')}</span>
-                  <span className="text-xs font-mono text-[#C78F7B]">#{propertyData.id}</span>
+                  <span className="text-xs font-mono text-[var(--conectia-arcilla)]">#{propertyData.id}</span>
                 </div>
                 <div className="h-px bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
                 <div className="flex items-center justify-between">
@@ -321,7 +321,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <div className="h-px bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-[#6B7280] dark:text-[#B0ACA6]">{t('propertyDetail.status')}</span>
-                  <span className="px-2 py-0.5 rounded-full bg-[#C78F7B]/15 text-[#C78F7B] text-[10px] font-bold">{propertyData.status}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold">{propertyData.status}</span>
                 </div>
               </div>
             </div>
@@ -333,7 +333,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
         <div className="fixed inset-0 z-50 bg-[#0F2027]/95 backdrop-blur-xl flex items-center justify-center">
           <button
             onClick={() => setIsImageFullscreen(false)}
-            className="absolute top-4 right-4 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[#C78F7B]/20 rounded-full flex items-center justify-center text-white transition-all z-10"
+            className="absolute top-4 right-4 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[var(--conectia-arcilla)]/20 rounded-full flex items-center justify-center text-white transition-all z-10"
           >
             <X className="h-5 w-5" />
           </button>
@@ -344,10 +344,10 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
           />
           {images.length > 1 && (
             <>
-              <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[#C78F7B]/20 rounded-full flex items-center justify-center text-white transition-all">
+              <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[var(--conectia-arcilla)]/20 rounded-full flex items-center justify-center text-white transition-all">
                 <ArrowLeft className="h-5 w-5" />
               </button>
-              <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[#C78F7B]/20 rounded-full flex items-center justify-center text-white transition-all">
+              <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[var(--conectia-arcilla)]/20 rounded-full flex items-center justify-center text-white transition-all">
                 <ArrowRight className="h-5 w-5" />
               </button>
             </>

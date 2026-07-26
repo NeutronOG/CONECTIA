@@ -335,7 +335,7 @@ export default function SubirImagenesPage() {
                   <Button
                     onClick={handleUploadImages}
                     disabled={uploading}
-                    className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold py-5"
+                    className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] font-semibold py-5"
                   >
                     {uploading ? (
                       <>

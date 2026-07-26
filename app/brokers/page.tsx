@@ -39,7 +39,7 @@ const notariasAsociadas = [
     nombre: "Notaría 82",
     notario: "Lic. Enrique Duran Llamas",
     especialidad: "Compraventa Inmobiliaria",
-    especialidadDisplay: "Compraventa <span class='text-[#C78F7B]'>Inmobiliaria</span>",
+    especialidadDisplay: "Compraventa <span class='text-[var(--conectia-arcilla)]'>Inmobiliaria</span>",
     ubicacion: "León, Guanajuato",
     telefono: "+52 477 475 6951"
   }

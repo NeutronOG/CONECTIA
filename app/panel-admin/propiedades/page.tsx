@@ -179,7 +179,7 @@ export default function AdminPropiedadesPage() {
     return (
         <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
             {/* Glow orbs */}
-            <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+            <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
             <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto relative z-10">
@@ -194,8 +194,8 @@ export default function AdminPropiedadesPage() {
                             Volver al Panel
                         </button>
                         <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-                                <Building2 className="w-5 h-5 text-[#C78F7B]" />
+                            <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+                                <Building2 className="w-5 h-5 text-[var(--conectia-arcilla)]" />
                             </div>
                             Gestión de Propiedades
                         </h1>
@@ -206,7 +206,7 @@ export default function AdminPropiedadesPage() {
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
                     {[
-                        { label: 'Total', value: propiedades.length, accent: '#C78F7B', icon: Building2 },
+                        { label: 'Total', value: propiedades.length, accent: 'var(--conectia-arcilla)', icon: Building2 },
                         { label: 'Disponibles', value: disponibles, accent: '#22c55e', icon: Home },
                         { label: 'Exclusivas', value: exclusivas, accent: '#f59e0b', icon: Diamond },
                         { label: 'Reservadas', value: reservadas, accent: '#3b82f6', icon: Shield },
@@ -255,13 +255,13 @@ export default function AdminPropiedadesPage() {
                                                 <div className="min-w-0">
                                                     <h3 className="text-lg font-bold text-white truncate">{propiedad.titulo}</h3>
                                                     <div className="flex items-center gap-1.5 text-xs text-[#B0ACA6] mt-1">
-                                                        <MapPin className="h-3.5 w-3.5 text-[#C78F7B]" />
+                                                        <MapPin className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" />
                                                         {propiedad.ubicacion}
                                                     </div>
                                                 </div>
                                                 <span className={`px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${
                                                     propiedad.status === 'Disponible' ? 'bg-green-500/10 text-green-400 border-green-500/20'
-                                                    : propiedad.status === 'Exclusiva' ? 'bg-[#C78F7B]/10 text-[#C78F7B] border-[#C78F7B]/20'
+                                                    : propiedad.status === 'Exclusiva' ? 'bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] border-[var(--conectia-arcilla)]/20'
                                                     : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
                                                 }`}>
                                                     {propiedad.status}
@@ -317,7 +317,7 @@ export default function AdminPropiedadesPage() {
                                                                     void handleReassignOwner(propiedad.id, pendingChanges[propiedad.id])
                                                                 }}
                                                                 disabled={!!savingOwnerByPropertyId[propiedad.id]}
-                                                                className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] flex-shrink-0"
+                                                                className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] flex-shrink-0"
                                                             >
                                                                 <Save className="h-4 w-4 mr-1" />
                                                                 {savingOwnerByPropertyId[propiedad.id] ? 'Guardando...' : 'Guardar'}
@@ -334,14 +334,14 @@ export default function AdminPropiedadesPage() {
                                                 </div>
                                             </div>
 
-                                            <p className="text-2xl font-bold text-[#C78F7B] mb-3">
+                                            <p className="text-2xl font-bold text-[var(--conectia-arcilla)] mb-3">
                                                 {propiedad.precioTexto}
                                             </p>
 
                                             <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                                                <span className="flex items-center gap-1.5"><Bed className="h-4 w-4 text-[#C78F7B]" /> {propiedad.habitaciones} hab</span>
-                                                <span className="flex items-center gap-1.5"><Bath className="h-4 w-4 text-[#C78F7B]" /> {propiedad.banos} baños</span>
-                                                <span className="flex items-center gap-1.5"><Ruler className="h-4 w-4 text-[#C78F7B]" /> {propiedad.areaTexto}</span>
+                                                <span className="flex items-center gap-1.5"><Bed className="h-4 w-4 text-[var(--conectia-arcilla)]" /> {propiedad.habitaciones} hab</span>
+                                                <span className="flex items-center gap-1.5"><Bath className="h-4 w-4 text-[var(--conectia-arcilla)]" /> {propiedad.banos} baños</span>
+                                                <span className="flex items-center gap-1.5"><Ruler className="h-4 w-4 text-[var(--conectia-arcilla)]" /> {propiedad.areaTexto}</span>
                                             </div>
 
                                             {/* Botones de acción */}
@@ -361,7 +361,7 @@ export default function AdminPropiedadesPage() {
                                                     }}
                                                     variant="outline"
                                                     size="sm"
-                                                    className="border-[#C78F7B] text-[#EAE4DD] hover:bg-[#C78F7B] hover:text-[#17313A]"
+                                                    className="border-[var(--conectia-arcilla)] text-[#EAE4DD] hover:bg-[var(--conectia-arcilla)] hover:text-[#17313A]"
                                                 />
                                                 <Button
                                                     variant="outline"

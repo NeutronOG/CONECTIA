@@ -235,7 +235,7 @@ function UnidadesSection() {
           <p className="text-slate-400 text-sm mb-4">{t('desarrollos.unitsCta')}</p>
           <Link
             href={`/contacto?propiedad=${encodeURIComponent(proyecto.nombre)}`}
-            className="inline-flex items-center gap-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] font-semibold px-6 py-3 rounded-lg transition-all"
+            className="inline-flex items-center gap-2 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] font-semibold px-6 py-3 rounded-lg transition-all"
           >
             <Phone className="h-4 w-4" />
             {t('desarrollos.reserveUnit')}
@@ -450,7 +450,7 @@ export default function DesarrollosPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contacto">
-              <Button size="lg" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]">
+              <Button size="lg" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]">
                 {t('desarrollos.ctaPrimary')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>

@@ -645,7 +645,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
                   {formatDateDisplay(selectedDate)}
                   {selectedDate === getTodayStr() && <Badge className="bg-blue-100 text-blue-700 text-xs">Hoy</Badge>}
                 </CardTitle>
-                <Button size="sm" onClick={() => { setShowNewEvent(true); setNewEvent(prev => ({ ...prev, fecha: selectedDate })) }} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] h-8 px-3 text-xs">
+                <Button size="sm" onClick={() => { setShowNewEvent(true); setNewEvent(prev => ({ ...prev, fecha: selectedDate })) }} className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] h-8 px-3 text-xs">
                   <Plus className="h-3.5 w-3.5 mr-1" />Nuevo Evento
                 </Button>
               </div>
@@ -763,7 +763,7 @@ export function DesarrollosManager({ userRole }: { userRole: 'empresa' | 'asesor
                   placeholder="Ej: avance de Residencial del Parque a 50..."
                   className="text-sm"
                 />
-                <Button onClick={handleSendChat} className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] px-4 flex-shrink-0">
+                <Button onClick={handleSendChat} className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] px-4 flex-shrink-0">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>

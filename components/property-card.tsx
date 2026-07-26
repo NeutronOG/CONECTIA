@@ -107,17 +107,17 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
       >
         {/* Indicador de arrastre */}
         <div className="flex justify-center mb-3">
-          <div className="w-10 h-1 bg-[#C78F7B]/30 rounded-full" />
+          <div className="w-10 h-1 bg-[var(--conectia-arcilla)]/30 rounded-full" />
         </div>
 
         {/* Header compacto siempre visible */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] text-[10px] font-semibold border border-[#C78F7B]/25 rounded-full px-2 py-0.5">
+              <Badge className="bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-semibold border border-[var(--conectia-arcilla)]/25 rounded-full px-2 py-0.5">
                 {propiedad.tipo}
               </Badge>
-              <span className="text-sm font-bold text-[#C78F7B]" style={{fontFamily: "var(--font-titles)"}}>
+              <span className="text-sm font-bold text-[var(--conectia-arcilla)]" style={{fontFamily: "var(--font-titles)"}}>
                 {propiedad.precioTexto}
               </span>
             </div>
@@ -126,7 +126,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
             </h3>
           </div>
           <button
-            className="p-1 rounded-full bg-[#C78F7B]/10 text-[#C78F7B] hover:bg-[#C78F7B]/20 transition-colors flex-shrink-0"
+            className="p-1 rounded-full bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla)]/20 transition-colors flex-shrink-0"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => { e.stopPropagation(); setExpanded(!expanded) }}
           >
             {expanded ? <CaretDown className="h-4 w-4" /> : <CaretUp className="h-4 w-4" />}

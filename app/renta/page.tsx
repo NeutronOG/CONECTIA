@@ -42,14 +42,14 @@ export default function RentaPage() {
           <div className="max-w-xl space-y-8">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17313A]/5 dark:bg-[#EAE4DD]/5 border border-[#17313A]/10 dark:border-[#EAE4DD]/10">
-              <Key className="h-3.5 w-3.5 text-[#C78F7B]" />
+              <Key className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" />
               <span className="text-[10px] uppercase tracking-[0.35em] text-[#17313A] dark:text-[#EAE4DD] font-bold">{t('common.appName')}</span>
             </div>
 
             {/* Título */}
             <div>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.95]">{t('pages.renta.title')}</h1>
-              <p className="text-2xl sm:text-3xl font-light text-[#C78F7B] dark:text-[#C78F7B] italic mt-2">{t('pages.renta.subtitle')}</p>
+              <p className="text-2xl sm:text-3xl font-light text-[var(--conectia-arcilla)] dark:text-[var(--conectia-arcilla)] italic mt-2">{t('pages.renta.subtitle')}</p>
             </div>
 
             {/* Descripción */}
@@ -69,7 +69,7 @@ export default function RentaPage() {
 
             {/* CTA */}
             <div className="flex items-center gap-4 pt-2">
-              <Badge className="bg-[#C78F7B]/15 text-[#C78F7B] border border-[#C78F7B]/25 text-sm font-semibold px-4 py-2">
+              <Badge className="bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/25 text-sm font-semibold px-4 py-2">
                 {propiedades.length} {t('properties.cards.forRent').toLowerCase()}
               </Badge>
               <Link href="/contacto">

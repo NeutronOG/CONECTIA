@@ -1,36 +1,14 @@
 import { Propiedad } from '@/data/propiedades'
 import { getUserByEmail } from '@/data/internal-users'
 import type { Database } from './supabase/database.types'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { supabase } from './supabase/client'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
-// Singleton: una sola instancia sin persistSession para queries de datos
-let _dbClient: SupabaseClient | null = null
-function getDbClient(): SupabaseClient {
-  if (!_dbClient) {
-    _dbClient = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }
-    )
-  }
-  return _dbClient
-}
-
-// Cliente con service role para operaciones que requieren bypass de RLS
-let _adminClient: SupabaseClient | null = null
-function getAdminClient(): SupabaseClient {
-  if (!_adminClient) {
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    _adminClient = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      serviceKey,
-      { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }
-    )
-  }
-  return _adminClient
-}
+// Todas las lecturas del navegador usan el único cliente compartido. Las
+// mutaciones se hacen mediante la API del servidor para no exponer ni crear un
+// cliente con privilegios administrativos en el navegador.
+const getDbClient = () => supabase
 
 export class PropertiesStorage {
   // Convertir de formato DB a formato App
@@ -149,7 +127,7 @@ export class PropertiesStorage {
   }
 
   // Convertir de formato App a formato DB
-  private static appToDb(appProp: Omit<Propiedad, 'id'>, usuarioId?: string): any {
+  private static appToDb(appProp: Omit<Propiedad, 'id'>): any {
     const dbData: any = {
       titulo: appProp.titulo,
       ubicacion: appProp.ubicacion,
@@ -195,13 +173,6 @@ export class PropertiesStorage {
     }
     if (appProp.cochera !== undefined) {
       dbData.cochera = appProp.cochera
-    }
-
-    // Guardar el email del asesor en asesor_email (nueva columna TEXT)
-    if (usuarioId) {
-      dbData.asesor_email = usuarioId
-      // Mantener usuario_id para compatibilidad con datos antiguos
-      dbData.usuario_id = usuarioId
     }
 
     // Asegurar que no se incluya el id
@@ -316,7 +287,11 @@ export class PropertiesStorage {
   }
 
   // Agregar nueva propiedad
-  static async add(property: Omit<Propiedad, 'id'>, usuarioId: string): Promise<Propiedad | null> {
+  static async add(
+    property: Omit<Propiedad, 'id'>,
+    usuarioId: string,
+    asesorEmail: string
+  ): Promise<Propiedad | null> {
     try {
       // Validar propiedad duplicada
       const isDuplicate = await this.checkDuplicate(property.titulo, property.ubicacion)
@@ -342,23 +317,18 @@ export class PropertiesStorage {
         }
       }
 
-      const dbData = this.appToDb(property, usuarioId)
+      const response = await fetch('/api/asesor/propiedades', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ property: this.appToDb(property), usuarioId, asesorEmail }),
+      })
+      const result = await response.json().catch(() => ({}))
 
-      // Usar admin client para bypassar RLS y permitir que admins/super users creen propiedades
-      const db = getAdminClient()
-
-      const { data, error } = await db
-        .from('propiedades')
-        .insert(dbData)
-        .select()
-        .single()
-
-      if (error) {
-        console.error('PropertiesStorage.add - Error de Supabase:', error)
-        throw error
+      if (!response.ok) {
+        throw new Error(result.error || 'No se pudo guardar la propiedad')
       }
-      
-      return data ? this.dbToApp(data) : null
+
+      return result.property ? this.dbToApp(result.property) : null
     } catch (error) {
       console.error('PropertiesStorage.add - Error capturado:', error)
       throw error
@@ -368,20 +338,15 @@ export class PropertiesStorage {
   // Actualizar propiedad existente
   static async update(id: number, updates: Partial<Propiedad>): Promise<Propiedad | null> {
     try {
-      const dbData = this.appToDb(updates as any)
+      const response = await fetch('/api/asesor/propiedades', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, property: this.appToDb(updates as any) }),
+      })
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(result.error || 'No se pudo actualizar la propiedad')
 
-      const db = getAdminClient()
-
-      const { data, error } = await db
-        .from('propiedades')
-        .update(dbData)
-        .eq('id', id)
-        .select()
-        .single()
-
-      if (error) throw error
-      
-      return data ? this.dbToApp(data) : null
+      return result.property ? this.dbToApp(result.property) : null
     } catch (error) {
       console.error('Error updating property:', error)
       throw error
@@ -392,19 +357,11 @@ export class PropertiesStorage {
   static async delete(id: number): Promise<boolean> {
     try {
       console.log('🗑️ PropertiesStorage.delete - Iniciando eliminación de propiedad ID:', id)
-      const db = getAdminClient()
+      const response = await fetch(`/api/asesor/propiedades?id=${id}`, { method: 'DELETE' })
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(result.error || 'No se pudo eliminar la propiedad')
 
-      const { error, count } = await db
-        .from('propiedades')
-        .delete()
-        .eq('id', id)
-
-      if (error) {
-        console.error('❌ PropertiesStorage.delete - Error de Supabase:', error)
-        throw error
-      }
-      
-      console.log('✅ PropertiesStorage.delete - Propiedad eliminada exitosamente. Count:', count)
+      console.log('✅ PropertiesStorage.delete - Propiedad eliminada exitosamente.')
       return true
     } catch (error) {
       console.error('❌ PropertiesStorage.delete - Error eliminando propiedad:', error)

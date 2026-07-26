@@ -181,8 +181,8 @@ export default function PropiedadesAsesorPage() {
         // Usar el email del usuario para identificar quién subió la propiedad
         if (!user) throw new Error(t('panelAsesor.propiedades.errors.authError'))
 
-        // Guardar con el email del usuario para fácil rastreo
-        const newProperty = await PropertiesStorage.add(data, user.email)
+        // Guardar el UUID como propietario y el correo para el rastreo del asesor
+        const newProperty = await PropertiesStorage.add(data, user.id, user.email)
         if (!newProperty) {
           throw new Error(t('panelAsesor.propiedades.errors.createError'))
         }
@@ -312,7 +312,7 @@ export default function PropiedadesAsesorPage() {
   if (showForm) {
     return (
       <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
-        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
           <button onClick={() => { setShowForm(false); setEditingProperty(null); }} className="flex items-center gap-2 text-[#B0ACA6] hover:text-white mb-6 text-sm transition-colors">
             <ArrowLeft className="h-4 w-4" /> {t('panelAsesor.propiedades.backButton')}
@@ -345,7 +345,7 @@ export default function PropiedadesAsesorPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
@@ -359,10 +359,10 @@ export default function PropiedadesAsesorPage() {
             <p className="text-sm text-[#B0ACA6]">{t('panelAsesor.propiedades.managePortfolio')}</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => handleNavigation('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[#C78F7B]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
-              <Camera className="h-4 w-4 text-[#C78F7B]" /> {t('panelAsesor.propiedades.requestProperty')}
+            <button onClick={() => handleNavigation('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+              <Camera className="h-4 w-4 text-[var(--conectia-arcilla)]" /> {t('panelAsesor.propiedades.requestProperty')}
             </button>
-            <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+            <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
               <Plus className="h-4 w-4" /> {t('panelAsesor.propiedades.newProperty')}
             </button>
           </div>
@@ -371,11 +371,11 @@ export default function PropiedadesAsesorPage() {
         {/* Plan Info — Glassmorphism */}
         {user && (
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-5 sm:p-6 mb-8 overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[60px] pointer-events-none" />
             <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: user.plan === 'elite' ? 'rgba(199,143,123,0.2)' : 'rgba(59,130,246,0.2)', border: user.plan === 'elite' ? '1px solid rgba(199,143,123,0.3)' : '1px solid rgba(59,130,246,0.3)' }}>
-                  {user.plan === 'elite' ? <Diamond className="h-5 w-5 text-[#C78F7B]" /> : <Zap className="h-5 w-5 text-blue-400" />}
+                  {user.plan === 'elite' ? <Diamond className="h-5 w-5 text-[var(--conectia-arcilla)]" /> : <Zap className="h-5 w-5 text-blue-400" />}
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">{getPlanById(user.plan || 'core')?.name}</h3>
@@ -388,7 +388,7 @@ export default function PropiedadesAsesorPage() {
                 </div>
               </div>
               {user.plan !== 'elite' && user.email !== 'lizzie@conectia.mx' && (
-                <button onClick={() => router.push('/panel-asesor/planes')} className="flex items-center gap-2 px-4 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+                <button onClick={() => router.push('/panel-asesor/planes')} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
                   <Diamond className="h-4 w-4" /> {t('panelAsesor.propiedades.upgradeToElite')}
                 </button>
               )}
@@ -399,9 +399,9 @@ export default function PropiedadesAsesorPage() {
         {/* Stats — Glassmorphism */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {[
-            { label: t('panelAsesor.propiedades.stats.total'), value: propiedades.length, accent: '#C78F7B', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.total'), value: propiedades.length, accent: 'var(--conectia-arcilla)', icon: Building2 },
             { label: t('panelAsesor.propiedades.stats.available'), value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye },
-            { label: t('panelAsesor.propiedades.stats.exclusive'), value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: '#C78F7B', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.exclusive'), value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: 'var(--conectia-arcilla)', icon: Building2 },
             { label: t('panelAsesor.propiedades.stats.reserved'), value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2 },
           ].map((stat, i) => (
             <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
@@ -422,12 +422,12 @@ export default function PropiedadesAsesorPage() {
         {/* Lista de Propiedades */}
         {propiedades.length === 0 ? (
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-12 text-center">
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#C78F7B]/10 rounded-full blur-[60px] pointer-events-none" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[60px] pointer-events-none" />
             <div className="relative">
-              <div className="w-16 h-16 bg-[#C78F7B]/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><Building2 className="h-8 w-8 text-[#C78F7B]/60" /></div>
+              <div className="w-16 h-16 bg-[var(--conectia-arcilla)]/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><Building2 className="h-8 w-8 text-[var(--conectia-arcilla)]/60" /></div>
               <h3 className="text-xl font-bold text-white mb-2">{t('panelAsesor.propiedades.noProperties')}</h3>
               <p className="text-sm text-[#B0ACA6] mb-6">{t('panelAsesor.propiedades.startFirst')}</p>
-              <button onClick={handleNewProperty} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[#C78F7B]/20">
+              <button onClick={handleNewProperty} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
                 <Plus className="h-4 w-4" /> {t('panelAsesor.propiedades.publishFirst')}
               </button>
             </div>
@@ -442,26 +442,26 @@ export default function PropiedadesAsesorPage() {
                   <div className="absolute top-3 right-3">
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border ${
                       propiedad.status === 'Disponible' ? 'bg-green-500/15 text-green-400 border-green-500/30' :
-                      propiedad.status === 'Exclusiva' ? 'bg-[#C78F7B]/15 text-[#C78F7B] border-[#C78F7B]/30' :
+                      propiedad.status === 'Exclusiva' ? 'bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] border-[var(--conectia-arcilla)]/30' :
                       'bg-blue-500/15 text-blue-400 border-blue-500/30'
                     }`}>{propiedad.status}</span>
                   </div>
                   <div className="absolute bottom-3 left-3 right-3">
                     <h3 className="text-lg font-bold text-white leading-tight">{propiedad.titulo}</h3>
-                    <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 text-[#C78F7B]" /> {propiedad.ubicacion}</div>
+                    <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 text-[var(--conectia-arcilla)]" /> {propiedad.ubicacion}</div>
                   </div>
                 </div>
 
                 <div className="p-5">
                   {propiedad.agente && (
-                    <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-[#C78F7B]/10 rounded-xl border border-[#C78F7B]/20">
-                      <User className="h-4 w-4 text-[#C78F7B]" />
+                    <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-[var(--conectia-arcilla)]/10 rounded-xl border border-[var(--conectia-arcilla)]/20">
+                      <User className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                       <div className="flex flex-col"><span className="text-[10px] text-[#B0ACA6]">{t('panelAsesor.propiedades.publishedBy')}</span><span className="text-xs font-semibold text-white">{propiedad.agente.nombre}</span></div>
                     </div>
                   )}
 
-                  <p className="text-2xl font-black text-[#C78F7B] mb-2">{propiedad.precioTexto}</p>
-                  <p className="text-xs font-medium text-[#C78F7B]/80 mb-4">
+                  <p className="text-2xl font-black text-[var(--conectia-arcilla)] mb-2">{propiedad.precioTexto}</p>
+                  <p className="text-xs font-medium text-[var(--conectia-arcilla)]/80 mb-4">
                     Tu comisión: {getComisionAsesorTexto(propiedad)}
                   </p>
 
@@ -484,9 +484,9 @@ export default function PropiedadesAsesorPage() {
                           </div>
                         )}
                         {analytics.interactionsCount > 0 && (
-                          <div className="flex items-center gap-1 px-2 py-1 bg-[#C78F7B]/10 rounded-lg border border-[#C78F7B]/20" title="Tiempo promedio de interacción">
-                            <MousePointerClick className="h-3 w-3 text-[#C78F7B]" />
-                            <span className="text-[10px] font-bold text-[#C78F7B]">{formatDuration(getAverageInteractionTimeMs(propiedad.id))}</span>
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[var(--conectia-arcilla)]/10 rounded-lg border border-[var(--conectia-arcilla)]/20" title="Tiempo promedio de interacción">
+                            <MousePointerClick className="h-3 w-3 text-[var(--conectia-arcilla)]" />
+                            <span className="text-[10px] font-bold text-[var(--conectia-arcilla)]">{formatDuration(getAverageInteractionTimeMs(propiedad.id))}</span>
                           </div>
                         )}
                       </div>
@@ -556,7 +556,7 @@ export default function PropiedadesAsesorPage() {
             <div className="space-y-4 mt-4">
               <div>
                 <label className="block text-xs font-medium text-[#B0ACA6] mb-2">{t('panelAsesor.propiedades.bajaConfirm.motivoLabel')}</label>
-                <textarea value={motivoBaja} onChange={(e) => setMotivoBaja(e.target.value)} placeholder={t('panelAsesor.propiedades.bajaConfirm.motivoPlaceholder')} className="w-full p-3 bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder:text-[#4A4F57] focus:border-[#C78F7B] focus:ring-1 focus:ring-[#C78F7B]/20 outline-none" rows={3} />
+                <textarea value={motivoBaja} onChange={(e) => setMotivoBaja(e.target.value)} placeholder={t('panelAsesor.propiedades.bajaConfirm.motivoPlaceholder')} className="w-full p-3 bg-white/5 border border-white/15 rounded-xl text-white text-sm placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)] focus:ring-1 focus:ring-[var(--conectia-arcilla)]/20 outline-none" rows={3} />
               </div>
               <div className="flex gap-3 justify-end">
                 <Button variant="outline" onClick={() => { setBajaConfirm(null); setMotivoBaja(''); }} className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white rounded-xl">{t('panelAsesor.propiedades.cancel')}</Button>

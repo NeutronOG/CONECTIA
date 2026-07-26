@@ -143,8 +143,8 @@ export function DynamicHeader() {
                         group relative flex items-center gap-1.5 px-3 py-1.5
                         rounded-full transition-all duration-300 ease-out
                         ${isActive(item.href)
-                          ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[#C78F7B]/10 dark:text-[#C78F7B] font-semibold'
-                          : 'text-[#4A4F57] hover:text-[#17313A] dark:text-[#EAE4DD]/70 dark:hover:text-[#C78F7B] hover:bg-[#17313A]/07'
+                          ? 'bg-[#17313A]/10 text-[#17313A] dark:bg-[var(--conectia-arcilla)]/10 dark:text-[var(--conectia-arcilla)] font-semibold'
+                          : 'text-[#4A4F57] hover:text-[#17313A] dark:text-[#EAE4DD]/70 dark:hover:text-[var(--conectia-arcilla)] hover:bg-[#17313A]/07'
                         }
                       `}
                     >
@@ -244,7 +244,7 @@ export function DynamicHeader() {
                 <Link href="/login">
                   <Button
                     size="sm"
-                    className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#17313A] hover:bg-[#F6F2EE] hover:text-[#D4987E] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
+                    className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#17313A] hover:bg-[#F6F2EE] hover:text-[var(--conectia-arcilla-hover)] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                   >
                     <UserCircle className="h-2.5 w-2.5" />
                     <span>Acceso</span>
@@ -326,7 +326,7 @@ export function DynamicHeader() {
                           opacity-100
                           ${isActive(item.href)
                             ? 'glass-panel text-[#17313A] dark:text-[#EAE4DD] font-medium'
-                            : 'text-[#4A4F57] dark:text-[#EAE4DD]/70 hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/05 dark:hover:bg-white/10'
+                            : 'text-[#4A4F57] dark:text-[#EAE4DD]/70 hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] hover:bg-[#17313A]/05 dark:hover:bg-white/10'
                           }
                         `}
                       >
@@ -334,7 +334,7 @@ export function DynamicHeader() {
                           w-10 h-10 rounded-xl flex items-center justify-center
                           transition-all duration-300 ease-out
                           ${isActive(item.href)
-                            ? 'bg-[#C78F7B]/25 dark:bg-white/15'
+                            ? 'bg-[var(--conectia-arcilla)]/25 dark:bg-white/15'
                             : 'bg-[#17313A]/08 dark:bg-white/10'
                           }
                         `}>
@@ -378,7 +378,7 @@ export function DynamicHeader() {
                       </Link>
                       <Link href="/especiales" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
-                          <Crown className="h-4 w-4 text-[#B0ACA6] dark:text-[#C78F7B]" />
+                          <Crown className="h-4 w-4 text-[#B0ACA6] dark:text-[var(--conectia-arcilla)]" />
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.especial')}</span>
                         </button>
                       </Link>
@@ -397,7 +397,7 @@ export function DynamicHeader() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
                   >
                     <Search className="h-4 w-4" />
                     <span className="text-sm">{t('common.search')}</span>
@@ -406,7 +406,7 @@ export function DynamicHeader() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[#C78F7B] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#4A4F57] dark:text-[#EAE4DD] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] hover:bg-[#17313A]/06 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <WishlistCounter />
@@ -490,7 +490,7 @@ export function DynamicHeader() {
                 {/* Contact Info */}
                 <div className="text-center pt-3 border-t border-[#17313A]/10 dark:border-white/10 transition-all duration-200 ease-out">
                   <div className="flex items-center justify-center space-x-2 text-sm text-[#4A4F57] dark:text-[#EAE4DD]/80 mb-2">
-                    <MapPin className="h-4 w-4 text-[#17313A] dark:text-[#C78F7B]" />
+                    <MapPin className="h-4 w-4 text-[#17313A] dark:text-[var(--conectia-arcilla)]" />
                     <span>León, Guanajuato</span>
                   </div>
                   <div className="space-y-1 text-sm text-[#4A4F57] dark:text-[#EAE4DD]/80">

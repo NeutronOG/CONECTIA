@@ -47,18 +47,18 @@ export default function EspecialesPage() {
           
           {/* Left Column: Bold Luxury Typography */}
           <div className="lg:col-span-7 space-y-8 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#C78F7B]/15 border border-[#C78F7B]/30 backdrop-blur-md">
-              <Crown className="h-3.5 w-3.5 text-[#C78F7B] animate-pulse" />
-              <span className="text-[9px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">{t('pages.especiales.badge')}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--conectia-arcilla)]/15 border border-[var(--conectia-arcilla)]/30 backdrop-blur-md">
+              <Crown className="h-3.5 w-3.5 text-[var(--conectia-arcilla)] animate-pulse" />
+              <span className="text-[9px] uppercase tracking-[0.4em] text-[var(--conectia-arcilla)] font-bold">{t('pages.especiales.badge')}</span>
             </div>
 
             <div className="space-y-3">
               <h1 className="text-sm uppercase tracking-[0.5em] text-[#EAE4DD] font-semibold flex items-center gap-3">
-                <span className="w-8 h-[1px] bg-[#C78F7B]" /> {t('pages.especiales.eyebrow')}
+                <span className="w-8 h-[1px] bg-[var(--conectia-arcilla)]" /> {t('pages.especiales.eyebrow')}
               </h1>
               <p className="font-serif text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter">
                 {t('pages.especiales.title')}
-                <span className="block font-serif font-light italic text-[#C78F7B] leading-[1] mt-2">
+                <span className="block font-serif font-light italic text-[var(--conectia-arcilla)] leading-[1] mt-2">
                   {t('pages.especiales.titleHighlight')}
                 </span>
               </p>
@@ -71,11 +71,11 @@ export default function EspecialesPage() {
             {/* Premium feature pills */}
             <div className="flex flex-wrap gap-4 pt-2">
               <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                <Star className="h-4 w-4 text-[#C78F7B]" />
+                <Star className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                 <span className="text-xs text-white/90 font-medium">{t('pages.especiales.primeLocation')}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                <Diamond className="h-4 w-4 text-[#C78F7B]" />
+                <Diamond className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                 <span className="text-xs text-white/90 font-medium">{t('pages.especiales.signatureArchitecture')}</span>
               </div>
             </div>
@@ -83,14 +83,14 @@ export default function EspecialesPage() {
 
           {/* Right Column: Premium Glowing Floating Glass Card */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[400px] rounded-3xl p-8 liquid-glass-dark border border-[#C78F7B]/20 shadow-2xl transition-all duration-500 hover:border-[#C78F7B]/40 group overflow-hidden">
+            <div className="relative w-full max-w-[400px] rounded-3xl p-8 liquid-glass-dark border border-[var(--conectia-arcilla)]/20 shadow-2xl transition-all duration-500 hover:border-[var(--conectia-arcilla)]/40 group overflow-hidden">
               {/* Internal abstract gold light flare */}
-              <div className="absolute -top-24 -right-24 w-48 h-44 bg-[#C78F7B]/15 rounded-full blur-[60px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+              <div className="absolute -top-24 -right-24 w-48 h-44 bg-[var(--conectia-arcilla)]/15 rounded-full blur-[60px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
               
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between border-b border-[#EAE4DD]/10 pb-4">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-[#C78F7B] font-bold">{t('pages.especiales.blackLabel')}</span>
-                  <Badge className="bg-[#C78F7B] text-[#0F1114] border-0 text-[10px] font-bold px-3">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--conectia-arcilla)] font-bold">{t('pages.especiales.blackLabel')}</span>
+                  <Badge className="bg-[var(--conectia-arcilla)] text-[#0F1114] border-0 text-[10px] font-bold px-3">
                     {propiedades.length} {t('properties.cards.forSpecial')}
                   </Badge>
                 </div>
@@ -104,11 +104,11 @@ export default function EspecialesPage() {
 
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center gap-3 text-xs text-white/80">
-                    <ShieldCheck className="h-4 w-4 text-[#C78F7B] flex-shrink-0" />
+                    <ShieldCheck className="h-4 w-4 text-[var(--conectia-arcilla)] flex-shrink-0" />
                     <span>{t('pages.especiales.legalStudy')}</span>
                   </div>
                   <div className="flex items-center gap-3 text-xs text-white/80">
-                    <Landmark className="h-4 w-4 text-[#C78F7B] flex-shrink-0" />
+                    <Landmark className="h-4 w-4 text-[var(--conectia-arcilla)] flex-shrink-0" />
                     <span>{t('pages.especiales.notary')}</span>
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export default function EspecialesPage() {
         </div>
 
         {/* Bottom accent glow bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C78F7B]/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--conectia-arcilla)]/40 to-transparent" />
       </section>
 
       {/* METRICS SECTION */}
@@ -127,7 +127,7 @@ export default function EspecialesPage() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
           {METRICS.map((metric, i) => (
             <div key={i} className="flex gap-4 items-start p-6 rounded-2xl bg-white/40 dark:bg-white/[0.02] border border-[#17313A]/5 dark:border-white/5 backdrop-blur-sm">
-              <span className="font-serif text-3xl font-black text-[#C78F7B]">{metric.value}</span>
+              <span className="font-serif text-3xl font-black text-[var(--conectia-arcilla)]">{metric.value}</span>
               <div className="space-y-1">
                 <h4 className="text-sm font-bold text-[#17313A] dark:text-white">{metric.label}</h4>
                 <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] leading-relaxed">{metric.desc}</p>
@@ -145,14 +145,14 @@ export default function EspecialesPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-[1px] bg-[#C78F7B]" />
-                <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">{t('pages.especiales.portfolioSubtitle')}</span>
+                <span className="w-6 h-[1px] bg-[var(--conectia-arcilla)]" />
+                <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--conectia-arcilla)] font-bold">{t('pages.especiales.portfolioSubtitle')}</span>
               </div>
               <h3 className="font-serif text-3xl sm:text-4xl font-black text-[#17313A] dark:text-white leading-tight">
                 {t('pages.especiales.portfolio')}
               </h3>
             </div>
-            <div className="h-px bg-gradient-to-r from-[#C78F7B]/30 to-transparent flex-1 mx-8 hidden lg:block" />
+            <div className="h-px bg-gradient-to-r from-[var(--conectia-arcilla)]/30 to-transparent flex-1 mx-8 hidden lg:block" />
             <span className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] flex-shrink-0 font-medium">
               {t('pages.especiales.showing', { count: propiedades.length })}
             </span>
@@ -166,7 +166,7 @@ export default function EspecialesPage() {
             
             {propiedades.length === 0 && (
               <div className="col-span-full py-24 text-center rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-sm">
-                <Crown className="h-16 w-16 text-[#C78F7B]/40 mx-auto mb-4" />
+                <Crown className="h-16 w-16 text-[var(--conectia-arcilla)]/40 mx-auto mb-4" />
                 <h4 className="font-serif text-xl text-white font-bold mb-2">{t('pages.especiales.emptyTitle')}</h4>
                 <p className="text-[#B0ACA6] text-sm max-w-sm mx-auto">
                   {t('pages.especiales.emptySubtitle')}

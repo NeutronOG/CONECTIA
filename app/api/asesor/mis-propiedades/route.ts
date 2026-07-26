@@ -38,7 +38,7 @@ export async function GET(request: Request) {
 
     console.log('Total propiedades en DB:', data?.length)
     
-    // Log de todos los usuario_id para debugging
+    // Log de los propietarios para debugging
     const usuarioIds = [...new Set(data?.map(p => p.usuario_id).filter(Boolean))]
     console.log('Valores únicos de usuario_id:', usuarioIds)
 
@@ -58,25 +58,26 @@ export async function GET(request: Request) {
 
     // Filtrar propiedades del usuario
     const filtered = (data || []).filter((p: any) => {
-      if (!p.usuario_id) return false
-      const uid = String(p.usuario_id).toLowerCase().trim()
+      const uid = p.usuario_id ? String(p.usuario_id).toLowerCase().trim() : ''
+      const ownerEmail = p.asesor_email ? String(p.asesor_email).toLowerCase().trim() : ''
+      if (!uid && !ownerEmail) return false
       
       // Buscar por email exacto
-      if (email && uid === email.toLowerCase()) return true
+      if (email && (uid === email.toLowerCase() || ownerEmail === email.toLowerCase())) return true
       
       // Buscar por userId
       if (userId && uid === userId.toLowerCase()) return true
       
       // Buscar si contiene el email
-      if (email && uid.includes(email.toLowerCase())) return true
+      if (email && (uid.includes(email.toLowerCase()) || ownerEmail.includes(email.toLowerCase()))) return true
       
       // Buscar por nombre
       if (nombre) {
         const name = nombre.toLowerCase()
-        if (uid.includes(name)) return true
+        if (uid.includes(name) || ownerEmail.includes(name)) return true
         // Primer nombre
         const firstName = name.split(' ')[0]
-        if (firstName.length > 2 && uid.includes(firstName)) return true
+        if (firstName.length > 2 && (uid.includes(firstName) || ownerEmail.includes(firstName))) return true
       }
       
       return false

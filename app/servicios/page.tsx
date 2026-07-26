@@ -20,7 +20,7 @@ export default function ServiciosPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -37,7 +37,7 @@ export default function ServiciosPage() {
           </Card>
 
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <Star className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -54,7 +54,7 @@ export default function ServiciosPage() {
           </Card>
 
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl sm:col-span-2 lg:col-span-1">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -71,7 +71,7 @@ export default function ServiciosPage() {
           </Card>
 
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <Eye className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -89,7 +89,7 @@ export default function ServiciosPage() {
           </Card>
 
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -107,7 +107,7 @@ export default function ServiciosPage() {
           </Card>
 
           <Card className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl glass-card rounded-3xl sm:col-span-2 lg:col-span-1">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
               <Users className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-3 sm:mb-4">
@@ -128,7 +128,7 @@ export default function ServiciosPage() {
           <Link href="/propietarios">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white font-semibold px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg rounded-xl sm:rounded-2xl w-full sm:w-auto"
+              className="bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white font-semibold px-8 sm:px-12 py-4 sm:py-6 text-base sm:text-lg rounded-xl sm:rounded-2xl w-full sm:w-auto"
             >
               Solicitar Consulta Gratuita
             </Button>

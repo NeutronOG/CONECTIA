@@ -534,7 +534,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
                                   {formatPrice(property.precio)}
                                 </p>
                                 <Link href={`/propiedades/${property.id}`}>
-                                  <Button size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] text-xs h-7 px-3 font-semibold">
+                                  <Button size="sm" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] text-xs h-7 px-3 font-semibold">
                                     Ver Detalles
                                   </Button>
                                 </Link>
@@ -607,7 +607,7 @@ export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps)
             <Button
               onClick={handleSendMessage}
               disabled={!inputValue.trim() || isTyping}
-              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
+              className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]"
             >
               <Send className="h-4 w-4" />
             </Button>

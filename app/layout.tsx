@@ -12,6 +12,7 @@ import { Toaster } from "sonner"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/lib/i18n"
 import { LanguageHtml } from "@/components/language-html"
+import { PanelShell } from "@/components/panel-shell"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -80,7 +81,7 @@ export default function RootLayout({
                 <WishlistProvider>
                   <LanguageHtml />
                   <DynamicHeader />
-                  {children}
+                  <PanelShell>{children}</PanelShell>
                   <Footer />
                   <Toaster position="top-right" richColors />
                 </WishlistProvider>

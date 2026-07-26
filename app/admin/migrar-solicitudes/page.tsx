@@ -38,8 +38,8 @@ export default function MigrarSolicitudesPage() {
     <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-[#C78F7B]/20 flex items-center justify-center">
-            <Home className="h-6 w-6 text-[#C78F7B]" />
+          <div className="w-12 h-12 rounded-xl bg-[var(--conectia-arcilla)]/20 flex items-center justify-center">
+            <Home className="h-6 w-6 text-[var(--conectia-arcilla)]" />
           </div>
           <div>
             <h1 className="text-2xl font-bold">Migrar Solicitudes Completadas</h1>
@@ -67,7 +67,7 @@ export default function MigrarSolicitudesPage() {
           <Button
             onClick={handleMigrar}
             disabled={loading}
-            className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold px-6"
+            className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-bold px-6"
           >
             {loading ? (
               <>

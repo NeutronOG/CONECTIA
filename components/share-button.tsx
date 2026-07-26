@@ -181,7 +181,7 @@ export function ShareButton({
                 <div className="absolute bottom-4 left-4 right-4">
                   <p className="text-white font-bold text-lg leading-tight line-clamp-2">{title}</p>
                   {propertyMeta?.precioTexto && (
-                    <p className="text-[#C78F7B] font-black text-xl mt-0.5">{propertyMeta.precioTexto}</p>
+                    <p className="text-[var(--conectia-arcilla)] font-black text-xl mt-0.5">{propertyMeta.precioTexto}</p>
                   )}
                   {propertyMeta?.ubicacion && (
                     <p className="text-white/55 text-xs mt-1">📍 {propertyMeta.ubicacion}</p>
@@ -199,12 +199,12 @@ export function ShareButton({
               <div className="p-6 pb-0">
                 <DialogHeader>
                   <DialogTitle className="text-white text-xl font-bold flex items-center gap-2">
-                    <Share2 className="h-5 w-5 text-[#C78F7B]" /> Compartir propiedad
+                    <Share2 className="h-5 w-5 text-[var(--conectia-arcilla)]" /> Compartir propiedad
                   </DialogTitle>
                 </DialogHeader>
                 <div className="mt-3 p-4 bg-white/5 rounded-2xl border border-white/10">
                   <p className="text-white font-semibold">{title}</p>
-                  {propertyMeta?.precioTexto && <p className="text-[#C78F7B] font-black mt-1">{propertyMeta.precioTexto}</p>}
+                  {propertyMeta?.precioTexto && <p className="text-[var(--conectia-arcilla)] font-black mt-1">{propertyMeta.precioTexto}</p>}
                 </div>
               </div>
             )}
@@ -239,7 +239,7 @@ export function ShareButton({
               </div>
 
               <button onClick={handleNativeShare}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[#C78F7B]/12 border border-[#C78F7B]/25 text-[#C78F7B] hover:bg-[#C78F7B]/22 transition-all text-sm font-semibold">
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[var(--conectia-arcilla)]/12 border border-[var(--conectia-arcilla)]/25 text-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla)]/22 transition-all text-sm font-semibold">
                 <Share2 className="h-4 w-4" /> Compartir en mi dispositivo
               </button>
             </div>
@@ -261,7 +261,7 @@ export function ShareButton({
             {/* Step 1: Image */}
             <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#C78F7B] text-[#0F2027] text-xs font-black flex items-center justify-center flex-shrink-0">1</span>
+                <span className="w-6 h-6 rounded-full bg-[var(--conectia-arcilla)] text-[#0F2027] text-xs font-black flex items-center justify-center flex-shrink-0">1</span>
                 <p className="text-white font-semibold text-sm">Guarda la imagen</p>
               </div>
               {image && (
@@ -278,7 +278,7 @@ export function ShareButton({
             {/* Step 2: Caption */}
             <div className="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-3">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#C78F7B] text-[#0F2027] text-xs font-black flex items-center justify-center flex-shrink-0">2</span>
+                <span className="w-6 h-6 rounded-full bg-[var(--conectia-arcilla)] text-[#0F2027] text-xs font-black flex items-center justify-center flex-shrink-0">2</span>
                 <p className="text-white font-semibold text-sm">Copia el pie de foto</p>
               </div>
               <pre className="text-white/65 text-xs bg-[#0F2027]/60 rounded-xl p-3 whitespace-pre-wrap font-sans leading-relaxed max-h-32 overflow-y-auto scrollbar-hide">
@@ -329,7 +329,7 @@ export function ShareButtonSimple({
 
   return (
     <button onClick={handleShare}
-      className={`flex items-center gap-2 px-3 py-2 bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A] rounded-lg font-medium transition-all ${className}`}>
+      className={`flex items-center gap-2 px-3 py-2 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] rounded-lg font-medium transition-all ${className}`}>
       <Share2 className="h-4 w-4" />
       Compartir
     </button>

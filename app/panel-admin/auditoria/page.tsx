@@ -203,7 +203,7 @@ export default function AuditoriaPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -218,8 +218,8 @@ export default function AuditoriaPage() {
               Volver al Panel
             </button>
             <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-                <ClipboardList className="w-5 h-5 text-[#C78F7B]" />
+              <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+                <ClipboardList className="w-5 h-5 text-[var(--conectia-arcilla)]" />
               </div>
               Auditoría de Actividades
             </h1>
@@ -230,7 +230,7 @@ export default function AuditoriaPage() {
             <Button
               variant="outline"
               onClick={handleDownload}
-              className="border-[#C78F7B] text-[#EAE4DD] hover:bg-[#C78F7B]/10"
+              className="border-[var(--conectia-arcilla)] text-[#EAE4DD] hover:bg-[var(--conectia-arcilla)]/10"
             >
               <Download className="h-4 w-4 mr-2" />
               Descargar CSV
@@ -250,7 +250,7 @@ export default function AuditoriaPage() {
         <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[20px] p-4 sm:p-5 mb-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex items-center gap-2 flex-wrap">
-              <User className="h-4 w-4 text-[#C78F7B]" />
+              <User className="h-4 w-4 text-[var(--conectia-arcilla)]" />
               <span className="text-sm text-[#8A8F97]">Usuario:</span>
               <div className="flex gap-1">
                 {[
@@ -263,7 +263,7 @@ export default function AuditoriaPage() {
                     onClick={() => setFilter(f.id as any)}
                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                       filter === f.id
-                        ? 'bg-[#C78F7B] text-[#0F2027]'
+                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027]'
                         : 'bg-white/[0.05] text-[#B0ACA6] hover:text-white border border-white/10'
                     }`}
                   >
@@ -274,12 +274,12 @@ export default function AuditoriaPage() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <Filter className="h-4 w-4 text-[#C78F7B]" />
+              <Filter className="h-4 w-4 text-[var(--conectia-arcilla)]" />
               <span className="text-sm text-[#8A8F97]">Acción:</span>
               <select
                 value={actionFilter}
                 onChange={(e) => setActionFilter(e.target.value)}
-                className="bg-[#0F2027] border border-white/10 rounded-lg px-3 py-1.5 text-sm text-[#EAE4DD] focus:outline-none focus:border-[#C78F7B]"
+                className="bg-[#0F2027] border border-white/10 rounded-lg px-3 py-1.5 text-sm text-[#EAE4DD] focus:outline-none focus:border-[var(--conectia-arcilla)]"
               >
                 <option value="all">Todas las acciones</option>
                 {uniqueActions.map(action => (
@@ -295,7 +295,7 @@ export default function AuditoriaPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: 'Total registros', value: logs.length, accent: '#C78F7B', icon: ClipboardList },
+            { label: 'Total registros', value: logs.length, accent: 'var(--conectia-arcilla)', icon: ClipboardList },
             { label: 'Acciones de Ari', value: logs.filter(l => l.userEmail === 'ari@conectia.mx').length, accent: '#f59e0b', icon: ShieldCheck },
             { label: 'Cambios en propiedades', value: logs.filter(l => l.action.includes('propiedad')).length, accent: '#3b82f6', icon: Home },
             { label: 'Usuarios activos', value: new Set(logs.map(l => l.userId)).size, accent: '#22c55e', icon: User },
@@ -317,7 +317,7 @@ export default function AuditoriaPage() {
         <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
           <div className="p-5 sm:p-6 border-b border-white/10">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-[#C78F7B]" />
+              <Calendar className="h-5 w-5 text-[var(--conectia-arcilla)]" />
               Registro de Actividades
             </h2>
             <p className="text-sm text-[#8A8F97] mt-1">
@@ -342,10 +342,10 @@ export default function AuditoriaPage() {
                 {logs.map((log) => (
                     <div
                       key={log.id}
-                      className="flex items-start gap-4 p-4 rounded-[16px] bg-white/[0.03] border border-white/10 hover:border-[#C78F7B]/30 transition-all"
+                      className="flex items-start gap-4 p-4 rounded-[16px] bg-white/[0.03] border border-white/10 hover:border-[var(--conectia-arcilla)]/30 transition-all"
                     >
                       {/* Icono */}
-                      <div className={log.userEmail === 'ari@conectia.mx' ? 'p-2.5 rounded-xl bg-[#C78F7B]/10 text-[#C78F7B] border border-[#C78F7B]/20 flex-shrink-0' : 'p-2.5 rounded-xl bg-white/[0.05] text-[#B0ACA6] border border-white/10 flex-shrink-0'}>
+                      <div className={log.userEmail === 'ari@conectia.mx' ? 'p-2.5 rounded-xl bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/20 flex-shrink-0' : 'p-2.5 rounded-xl bg-white/[0.05] text-[#B0ACA6] border border-white/10 flex-shrink-0'}>
                         {log.action === 'login' && <LogIn className="h-5 w-5" />}
                         {log.action === 'logout' && <LogOut className="h-5 w-5" />}
                         {log.action === 'propiedad_creada' && <Home className="h-5 w-5" />}
@@ -373,7 +373,7 @@ export default function AuditoriaPage() {
                             {log.entityType}
                           </span>
                           {log.userEmail === 'ari@conectia.mx' && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-[#C78F7B] text-[#0F2027] font-semibold">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--conectia-arcilla)] text-[#0F2027] font-semibold">
                               Ari
                             </span>
                           )}
@@ -392,13 +392,13 @@ export default function AuditoriaPage() {
                           </span>
                           <span>•</span>
                           <span>{formatDate(log.timestamp)}</span>
-                          <span className="text-[#C78F7B]">({getTimeAgo(log.timestamp)})</span>
+                          <span className="text-[var(--conectia-arcilla)]">({getTimeAgo(log.timestamp)})</span>
                         </div>
 
                         {/* Detalles expandibles */}
                         {Object.keys(log.details).length > 0 && (
                           <details className="mt-2">
-                            <summary className="text-xs text-[#C78F7B] cursor-pointer hover:text-[#D4987E]">
+                            <summary className="text-xs text-[var(--conectia-arcilla)] cursor-pointer hover:text-[var(--conectia-arcilla-hover)]">
                               Ver detalles
                             </summary>
                             <pre className="mt-2 p-3 bg-[#0A181C] rounded-[12px] text-xs text-[#B0ACA6] overflow-x-auto border border-white/5">

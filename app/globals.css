@@ -25,7 +25,14 @@
 
   /* Paleta Principal */
   --conectia-azul:     #17313A;   /* Azul Petróleo */
-  --conectia-arcilla:  #C78F7B;   /* Arcilla Rosada */
+  /* El acento usa azul de marca en claro; el arcilla se conserva en oscuro. */
+  --conectia-arcilla:  #17313A;
+  --conectia-arcilla-hover: #0F2027;
+  --conectia-arcilla-soft: #294952;
+  --conectia-arcilla-deep: #0F2027;
+  --conectia-on-accent: #FFFFFF;
+  --conectia-arcilla-rgb: 23, 49, 58;
+  --conectia-arcilla-hover-rgb: 15, 32, 39;
   --conectia-lila:     #B0ACA6;   /* Gris Cálido (antes Lila Humo) */
   --conectia-marfil:   #EAE4DD;   /* Marfil Humo */
   --conectia-grafito:  #1D1F24;   /* Grafito Profundo */
@@ -57,19 +64,19 @@
   --popover-foreground: #17313A;
   --primary: #17313A;
   --primary-foreground: #EAE4DD;
-  --secondary: rgba(199, 143, 123, 0.18);
+  --secondary: rgba(23, 49, 58, 0.18);
   --secondary-foreground: #17313A;
   --muted: rgba(176, 172, 166, 0.30);
   --muted-foreground: #4A4F57;
-  --accent: #C78F7B;
+  --accent: #17313A;
   --accent-foreground: #FFFFFF;
   --destructive: #C05050;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(199, 143, 123, 0.28);
+  --border: rgba(23, 49, 58, 0.28);
   --input: rgba(23, 49, 58, 0.08);
-  --ring: #C78F7B;
+  --ring: #17313A;
   --chart-1: #17313A;
-  --chart-2: #C78F7B;
+  --chart-2: #17313A;
   --chart-3: #B0ACA6;
   --chart-4: #EAE4DD;
   --chart-5: #1D1F24;
@@ -78,24 +85,24 @@
   /* Sidebar */
   --sidebar: #17313A;
   --sidebar-foreground: #EAE4DD;
-  --sidebar-primary: #C78F7B;
+  --sidebar-primary: #17313A;
   --sidebar-primary-foreground: #17313A;
-  --sidebar-accent: rgba(199, 143, 123, 0.15);
+  --sidebar-accent: rgba(23, 49, 58, 0.15);
   --sidebar-accent-foreground: #17313A;
   --sidebar-border: rgba(23, 49, 58, 0.10);
-  --sidebar-ring: #C78F7B;
+  --sidebar-ring: #17313A;
 
   /* Aliases de compatibilidad */
   --conectia-primary: #17313A;
   --conectia-primary-dark: #0F2027;
-  --conectia-secondary: #C78F7B;
+  --conectia-secondary: #17313A;
   --conectia-accent: #EAE4DD;
   --conectia-surface: #EAE4DD;
   --conectia-surface-container: #F6F2EE;
   --conectia-surface-high: #FFFFFF;
   --conectia-on-surface: #1D1F24;
   --conectia-on-surface-variant: #4A4F57;
-  --conectia-gold: #C78F7B;
+  --conectia-gold: #17313A;
 
   /* Tipografía */
   --font-conectia: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -104,6 +111,14 @@
 
 
 .dark {
+  /* Valores originales de arcilla, exclusivos para modo oscuro. */
+  --conectia-arcilla: #C78F7B;
+  --conectia-arcilla-hover: #D4987E;
+  --conectia-arcilla-soft: #E8A88F;
+  --conectia-arcilla-deep: #B87C68;
+  --conectia-on-accent: #0F2027;
+  --conectia-arcilla-rgb: 199, 143, 123;
+  --conectia-arcilla-hover-rgb: 212, 153, 126;
   /* Shadcn / Tailwind Design Tokens — MODO OSCURO */
   --background: #17313A;
   --foreground: #EAE4DD;
@@ -213,14 +228,14 @@
     overflow-x: hidden;
     /* Textura de fondo sutil — patrón líquido CONECTIA */
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(199,143,123,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(199,143,123,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(23,49,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(23,49,58,0.05) 0%, transparent 60%),
       radial-gradient(ellipse 100% 80% at 50% 50%, rgba(246,242,238,1) 0%, rgba(234,228,221,1) 100%);
   }
   .dark body {
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(199,143,123,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(199,143,123,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(var(--conectia-arcilla-rgb), 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(var(--conectia-arcilla-rgb), 0.05) 0%, transparent 60%),
       radial-gradient(ellipse 100% 80% at 50% 50%, rgba(23,49,58,1) 0%, rgba(15,32,39,1) 100%);
   }
   h1, h2, h3, h4, h5, h6 {
@@ -234,14 +249,14 @@
   ::-webkit-scrollbar-track { background: rgba(23,49,58,0.10); }
   .dark ::-webkit-scrollbar-track { background: rgba(23,49,58,0.20); }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #C78F7B, #B0ACA6);
+    background: linear-gradient(180deg, var(--conectia-arcilla), #B0ACA6);
     border-radius: 99px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: #C78F7B; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--conectia-arcilla); }
 
   /* Selección de texto */
   ::selection {
-    background: rgba(199,143,123,0.30);
+    background: color-mix(in srgb, var(--conectia-arcilla) 30%, transparent);
     color: var(--foreground);
   }
 
@@ -250,7 +265,7 @@
     background: linear-gradient(135deg, rgba(15, 17, 20, 0.85) 0%, rgba(23, 27, 32, 0.75) 50%, rgba(10, 12, 14, 0.80) 100%) !important;
     backdrop-filter: blur(32px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
-    border: 1px solid rgba(199, 143, 123, 0.25) !important;
+    border: 1px solid color-mix(in srgb, var(--conectia-arcilla) 25%, transparent) !important;
     border-top-color: rgba(255,255,255,0.12) !important;
     box-shadow: 0 2px 0 rgba(255,255,255,0.06) inset, 0 32px 80px rgba(0, 0, 0, 0.40), 0 4px 16px rgba(0, 0, 0, 0.20);
     color: #EAE4DD !important;
@@ -264,8 +279,69 @@
   }
 }
 
+/* Paneles internos --------------------------------------------------------
+   Varias pantallas de operación nacieron como interfaces exclusivamente
+   oscuras con utilidades de color fijas. Esta capa conserva ese aspecto en
+   oscuro y traduce sus superficies y textos al tema claro global. */
+.dashboard-shell {
+  --dashboard-background: #F6F2EE;
+  --dashboard-surface: rgba(255, 255, 255, 0.78);
+  --dashboard-surface-subtle: rgba(23, 49, 58, 0.06);
+  --dashboard-border: rgba(23, 49, 58, 0.15);
+  --dashboard-text: #17313A;
+  --dashboard-muted: #4A4F57;
+  color: var(--dashboard-text);
+}
+
+.dark .dashboard-shell {
+  --dashboard-background: #0F2027;
+  --dashboard-surface: rgba(255, 255, 255, 0.03);
+  --dashboard-surface-subtle: rgba(255, 255, 255, 0.05);
+  --dashboard-border: rgba(255, 255, 255, 0.10);
+  --dashboard-text: #FFFFFF;
+  --dashboard-muted: #B0ACA6;
+}
+
+html:not(.dark) .dashboard-shell [class*="bg-[#0F2027]"],
+html:not(.dark) .dashboard-shell [class*="bg-[#17313A]"] {
+  background-color: var(--dashboard-background) !important;
+}
+
+html:not(.dark) .dashboard-shell [class*="bg-white/"] {
+  background-color: var(--dashboard-surface) !important;
+}
+
+html:not(.dark) .dashboard-shell [class*="border-white/"] {
+  border-color: var(--dashboard-border) !important;
+}
+
+.dashboard-shell [class*="text-[#B0ACA6]"] {
+  color: var(--dashboard-muted) !important;
+}
+
+html:not(.dark) .dashboard-shell :is(h1, h2, h3, h4, h5, h6, p, span).text-white,
+html:not(.dark) .dashboard-shell :is(h1, h2, h3, h4, h5, h6, p, span)[class*="text-[#EAE4DD]"] {
+  color: var(--dashboard-text) !important;
+}
+
+html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"].text-white,
+html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"][class*="text-[#EAE4DD]"] {
+  color: var(--dashboard-text) !important;
+}
+
 /* Utility classes para branding CONECTIA (paleta cálida) */
 @layer utilities {
+  /* Mantiene contraste en los controles que cambian del arcilla al azul. */
+  [class~="bg-[var(--conectia-arcilla)]"][class~="text-[#0F2027]"],
+  [class~="bg-[var(--conectia-arcilla)]"][class~="text-[#17313A]"] {
+    color: var(--conectia-on-accent);
+  }
+
+  [data-state="active"][class~="data-[state=active]:bg-[var(--conectia-arcilla)]"][class~="data-[state=active]:text-[#0F2027]"],
+  [data-state="checked"][class~="data-[state=checked]:bg-[var(--conectia-arcilla)]"][class~="data-[state=checked]:text-[#0F2027]"] {
+    color: var(--conectia-on-accent);
+  }
+
   /* conectia-gold ahora mapea al terracota/cobre principal */
   .text-conectia-gold { color: var(--conectia-primary); }
   .bg-conectia-gold { background-color: var(--conectia-primary); }
@@ -410,9 +486,9 @@
     ) !important;
     backdrop-filter: blur(24px) saturate(170%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
-    border: 1px solid rgba(199, 143, 123, 0.35) !important;
-    border-top-color: rgba(199, 143, 123, 0.22) !important;
-    border-bottom-color: rgba(199, 143, 123, 0.45) !important;
+    border: 1px solid rgba(var(--conectia-arcilla-rgb), 0.35) !important;
+    border-top-color: rgba(var(--conectia-arcilla-rgb), 0.22) !important;
+    border-bottom-color: rgba(var(--conectia-arcilla-rgb), 0.45) !important;
     box-shadow:
       0 1px 0 rgba(255,255,255,0.06) inset,
       0 8px 32px rgba(0, 0, 0, 0.30),
@@ -489,9 +565,9 @@
     ) !important;
     backdrop-filter: blur(28px) saturate(180%) brightness(0.95);
     -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(0.95);
-    border: 1px solid rgba(199, 143, 123, 0.35) !important;
-    border-top-color: rgba(199, 143, 123, 0.22) !important;
-    border-bottom-color: rgba(199, 143, 123, 0.45) !important;
+    border: 1px solid rgba(var(--conectia-arcilla-rgb), 0.35) !important;
+    border-top-color: rgba(var(--conectia-arcilla-rgb), 0.22) !important;
+    border-bottom-color: rgba(var(--conectia-arcilla-rgb), 0.45) !important;
     box-shadow:
       0 2px 0 rgba(255,255,255,0.06) inset,
       0 -1px 0 rgba(0,0,0,0.25) inset,
@@ -523,9 +599,9 @@
       0 -1px 0 rgba(23,49,58,0.10) inset,
       0 28px 80px rgba(23,49,58,0.14),
       0 6px 20px rgba(23,49,58,0.10),
-      0 0 0 1px rgba(199,143,123,0.18);
+      0 0 0 1px rgba(var(--conectia-arcilla-rgb), 0.18);
     transform: translateY(-2px);
-    border-color: rgba(199,143,123,0.30);
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.30);
   }
   .dark .glass-card:hover {
     box-shadow:
@@ -533,7 +609,7 @@
       0 -1px 0 rgba(23,49,58,0.18) inset,
       0 28px 80px rgba(23,49,58,0.36),
       0 6px 20px rgba(23,49,58,0.22),
-      0 0 0 1px rgba(199,143,123,0.18);
+      0 0 0 1px rgba(var(--conectia-arcilla-rgb), 0.18);
   }
   .glass-card::before {
     content: '';
@@ -549,16 +625,16 @@
 
   /* ── Glass primario (Arcilla) ── */
   .glass-primary {
-    background: linear-gradient(145deg, rgba(199, 143, 123, 0.9) 0%, rgba(212, 153, 126, 0.95) 100%) !important;
+    background: linear-gradient(145deg, rgba(var(--conectia-arcilla-rgb), 0.9) 0%, rgba(var(--conectia-arcilla-hover-rgb), 0.95) 100%) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     border: 1px solid rgba(234, 228, 221, 0.35) !important;
     box-shadow: 
-      0 4px 20px rgba(199, 143, 123, 0.35),
+      0 4px 20px rgba(var(--conectia-arcilla-rgb), 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
   }
   .dark .glass-primary {
-    background: linear-gradient(145deg, rgba(199, 143, 123, 0.85) 0%, rgba(212, 153, 126, 0.9) 100%) !important;
+    background: linear-gradient(145deg, rgba(var(--conectia-arcilla-rgb), 0.85) 0%, rgba(var(--conectia-arcilla-hover-rgb), 0.9) 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.25) !important;
   }
 
@@ -638,11 +714,11 @@
     box-shadow: 0 1px 0 rgba(255,255,255,0.70) inset, 0 4px 12px rgba(23,49,58,0.06);
   }
   .glass-input:focus {
-    border-color: rgba(199,143,123,0.60);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.20) inset, 0 0 0 3px rgba(199,143,123,0.18), 0 4px 12px rgba(23,49,58,0.06);
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.60);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.20) inset, 0 0 0 3px rgba(var(--conectia-arcilla-rgb), 0.18), 0 4px 12px rgba(23,49,58,0.06);
   }
   .dark .glass-input:focus {
-    box-shadow: 0 1px 0 rgba(255,255,255,0.70) inset, 0 0 0 3px rgba(199,143,123,0.18), 0 4px 12px rgba(23,49,58,0.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.70) inset, 0 0 0 3px rgba(var(--conectia-arcilla-rgb), 0.18), 0 4px 12px rgba(23,49,58,0.08);
   }
 
   /* ── Botón primario (Grafito/Azul) ── */
@@ -677,16 +753,16 @@
     transform: translateY(-1px);
   }
 
-  /* ── Botón secundario (Arcilla) ── */
+  /* ── Botón secundario (azul en claro, arcilla en oscuro) ── */
   .btn-glass-secondary {
     position: relative;
-    background: linear-gradient(180deg, #D4987E 0%, #C78F7B 100%);
+    background: linear-gradient(180deg, var(--conectia-arcilla-hover) 0%, var(--conectia-arcilla) 100%);
     border: 1px solid rgba(255,255,255,0.18);
-    border-bottom-color: rgba(150,90,65,0.35);
+    border-bottom-color: color-mix(in srgb, var(--conectia-arcilla-deep) 35%, transparent);
     box-shadow:
       0 1px 0 rgba(255,255,255,0.25) inset,
-      0 -1px 0 rgba(150,90,65,0.30) inset,
-      0 8px 24px rgba(199,143,123,0.35);
+      0 -1px 0 color-mix(in srgb, var(--conectia-arcilla-deep) 30%, transparent) inset,
+      0 8px 24px color-mix(in srgb, var(--conectia-arcilla) 35%, transparent);
     color: #FFFFFF;
     transition: all 0.25s ease;
     overflow: hidden;
@@ -701,10 +777,10 @@
     pointer-events: none;
   }
   .btn-glass-secondary:hover {
-    background: linear-gradient(180deg, #DC9F85 0%, #CE9682 100%);
+    background: linear-gradient(180deg, var(--conectia-arcilla-soft) 0%, var(--conectia-arcilla-hover) 100%);
     box-shadow:
       0 1px 0 rgba(255,255,255,0.28) inset,
-      0 12px 32px rgba(199,143,123,0.45);
+      0 12px 32px color-mix(in srgb, var(--conectia-arcilla) 45%, transparent);
     transform: translateY(-1px);
   }
 
@@ -752,7 +828,7 @@
 
   /* ── Accent glow (arcilla rosada) ── */
   .glow-arcilla {
-    box-shadow: 0 0 24px rgba(199,143,123,0.35), 0 0 8px rgba(199,143,123,0.20);
+    box-shadow: 0 0 24px rgba(var(--conectia-arcilla-rgb), 0.35), 0 0 8px rgba(var(--conectia-arcilla-rgb), 0.20);
   }
   .glow-azul {
     box-shadow: 0 0 24px rgba(23,49,58,0.50), 0 0 8px rgba(23,49,58,0.30);
@@ -904,10 +980,10 @@
 
 @keyframes pulse-subtle {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(199, 143, 123, 0.35);
+    box-shadow: 0 0 0 0 rgba(var(--conectia-arcilla-rgb), 0.35);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(199, 143, 123, 0);
+    box-shadow: 0 0 0 10px rgba(var(--conectia-arcilla-rgb), 0);
   }
 }
 
@@ -986,7 +1062,7 @@
     position: absolute;
     inset: 0;
     padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.80), rgba(199,143,123,0.50), rgba(130,120,141,0.35), rgba(255,255,255,0.60));
+    background: linear-gradient(135deg, rgba(255,255,255,0.80), rgba(var(--conectia-arcilla-rgb), 0.50), rgba(130,120,141,0.35), rgba(255,255,255,0.60));
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
@@ -1054,7 +1130,7 @@
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(199, 143, 123, 0.4) 0%, transparent 50%, rgba(23, 49, 58, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(var(--conectia-arcilla-rgb), 0.4) 0%, transparent 50%, rgba(23, 49, 58, 0.3) 100%);
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -1078,42 +1154,42 @@
 }
 
 .orb-accent {
-  background: radial-gradient(circle, rgba(199, 143, 123, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--conectia-arcilla-rgb), 0.3) 0%, transparent 70%);
 }
 
 /* Override default petroleum borders to brand orange in light mode only */
 html:not(.dark) {
   .border-\[\#17313A\]\/5 {
-    border-color: rgba(199, 143, 123, 0.15) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.15) !important;
   }
   .border-\[\#17313A\]\/8 {
-    border-color: rgba(199, 143, 123, 0.25) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.25) !important;
   }
   .border-\[\#17313A\]\/08 {
-    border-color: rgba(199, 143, 123, 0.25) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.25) !important;
   }
   .border-\[\#17313A\]\/10 {
-    border-color: rgba(199, 143, 123, 0.30) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.30) !important;
   }
   .border-\[\#17313A\]\/12 {
-    border-color: rgba(199, 143, 123, 0.32) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.32) !important;
   }
   .border-\[\#17313A\]\/15 {
-    border-color: rgba(199, 143, 123, 0.35) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.35) !important;
   }
   .border-\[\#17313A\]\/20 {
-    border-color: rgba(199, 143, 123, 0.40) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.40) !important;
   }
   .border-\[\#17313A\]\/25 {
-    border-color: rgba(199, 143, 123, 0.45) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.45) !important;
   }
   .border-\[\#17313A\]\/30 {
-    border-color: rgba(199, 143, 123, 0.50) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.50) !important;
   }
   .border-\[\#17313A\]\/40 {
-    border-color: rgba(199, 143, 123, 0.60) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.60) !important;
   }
   .border-\[\#17313A\]\/50 {
-    border-color: rgba(199, 143, 123, 0.70) !important;
+    border-color: rgba(var(--conectia-arcilla-rgb), 0.70) !important;
   }
 }

@@ -230,7 +230,7 @@ export default function PublicidadPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto relative z-10">
@@ -246,8 +246,8 @@ export default function PublicidadPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-                  <Megaphone className="w-5 h-5 text-[#C78F7B]" />
+                <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+                  <Megaphone className="w-5 h-5 text-[var(--conectia-arcilla)]" />
                 </div>
                 Publicidad
               </h1>
@@ -255,7 +255,7 @@ export default function PublicidadPage() {
             </div>
             <Button
               onClick={() => { resetForm(); setShowForm(true) }}
-              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold"
+              className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-bold"
             >
               <Plus className="h-4 w-4 mr-2" />
               Nuevo Anuncio
@@ -266,7 +266,7 @@ export default function PublicidadPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {[
-            { label: 'Total', value: ads.length, accent: '#C78F7B', icon: Megaphone },
+            { label: 'Total', value: ads.length, accent: 'var(--conectia-arcilla)', icon: Megaphone },
             { label: 'Activos', value: ads.filter(a => a.estado === 'activo').length, accent: '#22c55e', icon: Play },
             { label: 'Impresiones', value: ads.reduce((s, a) => s + (a.impresiones || 0), 0), accent: '#3b82f6', icon: Eye },
             { label: 'Clicks', value: ads.reduce((s, a) => s + (a.clicks || 0), 0), accent: '#f59e0b', icon: MousePointer },
@@ -289,7 +289,7 @@ export default function PublicidadPage() {
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden mb-8">
             <div className="p-6 sm:p-8">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-white">
-                <PenLine className="h-5 w-5 text-[#C78F7B]" />
+                <PenLine className="h-5 w-5 text-[var(--conectia-arcilla)]" />
                 {editingId ? 'Editar Anuncio' : 'Nuevo Anuncio'}
               </h2>
 
@@ -329,7 +329,7 @@ export default function PublicidadPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <ImageIcon className="h-3.5 w-3.5 text-[#C78F7B]" /> URL de imagen
+                      <ImageIcon className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> URL de imagen
                     </Label>
                     <Input
                       placeholder="https://ejemplo.com/imagen.jpg"
@@ -345,7 +345,7 @@ export default function PublicidadPage() {
                   </div>
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <LinkIcon className="h-3.5 w-3.5 text-[#C78F7B]" /> Enlace de destino
+                      <LinkIcon className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> Enlace de destino
                     </Label>
                     <Input
                       placeholder="https://ejemplo.com"
@@ -359,7 +359,7 @@ export default function PublicidadPage() {
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <LayoutGrid className="h-3.5 w-3.5 text-[#C78F7B]" /> Ubicación
+                      <LayoutGrid className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> Ubicación
                     </Label>
                     <Select value={form.ubicacion} onValueChange={(v) => setForm(prev => ({ ...prev, ubicacion: v }))}>
                       <SelectTrigger className="bg-[#0F2027] border-white/10 text-white">
@@ -375,7 +375,7 @@ export default function PublicidadPage() {
                   </div>
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <Palette className="h-3.5 w-3.5 text-[#C78F7B]" /> Estilo
+                      <Palette className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> Estilo
                     </Label>
                     <Select value={form.estilo} onValueChange={(v) => setForm(prev => ({ ...prev, estilo: v }))}>
                       <SelectTrigger className="bg-[#0F2027] border-white/10 text-white">
@@ -405,7 +405,7 @@ export default function PublicidadPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5 text-[#C78F7B]" /> Fecha inicio
+                      <Calendar className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> Fecha inicio
                     </Label>
                     <Input
                       type="date"
@@ -416,7 +416,7 @@ export default function PublicidadPage() {
                   </div>
                   <div className="space-y-2">
                     <Label className="text-[#B0ACA6] text-sm flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5 text-[#C78F7B]" /> Fecha fin (opcional)
+                      <Calendar className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /> Fecha fin (opcional)
                     </Label>
                     <Input
                       type="date"
@@ -431,7 +431,7 @@ export default function PublicidadPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-bold px-8"
+                    className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-bold px-8"
                   >
                     {saving ? 'Guardando...' : editingId ? 'Guardar Cambios' : 'Crear Anuncio'}
                   </Button>
@@ -448,7 +448,7 @@ export default function PublicidadPage() {
         <div className="space-y-4">
           {loading ? (
             <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-12 text-center">
-              <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin mx-auto mb-3" />
+              <div className="w-10 h-10 border-2 border-[var(--conectia-arcilla)]/30 border-t-[var(--conectia-arcilla)] rounded-full animate-spin mx-auto mb-3" />
               <p className="text-[#8A8F97]">Cargando anuncios...</p>
             </div>
           ) : ads.length === 0 ? (
@@ -474,7 +474,7 @@ export default function PublicidadPage() {
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <h3 className="font-bold text-white truncate">{ad.titulo}</h3>
                           <span className={`px-2 py-0.5 rounded-full text-xs font-semibold border ${badge.color}`}>{badge.label}</span>
-                          <span className="px-2 py-0.5 rounded-full text-xs border border-[#C78F7B]/30 text-[#C78F7B]">
+                          <span className="px-2 py-0.5 rounded-full text-xs border border-[var(--conectia-arcilla)]/30 text-[var(--conectia-arcilla)]">
                             {ubicacionLabels[ad.ubicacion] || ad.ubicacion}
                           </span>
                           <span className="px-2 py-0.5 rounded-full text-xs border border-white/10 text-[#B0ACA6]">

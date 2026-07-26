@@ -158,7 +158,7 @@ export default function SolicitudesFotografoPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -172,8 +172,8 @@ export default function SolicitudesFotografoPage() {
             Volver al Panel
           </button>
           <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-              <Aperture className="w-5 h-5 text-[#C78F7B]" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+              <Aperture className="w-5 h-5 text-[var(--conectia-arcilla)]" />
             </div>
             Solicitudes de Fotógrafo
           </h1>
@@ -208,7 +208,7 @@ export default function SolicitudesFotografoPage() {
           <div className="p-5 sm:p-6">
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="w-10 h-10 border-2 border-[#C78F7B]/30 border-t-[#C78F7B] rounded-full animate-spin" />
+                <div className="w-10 h-10 border-2 border-[var(--conectia-arcilla)]/30 border-t-[var(--conectia-arcilla)] rounded-full animate-spin" />
               </div>
             ) : solicitudes.length === 0 ? (
               <div className="text-center py-12">
@@ -244,7 +244,7 @@ export default function SolicitudesFotografoPage() {
                     <div
                       key={solicitud.id}
                       className={`p-4 sm:p-5 rounded-[16px] border transition-all ${
-                        isSelected ? 'border-[#C78F7B]/40 bg-white/[0.05]' : 'border-white/10 bg-white/[0.03]'
+                        isSelected ? 'border-[var(--conectia-arcilla)]/40 bg-white/[0.05]' : 'border-white/10 bg-white/[0.03]'
                       }`}
                     >
                       <div className="space-y-4">
@@ -260,12 +260,12 @@ export default function SolicitudesFotografoPage() {
                             </div>
                             <div className="flex flex-wrap items-center gap-4 text-sm text-[#8A8F97] mb-2">
                               <span className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4 text-[#C78F7B]" />
+                                <MapPin className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                                 {solicitud.ubicacion}
                               </span>
                               {solicitud.precio_estimado && (
                                 <span className="flex items-center gap-1">
-                                  <DollarSign className="h-4 w-4 text-[#C78F7B]" />
+                                  <DollarSign className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                                   ${solicitud.precio_estimado.toLocaleString('es-MX')}
                                 </span>
                               )}

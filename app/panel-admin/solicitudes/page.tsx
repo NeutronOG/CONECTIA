@@ -159,7 +159,7 @@ export default function SolicitudesPropietariosPage() {
   return (
     <div className="min-h-screen bg-[#0F2027] text-[#EAE4DD] p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Glow orbs */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[#C78F7B]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-[#17313A]/60 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -173,8 +173,8 @@ export default function SolicitudesPropietariosPage() {
             Volver al Panel
           </button>
           <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center border border-[#C78F7B]/20">
-              <Inbox className="w-5 h-5 text-[#C78F7B]" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center border border-[var(--conectia-arcilla)]/20">
+              <Inbox className="w-5 h-5 text-[var(--conectia-arcilla)]" />
             </div>
             Solicitudes de Propietarios
           </h1>
@@ -184,7 +184,7 @@ export default function SolicitudesPropietariosPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
           {[
-            { label: 'Total', value: stats.total, accent: '#C78F7B', icon: Building2 },
+            { label: 'Total', value: stats.total, accent: 'var(--conectia-arcilla)', icon: Building2 },
             { label: 'Pendientes', value: stats.pending, accent: '#f59e0b', icon: Clock },
             { label: 'Contactados', value: stats.contacted, accent: '#3b82f6', icon: Phone },
             { label: 'Aprobados', value: stats.approved, accent: '#22c55e', icon: CheckCircle },
@@ -206,10 +206,10 @@ export default function SolicitudesPropietariosPage() {
         {/* Tabs por Estado */}
         <Tabs defaultValue="all" className="space-y-6">
           <TabsList className="bg-white/[0.03] border border-white/10 p-1">
-            <TabsTrigger value="all" className="data-[state=active]:bg-[#C78F7B] data-[state=active]:text-[#0F2027]">Todas ({stats.total})</TabsTrigger>
-            <TabsTrigger value="pending" className="data-[state=active]:bg-[#C78F7B] data-[state=active]:text-[#0F2027]">Pendientes ({stats.pending})</TabsTrigger>
-            <TabsTrigger value="contacted" className="data-[state=active]:bg-[#C78F7B] data-[state=active]:text-[#0F2027]">Contactados ({stats.contacted})</TabsTrigger>
-            <TabsTrigger value="approved" className="data-[state=active]:bg-[#C78F7B] data-[state=active]:text-[#0F2027]">Aprobados ({stats.approved})</TabsTrigger>
+            <TabsTrigger value="all" className="data-[state=active]:bg-[var(--conectia-arcilla)] data-[state=active]:text-[#0F2027]">Todas ({stats.total})</TabsTrigger>
+            <TabsTrigger value="pending" className="data-[state=active]:bg-[var(--conectia-arcilla)] data-[state=active]:text-[#0F2027]">Pendientes ({stats.pending})</TabsTrigger>
+            <TabsTrigger value="contacted" className="data-[state=active]:bg-[var(--conectia-arcilla)] data-[state=active]:text-[#0F2027]">Contactados ({stats.contacted})</TabsTrigger>
+            <TabsTrigger value="approved" className="data-[state=active]:bg-[var(--conectia-arcilla)] data-[state=active]:text-[#0F2027]">Aprobados ({stats.approved})</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="space-y-4">
@@ -226,11 +226,11 @@ export default function SolicitudesPropietariosPage() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2 flex-wrap">
-                          <Building2 className="h-5 w-5 text-[#C78F7B]" />
+                          <Building2 className="h-5 w-5 text-[var(--conectia-arcilla)]" />
                           <h3 className="text-lg font-bold text-white">{propertyTypeLabels[submission.propertyType] || submission.propertyType}</h3>
                           {getStatusBadge(submission.status)}
                           {submission.tipoConsulta && (
-                            <span className="px-2 py-0.5 rounded-full text-xs border border-[#C78F7B]/30 text-[#C78F7B]">
+                            <span className="px-2 py-0.5 rounded-full text-xs border border-[var(--conectia-arcilla)]/30 text-[var(--conectia-arcilla)]">
                               {tipoConsultaLabels[submission.tipoConsulta] || submission.tipoConsulta}
                             </span>
                           )}
@@ -249,7 +249,7 @@ export default function SolicitudesPropietariosPage() {
                         </div>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="text-2xl font-bold text-[#C78F7B]">
+                        <p className="text-2xl font-bold text-[var(--conectia-arcilla)]">
                           {formatCurrency(submission.askingPrice)}
                         </p>
                         {submission.estimatedValue && (
@@ -296,14 +296,14 @@ export default function SolicitudesPropietariosPage() {
                       )}
                       <div>
                         <p className="text-[#8A8F97] text-xs mb-0.5">Fotos</p>
-                        <p className="font-semibold text-white flex items-center gap-1"><Camera className="h-3 w-3 text-[#C78F7B]" />{submission.photoCount}</p>
+                        <p className="font-semibold text-white flex items-center gap-1"><Camera className="h-3 w-3 text-[var(--conectia-arcilla)]" />{submission.photoCount}</p>
                       </div>
                     </div>
 
                     {/* Descripción */}
                     {submission.description && (
                       <div className="mb-4 p-3 bg-white/[0.03] rounded-[12px] border border-white/10">
-                        <p className="text-[#8A8F97] text-xs mb-1 flex items-center gap-1"><FileText className="h-3 w-3 text-[#C78F7B]" />Descripción</p>
+                        <p className="text-[#8A8F97] text-xs mb-1 flex items-center gap-1"><FileText className="h-3 w-3 text-[var(--conectia-arcilla)]" />Descripción</p>
                         <p className="text-sm text-[#B0ACA6]">{submission.description}</p>
                       </div>
                     )}
@@ -313,27 +313,27 @@ export default function SolicitudesPropietariosPage() {
                       <p className="text-[#8A8F97] text-sm mb-2">Propietario</p>
                       <div className="flex flex-wrap items-center gap-4 text-sm text-[#B0ACA6]">
                         <div className="flex items-center gap-1">
-                          <User className="h-4 w-4 text-[#C78F7B]" />
+                          <User className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                           {submission.ownerName}
                         </div>
                         <div className="flex items-center gap-1">
-                          <Phone className="h-4 w-4 text-[#C78F7B]" />
+                          <Phone className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                           {submission.phone}
                         </div>
                         <div className="flex items-center gap-1">
-                          <Mail className="h-4 w-4 text-[#C78F7B]" />
+                          <Mail className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                           {submission.email}
                         </div>
                         {submission.preferredContact && (
                           <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4 text-[#C78F7B]" />
+                            <Clock className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                             {contactLabels[submission.preferredContact] || submission.preferredContact}
                           </div>
                         )}
                       </div>
                       <div className="flex gap-2 mt-2 flex-wrap">
                         {submission.exclusivity && (
-                          <span className="px-2 py-0.5 rounded-full text-xs bg-[#C78F7B]/10 text-[#C78F7B] border border-[#C78F7B]/20">Exclusividad aceptada</span>
+                          <span className="px-2 py-0.5 rounded-full text-xs bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/20">Exclusividad aceptada</span>
                         )}
                         {submission.terms && (
                           <span className="px-2 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 border border-green-500/20">Términos aceptados</span>
@@ -374,9 +374,9 @@ export default function SolicitudesPropietariosPage() {
 
                     {/* Promoción / Bono */}
                     {submission.promocion && submission.promocion !== 'ninguna' && (
-                      <div className="mb-4 p-3 bg-[#C78F7B]/5 rounded-[12px] border border-[#C78F7B]/20">
-                        <p className="text-[#8A8F97] text-xs mb-2 flex items-center gap-1"><Tag className="h-3 w-3 text-[#C78F7B]" />Promoción / Bono</p>
-                        <div className="inline-flex items-center gap-2 bg-[#C78F7B] text-[#0F2027] px-4 py-2 rounded-full text-sm font-bold">
+                      <div className="mb-4 p-3 bg-[var(--conectia-arcilla)]/5 rounded-[12px] border border-[var(--conectia-arcilla)]/20">
+                        <p className="text-[#8A8F97] text-xs mb-2 flex items-center gap-1"><Tag className="h-3 w-3 text-[var(--conectia-arcilla)]" />Promoción / Bono</p>
+                        <div className="inline-flex items-center gap-2 bg-[var(--conectia-arcilla)] text-[#0F2027] px-4 py-2 rounded-full text-sm font-bold">
                           <Tag className="h-4 w-4" />
                           {submission.promocion === 'personalizada'
                             ? (submission.promocionPersonalizada || 'Promoción Especial')

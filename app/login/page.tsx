@@ -196,7 +196,7 @@ function LoginContent() {
           {fromPlans ? (
             <div className="mb-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-3 glass-card">
-                <Award className="w-4 h-4 text-[#C78F7B]" />
+                <Award className="w-4 h-4 text-[var(--conectia-arcilla)]" />
                 <span className="text-sm font-medium text-ivory">{loginText.fromPlans.successBegins}</span>
               </div>
               <h2 className="font-titles text-2xl font-light text-[#17313A] mb-2">
@@ -218,7 +218,7 @@ function LoginContent() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
+              <label htmlFor="email" className="block text-xs uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] mb-2">
                 {loginText.emailLabel}
               </label>
               <div className="relative">
@@ -238,7 +238,7 @@ function LoginContent() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs uppercase tracking-widest font-semibold text-[#C78F7B] mb-2">
+              <label htmlFor="password" className="block text-xs uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] mb-2">
                 {loginText.passwordLabel}
               </label>
               <div className="relative">
@@ -286,7 +286,7 @@ function LoginContent() {
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <Fingerprint className="w-5 h-5 text-[#C78F7B]" />
+                    <Fingerprint className="w-5 h-5 text-[var(--conectia-arcilla)]" />
                     <span>{loginText.biometric.accessButton}</span>
                   </>
                 )}
@@ -325,7 +325,7 @@ function LoginContent() {
               {loginText.noAccount}{' '}
               <Link 
                 href={fromPlans ? "/registro?from=planes" : "/registro"} 
-                className="text-[#C78F7B] hover:text-[#D4987E] underline font-medium transition-colors"
+                className="text-[var(--conectia-arcilla)] hover:text-[var(--conectia-arcilla-hover)] underline font-medium transition-colors"
               >
                 {loginText.createAdvisorAccount}
               </Link>

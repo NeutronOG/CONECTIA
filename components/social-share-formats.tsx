@@ -49,7 +49,7 @@ interface SocialShareFormatsProps {
 // Colores de marca CONECTIA
 const BRAND_COLORS = {
   primary: '#17313A',
-  gold: '#C78F7B',
+  gold: 'var(--conectia-arcilla)',
   cream: '#EAE4DD',
   white: '#FFFFFF',
 }
@@ -64,7 +64,7 @@ export function SocialShareFormats({
   const [copiedPlatform, setCopiedPlatform] = useState<string | null>(null)
   const [previewPlatform, setPreviewPlatform] = useState<string>('whatsapp')
 
-  const fullUrl = typeof window !== 'undefined' 
+  const fullUrl = typeof window !== 'undefined'
     ? `${window.location.origin}/propiedades/${property.id}`
     : `/propiedades/${property.id}`
 
@@ -218,30 +218,30 @@ ${fullUrl}`
           variant={variant}
           size={size}
           className={`gap-2 ${className}`}
-          style={{ 
+          style={{
             borderColor: BRAND_COLORS.gold,
-            color: BRAND_COLORS.primary 
+            color: BRAND_COLORS.primary
           }}
         >
           <Share2 className="h-4 w-4" style={{ color: BRAND_COLORS.gold }} />
           <span>Compartir</span>
         </Button>
       </DialogTrigger>
-      
-      <DialogContent 
+
+      <DialogContent
         className="sm:max-w-2xl max-h-[90vh] overflow-y-auto p-0"
-        style={{ 
+        style={{
           backgroundColor: BRAND_COLORS.primary,
           borderColor: `${BRAND_COLORS.gold}40`,
         }}
       >
         {/* Header */}
         <DialogHeader className="p-6 pb-0">
-          <DialogTitle 
+          <DialogTitle
             className="text-xl font-semibold flex items-center gap-3"
             style={{ color: BRAND_COLORS.cream }}
           >
-            <div 
+            <div
               className="p-2 rounded-lg"
               style={{ backgroundColor: `${BRAND_COLORS.gold}20` }}
             >
@@ -262,8 +262,8 @@ ${fullUrl}`
                 key={platform.id}
                 onClick={() => setPreviewPlatform(platform.id)}
                 className={`flex flex-col items-center gap-2 p-3 rounded-xl transition-all ${
-                  previewPlatform === platform.id 
-                    ? 'ring-2 ring-offset-2 ring-offset-[#17313A] ring-[#C78F7B]' 
+                  previewPlatform === platform.id
+                    ? 'ring-2 ring-offset-2 ring-offset-[#17313A] ring-[var(--conectia-arcilla)]'
                     : 'opacity-70 hover:opacity-100'
                 } ${platform.color} ${platform.textColor}`}
               >
@@ -276,7 +276,7 @@ ${fullUrl}`
           {/* Preview */}
           {selectedPlatform && (
             <div className="space-y-3">
-              <div 
+              <div
                 className="flex items-center justify-between text-sm"
                 style={{ color: `${BRAND_COLORS.cream}80` }}
               >
@@ -285,9 +285,9 @@ ${fullUrl}`
                   <button
                     onClick={() => handleCopy(selectedPlatform.id, selectedPlatform.format)}
                     className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
-                    style={{ 
+                    style={{
                       backgroundColor: `${BRAND_COLORS.gold}20`,
-                      color: BRAND_COLORS.gold 
+                      color: BRAND_COLORS.gold
                     }}
                   >
                     {copiedPlatform === selectedPlatform.id ? (
@@ -305,9 +305,9 @@ ${fullUrl}`
                   <button
                     onClick={() => handleDownload(selectedPlatform.id, selectedPlatform.format)}
                     className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
-                    style={{ 
+                    style={{
                       backgroundColor: `${BRAND_COLORS.cream}10`,
-                      color: BRAND_COLORS.cream 
+                      color: BRAND_COLORS.cream
                     }}
                   >
                     <Download className="h-3.5 w-3.5" />
@@ -317,16 +317,16 @@ ${fullUrl}`
               </div>
 
               {/* Textarea con el formato */}
-              <div 
+              <div
                 className="relative rounded-xl overflow-hidden"
-                style={{ 
+                style={{
                   backgroundColor: `${BRAND_COLORS.cream}05`,
                   border: `1px solid ${BRAND_COLORS.gold}30`,
                 }}
               >
-                <div 
+                <div
                   className="absolute top-0 left-0 right-0 px-4 py-2 text-xs font-medium flex items-center gap-2"
-                  style={{ 
+                  style={{
                     backgroundColor: `${BRAND_COLORS.gold}15`,
                     color: BRAND_COLORS.gold,
                     borderBottom: `1px solid ${BRAND_COLORS.gold}20`,
@@ -339,7 +339,7 @@ ${fullUrl}`
                   readOnly
                   value={selectedPlatform.format}
                   className="w-full h-64 p-4 pt-12 resize-none focus:outline-none font-mono text-sm leading-relaxed"
-                  style={{ 
+                  style={{
                     backgroundColor: 'transparent',
                     color: BRAND_COLORS.cream,
                   }}
@@ -347,7 +347,7 @@ ${fullUrl}`
               </div>
 
               {/* Stats del formato */}
-              <div 
+              <div
                 className="flex gap-4 text-xs px-1"
                 style={{ color: `${BRAND_COLORS.cream}60` }}
               >
@@ -362,7 +362,7 @@ ${fullUrl}`
           <Button
             onClick={() => setOpen(false)}
             className="w-full mt-4"
-            style={{ 
+            style={{
               backgroundColor: `${BRAND_COLORS.gold}20`,
               color: BRAND_COLORS.gold,
               border: `1px solid ${BRAND_COLORS.gold}40`,
@@ -373,9 +373,9 @@ ${fullUrl}`
         </div>
 
         {/* Footer con marca */}
-        <div 
+        <div
           className="px-6 py-3 text-center text-xs"
-          style={{ 
+          style={{
             backgroundColor: `${BRAND_COLORS.gold}10`,
             color: `${BRAND_COLORS.cream}60`,
             borderTop: `1px solid ${BRAND_COLORS.gold}20`,

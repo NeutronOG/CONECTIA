@@ -238,7 +238,7 @@ export default function MigrateImagesPage() {
             <Button 
               onClick={runMigration} 
               disabled={isRunning}
-              className="w-full bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
+              className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]"
               size="lg"
             >
               {isRunning ? (

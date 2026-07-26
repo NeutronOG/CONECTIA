@@ -12,12 +12,12 @@ import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto } from "@/lib/commission"
 
-const labelClass = "text-sm font-semibold text-white/90"
-const inputClass = "bg-white/5 border-white/20 text-white placeholder:text-white/30 focus-visible:ring-[#C78F7B]/50 h-11 rounded-xl"
-const textareaClass = "bg-white/5 border-white/20 text-white placeholder:text-white/30 focus-visible:ring-[#C78F7B]/50 rounded-xl"
-const selectTriggerClass = "bg-white/5 border-white/20 text-white focus:ring-[#C78F7B]/50 h-11 rounded-xl"
-const selectContentClass = "bg-[#17313A] border-white/10 text-white"
-const selectItemClass = "text-white/90 focus:bg-white/10 focus:text-white"
+const labelClass = "text-sm font-semibold text-[#17313A] dark:text-white/90"
+const inputClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57]/60 dark:placeholder:text-white/30 focus-visible:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
+const textareaClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57]/60 dark:placeholder:text-white/30 focus-visible:ring-[var(--conectia-arcilla)]/50 rounded-xl"
+const selectTriggerClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white focus:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
+const selectContentClass = "bg-white dark:bg-[#17313A] border-[#17313A]/15 dark:border-white/10 text-[#17313A] dark:text-white"
+const selectItemClass = "text-[#17313A] dark:text-white/90 focus:bg-[#17313A]/10 dark:focus:bg-white/10 focus:text-[#17313A] dark:focus:text-white"
 
 interface PropertyFormProps {
   initialData?: Propiedad
@@ -75,8 +75,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   ]
 
   const toggleActividadRecreativa = (actividad: string) => {
-    setActividadesRecreativasSeleccionadas(prev => 
-      prev.includes(actividad) 
+    setActividadesRecreativasSeleccionadas(prev =>
+      prev.includes(actividad)
         ? prev.filter(a => a !== actividad)
         : [...prev, actividad]
     )
@@ -146,8 +146,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   ]
 
   const toggleAmenidad = (amenidad: string) => {
-    setAmenidadesSeleccionadas(prev => 
-      prev.includes(amenidad) 
+    setAmenidadesSeleccionadas(prev =>
+      prev.includes(amenidad)
         ? prev.filter(a => a !== amenidad)
         : [...prev, amenidad]
     )
@@ -241,11 +241,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       let galeriaUrls = galleryPreviews
       const base64Images = galleryPreviews.filter(img => img.startsWith('data:'))
       const urlImages = galleryPreviews.filter(img => !img.startsWith('data:'))
-      
+
       if (base64Images.length > 0) {
         setUploadProgress(`Subiendo galería (0/${base64Images.length})...`)
         const uploadedUrls: string[] = []
-        
+
         for (let i = 0; i < base64Images.length; i++) {
           setUploadProgress(`Subiendo galería (${i + 1}/${base64Images.length})...`)
           const result = await uploadImage(base64Images[i], 'galeria')
@@ -253,7 +253,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             uploadedUrls.push(result.url)
           }
         }
-        
+
         galeriaUrls = [...urlImages, ...uploadedUrls]
       }
 
@@ -566,8 +566,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 </Select>
               </div>
               {formData.precio && formData.precio > 0 && (
-                <div className="mt-2 p-3 rounded-xl bg-[#C78F7B]/10 border border-[#C78F7B]/20 space-y-1">
-                  <p className="text-xs text-[#C78F7B] font-medium">
+                <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
+                  <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
                     Tu comisión: {getComisionAsesorTexto(formData)}
                   </p>
                 </div>
@@ -657,7 +657,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.habitaciones === num
-                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
                         : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
@@ -679,7 +679,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.banos === num
-                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
                         : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
@@ -701,7 +701,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.mediosBanos === num
-                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
                         : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
@@ -800,7 +800,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.cochera === num
-                        ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] font-bold shadow-md scale-105'
+                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
                         : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                       }
                     `}
@@ -936,7 +936,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   className={`
                     p-2 rounded-lg border text-sm font-medium transition-all text-left
                     ${actividadesRecreativasSeleccionadas.includes(actividad)
-                      ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                      ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
                       : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                     }
                   `}
@@ -981,7 +981,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
-                    ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                    ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
                     : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                   }
                 `}
@@ -1013,7 +1013,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 {formData.caracteristicas.filter(c => !caracteristicasDisponibles.includes(c)).map((car) => (
                   <div
                     key={car}
-                    className="flex items-center gap-2 bg-[#C78F7B]/10 text-[#C78F7B] px-3 py-1 rounded-full"
+                    className="flex items-center gap-2 bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] px-3 py-1 rounded-full"
                   >
                     <span className="text-sm">{car}</span>
                     <button
@@ -1046,7 +1046,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
-                    ? 'bg-[#C78F7B] text-[#0F2027] border-[#C78F7B] shadow-md'
+                    ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
                     : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
                   }
                 `}
@@ -1073,11 +1073,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             <Label htmlFor="imagen" className={labelClass}>Imagen Principal *</Label>
 
             {!imagePreview ? (
-              <div 
+              <div
                 className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
-                  isDraggingMain 
-                    ? 'border-[#C78F7B] bg-[#C78F7B]/20 scale-[1.02]' 
-                    : 'border-[#C78F7B]/30 bg-[#C78F7B]/5 hover:bg-[#C78F7B]/10'
+                  isDraggingMain
+                    ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/20 scale-[1.02]'
+                    : 'border-[var(--conectia-arcilla)]/30 bg-[var(--conectia-arcilla)]/5 hover:bg-[var(--conectia-arcilla)]/10'
                 }`}
                 onDragOver={(e) => handleDragOver(e, setIsDraggingMain)}
                 onDragLeave={(e) => handleDragLeave(e, setIsDraggingMain)}
@@ -1091,7 +1091,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   className="hidden"
                 />
                 <label htmlFor="imagen" className="cursor-pointer">
-                  <Upload className={`h-12 w-12 mx-auto mb-3 transition-transform ${isDraggingMain ? 'text-[#C78F7B] scale-125' : 'text-[#C78F7B]'}`} />
+                  <Upload className={`h-12 w-12 mx-auto mb-3 transition-transform ${isDraggingMain ? 'text-[var(--conectia-arcilla)] scale-125' : 'text-[var(--conectia-arcilla)]'}`} />
                   <p className="text-sm font-medium text-white mb-1">
                     {isDraggingMain ? '¡Suelta la imagen aquí!' : 'Arrastra una imagen o haz click'}
                   </p>
@@ -1101,7 +1101,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 </label>
               </div>
             ) : (
-              <div className="relative w-full h-64 rounded-xl overflow-hidden border-2 border-[#C78F7B]/20 group">
+              <div className="relative w-full h-64 rounded-xl overflow-hidden border-2 border-[var(--conectia-arcilla)]/20 group">
                 <img
                   src={imagePreview}
                   alt="Vista previa"
@@ -1116,7 +1116,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                       onChange={handleImageUpload}
                       className="hidden"
                     />
-                    <Button type="button" size="sm" className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027]" asChild>
+                    <Button type="button" size="sm" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027]" asChild>
                       <span>
                         <Upload className="h-4 w-4 mr-2" />
                         Cambiar
@@ -1148,11 +1148,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           <div className="space-y-2">
             <Label htmlFor="galeria" className={labelClass}>Imágenes de la Galería</Label>
 
-            <div 
+            <div
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
-                isDraggingGallery 
-                  ? 'border-[#C78F7B] bg-[#C78F7B]/20 scale-[1.02]' 
-                  : 'border-[#C78F7B]/30 bg-[#C78F7B]/5 hover:bg-[#C78F7B]/10'
+                isDraggingGallery
+                  ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/20 scale-[1.02]'
+                  : 'border-[var(--conectia-arcilla)]/30 bg-[var(--conectia-arcilla)]/5 hover:bg-[var(--conectia-arcilla)]/10'
               }`}
               onDragOver={(e) => handleDragOver(e, setIsDraggingGallery)}
               onDragLeave={(e) => handleDragLeave(e, setIsDraggingGallery)}
@@ -1168,8 +1168,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               />
               <label htmlFor="galeria" className="cursor-pointer">
                 <div className="flex justify-center gap-2 mb-3">
-                  <Upload className={`h-12 w-12 transition-transform ${isDraggingGallery ? 'text-[#C78F7B] scale-125' : 'text-[#C78F7B]'}`} />
-                  <Plus className={`h-6 w-6 text-[#C78F7B] mt-6 -ml-4 transition-transform ${isDraggingGallery ? 'scale-125' : ''}`} />
+                  <Upload className={`h-12 w-12 transition-transform ${isDraggingGallery ? 'text-[var(--conectia-arcilla)] scale-125' : 'text-[var(--conectia-arcilla)]'}`} />
+                  <Plus className={`h-6 w-6 text-[var(--conectia-arcilla)] mt-6 -ml-4 transition-transform ${isDraggingGallery ? 'scale-125' : ''}`} />
                 </div>
                 <p className="text-sm font-medium text-white mb-1">
                   {isDraggingGallery ? '¡Suelta las imágenes aquí!' : 'Arrastra imágenes o haz click'}
@@ -1178,7 +1178,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   JPG, PNG o WEBP (máx. 5MB cada una) • Hasta 30 imágenes
                 </p>
                 {galleryPreviews.length > 0 && (
-                  <p className="text-xs text-[#C78F7B] mt-2 font-medium">
+                  <p className="text-xs text-[var(--conectia-arcilla)] mt-2 font-medium">
                     {galleryPreviews.length}/30 imágenes subidas
                   </p>
                 )}
@@ -1188,7 +1188,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             {galleryPreviews.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 {galleryPreviews.map((preview, index) => (
-                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-[#C78F7B]/20 group">
+                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-[var(--conectia-arcilla)]/20 group">
                     <img
                       src={preview}
                       alt={`Galería ${index + 1}`}
@@ -1262,9 +1262,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             Cancelar
           </Button>
         )}
-        <Button 
-          type="submit" 
-          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] font-semibold min-w-[200px]"
+        <Button
+          type="submit"
+          className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold min-w-[200px]"
           disabled={isUploading}
         >
           {isUploading ? (

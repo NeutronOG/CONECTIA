@@ -1,51 +1,16 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from './database.types'
+import { supabase } from './client'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables')
-}
-
-// Singleton pattern para evitar múltiples instancias
-let supabaseInstance: SupabaseClient | null = null
-
 /**
- * Cliente Supabase optimizado para alto rendimiento
- * - Connection pooling automático
- * - Retry logic con exponential backoff
- * - Configuración optimizada para alta concurrencia
+ * Comparte el cliente de navegador que también maneja la sesión. Tener dos
+ * clientes con la misma storage key provoca la advertencia de GoTrue y puede
+ * interferir con la sesión activa.
  */
 export function getOptimizedSupabase(): SupabaseClient {
-    if (supabaseInstance) {
-        return supabaseInstance
-    }
-
-    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
-        auth: {
-            persistSession: true,
-            autoRefreshToken: true,
-            detectSessionInUrl: false, // Evita overhead en cada request
-        },
-        global: {
-            headers: {
-                'x-client-info': 'conectia/1.0.0',
-            },
-        },
-        db: {
-            schema: 'public',
-        },
-        realtime: {
-            params: {
-                eventsPerSecond: 10, // Limitar eventos para no saturar
-            },
-        },
-    })
-
-    return supabaseInstance
+    return supabase
 }
 
 // Export singleton

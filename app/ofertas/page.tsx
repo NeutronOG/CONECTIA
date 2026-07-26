@@ -46,24 +46,24 @@ export default function OfertasPage() {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#0F2027]/85" />
         {/* Accent gradient orbs */}
-        <div className="absolute top-20 right-20 w-72 h-72 bg-[#C78F7B]/20 rounded-full blur-[100px]" />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-[var(--conectia-arcilla)]/20 rounded-full blur-[100px]" />
         <div className="absolute bottom-20 left-10 w-56 h-56 bg-[#17313A]/40 rounded-full blur-[80px]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: bold typography */}
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C78F7B]/10 border border-[#C78F7B]/30">
-                <Flame className="h-4 w-4 text-[#C78F7B]" />
-                <span className="text-[10px] uppercase tracking-[0.4em] text-[#C78F7B] font-bold">{t('pages.ofertas.badge')}</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/30">
+                <Flame className="h-4 w-4 text-[var(--conectia-arcilla)]" />
+                <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--conectia-arcilla)] font-bold">{t('pages.ofertas.badge')}</span>
               </div>
 
               {/* Giant number with gradient */}
               <div className="flex items-start gap-2">
-                <span className="text-[110px] sm:text-[150px] font-black leading-none bg-gradient-to-br from-white via-white to-[#C78F7B] bg-clip-text text-transparent">30</span>
+                <span className="text-[110px] sm:text-[150px] font-black leading-none bg-gradient-to-br from-white via-white to-[var(--conectia-arcilla)] bg-clip-text text-transparent">30</span>
                 <div className="mt-8">
-                  <span className="text-6xl sm:text-8xl font-black text-[#C78F7B]">%</span>
-                  <p className="text-[#C78F7B]/60 text-xl font-light mt-2 tracking-wide">{t('pages.ofertas.discount')}</p>
+                  <span className="text-6xl sm:text-8xl font-black text-[var(--conectia-arcilla)]">%</span>
+                  <p className="text-[var(--conectia-arcilla)]/60 text-xl font-light mt-2 tracking-wide">{t('pages.ofertas.discount')}</p>
                 </div>
               </div>
 
@@ -72,7 +72,7 @@ export default function OfertasPage() {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <Badge className="bg-[#C78F7B]/20 text-[#C78F7B] border border-[#C78F7B]/40 px-4 py-2 text-sm font-semibold">
+                <Badge className="bg-[var(--conectia-arcilla)]/20 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/40 px-4 py-2 text-sm font-semibold">
                   <Flame className="h-3.5 w-3.5 mr-1.5" />
                   {propiedades.length} {t('pages.ofertas.active')}
                 </Badge>
@@ -83,7 +83,7 @@ export default function OfertasPage() {
               </div>
 
               <Link href="/contacto">
-                <Button className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#0F2027] gap-2 text-sm font-bold rounded-xl px-6 mt-2">
+                <Button className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] gap-2 text-sm font-bold rounded-xl px-6 mt-2">
                   {t('pages.ofertas.cta')} <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>
@@ -92,11 +92,11 @@ export default function OfertasPage() {
             {/* Right: glowing glass cards */}
             <div className="grid grid-cols-2 gap-4">
               {CARDS.map((item) => (
-                <div key={item.label} className="group relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-white/[0.06] hover:border-[#C78F7B]/30 transition-all duration-500">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C78F7B]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div key={item.label} className="group relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-white/[0.06] hover:border-[var(--conectia-arcilla)]/30 transition-all duration-500">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--conectia-arcilla)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-xl bg-[#C78F7B]/10 flex items-center justify-center mb-3 group-hover:bg-[#C78F7B]/20 transition-colors">
-                      <item.icon className="h-5 w-5 text-[#C78F7B]" />
+                    <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center mb-3 group-hover:bg-[var(--conectia-arcilla)]/20 transition-colors">
+                      <item.icon className="h-5 w-5 text-[var(--conectia-arcilla)]" />
                     </div>
                     <p className="text-white text-xl font-black">{item.value}</p>
                     <p className="text-white/70 text-xs font-semibold uppercase tracking-wider mt-1">{item.label}</p>
@@ -109,7 +109,7 @@ export default function OfertasPage() {
         </div>
 
         {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C78F7B]/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--conectia-arcilla)]/60 to-transparent" />
       </section>
 
       {/* GRID */}
@@ -117,10 +117,10 @@ export default function OfertasPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end gap-8 mb-6">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#C78F7B] font-bold">{t('pages.ofertas.active')}</span>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--conectia-arcilla)] font-bold">{t('pages.ofertas.active')}</span>
               <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">{t('properties.availableTitle')}</h2>
             </div>
-            <div className="h-px flex-1 bg-[#C78F7B]/20 hidden sm:block" />
+            <div className="h-px flex-1 bg-[var(--conectia-arcilla)]/20 hidden sm:block" />
           </div>
           <SubcategoryFilter onChange={setTipoFilter} variant="dark" resultCount={propiedades.length} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

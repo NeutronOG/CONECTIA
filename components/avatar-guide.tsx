@@ -477,7 +477,7 @@ export function AvatarGuide() {
                       {currentSpeech.speech.split('inmobiliaria').map((part, i, arr) => (
                         <span key={i}>
                           {part}
-                          {i < arr.length - 1 && <span className="text-[#C78F7B]">inmobiliaria</span>}
+                          {i < arr.length - 1 && <span className="text-[var(--conectia-arcilla)]">inmobiliaria</span>}
                         </span>
                       ))}
                     </span>

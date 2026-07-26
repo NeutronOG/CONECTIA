@@ -43,7 +43,7 @@ export default function EmpresaPage() {
         <h2 className="font-serif text-4xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-16 text-center">Nuestros Valores</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Award className="h-8 w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-4">Excelencia</h3>
@@ -53,7 +53,7 @@ export default function EmpresaPage() {
           </Card>
 
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Users className="h-8 w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-4">Exclusividad</h3>
@@ -63,7 +63,7 @@ export default function EmpresaPage() {
           </Card>
 
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-2xl flex items-center justify-center mx-auto mb-6">
               <TrendingUp className="h-8 w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-4">Innovación</h3>
@@ -73,7 +73,7 @@ export default function EmpresaPage() {
           </Card>
 
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Globe className="h-8 w-8 text-white" />
             </div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-4">Transparencia</h3>
@@ -87,27 +87,27 @@ export default function EmpresaPage() {
         <h2 className="font-serif text-4xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-16 text-center">Nuestro Equipo</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-24 h-24 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-full mx-auto mb-6"></div>
+            <div className="w-24 h-24 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-full mx-auto mb-6"></div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-2">Elena Martínez</h3>
-            <p className="text-[#C78F7B] font-medium mb-4">CEO & Fundadora</p>
+            <p className="text-[var(--conectia-arcilla)] font-medium mb-4">CEO & Fundadora</p>
             <p className="text-[#4A4F57] dark:text-gray-400 text-sm">
               15 años de experiencia en bienes raíces de lujo. Especialista en propiedades exclusivas.
             </p>
           </Card>
 
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-24 h-24 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-full mx-auto mb-6"></div>
+            <div className="w-24 h-24 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-full mx-auto mb-6"></div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-2">Carlos Ruiz</h3>
-            <p className="text-[#C78F7B] font-medium mb-4">Director de Marketing</p>
+            <p className="text-[var(--conectia-arcilla)] font-medium mb-4">Director de Marketing</p>
             <p className="text-[#4A4F57] dark:text-gray-400 text-sm">
               Experto en marketing digital y estrategias de IA para el sector inmobiliario.
             </p>
           </Card>
 
           <Card className="p-8 text-center rounded-3xl glass-card rounded-3xl">
-            <div className="w-24 h-24 bg-gradient-to-br from-[#C78F7B] to-[#D4987E] rounded-full mx-auto mb-6"></div>
+            <div className="w-24 h-24 bg-gradient-to-br from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] rounded-full mx-auto mb-6"></div>
             <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-2">Ana López</h3>
-            <p className="text-[#C78F7B] font-medium mb-4">Directora de Operaciones</p>
+            <p className="text-[var(--conectia-arcilla)] font-medium mb-4">Directora de Operaciones</p>
             <p className="text-[#4A4F57] dark:text-gray-400 text-sm">
               Gestión de procesos y experiencia del cliente. Garantiza la excelencia operativa.
             </p>
@@ -120,7 +120,7 @@ export default function EmpresaPage() {
         <Link href="/propietarios">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-[#C78F7B] to-[#D4987E] hover:from-[#D4987E] hover:to-[#C78F7B] text-white font-semibold px-12 py-6 text-lg rounded-2xl"
+            className="bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white font-semibold px-12 py-6 text-lg rounded-2xl"
           >
             Conoce Más Sobre Nosotros
           </Button>

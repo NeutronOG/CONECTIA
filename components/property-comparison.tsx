@@ -134,7 +134,7 @@ export function PropertyComparison({
             </Button>
             <Button
               size="sm"
-              className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
+              className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]"
             >
               Ver Comparación
               <ArrowRight className="h-4 w-4 ml-2" />
@@ -276,7 +276,7 @@ export function PropertyComparison({
                       <Link href={`/propiedades/${property.id}`}>
                         <Button
                           size="sm"
-                          className="bg-[#C78F7B] hover:bg-[#D4987E] text-[#17313A]"
+                          className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]"
                         >
                           <Eye className="h-4 w-4 mr-1" />
                           Ver
