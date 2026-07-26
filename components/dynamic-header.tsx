@@ -43,12 +43,19 @@ export function DynamicHeader() {
 
   const langLabel = language.toUpperCase()
   const otrosButtonRef = useRef<HTMLButtonElement | null>(null)
-  const [otrosRect, setOtrosRect] = useState<{ top: number; right: number } | null>(null)
+  const [otrosRect, setOtrosRect] = useState<{ top?: number; bottom?: number; right: number } | null>(null)
 
   const handleOtrosToggle = () => {
     if (!isOtrosMenuOpen && otrosButtonRef.current) {
       const r = otrosButtonRef.current.getBoundingClientRect()
-      setOtrosRect({ top: r.bottom + 8, right: window.innerWidth - r.right })
+      const right = window.innerWidth - r.right
+      const shouldOpenUpward = r.top > window.innerHeight / 2
+
+      setOtrosRect(
+        shouldOpenUpward
+          ? { bottom: window.innerHeight - r.top + 8, right }
+          : { top: r.bottom + 8, right }
+      )
     }
     setIsOtrosMenuOpen(prev => !prev)
   }
@@ -520,6 +527,7 @@ export function DynamicHeader() {
             className="fixed z-50 w-52 rounded-2xl overflow-hidden"
             style={{
               top: otrosRect.top,
+              bottom: otrosRect.bottom,
               right: otrosRect.right,
               background: 'rgba(250,247,244,0.94)',
               backdropFilter: 'blur(24px) saturate(180%)',

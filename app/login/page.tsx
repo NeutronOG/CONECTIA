@@ -214,22 +214,22 @@ function LoginContent() {
         </div>
 
         {/* Formulario */}
-        <div className="glass-card rounded-3xl p-8 glow-border">
+        <div className="login-card glass-card rounded-3xl p-8 glow-border">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-xs uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] mb-2">
+              <label htmlFor="email" className="login-form-label block text-xs uppercase tracking-widest font-semibold mb-2">
                 {loginText.emailLabel}
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+                <Mail className="login-input-icon absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
                 <input
                   id="email"
                   type="email"
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
+                  className="login-input w-full pl-11 pr-4 py-3 rounded-xl text-sm outline-none glass-input"
                   placeholder="tu@conectia.mx"
                   required
                 />
@@ -238,18 +238,18 @@ function LoginContent() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] mb-2">
+              <label htmlFor="password" className="login-form-label block text-xs uppercase tracking-widest font-semibold mb-2">
                 {loginText.passwordLabel}
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+                <Lock className="login-input-icon absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
                 <input
                   id="password"
                   type="password"
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-ivory placeholder:text-white/50 outline-none glass-input"
+                  className="login-input w-full pl-11 pr-4 py-3 rounded-xl text-sm outline-none glass-input"
                   placeholder="••••••••"
                   required
                 />
@@ -321,11 +321,11 @@ function LoginContent() {
 
           {/* Link a registro */}
           <div className="mt-6 pt-6 text-center border-t border-white/15">
-            <p className="text-sm text-white/60">
+            <p className="login-card-muted text-sm">
               {loginText.noAccount}{' '}
               <Link 
                 href={fromPlans ? "/registro?from=planes" : "/registro"} 
-                className="text-[var(--conectia-arcilla)] hover:text-[var(--conectia-arcilla-hover)] underline font-medium transition-colors"
+                className="login-card-link underline font-medium transition-colors"
               >
                 {loginText.createAdvisorAccount}
               </Link>

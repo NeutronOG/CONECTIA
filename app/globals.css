@@ -1120,6 +1120,43 @@ html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"][class*="text
   color: #EAE4DD;
 }
 
+/* Contraste específico del formulario de acceso.
+   La tarjeta permanece oscura en ambos temas, mientras que los campos se
+   aclaran en modo oscuro; por eso cada superficie tiene su propio color. */
+.login-card {
+  --login-card-label: #E8A88F;
+  --login-card-muted: #D5D2C9;
+  --login-card-link: #F2B49A;
+  --login-input-text: #F6F2EE;
+  --login-input-placeholder: #C9D1D3;
+  --login-input-icon: #BFCACD;
+}
+
+.login-form-label { color: var(--login-card-label); }
+.login-card-muted { color: var(--login-card-muted); }
+.login-card-link { color: var(--login-card-link); }
+.login-card-link:hover { color: #FFFFFF; }
+
+.login-input {
+  color: var(--login-input-text);
+}
+
+.login-input::placeholder {
+  color: var(--login-input-placeholder);
+  opacity: 1;
+}
+
+.login-input-icon { color: var(--login-input-icon); }
+
+.dark .login-card {
+  --login-card-label: #F0B19A;
+  --login-card-muted: #EAE4DD;
+  --login-card-link: #FFD1BE;
+  --login-input-text: #17313A;
+  --login-input-placeholder: #4A4F57;
+  --login-input-icon: #294952;
+}
+
 /* Efecto de brillo en bordes al hover */
 .glow-border {
   position: relative;
