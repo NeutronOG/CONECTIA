@@ -72,7 +72,7 @@ export function Footer() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[var(--conectia-arcilla)] font-bold mb-5">{t('footer.company')}</p>
             <ul className="space-y-3">
               {[
-                { label: t('footer.links.about'), href: '/nosotros' },
+                { label: t('footer.links.about'), href: '/empresa' },
                 { label: t('footer.links.brokers'), href: '/brokers' },
                 { label: t('footer.links.developments'), href: '/desarrollos' },
               ].map((item) => (

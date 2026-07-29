@@ -275,7 +275,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         cochera: formData.cochera ?? 0,
         amueblado: formData.amueblado,
         areaTexto: `${formData.area ?? 0} m²`,
-        imagen: imagenUrl || "/placeholder-property.jpg",
+        imagen: imagenUrl || "/placeholder.svg",
         descripcion: (() => {
           const base = String(formData.descripcion || '').trim()
           const act = actividadesRecreativasSeleccionadas.join(', ')

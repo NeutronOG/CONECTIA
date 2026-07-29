@@ -68,7 +68,7 @@ export default function FavoritosPage() {
                   <div className="relative">
                     <div className="aspect-[4/3] overflow-hidden">
                       <Image
-                        src={property.image || "/placeholder-property.jpg"}
+                        src={property.image || "/placeholder.svg"}
                         alt={property.title}
                         width={400}
                         height={300}

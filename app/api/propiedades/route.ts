@@ -8,6 +8,23 @@ const supabaseAdmin = createClient(
   { auth: { persistSession: false } }
 )
 
+// Algunas propiedades demo se cargaron originalmente con nombres que ya no
+// existen en /public. Normalizamos esas rutas antes de enviarlas al cliente
+// para que una ficha antigua no termine en un 404.
+const LEGACY_IMAGE_PATHS: Record<string, string> = {
+  '/placeholder-property.jpg': '/placeholder.svg',
+  '/modern-loft-condesa.png': '/modern-loft-condesa.svg',
+  '/apartment-interlomas.png': '/apartment-interlomas.svg',
+  '/penthouse-living.jpg': '/penthouse-living-room.png',
+  '/penthouse-terrace.jpg': '/penthouse-kitchen.png',
+  '/penthouse-bedroom.jpg': '/penthouse-bedroom.png',
+}
+
+function resolvePropertyImage(image?: string | null) {
+  if (!image) return '/placeholder.svg'
+  return LEGACY_IMAGE_PATHS[image] || image
+}
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
@@ -54,14 +71,14 @@ export async function GET(request: Request) {
         banos: prop.banos,
         area: prop.area,
         areaTexto: prop.area_texto,
-        imagen: prop.imagen || '/placeholder-property.jpg',
+        imagen: resolvePropertyImage(prop.imagen),
         descripcion: prop.descripcion || '',
         caracteristicas: prop.caracteristicas || [],
         status: prop.status,
         categoria: prop.categoria,
         fechaPublicacion: prop.fecha_publicacion,
         tourVirtual: prop.tour_virtual || undefined,
-        galeria: prop.galeria || [],
+        galeria: (prop.galeria || []).map(resolvePropertyImage),
         unidadSuperficie: prop.unidad_superficie || undefined,
         comisionAsesorPct: prop.comision_asesor_pct || undefined,
         agente: {
@@ -116,7 +133,7 @@ export async function GET(request: Request) {
       banos: prop.banos,
       area: prop.area,
       areaTexto: prop.area_texto,
-      imagen: prop.imagen || '/placeholder-property.jpg',
+      imagen: resolvePropertyImage(prop.imagen),
       descripcion: prop.descripcion || '',
       caracteristicas: prop.caracteristicas || [],
       status: prop.status,

@@ -18,7 +18,9 @@ export function HomeYellow() {
   const [isLoadingProp, setIsLoadingProp] = useState(true)
 
   useEffect(() => {
-    fetch('/api/propiedades?id=100')
+    // No amarrar la portada a un id de demo: ese registro puede no existir
+    // en producción y dejaba todas las imágenes de la portada vacías.
+    fetch('/api/propiedades')
       .then(res => {
         if (!res.ok) {
           console.warn('Featured property fetch failed with status:', res.status)
@@ -27,13 +29,15 @@ export function HomeYellow() {
         return res.json()
       })
       .then(data => {
-        if (data?.propiedad) setFeaturedProp(data.propiedad)
+        const properties = data?.propiedades || []
+        const featured = properties.find((property: Propiedad) => property.status === 'Exclusiva') || properties[0]
+        if (featured) setFeaturedProp(featured)
       })
       .catch(err => console.error('Error fetching featured property:', err))
       .finally(() => setIsLoadingProp(false))
   }, [])
 
-  const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder-property.jpg']
+  const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder.svg']
   const formatPrice = (p?: number) => {
     if (p === undefined || p === null || isNaN(p)) return '—'
     return p >= 1_000_000 ? `$${(p / 1_000_000).toFixed(1).replace(/\.0$/, '')}M` : `$${(p / 1_000).toFixed(0)}K`
@@ -102,7 +106,7 @@ export function HomeYellow() {
               ) : featuredProp ? (
                 <>
                   <Image
-                    src={featuredProp.imagen || '/placeholder-property.jpg'}
+                    src={featuredProp.imagen || '/placeholder.svg'}
                     alt={featuredProp.titulo}
                     fill
                     className="object-cover scale-[1.03] hover:scale-[1.06] transition-transform duration-700"
@@ -132,7 +136,7 @@ export function HomeYellow() {
                   <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
                 ) : featuredProp ? (
                   <Image
-                    src={gallery[activeThumb] || '/placeholder-property.jpg'}
+                    src={gallery[activeThumb] || '/placeholder.svg'}
                     alt={featuredProp.titulo}
                     fill
                     className="object-cover transition-all duration-500"
@@ -157,7 +161,7 @@ export function HomeYellow() {
                         activeThumb === i ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                       }`}
                     >
-                      <Image src={src || '/placeholder-property.jpg'} alt={`foto ${i}`} fill className="object-cover" />
+                      <Image src={src || '/placeholder.svg'} alt={`foto ${i}`} fill className="object-cover" />
                     </button>
                   ))
                 ) : (

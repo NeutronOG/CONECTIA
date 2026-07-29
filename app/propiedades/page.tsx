@@ -126,22 +126,16 @@ export default function PropiedadesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-light dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
-      {/* Orbs decorativos glassmorphism creativos */}
-      <div className="fixed top-0 left-1/4 w-[500px] h-[500px] bg-[var(--conectia-arcilla)]/8 rounded-full blur-[150px] pointer-events-none animate-pulse-slow" />
-      <div className="fixed bottom-0 right-1/4 w-[400px] h-[400px] bg-[#17313A]/40 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed top-1/3 right-0 w-64 h-64 bg-[var(--conectia-arcilla)]/5 rounded-full blur-[80px] pointer-events-none" />
-      <div className="fixed bottom-1/4 left-0 w-80 h-80 bg-[#17313A]/20 rounded-full blur-[100px] pointer-events-none" />
+    <div className="min-h-screen bg-[#FAF9F7] dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
 
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[320px] sm:min-h-[400px] pt-16">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-          style={{ backgroundImage: "url('/fondoconectia.jpg')" }}
+          style={{ backgroundImage: "url('/propiedades-hero-background.png')" }}
         />
         <div className="absolute inset-0 bg-[#F6F2EE]/80 dark:bg-[#0F2027]/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE] via-[#F6F2EE]/70 to-transparent dark:from-[#0F2027] dark:via-[#0F2027]/70 dark:to-transparent" />
-        <div className="absolute top-20 right-20 w-72 h-72 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-20 flex items-center">
           <div className="max-w-xl">
@@ -273,7 +267,7 @@ export default function PropiedadesPage() {
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group">
                       <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
                         <div className="relative h-52 sm:h-60 overflow-hidden">
-                          <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                          <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/60 dark:from-[#0F2027]/60 via-transparent to-transparent" />
                           <div className="absolute top-4 left-4">
                             <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
@@ -314,7 +308,7 @@ export default function PropiedadesPage() {
                       <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-300 overflow-hidden">
                         <div className="flex flex-col md:flex-row">
                           <div className="relative md:w-80 h-56 md:h-48 overflow-hidden">
-                            <img src={propiedad.imagen || "/placeholder.svg"} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/40 dark:from-[#0F2027]/40 via-transparent to-transparent" />
                             <div className="absolute top-4 left-4">
                               <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>

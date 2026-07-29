@@ -121,9 +121,9 @@ export const propiedades: Propiedad[] = [
     },
     galeria: [
       "/luxury-penthouse-polanco-main.png",
-      "/penthouse-living.jpg",
-      "/penthouse-terrace.jpg",
-      "/penthouse-bedroom.jpg"
+      "/penthouse-living-room.png",
+      "/penthouse-kitchen.png",
+      "/penthouse-bedroom.png"
     ]
   },
   {
@@ -205,7 +205,7 @@ export const propiedades: Propiedad[] = [
     banos: 2,
     area: 180,
     areaTexto: "180 m²",
-    imagen: "/modern-loft-condesa.png",
+    imagen: "/modern-loft-condesa.svg",
     descripcion: "Moderno loft en la vibrante Condesa, con techos altos y diseño industrial contemporáneo. Perfecto para profesionales que buscan estilo y ubicación privilegiada.",
     caracteristicas: ["Techos altos", "Diseño industrial", "Ubicación central", "Terraza privada", "Vida nocturna", "Parques cercanos"],
     status: "Disponible",
@@ -239,7 +239,7 @@ export const propiedades: Propiedad[] = [
     banos: 3,
     area: 220,
     areaTexto: "220 m²",
-    imagen: "/apartment-interlomas.png",
+    imagen: "/apartment-interlomas.svg",
     descripcion: "Cómodo departamento en Interlomas con amenidades completas y ubicación estratégica. Ideal para familias que buscan tranquilidad sin alejarse de la ciudad.",
     caracteristicas: ["Amenidades completas", "Ubicación estratégica", "Seguridad", "Áreas verdes", "Club deportivo", "Transporte"],
     status: "Disponible",
