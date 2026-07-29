@@ -59,6 +59,16 @@ export async function GET(request: Request) {
         if (usuario) agenteNombre = usuario.nombre
       }
 
+      const imagenPrincipal = resolvePropertyImage(prop.imagen)
+      const galeria = (prop.galeria || []).map(resolvePropertyImage)
+      // La portada es parte de la galería: debe ser siempre la primera foto
+      // de la ficha, incluso si al registrar la propiedad no se agregó de
+      // nuevo dentro del arreglo `galeria`.
+      const galeriaCompleta = [
+        imagenPrincipal,
+        ...galeria.filter((image: string) => image !== imagenPrincipal),
+      ]
+
       const propiedad = {
         id: prop.id,
         usuarioId: prop.usuario_id || undefined,
@@ -71,14 +81,14 @@ export async function GET(request: Request) {
         banos: prop.banos,
         area: prop.area,
         areaTexto: prop.area_texto,
-        imagen: resolvePropertyImage(prop.imagen),
+        imagen: imagenPrincipal,
         descripcion: prop.descripcion || '',
         caracteristicas: prop.caracteristicas || [],
         status: prop.status,
         categoria: prop.categoria,
         fechaPublicacion: prop.fecha_publicacion,
         tourVirtual: prop.tour_virtual || undefined,
-        galeria: (prop.galeria || []).map(resolvePropertyImage),
+        galeria: galeriaCompleta,
         unidadSuperficie: prop.unidad_superficie || undefined,
         comisionAsesorPct: prop.comision_asesor_pct || undefined,
         agente: {

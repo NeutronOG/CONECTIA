@@ -18,9 +18,8 @@ export function HomeYellow() {
   const [isLoadingProp, setIsLoadingProp] = useState(true)
 
   useEffect(() => {
-    // No amarrar la portada a un id de demo: ese registro puede no existir
-    // en producción y dejaba todas las imágenes de la portada vacías.
-    fetch('/api/propiedades')
+    // Casa en Comanjilla es la ficha editorial elegida para este espacio.
+    fetch('/api/propiedades?id=98')
       .then(res => {
         if (!res.ok) {
           console.warn('Featured property fetch failed with status:', res.status)
@@ -29,9 +28,7 @@ export function HomeYellow() {
         return res.json()
       })
       .then(data => {
-        const properties = data?.propiedades || []
-        const featured = properties.find((property: Propiedad) => property.status === 'Exclusiva') || properties[0]
-        if (featured) setFeaturedProp(featured)
+        if (data?.propiedad) setFeaturedProp(data.propiedad)
       })
       .catch(err => console.error('Error fetching featured property:', err))
       .finally(() => setIsLoadingProp(false))

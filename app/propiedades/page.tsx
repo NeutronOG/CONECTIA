@@ -132,10 +132,10 @@ export default function PropiedadesPage() {
       <section className="relative overflow-hidden min-h-[320px] sm:min-h-[400px] pt-16">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-          style={{ backgroundImage: "url('/propiedades-hero-background.png')" }}
+          style={{ backgroundImage: "url('/propiedades-hero-conectia.png')" }}
         />
-        <div className="absolute inset-0 bg-[#F6F2EE]/80 dark:bg-[#0F2027]/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE] via-[#F6F2EE]/70 to-transparent dark:from-[#0F2027] dark:via-[#0F2027]/70 dark:to-transparent" />
+        <div className="absolute inset-0 bg-[#F6F2EE]/55 dark:bg-[#0F2027]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/95 via-[#F6F2EE]/62 to-transparent dark:from-[#0F2027]/95 dark:via-[#0F2027]/68 dark:to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-20 flex items-center">
           <div className="max-w-xl">
@@ -147,11 +147,8 @@ export default function PropiedadesPage() {
               <span className="text-[var(--conectia-arcilla)] text-[10px] font-semibold uppercase tracking-[0.35em]">{t('common.appName')}</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-[#17313A] dark:text-white leading-[0.95] mb-2">
-              {t('properties.pageTitle')}
+              Nuestras propiedades
             </h1>
-            <h2 className="font-titles text-4xl sm:text-5xl md:text-6xl font-light italic bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-soft)] bg-clip-text text-transparent leading-tight mb-5">
-              {t('common.exclusive')}
-            </h2>
             <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
               {t('properties.pageSubtitle')}
             </p>
@@ -178,14 +175,14 @@ export default function PropiedadesPage() {
               <div className="relative liquid-glass-dark rounded-2xl p-4 sm:p-6 overflow-hidden glow-border">
                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-[var(--conectia-arcilla)]/20 rounded-full blur-[30px] pointer-events-none animate-pulse-slow" />
                 <div className="relative text-center space-y-3 sm:space-y-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--conectia-arcilla)]/30 rounded-xl flex items-center justify-center mx-auto">
-                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-[var(--conectia-arcilla)]" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#A9DCE6]/15 rounded-xl flex items-center justify-center mx-auto">
+                    <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-[#A9DCE6]" />
                   </div>
                   <div>
                     <h3 className="font-serif text-base sm:text-lg font-semibold text-ivory mb-1.5 sm:mb-2">
                       {t('properties.aiSearch.title')}
                     </h3>
-                    <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#C8DDE2] leading-relaxed">
                       {t('properties.aiSearch.subtitle')}
                     </p>
                   </div>
@@ -197,8 +194,8 @@ export default function PropiedadesPage() {
                     {t('properties.aiSearch.cta')}
                   </Button>
                   <div className="flex items-center justify-center space-x-1.5 sm:space-x-2 text-[10px] sm:text-xs text-white/60">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[var(--conectia-arcilla)] rounded-full animate-pulse"></div>
-                    <span>{t('properties.aiSearch.available')}</span>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#A9DCE6] rounded-full animate-pulse"></div>
+                    <span className="text-[#C8DDE2]">{t('properties.aiSearch.available')}</span>
                   </div>
                 </div>
               </div>

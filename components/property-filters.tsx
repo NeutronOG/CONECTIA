@@ -158,7 +158,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
           style={{ background: 'rgba(234,228,221,0.10)', border: '1px solid rgba(234,228,221,0.18)', backdropFilter: 'blur(16px)' }}
         >
           <span className="flex items-center gap-2">
-            <Faders className="h-4 w-4 text-[var(--conectia-arcilla)]" weight="duotone" />
+            <Faders className="h-4 w-4 text-[#A9DCE6]" weight="duotone" />
             Filtros Avanzados
           </span>
           {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
@@ -182,7 +182,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid rgba(234,228,221,0.12)' }}>
             <div className="flex items-center gap-2">
-              <Faders className="h-4 w-4 text-[var(--conectia-arcilla)]" weight="duotone" />
+              <Faders className="h-4 w-4 text-[#A9DCE6]" weight="duotone" />
               <span className="text-sm font-semibold text-[#EAE4DD] tracking-wide">Filtros de Búsqueda</span>
             </div>
             <button
@@ -196,7 +196,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
           <div className="p-5 space-y-5">
             {/* Search */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)]">Búsqueda General</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Búsqueda General</label>
               <div className="relative">
                 <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#B0ACA6]" weight="duotone" />
                 <input
@@ -211,7 +211,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Location */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                 <MapPin className="h-3 w-3" weight="duotone" /> Ubicación
               </label>
               <Select value={filters.location} onValueChange={(v) => handleFilterChange("location", v)}>
@@ -227,7 +227,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Property Type */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                 <House className="h-3 w-3" weight="duotone" /> Tipo
               </label>
               <Select value={filters.propertyType} onValueChange={(v) => handleFilterChange("propertyType", v)}>
@@ -243,7 +243,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Surface Unit */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                 <ArrowsOut className="h-3 w-3" weight="duotone" /> Unidad de Superficie
               </label>
               <Select value={filters.surfaceUnit} onValueChange={(v) => handleFilterChange("surfaceUnit", v)}>
@@ -259,7 +259,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Price Range */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                 <CurrencyDollar className="h-3 w-3" weight="duotone" /> Precio
               </label>
               <Slider value={filters.priceRange} onValueChange={(v) => handleFilterChange("priceRange", v)}
@@ -273,7 +273,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Beds & Baths */}
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+                <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                   <Bed className="h-3 w-3" weight="duotone" /> Recámaras
                 </label>
                 <Select value={filters.bedrooms} onValueChange={(v) => handleFilterChange("bedrooms", v)}>
@@ -287,7 +287,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
                 </Select>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+                <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                   <Bathtub className="h-3 w-3" weight="duotone" /> Baños
                 </label>
                 <Select value={filters.bathrooms} onValueChange={(v) => handleFilterChange("bathrooms", v)}>
@@ -304,7 +304,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Area */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] flex items-center gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
                 <ArrowsOut className="h-3 w-3" weight="duotone" /> {filters.surfaceUnit || 'Área (m²)'}
               </label>
               <Slider value={filters.areaRange} onValueChange={(v) => handleFilterChange("areaRange", v)}
@@ -317,7 +317,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Status */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)]">Estado</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Estado</label>
               <Select value={filters.status} onValueChange={(v) => handleFilterChange("status", v)}>
                 <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                   style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
@@ -333,7 +333,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Amenities */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)]">Amenidades</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Amenidades</label>
               <div className="grid grid-cols-1 gap-1.5 max-h-44 overflow-y-auto pr-1 scrollbar-thin">
                 {amenities.map((amenity) => (
                   <div key={amenity} className="flex items-center gap-2 py-1">
@@ -352,7 +352,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Active Filters */}
             {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
               <div className="pt-3" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
-                <p className="text-[10px] uppercase tracking-widest font-semibold text-[var(--conectia-arcilla)] mb-2">Activos</p>
+                <p className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] mb-2">Activos</p>
                 <div className="flex flex-wrap gap-1.5">
                   {filters.search && (
                     <span className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
