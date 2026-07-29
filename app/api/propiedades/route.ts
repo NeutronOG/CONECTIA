@@ -23,7 +23,12 @@ export async function GET(request: Request) {
 
       if (error) {
         console.error('Error fetching property:', error)
-        return NextResponse.json({ error: error.message }, { status: 500 })
+        return NextResponse.json({ error: error.message, propiedad: null }, { status: 404 })
+      }
+
+      if (!prop) {
+        console.warn('Property not found:', id)
+        return NextResponse.json({ propiedad: null }, { status: 404 })
       }
 
       // Obtener nombre del asesor

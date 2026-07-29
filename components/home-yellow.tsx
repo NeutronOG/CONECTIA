@@ -19,17 +19,25 @@ export function HomeYellow() {
 
   useEffect(() => {
     fetch('/api/propiedades?id=100')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          console.warn('Featured property fetch failed with status:', res.status)
+          return null
+        }
+        return res.json()
+      })
       .then(data => {
-        if (data.propiedad) setFeaturedProp(data.propiedad)
+        if (data?.propiedad) setFeaturedProp(data.propiedad)
       })
       .catch(err => console.error('Error fetching featured property:', err))
       .finally(() => setIsLoadingProp(false))
   }, [])
 
   const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder-property.jpg']
-  const formatPrice = (p: number) =>
-    p >= 1_000_000 ? `$${(p / 1_000_000).toFixed(1).replace(/\.0$/, '')}M` : `$${(p / 1_000).toFixed(0)}K`
+  const formatPrice = (p?: number) => {
+    if (p === undefined || p === null || isNaN(p)) return '—'
+    return p >= 1_000_000 ? `$${(p / 1_000_000).toFixed(1).replace(/\.0$/, '')}M` : `$${(p / 1_000).toFixed(0)}K`
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
@@ -91,11 +99,11 @@ export function HomeYellow() {
             >
               {isLoadingProp ? (
                 <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
-              ) : (
+              ) : featuredProp ? (
                 <>
                   <Image
-                    src={featuredProp!.imagen}
-                    alt={featuredProp!.titulo}
+                    src={featuredProp.imagen || '/placeholder-property.jpg'}
+                    alt={featuredProp.titulo}
                     fill
                     className="object-cover scale-[1.03] hover:scale-[1.06] transition-transform duration-700"
                     priority
@@ -103,6 +111,10 @@ export function HomeYellow() {
                   {/* subtle gradient overlay at bottom */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                 </>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-[#F3F4F6] dark:bg-[#17313A]/20">
+                  <House className="h-12 w-12 text-[#9CA3AF]" weight="duotone" />
+                </div>
               )}
             </div>
           </div>
@@ -118,13 +130,17 @@ export function HomeYellow() {
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3F4F6] dark:bg-[#17313A]/20">
                 {isLoadingProp ? (
                   <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
-                ) : (
+                ) : featuredProp ? (
                   <Image
-                    src={gallery[activeThumb]}
-                    alt={featuredProp!.titulo}
+                    src={gallery[activeThumb] || '/placeholder-property.jpg'}
+                    alt={featuredProp.titulo}
                     fill
                     className="object-cover transition-all duration-500"
                   />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-[#F3F4F6] dark:bg-[#17313A]/20">
+                    <House className="h-10 w-10 text-[#9CA3AF]" weight="duotone" />
+                  </div>
                 )}
               </div>
               <div className="grid grid-cols-4 gap-2">
@@ -132,7 +148,7 @@ export function HomeYellow() {
                   Array.from({ length: 4 }).map((_, i) => (
                     <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 animate-pulse" />
                   ))
-                ) : (
+                ) : featuredProp ? (
                   gallery.slice(0, 4).map((src, i) => (
                     <button
                       key={i}
@@ -141,8 +157,12 @@ export function HomeYellow() {
                         activeThumb === i ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                       }`}
                     >
-                      <Image src={src} alt={`foto ${i}`} fill className="object-cover" />
+                      <Image src={src || '/placeholder-property.jpg'} alt={`foto ${i}`} fill className="object-cover" />
                     </button>
+                  ))
+                ) : (
+                  Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#F3F4F6] dark:bg-[#17313A]/20" />
                   ))
                 )}
               </div>
@@ -154,8 +174,10 @@ export function HomeYellow() {
                 <div className="flex items-center justify-between">
                   {isLoadingProp ? (
                     <div className="h-4 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                  ) : featuredProp ? (
+                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp.ubicacion}</p>
                   ) : (
-                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp!.ubicacion}</p>
+                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">Propiedad destacada</p>
                   )}
                   <span className="bg-[#1e40af] dark:bg-[var(--conectia-arcilla)] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                     {isLoadingProp ? '...' : t('common.featured')}
@@ -164,9 +186,13 @@ export function HomeYellow() {
 
                 {isLoadingProp ? (
                   <div className="h-8 w-3/4 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                ) : featuredProp ? (
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
+                    {featuredProp.titulo}
+                  </h2>
                 ) : (
                   <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                    {featuredProp!.titulo}
+                    Sin propiedad destacada
                   </h2>
                 )}
 
@@ -174,27 +200,29 @@ export function HomeYellow() {
 
                 {isLoadingProp ? (
                   <div className="h-10 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
+                ) : featuredProp ? (
+                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">{formatPrice(featuredProp.precio)}</p>
                 ) : (
-                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">{formatPrice(featuredProp!.precio)}</p>
+                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">—</p>
                 )}
 
                 <div className="flex flex-wrap gap-4 text-sm text-[#6B7280] dark:text-[#B0ACA6]">
                   <span className="flex items-center gap-1.5">
                     <House className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                    {isLoadingProp ? '...' : `${featuredProp!.habitaciones} Rec`}
+                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.habitaciones} Rec` : '—'}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Bathtub className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                    {isLoadingProp ? '...' : `${featuredProp!.banos} Baños`}
+                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.banos} Baños` : '—'}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Ruler className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                    {isLoadingProp ? '...' : featuredProp!.areaTexto}
+                    {isLoadingProp ? '...' : featuredProp ? featuredProp.areaTexto : '—'}
                   </span>
                 </div>
               </div>
 
-              <Link href={isLoadingProp ? '/propiedades' : `/propiedades/${featuredProp!.id}`} className="mt-6">
+              <Link href={isLoadingProp || !featuredProp ? '/propiedades' : `/propiedades/${featuredProp.id}`} className="mt-6">
                 <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#1e40af]/10 dark:bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
