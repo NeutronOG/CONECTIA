@@ -91,7 +91,7 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { label: t('footer.links.buy'), href: '/compra' },
-                { label: t('footer.links.sell') || 'Venta', href: '/venta' },
+                { label: t('footer.links.sell'), href: '/propietarios' },
                 { label: t('footer.links.rent'), href: '/renta' },
                 { label: t('footer.links.ofertas'), href: '/ofertas' },
                 { label: t('footer.links.especial'), href: '/especiales' },
