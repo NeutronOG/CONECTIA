@@ -25,6 +25,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
   const { t } = useLanguage()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isImageFullscreen, setIsImageFullscreen] = useState(false)
+  const [showAllThumbnails, setShowAllThumbnails] = useState(false)
   
   const id = parseInt(propertyId, 10)
   const { property: propertyData, isLoading, error: loadError } = usePropertyStatic(id)
@@ -62,7 +63,6 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
     )
   }
 
-  const [showAllThumbnails, setShowAllThumbnails] = useState(false)
   const images = propertyData.galeria && propertyData.galeria.length > 0 
     ? propertyData.galeria 
     : [propertyData.imagen]
