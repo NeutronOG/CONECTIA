@@ -75,7 +75,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={`${montserrat.variable} ${cormorant.variable} font-sans m-0 p-0`}>
         <LanguageProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
             <SWRProvider>
               <AuthProvider>
                 <WishlistProvider>

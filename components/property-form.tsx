@@ -657,8 +657,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.habitaciones === num
-                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
-                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                        ? 'bg-[#17313A] text-white border-[#17313A] font-bold shadow-md scale-105'
+                        : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                       }
                     `}
                   >
@@ -679,8 +679,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.banos === num
-                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
-                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                        ? 'bg-[#17313A] text-white border-[#17313A] font-bold shadow-md scale-105'
+                        : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                       }
                     `}
                   >
@@ -701,8 +701,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.mediosBanos === num
-                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
-                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                        ? 'bg-[#17313A] text-white border-[#17313A] font-bold shadow-md scale-105'
+                        : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                       }
                     `}
                   >
@@ -800,8 +800,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
                       ${formData.cochera === num
-                        ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] font-bold shadow-md scale-105'
-                        : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                        ? 'bg-[#17313A] text-white border-[#17313A] font-bold shadow-md scale-105'
+                        : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                       }
                     `}
                   >
@@ -936,8 +936,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   className={`
                     p-2 rounded-lg border text-sm font-medium transition-all text-left
                     ${actividadesRecreativasSeleccionadas.includes(actividad)
-                      ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
-                      : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                      ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
+                      : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                     }
                   `}
                 >
@@ -981,8 +981,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
-                    ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
-                    : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                    ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
+                    : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                   }
                 `}
               >
@@ -1046,8 +1046,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
-                    ? 'bg-[var(--conectia-arcilla)] text-[#0F2027] border-[var(--conectia-arcilla)] shadow-md'
-                    : 'bg-blue-500/10 text-white border-blue-500/30 hover:border-blue-500/50 hover:bg-blue-500/15'
+                    ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
+                    : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                   }
                 `}
               >

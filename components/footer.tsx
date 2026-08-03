@@ -91,10 +91,13 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { label: t('footer.links.buy'), href: '/compra' },
+                { label: t('footer.links.sell') || 'Venta', href: '/venta' },
                 { label: t('footer.links.rent'), href: '/renta' },
                 { label: t('footer.links.ofertas'), href: '/ofertas' },
                 { label: t('footer.links.especial'), href: '/especiales' },
                 { label: t('footer.links.preventa'), href: '/preventa' },
+                { label: t('footer.links.developments'), href: '/desarrollos' },
+                { label: 'Remates Judiciales (Próximamente)', href: '/remates' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">

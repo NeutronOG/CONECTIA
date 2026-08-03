@@ -59,6 +59,7 @@ export default function PropietariosPage() {
   const [formData, setFormData] = useState({
     titulo: '',
     propertyType: '',
+    categoria: '',
     bedrooms: '',
     bathrooms: '',
     area: '',
@@ -253,6 +254,11 @@ export default function PropietariosPage() {
       return
     }
 
+    if (!formData.categoria) {
+      toast.error('Selecciona una categoría para tu propiedad')
+      return
+    }
+
     if (!formData.address || !formData.city || !formData.neighborhood) {
       toast.error(t('propietarios.errors.locationRequired'))
       return
@@ -280,6 +286,7 @@ export default function PropietariosPage() {
       const submission = OwnerSubmissionsStorage.add({
         titulo: formData.titulo || undefined,
         propertyType: formData.propertyType,
+        categoria: formData.categoria,
         bedrooms: formData.bedrooms,
         bathrooms: formData.bathrooms,
         area: formData.area,
@@ -584,6 +591,30 @@ export default function PropietariosPage() {
                       <SelectItem value="Centro de negocios">Centro de negocios</SelectItem>
                       <SelectItem value="Granja">Granja</SelectItem>
                       <SelectItem value="Motel">Motel</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="categoria" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
+                    Categoría *
+                  </Label>
+                  <Select
+                    value={formData.categoria}
+                    onValueChange={(value) => setFormData(prev => ({...prev, categoria: value}))}
+                  >
+                    <SelectTrigger className="bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)] focus:ring-[var(--conectia-arcilla)]/20">
+                      <SelectValue placeholder="Selecciona la categoría" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="venta">Venta</SelectItem>
+                      <SelectItem value="renta">Renta</SelectItem>
+                      <SelectItem value="compra">Compra</SelectItem>
+                      <SelectItem value="preventa">Preventa</SelectItem>
+                      <SelectItem value="exclusivo">Exclusivo</SelectItem>
+                      <SelectItem value="especiales">Especiales</SelectItem>
+                      <SelectItem value="oferta">Oferta</SelectItem>
+                      <SelectItem value="remate">Remate</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

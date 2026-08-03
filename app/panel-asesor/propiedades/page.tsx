@@ -435,10 +435,9 @@ export default function PropiedadesAsesorPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {propiedades.map((propiedad) => (
-              <div key={propiedad.id} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden group hover:border-white/20 transition-all duration-300 hover:-translate-y-1">
-                <div className="relative h-48 overflow-hidden">
+              <div key={propiedad.id} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden group hover:border-white/20 transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                <div className="relative h-48 overflow-hidden flex-shrink-0">
                   <img src={propiedad.imagen} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F2027] via-transparent to-transparent opacity-60" />
                   <div className="absolute top-3 right-3">
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border ${
                       propiedad.status === 'Disponible' ? 'bg-green-500/15 text-green-400 border-green-500/30' :
@@ -446,13 +445,14 @@ export default function PropiedadesAsesorPage() {
                       'bg-blue-500/15 text-blue-400 border-blue-500/30'
                     }`}>{propiedad.status}</span>
                   </div>
-                  <div className="absolute bottom-3 left-3 right-3">
+                </div>
+
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="mb-3">
                     <h3 className="text-lg font-bold text-white leading-tight">{propiedad.titulo}</h3>
                     <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 text-[var(--conectia-arcilla)]" /> {propiedad.ubicacion}</div>
                   </div>
-                </div>
 
-                <div className="p-5">
                   {propiedad.agente && (
                     <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-[var(--conectia-arcilla)]/10 rounded-xl border border-[var(--conectia-arcilla)]/20">
                       <User className="h-4 w-4 text-[var(--conectia-arcilla)]" />
@@ -470,21 +470,21 @@ export default function PropiedadesAsesorPage() {
                     const analytics = getAnalyticsForProperty(propiedad.id)
                     if (!analytics || (analytics.views === 0 && analytics.shares === 0)) return null
                     return (
-                      <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-2 mb-3 overflow-x-auto pb-1 no-scrollbar">
                         {analytics.views > 0 && (
-                          <div className="flex items-center gap-1 px-2 py-1 bg-[#8b5cf6]/10 rounded-lg border border-[#8b5cf6]/20">
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[#8b5cf6]/10 rounded-lg border border-[#8b5cf6]/20 flex-shrink-0">
                             <BarChart3 className="h-3 w-3 text-[#8b5cf6]" />
                             <span className="text-[10px] font-bold text-[#8b5cf6]">{analytics.views} {t('panelAsesor.propiedades.views')}{analytics.views !== 1 ? t('panelAsesor.propiedades.viewsPlural') : ''}</span>
                           </div>
                         )}
                         {analytics.shares > 0 && (
-                          <div className="flex items-center gap-1 px-2 py-1 bg-[#06b6d4]/10 rounded-lg border border-[#06b6d4]/20">
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[#06b6d4]/10 rounded-lg border border-[#06b6d4]/20 flex-shrink-0">
                             <Share2 className="h-3 w-3 text-[#06b6d4]" />
                             <span className="text-[10px] font-bold text-[#06b6d4]">{analytics.shares} {t('panelAsesor.propiedades.shared')}{analytics.shares !== 1 ? t('panelAsesor.propiedades.sharedPlural') : ''}</span>
                           </div>
                         )}
                         {analytics.interactionsCount > 0 && (
-                          <div className="flex items-center gap-1 px-2 py-1 bg-[var(--conectia-arcilla)]/10 rounded-lg border border-[var(--conectia-arcilla)]/20" title="Tiempo promedio de interacción">
+                          <div className="flex items-center gap-1 px-2 py-1 bg-[var(--conectia-arcilla)]/10 rounded-lg border border-[var(--conectia-arcilla)]/20 flex-shrink-0" title="Tiempo promedio de interacción">
                             <MousePointerClick className="h-3 w-3 text-[var(--conectia-arcilla)]" />
                             <span className="text-[10px] font-bold text-[var(--conectia-arcilla)]">{formatDuration(getAverageInteractionTimeMs(propiedad.id))}</span>
                           </div>
@@ -493,15 +493,15 @@ export default function PropiedadesAsesorPage() {
                     )
                   })()}
 
-                  <div className="flex items-center gap-3 text-xs text-[#B0ACA6] mb-5">
+                  <div className="flex items-center gap-3 text-xs text-[#B0ACA6] mb-4">
                     <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Bed className="h-3.5 w-3.5" /> {propiedad.habitaciones}</div>
                     <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Bath className="h-3.5 w-3.5" /> {propiedad.banos}</div>
                     <div className="flex items-center gap-1 px-2.5 py-1.5 bg-white/5 rounded-lg border border-white/10"><Maximize className="h-3.5 w-3.5" /> {propiedad.areaTexto}</div>
                   </div>
 
-                  <div className="flex gap-2">
-                    <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
-                      <Eye className="h-3.5 w-3.5" /> {t('panelAsesor.propiedades.view')}
+                  <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar mt-auto">
+                    <button onClick={() => handleEdit(propiedad)} className="flex-shrink-0 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
+                      <Eye className="h-3.5 w-3.5 flex-shrink-0" /> {t('panelAsesor.propiedades.view')}
                     </button>
                     <ShareButton
                       title={propiedad.titulo}
@@ -509,20 +509,20 @@ export default function PropiedadesAsesorPage() {
                       image={propiedad.imagen}
                       variant="ghost"
                       size="sm"
-                      className="px-3 py-2 h-auto bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl text-xs font-semibold"
+                      className="flex-shrink-0 px-3 py-2 h-auto bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl text-xs font-semibold"
                       propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: propiedad.tipo, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
                     />
                     {(isSuperUser(user) || (propiedad.agente && propiedad.agente.email === user?.email)) && (
-                      <button onClick={() => handleEdit(propiedad)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
-                        <Edit className="h-3.5 w-3.5" /> {t('panelAsesor.propiedades.edit')}
+                      <button onClick={() => handleEdit(propiedad)} className="flex-shrink-0 flex items-center justify-center gap-1.5 px-3 py-2 bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl transition-all text-xs font-semibold">
+                        <Edit className="h-3.5 w-3.5 flex-shrink-0" /> {t('panelAsesor.propiedades.edit')}
                       </button>
                     )}
-                    <button onClick={() => setBajaConfirm(propiedad)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-400 rounded-xl transition-all text-xs font-semibold" title="Notificar baja">
-                      <AlertTriangle className="h-3.5 w-3.5" />
+                    <button onClick={() => setBajaConfirm(propiedad)} className="flex-shrink-0 flex items-center justify-center gap-1.5 px-3 py-2 bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-400 rounded-xl transition-all text-xs font-semibold" title="Notificar baja">
+                      <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0" />
                     </button>
                     {isSuperUser(user) && (
-                      <button onClick={() => setDeleteConfirm(propiedad.id)} className="flex items-center justify-center gap-1.5 px-3 py-2 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 rounded-xl transition-all text-xs font-semibold" title="Eliminar">
-                        <Trash2 className="h-3.5 w-3.5" />
+                      <button onClick={() => setDeleteConfirm(propiedad.id)} className="flex-shrink-0 flex items-center justify-center gap-1.5 px-3 py-2 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 rounded-xl transition-all text-xs font-semibold" title="Eliminar">
+                        <Trash2 className="h-3.5 w-3.5 flex-shrink-0" />
                       </button>
                     )}
                   </div>

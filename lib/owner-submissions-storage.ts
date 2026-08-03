@@ -3,6 +3,7 @@ export interface OwnerSubmission {
   // Información de la propiedad
   titulo?: string
   propertyType: string
+  categoria?: string
   bedrooms: string
   bathrooms: string
   area: string
@@ -20,6 +21,7 @@ export interface OwnerSubmission {
   gravamen?: string
   amenities: string[]
   actividadesRecreativas?: string[]
+  caracteristicasEspeciales?: string[]
   // Fotos (guardamos los nombres/URLs)
   photoCount: number
   // Contacto
