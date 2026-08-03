@@ -62,9 +62,13 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
     )
   }
 
+  const [showAllThumbnails, setShowAllThumbnails] = useState(false)
   const images = propertyData.galeria && propertyData.galeria.length > 0 
     ? propertyData.galeria 
     : [propertyData.imagen]
+
+  const visibleThumbnails = showAllThumbnails ? images : images.slice(0, 3)
+  const remainingCount = Math.max(0, images.length - 3)
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
@@ -161,7 +165,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             {/* Thumbnails */}
             {images.length > 1 && (
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                {images.map((src, i) => (
+                {visibleThumbnails.map((src, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
@@ -172,6 +176,15 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     <img src={src} alt={`${propertyData.titulo} ${i + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
+                {!showAllThumbnails && remainingCount > 0 && (
+                  <button
+                    onClick={() => setShowAllThumbnails(true)}
+                    className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-[var(--conectia-arcilla)] hover:border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)] text-white flex flex-col items-center justify-center text-xs font-bold leading-tight"
+                  >
+                    <span>Ver</span>
+                    <span>+{remainingCount}</span>
+                  </button>
+                )}
               </div>
             )}
 
