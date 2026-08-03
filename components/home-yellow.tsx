@@ -354,7 +354,7 @@ export function HomeYellow() {
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
                   {[
                     { href: '/compra',     icon: ShoppingBag, label: t('home.search.buy') },
-                    { href: '/venta',      icon: Tag,         label: `${t('home.search.sell')} vender` },
+                    { href: '/venta',      icon: Tag,         label: t('home.search.sell') },
                     { href: '/renta',      icon: Key,         label: t('home.search.rent') },
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
