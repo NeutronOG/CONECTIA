@@ -143,6 +143,11 @@ export default function PanelFotografoPage() {
   }
 
   const updateSolicitud = async (id: string, newStatus: string, notas?: string) => {
+    if (newStatus === 'completada' && !(solicitudDetalle?.imagenes || []).length) {
+      toast.error('Sube al menos una foto antes de completar la solicitud')
+      return
+    }
+
     setUpdatingId(id)
     try {
       const res = await fetch('/api/solicitudes-propiedad', {
@@ -150,8 +155,8 @@ export default function PanelFotografoPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status: newStatus, notas_fotografo: notas || undefined })
       })
+      const data = await res.json()
       if (res.ok) {
-        const data = await res.json()
         // Actualizar solicitudDetalle con los datos frescos sin cerrar
         if (data.solicitud) {
           setSolicitudDetalle(data.solicitud)
@@ -165,6 +170,8 @@ export default function PanelFotografoPage() {
           toast.info('Solicitud rechazada')
         }
         await loadData()
+      } else {
+        throw new Error(data.error || 'Error al actualizar solicitud')
       }
     } catch (error) {
       console.error('Error updating solicitud:', error)
@@ -595,7 +602,7 @@ export default function PanelFotografoPage() {
                 <div className="border-t border-gray-700/60 pt-5">
                   <p className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                     <Camera className="h-4 w-4 text-[var(--conectia-arcilla)]" />
-                    Fotos de la propiedad ({(solicitudDetalle.imagenes || []).length})
+                    Contenido de la propiedad ({(solicitudDetalle.imagenes || []).length})
                   </p>
 
                   {/* Fotos existentes */}
@@ -721,7 +728,7 @@ export default function PanelFotografoPage() {
                     <>
                       <Button
                         onClick={() => updateSolicitud(solicitudDetalle.id, 'completada', notaFotografo)}
-                        disabled={updatingId === solicitudDetalle.id}
+                        disabled={updatingId === solicitudDetalle.id || !(solicitudDetalle.imagenes || []).length}
                         className="bg-green-600 hover:bg-green-700 text-white"
                       >
                         <CheckCircle className="h-4 w-4 mr-2" />

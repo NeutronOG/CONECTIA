@@ -74,7 +74,21 @@ CREATE POLICY "Allow all for service role" ON solicitudes_propiedad
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { asesor_email, asesor_nombre, titulo, ubicacion, descripcion, precio_estimado, tipo, categoria, habitaciones, banos, area, ...extraData } = body
+    const {
+      asesor_email,
+      asesor_nombre,
+      titulo,
+      ubicacion,
+      descripcion,
+      precio_estimado,
+      tipo,
+      categoria,
+      habitaciones,
+      banos,
+      area,
+      imagenes,
+      ...extraData
+    } = body
 
     if (!asesor_email || !titulo) {
       return NextResponse.json({ error: 'Se requiere email del asesor y título' }, { status: 400 })
@@ -92,6 +106,7 @@ export async function POST(request: Request) {
       habitaciones: habitaciones || null,
       banos: banos || null,
       area: area || null,
+      imagenes: Array.isArray(imagenes) ? imagenes.filter((imagen) => typeof imagen === 'string' && imagen.length > 0) : [],
       status: 'pendiente'
     }
 
@@ -152,6 +167,29 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: 'Se requiere ID de solicitud' }, { status: 400 })
     }
 
+    const validStatuses = ['pendiente', 'en_proceso', 'completada', 'rechazada']
+    if (status && !validStatuses.includes(status)) {
+      return NextResponse.json({ error: 'Estado de solicitud no válido' }, { status: 400 })
+    }
+
+    // Evita marcar como finalizado un trabajo sin el contenido que debe
+    // publicar el fotógrafo. La validación también vive en el servidor.
+    if (status === 'completada') {
+      const { data: currentSolicitud, error: currentError } = await supabaseAdmin
+        .from('solicitudes_propiedad')
+        .select('imagenes')
+        .eq('id', id)
+        .single()
+
+      if (currentError) {
+        return NextResponse.json({ error: currentError.message }, { status: 500 })
+      }
+
+      if (!Array.isArray(currentSolicitud?.imagenes) || currentSolicitud.imagenes.length === 0) {
+        return NextResponse.json({ error: 'Sube al menos una foto antes de completar la solicitud' }, { status: 400 })
+      }
+    }
+
     const updateData: any = { updated_at: new Date().toISOString() }
     if (status) updateData.status = status
     if (notas_fotografo !== undefined) updateData.notas_fotografo = notas_fotografo
@@ -189,7 +227,7 @@ export async function PATCH(request: Request) {
     }
 
     // === CREAR PROPIEDAD AUTOMÁTICAMENTE AL COMPLETAR ===
-    if (status === 'completada' && data) {
+    if (status === 'completada' && data && !data.propiedad_id) {
       try {
         const solicitud = data
         const extra = solicitud.datos_extra || {}
@@ -205,18 +243,34 @@ export async function PATCH(request: Request) {
         const areaNum = Math.round(Number(solicitud.area) || 0)
         const habitacionesNum = Math.round(Number(String(solicitud.habitaciones || '0').replace(/\+.*/, '')) || 0)
         const banosNum = Math.round(Number(String(solicitud.banos || '0').replace(/\+.*/, '')) || 0)
+        const asesorEmail = typeof solicitud.asesor_email === 'string'
+          ? solicitud.asesor_email.trim().toLowerCase()
+          : ''
+
+        // Mantener la propiedad asociada al asesor que creó la solicitud para
+        // que aparezca en su cartera al concluir el trabajo fotográfico.
+        const { data: asesor } = asesorEmail
+          ? await supabaseAdmin
+            .from('usuarios')
+            .select('id')
+            .ilike('email', asesorEmail)
+            .maybeSingle()
+          : { data: null }
 
         const nuevaPropiedad: any = {
           titulo: solicitud.titulo,
           ubicacion: solicitud.ubicacion || 'Sin ubicación',
           precio: precioNum,
-          precio_texto: precioTexto,
+          precio_texto: extra.precioTexto || precioTexto,
           tipo: solicitud.tipo || 'Departamento',
           categoria: solicitud.categoria || 'venta',
           habitaciones: habitacionesNum,
           banos: banosNum,
+          medios_banos: Math.round(Number(extra.mediosBanos) || 0),
           area: areaNum,
-          area_texto: areaNum > 0 ? `${areaNum} m²` : '0 m²',
+          area_texto: extra.areaTexto || (areaNum > 0 ? `${areaNum} m²` : '0 m²'),
+          area_construccion: Math.round(Number(extra.areaConstruccion) || 0),
+          cochera: Math.round(Number(extra.cochera) || 0),
           imagen: imagenPrincipal,
           galeria: galeria,
           descripcion: solicitud.descripcion || '',
@@ -224,6 +278,9 @@ export async function PATCH(request: Request) {
           status: 'Disponible',
           unidad_superficie: extra.unidadSuperficie || 'm²',
           tour_virtual: extra.tourVirtual || null,
+          fecha_publicacion: extra.fechaPublicacion || new Date().toISOString(),
+          ...(asesorEmail ? { asesor_email: asesorEmail } : {}),
+          ...(asesor?.id ? { usuario_id: asesor.id } : {}),
         }
 
         const { data: propData, error: propError } = await supabaseAdmin

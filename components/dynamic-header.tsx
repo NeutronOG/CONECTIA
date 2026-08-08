@@ -371,7 +371,7 @@ export function DynamicHeader() {
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.buy')}</span>
                         </button>
                       </Link>
-                      <Link href="/venta" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/propietarios" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Tag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.sell')}</span>
@@ -393,6 +393,24 @@ export function DynamicHeader() {
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Percent className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('home.search.ofertas')}</span>
+                        </button>
+                      </Link>
+                      <Link href="/preventa" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Building className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Preventa (Próximamente)</span>
+                        </button>
+                      </Link>
+                      <Link href="/desarrollos" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Building className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Desarrollos (Próximamente)</span>
+                        </button>
+                      </Link>
+                      <Link href="/remates" onClick={() => setIsMobileMenuOpen(false)}>
+                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <Tag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Remates Judiciales (Próximamente)</span>
                         </button>
                       </Link>
                     </div>

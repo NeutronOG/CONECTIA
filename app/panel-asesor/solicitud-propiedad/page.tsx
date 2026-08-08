@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { PropertyForm } from '@/components/property-form'
@@ -17,18 +17,30 @@ export default function SolicitudPropiedadPage() {
   const [enviada, setEnviada] = useState(false)
   const [tituloEnviado, setTituloEnviado] = useState('')
 
+  useEffect(() => {
+    if (!isAuthenticated || user?.role !== 'asesor') {
+      router.replace('/login')
+    }
+  }, [isAuthenticated, router, user?.role])
+
   if (!isAuthenticated || user?.role !== 'asesor') {
-    router.push('/login')
     return null
   }
 
   const handleSolicitud = async (propertyData: Omit<Propiedad, 'id'>) => {
     try {
-      // 1. Crear la solicitud con todos los datos del formulario
+      const imagenes = Array.from(new Set([
+        propertyData.imagen,
+        ...(propertyData.galeria || [])
+      ].filter((imagen): imagen is string => Boolean(imagen && !imagen.includes('placeholder')))))
+
+      // La solicitud conserva el formulario completo para que el fotógrafo y
+      // la propiedad publicada reciban exactamente la información capturada.
       const res = await fetch('/api/solicitudes-propiedad', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          ...propertyData,
           asesor_email: user?.email,
           asesor_nombre: user?.nombre,
           titulo: propertyData.titulo,
@@ -39,35 +51,14 @@ export default function SolicitudPropiedadPage() {
           categoria: propertyData.categoria || 'venta',
           habitaciones: propertyData.habitaciones || null,
           banos: propertyData.banos || null,
-          area: propertyData.area || null
+          area: propertyData.area || null,
+          imagenes
         })
       })
 
       if (!res.ok) {
         const data = await res.json()
         throw new Error(data.error || t('panelAsesor.errors.sendRequest'))
-      }
-
-      const data = await res.json()
-
-      // 2. Si hay imágenes (principal + galería), agregarlas a la solicitud
-      const allImages: string[] = []
-      if (propertyData.imagen && !propertyData.imagen.includes('placeholder')) {
-        allImages.push(propertyData.imagen)
-      }
-      if (propertyData.galeria && propertyData.galeria.length > 0) {
-        allImages.push(...propertyData.galeria)
-      }
-
-      if (allImages.length > 0 && data.solicitud?.id) {
-        await fetch('/api/solicitudes-propiedad', {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: data.solicitud.id,
-            imagenes: allImages
-          })
-        })
       }
 
       setTituloEnviado(propertyData.titulo)

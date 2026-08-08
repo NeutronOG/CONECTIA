@@ -95,8 +95,8 @@ export function Footer() {
                 { label: t('footer.links.rent'), href: '/renta' },
                 { label: t('footer.links.ofertas'), href: '/ofertas' },
                 { label: t('footer.links.especial'), href: '/especiales' },
-                { label: t('footer.links.preventa'), href: '/preventa' },
-                { label: t('footer.links.developments'), href: '/desarrollos' },
+                { label: `${t('footer.links.preventa')} (Próximamente)`, href: '/preventa' },
+                { label: `${t('footer.links.developments')} (Próximamente)`, href: '/desarrollos' },
                 { label: 'Remates Judiciales (Próximamente)', href: '/remates' },
               ].map((item) => (
                 <li key={item.label}>

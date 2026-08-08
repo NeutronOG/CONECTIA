@@ -1,0 +1,7 @@
+id,titulo,ubicacion,categoria,tipo,precioTexto,status
+5,"penthouseDEMO","Polanco, CDMX",exclusivo,Penthouse,$18,500,000,Disponible
+1,"Penthouse Polanco IV","Polanco, CDMX",venta,Penthouse,$18,500,000,Disponible
+2,"Villa Santa Fe","Santa Fe, CDMX",exclusivo,Villa,$22,800,000,Exclusiva
+3,"Residencia Roma Norte","Roma Norte, CDMX",especial,Residencia,$15,200,000,Reservada
+4,"Loft Condesa Premium","Condesa, CDMX",renta,Loft,$12,800,000,Disponible
+6,"Departamento Interlomas","Interlomas, Estado de México",remate,Departamento,$8,500,000,Disponible
