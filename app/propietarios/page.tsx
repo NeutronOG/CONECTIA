@@ -17,6 +17,7 @@ import {
   ArrowLeft,
   Upload,
   Shield,
+  Crown,
   Star,
   FileText,
   MapPin,
@@ -424,8 +425,8 @@ export default function PropietariosPage() {
         <div className="mb-10">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/30 mb-4">
-              <Star className="h-4 w-4 text-[var(--conectia-arcilla)]" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--conectia-arcilla)] font-bold">{t('common.appName')}</span>
+              <Crown className="h-4 w-4 text-[var(--conectia-arcilla)]" strokeWidth={1.55} />
+              <span className="font-serif text-sm font-semibold uppercase tracking-[0.28em] text-[#17313A] dark:text-[#EAE4DD]">{t('common.appName')}</span>
             </div>
             <h1 className="font-serif text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#17313A] dark:text-white mb-3">
               {t('propietarios.title')}

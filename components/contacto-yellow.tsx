@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Calendar, Zap } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Calendar, MessagesSquare } from "lucide-react"
 import { useLanguage } from "@/lib/i18n"
 
 export function ContactoYellow() {
@@ -26,8 +26,8 @@ export function ContactoYellow() {
       <section className="relative pt-28 pb-16 px-4 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#17313A]/10 dark:bg-[var(--conectia-arcilla)]/10 border border-[#17313A]/25 dark:border-[var(--conectia-arcilla)]/25 rounded-full mb-6">
-            <Zap className="h-4 w-4 text-[#17313A] dark:text-[var(--conectia-arcilla)]" />
-            <span className="text-[10px] font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-[0.3em]">
+            <MessagesSquare className="h-4 w-4 text-[#17313A] dark:text-[var(--conectia-arcilla)]" strokeWidth={1.55} />
+            <span className="font-serif text-sm font-semibold text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-[0.24em]">
               {t('contact.badge')}
             </span>
           </div>

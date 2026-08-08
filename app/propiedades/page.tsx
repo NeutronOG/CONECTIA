@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PropertyFilters } from "@/components/property-filters"
 import { AISearchChat } from "@/components/ai-search-chat"
-import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Bot, MessageSquare, RefreshCw, Building } from "lucide-react"
+import { MapPin, Bed, Bath, Square, Eye, Calendar, Grid, List, Map, Search, Bot, MessageSquare, RefreshCw, Landmark } from "lucide-react"
 import Link from "next/link"
 import { WishlistButton } from "@/components/wishlist-button"
 import { Propiedad } from "@/data/propiedades"
@@ -142,9 +142,9 @@ export default function PropiedadesPage() {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
                 style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)', backdropFilter: 'blur(12px)' }}>
-                <Building className="h-5 w-5 text-[var(--conectia-arcilla)]" />
+                <Landmark className="h-5 w-5 text-[var(--conectia-arcilla)]" strokeWidth={1.55} />
               </div>
-              <span className="text-[var(--conectia-arcilla)] text-[10px] font-semibold uppercase tracking-[0.35em]">{t('common.appName')}</span>
+              <span className="font-serif text-sm font-semibold uppercase tracking-[0.28em] text-[#17313A] dark:text-[#EAE4DD]">{t('common.appName')}</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-[#17313A] dark:text-white leading-[0.95] mb-2">
               Nuestras propiedades
