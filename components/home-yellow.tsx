@@ -85,7 +85,7 @@ export function HomeYellow() {
               {[
                 { icon: House, value: '+500', label: t('home.hero.stats.properties').toUpperCase() },
                 { icon: Star,  value: '98%',  label: t('home.hero.stats.happyClients').toUpperCase() },
-                { icon: MapPin,value: 'CTO',  label: t('home.hero.stats.brokers').toUpperCase() },
+                { icon: MapPin,value: 'GTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
                 <div key={i} className="home-metric-card flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
                   <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
