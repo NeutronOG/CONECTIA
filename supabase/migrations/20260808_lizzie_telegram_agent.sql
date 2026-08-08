@@ -47,6 +47,8 @@ REVOKE ALL ON public.agent_pending_actions FROM anon, authenticated;
 
 -- Los permisos también viven en usuarios para que sean visibles desde el
 -- perfil interno. Conserva cualquier permiso previo.
+ALTER TABLE public.usuarios ADD COLUMN IF NOT EXISTS permisos TEXT[] NOT NULL DEFAULT '{}';
+
 UPDATE public.usuarios
 SET permisos = ARRAY(
   SELECT DISTINCT permission
