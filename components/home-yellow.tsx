@@ -9,6 +9,7 @@ import { CommercialAlliance } from "./commercial-alliance"
 import { HomepageAdSlot } from "./homepage-ads"
 import { Propiedad } from "@/data/propiedades"
 import { useLanguage } from "@/lib/i18n"
+import { usePropertiesStatic } from "@/hooks/use-properties-static"
 
 export function HomeYellow() {
   const { t } = useLanguage()
@@ -16,6 +17,15 @@ export function HomeYellow() {
   const [activeThumb, setActiveThumb] = useState(0)
   const [featuredProp, setFeaturedProp] = useState<Propiedad | null>(null)
   const [isLoadingProp, setIsLoadingProp] = useState(true)
+  const { properties, isLoading: isLoadingProperties } = usePropertiesStatic()
+
+  // El inventario es la fuente de verdad del contador: SWR lo carga desde la
+  // API y el hook lo actualiza cuando Supabase emite cambios en tiempo real.
+  const propertyCount = isLoadingProperties
+    ? '…'
+    : properties.length > 0
+      ? `+${properties.length}`
+      : '0'
 
   useEffect(() => {
     // Casa en Comanjilla es la ficha editorial elegida para este espacio.
@@ -83,7 +93,7 @@ export function HomeYellow() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-2">
               {[
-                { icon: House, value: '+500', label: t('home.hero.stats.properties').toUpperCase() },
+                { icon: House, value: propertyCount, label: t('home.hero.stats.properties').toUpperCase() },
                 { icon: Star,  value: '98%',  label: t('home.hero.stats.happyClients').toUpperCase() },
                 { icon: MapPin,value: 'GTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
@@ -308,7 +318,7 @@ export function HomeYellow() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: House,   value: '+500', label: t('home.hero.stats.properties') },
+              { icon: House,   value: propertyCount, label: t('home.hero.stats.properties') },
               { icon: Users,   value: '98%',  label: t('home.hero.stats.happyClients') },
               { icon: MapPin,  value: 'GTO',  label: t('home.hero.stats.brokers') },
               { icon: TrendUp, value: '45d',  label: t('home.cta.title') },

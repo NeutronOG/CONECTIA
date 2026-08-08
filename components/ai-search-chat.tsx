@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { ArrowUp, Bot, Sparkles, X } from "lucide-react"
+import { ArrowUp, Bot, Gem, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export interface AssistantProperty {
@@ -127,7 +127,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
         <header className="flex items-center justify-between border-b border-[#17313a]/10 bg-[#17313A] px-5 py-4 text-[#f5f0ea] sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/10">
-              <Sparkles className="h-[18px] w-[18px] text-[#dfb29e]" />
+              <Gem className="h-[18px] w-[18px] text-[#dfb29e]" strokeWidth={1.6} />
             </div>
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#dfb29e]">CONECTIA</p>
