@@ -19,6 +19,36 @@ const fetchPropertiesFromAPI = async (): Promise<Propiedad[]> => {
   }
 }
 
+type PropertyRealtimeListener = (payload: any) => void
+
+// Supabase no permite registrar callbacks adicionales sobre un canal que ya
+// está suscrito. Como varias vistas usan este hook al mismo tiempo (por
+// ejemplo, el inicio y el carrusel), compartimos un único canal y repartimos
+// cada evento entre los componentes activos.
+let propertyChangesChannel: ReturnType<typeof supabase.channel> | null = null
+const propertyRealtimeListeners = new Set<PropertyRealtimeListener>()
+
+function addPropertyRealtimeListener(listener: PropertyRealtimeListener) {
+  propertyRealtimeListeners.add(listener)
+
+  if (!propertyChangesChannel) {
+    propertyChangesChannel = supabase
+      .channel('propiedades_changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'propiedades' },
+        (payload) => {
+          propertyRealtimeListeners.forEach((subscriber) => subscriber(payload))
+        }
+      )
+      .subscribe()
+  }
+
+  return () => {
+    propertyRealtimeListeners.delete(listener)
+  }
+}
+
 export function usePropertiesStatic() {
   const [realtimeUpdates, setRealtimeUpdates] = useState<Map<number, Propiedad>>(new Map())
 
@@ -36,61 +66,54 @@ export function usePropertiesStatic() {
 
   // Suscribirse a cambios en tiempo real
   useEffect(() => {
-    const channel = supabase
-      .channel('propiedades_changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'propiedades' },
-        async (payload) => {
-          console.log('🔄 Realtime update received:', payload.eventType)
+    const removePropertyRealtimeListener = addPropertyRealtimeListener(async (payload) => {
+      console.log('🔄 Realtime update received:', payload.eventType)
 
-          if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
-            const newProp = payload.new as any
-            const formattedProp: Propiedad = {
-              id: Number(newProp.id),
-              usuarioId: newProp.usuario_id || undefined,
-              titulo: newProp.titulo,
-              ubicacion: newProp.ubicacion,
-              precio: Number(newProp.precio),
-              precioTexto: newProp.precio_texto,
-              tipo: newProp.tipo,
-              habitaciones: newProp.habitaciones,
-              banos: newProp.banos,
-              area: newProp.area,
-              areaTexto: newProp.area_texto,
-              imagen: newProp.imagen || '',
-              descripcion: newProp.descripcion || '',
-              caracteristicas: newProp.caracteristicas || [],
-              status: newProp.status,
-              categoria: newProp.categoria,
-              fechaPublicacion: newProp.fecha_publicacion,
-              tourVirtual: newProp.tour_virtual || undefined,
-              galeria: newProp.galeria || undefined,
-              comisionAsesorPct: newProp.comision_asesor_pct || undefined,
-            }
-
-            setRealtimeUpdates((prev) => {
-              const updated = new Map(prev)
-              updated.set(newProp.id, formattedProp)
-              return updated
-            })
-            
-            // Revalidar datos de SWR para sincronizar
-            mutate()
-          } else if (payload.eventType === 'DELETE') {
-            setRealtimeUpdates((prev) => {
-              const updated = new Map(prev)
-              updated.delete(payload.old.id)
-              return updated
-            })
-            mutate()
-          }
+      if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
+        const newProp = payload.new as any
+        const formattedProp: Propiedad = {
+          id: Number(newProp.id),
+          usuarioId: newProp.usuario_id || undefined,
+          titulo: newProp.titulo,
+          ubicacion: newProp.ubicacion,
+          precio: Number(newProp.precio),
+          precioTexto: newProp.precio_texto,
+          tipo: newProp.tipo,
+          habitaciones: newProp.habitaciones,
+          banos: newProp.banos,
+          area: newProp.area,
+          areaTexto: newProp.area_texto,
+          imagen: newProp.imagen || '',
+          descripcion: newProp.descripcion || '',
+          caracteristicas: newProp.caracteristicas || [],
+          status: newProp.status,
+          categoria: newProp.categoria,
+          fechaPublicacion: newProp.fecha_publicacion,
+          tourVirtual: newProp.tour_virtual || undefined,
+          galeria: newProp.galeria || undefined,
+          comisionAsesorPct: newProp.comision_asesor_pct || undefined,
         }
-      )
-      .subscribe()
+
+        setRealtimeUpdates((prev) => {
+          const updated = new Map(prev)
+          updated.set(newProp.id, formattedProp)
+          return updated
+        })
+
+        // Revalidar datos de SWR para sincronizar
+        mutate()
+      } else if (payload.eventType === 'DELETE') {
+        setRealtimeUpdates((prev) => {
+          const updated = new Map(prev)
+          updated.delete(payload.old.id)
+          return updated
+        })
+        mutate()
+      }
+    })
 
     return () => {
-      channel.unsubscribe()
+      removePropertyRealtimeListener()
     }
   }, [mutate])
 
