@@ -214,16 +214,16 @@ export default function PropiedadesPage() {
                 <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
                   {/* Sort Dropdown */}
                   <Select value={sortBy} onValueChange={handleSortChange}>
-                    <SelectTrigger className="w-full sm:w-48 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-[#EAE4DD] focus:border-[var(--conectia-arcilla)] rounded-xl text-sm">
-                      <SelectValue placeholder={t('properties.sort.sort')} />
+                    <SelectTrigger className="h-11 w-full rounded-2xl border-[#17313A]/20 bg-[#17313A]/5 text-sm text-[#17313A] focus:border-[var(--conectia-arcilla)] dark:border-white/15 dark:bg-white/5 dark:text-[#EAE4DD] sm:w-52">
+                      <SelectValue placeholder={t('properties.filters.sort')} />
                     </SelectTrigger>
                     <SelectContent className="bg-white dark:bg-[#17313A] border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white">
-                      <SelectItem value="precio-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.priceDesc')}</SelectItem>
-                      <SelectItem value="precio-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.priceAsc')}</SelectItem>
-                      <SelectItem value="area-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.areaDesc')}</SelectItem>
-                      <SelectItem value="area-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.areaAsc')}</SelectItem>
-                      <SelectItem value="fecha-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.newest')}</SelectItem>
-                      <SelectItem value="fecha-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.sort.oldest')}</SelectItem>
+                      <SelectItem value="precio-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.priceDesc')}</SelectItem>
+                      <SelectItem value="precio-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.priceAsc')}</SelectItem>
+                      <SelectItem value="area-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.areaDesc')}</SelectItem>
+                      <SelectItem value="area-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.areaAsc')}</SelectItem>
+                      <SelectItem value="fecha-desc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.newest')}</SelectItem>
+                      <SelectItem value="fecha-asc" className="focus:bg-[var(--conectia-arcilla)]/20 focus:text-[var(--conectia-arcilla)]">{t('properties.filters.oldest')}</SelectItem>
                     </SelectContent>
                   </Select>
 

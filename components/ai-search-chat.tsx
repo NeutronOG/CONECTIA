@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { ArrowUp, Bot, Gem, X } from "lucide-react"
+import { ArrowUp, Bot, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export interface AssistantProperty {
@@ -125,10 +125,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
     <div onClick={onClose} className="fixed inset-0 z-[100] flex items-end justify-end bg-[#0d2026]/35 p-0 backdrop-blur-[2px] sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label="Asistente de búsqueda CONECTIA">
       <div className="flex h-[min(740px,100dvh)] w-full flex-col overflow-hidden bg-[#fbfaf8] shadow-2xl sm:h-[min(740px,calc(100dvh-3rem))] sm:max-w-[540px] sm:rounded-[28px]" onClick={event => event.stopPropagation()}>
         <header className="flex items-center justify-between border-b border-[#17313a]/10 bg-[#17313A] px-5 py-4 text-[#f5f0ea] sm:px-6">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/10">
-              <Gem className="h-[18px] w-[18px] text-[#dfb29e]" strokeWidth={1.6} />
-            </div>
+          <div className="flex min-w-0 items-center">
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#dfb29e]">CONECTIA</p>
               <h2 className="truncate font-serif text-xl leading-none">Asistente de propiedades</h2>
