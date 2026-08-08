@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { getComisionAsesor } from '@/lib/commission'
+import { authorizeN8nRequest } from '@/lib/n8n-auth'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,6 +12,9 @@ const supabaseAdmin = createClient(
 // GET /api/n8n/reporte-actividad?dias=7
 // GET /api/n8n/reporte-actividad?dias=7&format=telegram
 export async function GET(request: Request) {
+  const authError = authorizeN8nRequest(request)
+  if (authError) return authError
+
   try {
     const { searchParams } = new URL(request.url)
     const dias = parseInt(searchParams.get('dias') || '7')

@@ -1,29 +1,11 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { 
-  X, 
-  Send, 
-  Bot, 
-  User, 
-  MessageSquare,
-  ExternalLink,
-  Search,
-  Home,
-  MapPin,
-  DollarSign,
-  Bed,
-  Bath,
-  Square
-} from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
+import { ArrowUp, Bot, Sparkles, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-interface Property {
+export interface AssistantProperty {
   id: number
   titulo: string
   ubicacion: string
@@ -39,583 +21,192 @@ interface Property {
   caracteristicas: string[]
   status: string
   categoria?: string
-  fechaPublicacion?: string
 }
 
-interface Message {
+type Message = {
   id: string
-  type: 'user' | 'ai'
+  role: "assistant" | "user"
   content: string
-  timestamp: Date
-  properties?: Property[]
-  suggestions?: string[]
+  properties?: AssistantProperty[]
+}
+
+const firstMessage: Message = {
+  id: "welcome",
+  role: "assistant",
+  content: "Hola, soy el asistente de CONECTIA. Dime qué buscas y consultaré las propiedades disponibles ahora mismo.",
+}
+
+const suggestions = [
+  "Casa en León con 3 recámaras",
+  "Departamento en renta",
+  "Terreno hasta 5 millones",
+]
+
+function localSearch(properties: AssistantProperty[], query: string) {
+  const terms = query.toLocaleLowerCase("es-MX").split(/\s+/).filter(term => term.length > 3)
+  return properties
+    .filter(property => {
+      const text = `${property.titulo} ${property.ubicacion} ${property.tipo} ${property.descripcion} ${(property.caracteristicas || []).join(" ")}`.toLocaleLowerCase("es-MX")
+      return terms.some(term => text.includes(term))
+    })
+    .slice(0, 6)
+}
+
+function formatPrice(property: AssistantProperty) {
+  return property.precioTexto || new Intl.NumberFormat("es-MX", {
+    style: "currency", currency: "MXN", maximumFractionDigits: 0,
+  }).format(property.precio)
 }
 
 interface AISearchChatProps {
   isOpen: boolean
   onClose: () => void
-  properties: Property[]
+  properties?: AssistantProperty[]
 }
 
-export function AISearchChat({ isOpen, onClose, properties }: AISearchChatProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      type: 'ai',
-      content: '¡Hola! Soy tu asistente de búsqueda inteligente de CONECTIA. Puedo ayudarte a encontrar la propiedad perfecta. ¿Qué tipo de propiedad estás buscando?',
-      timestamp: new Date(),
-      suggestions: [
-        'Busco un penthouse en Polanco',
-        'Quiero una casa con jardín',
-        'Necesito 3 habitaciones máximo $15M',
-        'Propiedades cerca del centro'
-      ]
-    }
-  ])
-  const [inputValue, setInputValue] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const conversationHistory = useRef<Array<{ type: 'user' | 'ai'; content: string }>>([
-    {
-      type: 'ai',
-      content: '¡Hola! Soy tu asistente de búsqueda inteligente de CONECTIA. Puedo ayudarte a encontrar la propiedad perfecta. ¿Qué tipo de propiedad estás buscando?'
-    }
-  ])
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatProps) {
+  const [messages, setMessages] = useState<Message[]>([firstMessage])
+  const [query, setQuery] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const endRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    if (!isOpen) return
+    const timeout = window.setTimeout(() => inputRef.current?.focus(), 120)
+    return () => window.clearTimeout(timeout)
+  }, [isOpen])
 
-  // Sistema de IA interno para procesar consultas
-  const processAIQuery = (query: string): { results: Property[], response: string, suggestions?: string[] } => {
-    const q = query.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // quitar acentos para comparar
-    const qOrig = query.toLowerCase()
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages, isLoading])
 
-    // ── 1. PARSEAR PRECIO ──────────────────────────────────────────────────────
-    // Detectar números escritos como "5 millones", "5m", "5,000,000", "$5M", "cinco millones"
-    const wordNumbers: Record<string, number> = {
-      'un millon': 1e6, 'uno millon': 1e6, 'dos millones': 2e6, 'tres millones': 3e6,
-      'cuatro millones': 4e6, 'cinco millones': 5e6, 'seis millones': 6e6,
-      'siete millones': 7e6, 'ocho millones': 8e6, 'nueve millones': 9e6,
-      'diez millones': 10e6, 'quince millones': 15e6, 'veinte millones': 20e6
-    }
+  const submit = async (providedQuery?: string) => {
+    const cleanQuery = (providedQuery ?? query).trim()
+    if (!cleanQuery || isLoading) return
 
-    let parsedPrice: number | null = null
-    // Primero intentar palabras escritas
-    for (const [word, val] of Object.entries(wordNumbers)) {
-      if (q.includes(word)) { parsedPrice = val; break }
-    }
-    // Luego patrones numéricos: "5 millones", "5m", "5.5m", "$5,000,000", "5000000"
-    if (!parsedPrice) {
-      const patterns = [
-        /\$?\s*(\d+(?:[.,]\d+)?)\s*(?:millones?|mdp|mdd|m(?=\s|$))/i,
-        /\$?\s*(\d{1,3}(?:[.,]\d{3})+)/,  // 5,000,000 o 5.000.000
-        /presupuesto[^0-9]*(\d+(?:[.,]\d+)?)\s*(?:millones?|m)?/i,
-        /hasta[^0-9]*(\d+(?:[.,]\d+)?)\s*(?:millones?|m)?/i,
-        /maximo[^0-9]*(\d+(?:[.,]\d+)?)\s*(?:millones?|m)?/i,
-        /menos de[^0-9]*(\d+(?:[.,]\d+)?)\s*(?:millones?|m)?/i,
-      ]
-      for (const pat of patterns) {
-        const m = q.match(pat)
-        if (m) {
-          let num = parseFloat(m[1].replace(/,/g, ''))
-          // Si el número es pequeño (< 1000), asumir millones
-          if (num < 1000) num = num * 1e6
-          parsedPrice = num
-          break
-        }
-      }
-    }
-
-    // Detectar si es precio máximo o mínimo
-    const isMaxPrice = /presupuesto|maximo|hasta|menos de|no mas de|no pase de|que no sea mas|por menos|economico|barato/i.test(q)
-    const isMinPrice = /minimo|desde|mas de|superior a|por encima/i.test(q)
-
-    // ── 2. PARSEAR HABITACIONES ────────────────────────────────────────────────
-    const roomsMatch = q.match(/(\d+)\s*(?:hab(?:itacion(?:es)?)?|rec(?:amara(?:s)?)?|cuarto(?:s)?|bedroom(?:s)?)/i)
-    const rooms = roomsMatch ? parseInt(roomsMatch[1]) : null
-    const roomsIsMin = /mas de|minimo|al menos|por lo menos/.test(q)
-    const roomsIsMax = /maximo|hasta|menos de/.test(q)
-
-    // ── 3. PARSEAR BAÑOS ──────────────────────────────────────────────────────
-    const bathsMatch = q.match(/(\d+)\s*(?:bano(?:s)?|bathroom(?:s)?)/i)
-    const baths = bathsMatch ? parseInt(bathsMatch[1]) : null
-
-    // ── 4. PARSEAR ÁREA ───────────────────────────────────────────────────────
-    const areaMatch = q.match(/(\d+)\s*(?:m2|m²|metros?(?:\s*cuadrados?)?)/i)
-    const area = areaMatch ? parseInt(areaMatch[1]) : null
-    const areaIsMax = /maximo|hasta|menos de/.test(q)
-    const areaIsMin = /minimo|desde|mas de/.test(q)
-
-    // ── 5. DETECTAR TIPO DE OPERACIÓN ─────────────────────────────────────────
-    const isRenta = /rent(?:a(?:r)?)?|arrendar|alquil/i.test(q)
-    const isVenta = /venta|comprar|compra|adquirir/i.test(q)
-
-    // ── 6. DETECTAR UBICACIÓN ─────────────────────────────────────────────────
-    const locationMap: Record<string, string[]> = {
-      'polanco': ['polanco'],
-      'roma': ['roma norte', 'roma sur', 'roma'],
-      'condesa': ['condesa'],
-      'santa fe': ['santa fe'],
-      'lomas': ['lomas altas', 'lomas de chapultepec', 'lomas'],
-      'interlomas': ['interlomas'],
-      'leon': ['leon', 'guanajuato', 'gto'],
-      'valenciana': ['valenciana'],
-      'gran jardin': ['gran jardin', 'gran jardín'],
-      'campestre': ['campestre'],
-      'refugio': ['refugio'],
-      'mayorazgo': ['mayorazgo'],
-      'canada': ['canada', 'cañada'],
-      'puerta plata': ['puerta plata'],
-      'san isidro': ['san isidro'],
-      'centro': ['centro historico', 'centro'],
-    }
-    let detectedLocation: string | null = null
-    for (const [key, aliases] of Object.entries(locationMap)) {
-      if (aliases.some(a => q.includes(a)) || q.includes(key)) {
-        detectedLocation = key
-        break
-      }
-    }
-
-    // ── 7. DETECTAR TIPO DE PROPIEDAD ─────────────────────────────────────────
-    const typeMap: Record<string, string[]> = {
-      'penthouse': ['penthouse', 'atico', 'pent house'],
-      'casa': ['casa', 'vivienda', 'chalet'],
-      'villa': ['villa'],
-      'residencia': ['residencia'],
-      'departamento': ['departamento', 'depto', 'apartamento', 'dpto', 'flat'],
-      'loft': ['loft'],
-      'condominio': ['condominio', 'casa en condominio'],
-      'edificio': ['edificio'],
-      'terreno': ['terreno', 'lote', 'predio', 'hectareas', 'hectarea'],
-      'rancho': ['rancho'],
-      'local comercial': ['local comercial', 'local', 'comercial', 'negocio'],
-      'oficina': ['oficina'],
-      'bodega': ['bodega', 'bodega comercial'],
-      'nave industrial': ['nave industrial'],
-      'hospital': ['hospital'],
-      'clinica': ['clinica'],
-    }
-    let detectedType: string | null = null
-    for (const [key, aliases] of Object.entries(typeMap)) {
-      if (aliases.some(a => q.includes(a))) {
-        detectedType = key
-        break
-      }
-    }
-
-    // ── 8. DETECTAR AMENIDADES ────────────────────────────────────────────────
-    const amenityMap: Record<string, string[]> = {
-      'alberca': ['alberca', 'piscina', 'pool'],
-      'jardin': ['jardin', 'garden', 'area verde'],
-      'terraza': ['terraza', 'balcon', 'roof'],
-      'gimnasio': ['gimnasio', 'gym'],
-      'seguridad': ['seguridad', 'vigilancia', 'guardia'],
-      'estacionamiento': ['estacionamiento', 'garage', 'cochera'],
-      'elevador': ['elevador', 'ascensor'],
-    }
-    const detectedAmenities: string[] = []
-    for (const [key, aliases] of Object.entries(amenityMap)) {
-      if (aliases.some(a => q.includes(a))) detectedAmenities.push(key)
-    }
-
-    // ── 9. APLICAR FILTROS ────────────────────────────────────────────────────
-    let filtered = [...properties]
-
-    // Precio
-    if (parsedPrice) {
-      if (isMaxPrice && !isMinPrice) {
-        filtered = filtered.filter(p => p.precio <= parsedPrice!)
-      } else if (isMinPrice && !isMaxPrice) {
-        filtered = filtered.filter(p => p.precio >= parsedPrice!)
-      } else {
-        // Sin contexto claro → asumir máximo (lo más común en búsquedas)
-        filtered = filtered.filter(p => p.precio <= parsedPrice!)
-      }
-    }
-
-    // Operación
-    if (isRenta && !isVenta) {
-      filtered = filtered.filter(p => p.categoria === 'renta')
-    } else if (isVenta && !isRenta) {
-      filtered = filtered.filter(p => p.categoria === 'venta' || p.categoria === 'exclusivo' || p.categoria === 'remate')
-    }
-
-    // Ubicación
-    if (detectedLocation) {
-      const aliases = locationMap[detectedLocation]
-      filtered = filtered.filter(p => {
-        const loc = p.ubicacion.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        return aliases.some(a => loc.includes(a)) || loc.includes(detectedLocation!)
-      })
-    }
-
-    // Tipo
-    if (detectedType) {
-      filtered = filtered.filter(p => {
-        const tipo = p.tipo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        const aliases = typeMap[detectedType!]
-        return aliases.some(a => tipo.includes(a)) || tipo.includes(detectedType!)
-      })
-    }
-
-    // Habitaciones
-    if (rooms !== null) {
-      if (roomsIsMin) filtered = filtered.filter(p => p.habitaciones >= rooms)
-      else if (roomsIsMax) filtered = filtered.filter(p => p.habitaciones <= rooms)
-      else filtered = filtered.filter(p => p.habitaciones >= rooms) // al menos N
-    }
-
-    // Baños
-    if (baths !== null) {
-      filtered = filtered.filter(p => p.banos >= baths)
-    }
-
-    // Área
-    if (area !== null) {
-      if (areaIsMax) filtered = filtered.filter(p => p.area <= area)
-      else if (areaIsMin) filtered = filtered.filter(p => p.area >= area)
-      else filtered = filtered.filter(p => p.area >= area)
-    }
-
-    // Amenidades
-    for (const amenity of detectedAmenities) {
-      const aliases = amenityMap[amenity]
-      filtered = filtered.filter(p => {
-        const searchable = [...p.caracteristicas, p.descripcion].join(' ').toLowerCase()
-          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        return aliases.some(a => searchable.includes(a))
-      })
-    }
-
-    // ── 10. FALLBACK: búsqueda por texto libre si no hay resultados ───────────
-    if (filtered.length === 0) {
-      const stopWords = new Set(['que', 'con', 'una', 'para', 'por', 'los', 'las', 'del', 'en', 'de', 'un', 'la', 'el', 'se', 'al', 'mi', 'me'])
-      const words = q.split(/\s+/).filter(w => w.length > 3 && !stopWords.has(w))
-      if (words.length > 0) {
-        const textMatches = properties.filter(p => {
-          const text = `${p.titulo} ${p.ubicacion} ${p.descripcion} ${p.caracteristicas.join(' ')}`.toLowerCase()
-            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-          return words.some(w => text.includes(w))
-        })
-        if (textMatches.length > 0) filtered = textMatches
-      }
-    }
-
-    // ── 11. ORDENAR POR RELEVANCIA ────────────────────────────────────────────
-    if (filtered.length > 1) {
-      const stopWords = new Set(['que', 'con', 'una', 'para', 'por', 'los', 'las', 'del', 'en', 'de', 'un', 'la', 'el'])
-      const words = q.split(/\s+/).filter(w => w.length > 3 && !stopWords.has(w))
-      filtered.sort((a, b) => {
-        const ta = `${a.titulo} ${a.ubicacion} ${a.descripcion}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        const tb = `${b.titulo} ${b.ubicacion} ${b.descripcion}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        const ma = words.filter(w => ta.includes(w)).length
-        const mb = words.filter(w => tb.includes(w)).length
-        // Si hay precio máximo, ordenar de menor a mayor precio
-        if (parsedPrice && isMaxPrice) return a.precio - b.precio
-        return mb - ma
-      })
-    }
-
-    // ── 12. GENERAR RESPUESTA ─────────────────────────────────────────────────
-    const criterios: string[] = []
-    if (detectedType) criterios.push(detectedType)
-    if (detectedLocation) criterios.push(`en ${detectedLocation}`)
-    if (parsedPrice) criterios.push(`presupuesto ${isMinPrice ? 'desde' : 'hasta'} $${(parsedPrice/1e6).toFixed(parsedPrice%1e6===0?0:1)}M`)
-    if (rooms) criterios.push(`${rooms}+ recámaras`)
-    if (baths) criterios.push(`${baths}+ baños`)
-    if (isRenta) criterios.push('en renta')
-    if (isVenta) criterios.push('en venta')
-
-    let response = ''
-    let suggestions: string[] = []
-
-    if (filtered.length === 0) {
-      response = `No encontré propiedades con esos criterios${criterios.length ? ` (${criterios.join(', ')})` : ''}. Puedo ampliar la búsqueda o conectarte con un asesor.`
-      suggestions = ['Ampliar presupuesto', 'Ver todas las propiedades', 'Hablar con un asesor']
-    } else if (filtered.length === 1) {
-      const p = filtered[0]
-      response = `Encontré **1 propiedad** que coincide${criterios.length ? ` con: ${criterios.join(', ')}` : ''}: **${p.titulo}** en ${p.ubicacion} — ${p.precioTexto}.`
-      suggestions = ['Ver detalles', 'Buscar similares', 'Agendar visita']
-    } else {
-      response = `Encontré **${filtered.length} propiedades**${criterios.length ? ` con: ${criterios.join(', ')}` : ''}. Aquí están las mejores opciones:`
-      suggestions = ['Refinar búsqueda', 'Ver todas', 'Comparar opciones']
-    }
-
-    return { results: filtered, response, suggestions }
-  }
-
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      type: 'user',
-      content: inputValue,
-      timestamp: new Date()
-    }
-
-    setMessages(prev => [...prev, userMessage])
-    const currentInput = inputValue
-    setInputValue('')
-    setIsTyping(true)
-
-    // Add to conversation history
-    conversationHistory.current.push({ type: 'user', content: currentInput })
+    setMessages(previous => [...previous, { id: `user-${Date.now()}`, role: "user", content: cleanQuery }])
+    setQuery("")
+    setIsLoading(true)
 
     try {
-      const response = await fetch('/api/ai/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [{ content: currentInput }],
-          conversationHistory: conversationHistory.current.slice(-12),
-        }),
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ content: cleanQuery }] }),
       })
-
-      if (!response.ok) throw new Error('Error en la respuesta de IA')
-
       const data = await response.json()
+      if (!response.ok) throw new Error(data.error || "Search error")
 
-      // Add AI response to history
-      conversationHistory.current.push({ type: 'ai', content: data.response })
-
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: 'ai',
+      setMessages(previous => [...previous, {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
         content: data.response,
-        timestamp: new Date(),
-        properties: data.properties?.length > 0 ? data.properties : undefined,
-        suggestions: data.properties?.length > 0
-          ? ['Refinar búsqueda', 'Ver todas las propiedades', 'Hablar con un asesor']
-          : ['Ver propiedades disponibles', 'Hablar con un asesor', 'Más información'],
-      }
-
-      setMessages(prev => [...prev, aiMessage])
-    } catch (error) {
-      // Fallback to local search on error
-      const aiResult = processAIQuery(currentInput)
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        type: 'ai',
-        content: aiResult.response,
-        timestamp: new Date(),
-        properties: aiResult.results,
-        suggestions: aiResult.suggestions,
-      }
-      setMessages(prev => [...prev, aiMessage])
+        properties: data.properties,
+      }])
+    } catch {
+      const matches = localSearch(properties, cleanQuery)
+      setMessages(previous => [...previous, {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
+        content: matches.length
+          ? `Te muestro ${matches.length} opciones que coinciden con esa búsqueda.`
+          : "No pude consultar el inventario en este momento. Puedes intentar nuevamente o contactar a un asesor.",
+        properties: matches,
+      }])
     } finally {
-      setIsTyping(false)
+      setIsLoading(false)
     }
-  }
-
-  const handleSuggestionClick = (suggestion: string) => {
-    if (suggestion === 'Hablar con un especialista') {
-      window.location.href = '/contacto'
-      return
-    }
-    
-    setInputValue(suggestion)
-  }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: 'MXN',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
   }
 
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#17313A]/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-        {/* Header */}
-        <CardHeader className="bg-gradient-to-r from-conectia-gold to-yellow-400 text-[#17313A] p-4 border-b">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-2 shadow-md">
-                <Image
-                  src="/logoconectiaoficial.png"
-                  alt="CONECTIA"
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div>
-                <CardTitle className="text-lg font-bold">Búsqueda Smart</CardTitle>
-                <p className="text-sm font-medium opacity-90">Asistente inteligente CONECTIA</p>
-              </div>
+    <div onClick={onClose} className="fixed inset-0 z-[100] flex items-end justify-end bg-[#0d2026]/35 p-0 backdrop-blur-[2px] sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label="Asistente de búsqueda CONECTIA">
+      <div className="flex h-[min(740px,100dvh)] w-full flex-col overflow-hidden bg-[#fbfaf8] shadow-2xl sm:h-[min(740px,calc(100dvh-3rem))] sm:max-w-[540px] sm:rounded-[28px]" onClick={event => event.stopPropagation()}>
+        <header className="flex items-center justify-between border-b border-[#17313a]/10 bg-[#17313A] px-5 py-4 text-[#f5f0ea] sm:px-6">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/10">
+              <Sparkles className="h-[18px] w-[18px] text-[#dfb29e]" />
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="text-[#17313A] hover:bg-[#17313A]/10 rounded-full w-8 h-8 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#dfb29e]">CONECTIA</p>
+              <h2 className="truncate font-serif text-xl leading-none">Asistente de propiedades</h2>
+            </div>
           </div>
-        </CardHeader>
+          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full text-white hover:bg-white/10 hover:text-white" aria-label="Cerrar asistente">
+            <X className="h-5 w-5" />
+          </Button>
+        </header>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[80%] ${message.type === 'user' ? 'order-2' : 'order-1'}`}>
-                <div className={`flex items-start space-x-2 ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    message.type === 'user' 
-                      ? 'bg-conectia-gold text-[#17313A]' 
-                      : 'bg-conectia-secondary text-conectia-gold'
-                  }`}>
-                    {message.type === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-                  </div>
-                  <div className={`rounded-2xl px-4 py-2 ${
-                    message.type === 'user'
-                      ? 'bg-conectia-gold text-[#17313A]'
-                      : 'bg-conectia-secondary text-gray-900'
-                  }`}>
-                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                    <p className="text-xs opacity-70 mt-1">
-                      {message.timestamp.toLocaleTimeString('es-MX', { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}
-                    </p>
-                  </div>
+        <div className="border-b border-[#17313a]/10 bg-white px-5 py-3 sm:px-6">
+          <div className="flex items-center gap-2 text-xs text-[#52646a]">
+            <span className="h-2 w-2 rounded-full bg-[#7d9b88]" />
+            Inventario en vivo
+            <span className="text-[#90a0a4]">·</span>
+            Resultados directos de CONECTIA
+          </div>
+        </div>
+
+        <main className="flex-1 space-y-5 overflow-y-auto px-5 py-6 sm:px-6">
+          {messages.map(message => (
+            <div key={message.id} className={message.role === "user" ? "ml-auto max-w-[88%]" : "max-w-[92%]"}>
+              {message.role === "assistant" && (
+                <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#718186]">
+                  <Bot className="h-3.5 w-3.5" /> CONECTIA
                 </div>
+              )}
+              <p className={message.role === "user"
+                ? "rounded-2xl rounded-br-md bg-[#17313A] px-4 py-3 text-sm leading-relaxed text-white"
+                : "rounded-2xl rounded-tl-md border border-[#17313a]/10 bg-white px-4 py-3 text-sm leading-relaxed text-[#263e46] shadow-[0_5px_20px_rgba(23,49,58,0.05)]"}
+              >{message.content}</p>
 
-                {/* Properties Results */}
-                {message.properties && message.properties.length > 0 && (
-                  <div className="mt-3 space-y-2">
-                    {message.properties.slice(0, 3).map((property) => (
-                      <Card key={property.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                        <CardContent className="p-3">
-                          <div className="flex space-x-3">
-                            <img
-                              src={property.imagen || "/placeholder.svg"}
-                              alt={property.titulo}
-                              className="w-16 h-12 object-cover rounded-lg"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-sm truncate uppercase">{property.titulo}</h4>
-                              <div className="flex items-center space-x-2 text-xs text-gray-600 mt-1">
-                                <MapPin className="h-3 w-3" />
-                                <span className="truncate">{property.ubicacion}</span>
-                              </div>
-                              <div className="flex items-center space-x-2 text-xs text-gray-600 mt-1.5">
-                                <span className="flex items-center gap-1">
-                                  <Bed className="h-3 w-3" />
-                                  <span>{property.habitaciones} hab</span>
-                                </span>
-                                <span>•</span>
-                                <span className="flex items-center gap-1">
-                                  <Bath className="h-3 w-3" />
-                                  <span>{property.banos} baños</span>
-                                </span>
-                                <span>•</span>
-                                <span className="flex items-center gap-1">
-                                  <Square className="h-3 w-3" />
-                                  <span>{property.area}m²</span>
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-between mt-2">
-                                <p className="text-sm font-bold text-conectia-gold">
-                                  {formatPrice(property.precio)}
-                                </p>
-                                <Link href={`/propiedades/${property.id}`}>
-                                  <Button size="sm" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] text-xs h-7 px-3 font-semibold">
-                                    Ver Detalles
-                                  </Button>
-                                </Link>
-                              </div>
-                            </div>
+              {message.properties && message.properties.length > 0 && (
+                <div className="mt-3 space-y-3">
+                  {message.properties.slice(0, 3).map(property => (
+                    <Link key={property.id} href={`/propiedades/${property.id}`} className="group block overflow-hidden rounded-2xl border border-[#17313a]/10 bg-white transition hover:-translate-y-0.5 hover:border-[#17313a]/25 hover:shadow-lg">
+                      <div className="flex gap-3 p-3">
+                        <img src={property.imagen || "/placeholder.svg"} alt="" className="h-[76px] w-[88px] rounded-xl object-cover" />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9a7062]">{property.tipo}</p>
+                          <h3 className="truncate font-serif text-lg leading-tight text-[#17313A]">{property.titulo}</h3>
+                          <p className="mt-1 truncate text-xs text-[#64767b]">{property.ubicacion}</p>
+                          <div className="mt-2 flex items-center justify-between gap-2">
+                            <p className="text-sm font-semibold text-[#17313A]">{formatPrice(property)}</p>
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#80594d] group-hover:underline">Ver ficha <span aria-hidden>→</span></span>
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                    {message.properties.length > 3 && (
-                      <p className="text-xs text-gray-500 text-center">
-                        +{message.properties.length - 3} propiedades más
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* Suggestions */}
-                {message.suggestions && (
-                  <div className="mt-3 space-y-2">
-                    {message.suggestions.map((suggestion, index) => (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full text-left justify-start text-xs h-8 border-conectia-gold/30 hover:bg-conectia-gold/10 hover:border-conectia-gold"
-                      >
-                        {suggestion === 'Hablar con un especialista' && <ExternalLink className="h-3 w-3 mr-2" />}
-                        {suggestion}
-                      </Button>
-                    ))}
-                  </div>
-                )}
-              </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                  {message.properties.length > 3 && <Link href="/propiedades" className="block pt-1 text-center text-xs font-semibold text-[#80594d] hover:underline">Ver las {message.properties.length} opciones</Link>}
+                </div>
+              )}
             </div>
           ))}
 
-          {/* Typing Indicator */}
-          {isTyping && (
-            <div className="flex justify-start">
-              <div className="flex items-start space-x-2">
-                <div className="w-8 h-8 rounded-full bg-conectia-secondary text-conectia-gold flex items-center justify-center">
-                  <Bot className="h-4 w-4" />
-                </div>
-                <div className="bg-conectia-secondary rounded-2xl px-4 py-2">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
-                </div>
-              </div>
+          {messages.length === 1 && !isLoading && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {suggestions.map(suggestion => <button key={suggestion} onClick={() => submit(suggestion)} className="rounded-full border border-[#17313a]/15 bg-white px-3 py-2 text-left text-xs text-[#3c545b] transition hover:border-[#9a7062] hover:text-[#80594d]">{suggestion}</button>)}
             </div>
           )}
-          <div ref={messagesEndRef} />
-        </div>
 
-        {/* Input */}
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex space-x-2">
-            <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Describe la propiedad que buscas..."
-              className="flex-1 border-gray-200 focus:border-conectia-gold focus:ring-conectia-gold/20"
-              disabled={isTyping}
-            />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!inputValue.trim() || isTyping}
-              className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A]"
-            >
-              <Send className="h-4 w-4" />
+          {isLoading && <div className="flex items-center gap-2 text-sm text-[#65777c]"><span className="h-2 w-2 animate-pulse rounded-full bg-[#9a7062]" />Consultando propiedades disponibles…</div>}
+          <div ref={endRef} />
+        </main>
+
+        <footer className="border-t border-[#17313a]/10 bg-white p-4 sm:p-5">
+          <div className="flex items-center gap-2 rounded-2xl border border-[#17313a]/15 bg-[#fbfaf8] p-1.5 focus-within:border-[#80594d] focus-within:ring-2 focus-within:ring-[#80594d]/10">
+            <input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === "Enter") submit() }} disabled={isLoading} placeholder="Ej. casa en León con jardín" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-[#17313A] outline-none placeholder:text-[#8c999c]" />
+            <Button onClick={() => submit()} disabled={!query.trim() || isLoading} size="icon" className="h-9 w-9 shrink-0 rounded-xl bg-[#17313A] text-white hover:bg-[#274c58]" aria-label="Enviar búsqueda">
+              <ArrowUp className="h-4 w-4" />
             </Button>
           </div>
-          <p className="text-xs text-gray-500 mt-2 text-center">
-            CONECTIA
-          </p>
-        </div>
+          <div className="mt-3 flex items-center justify-between px-1 text-[11px] text-[#7b898d]">
+            <span>Busca por zona, tipo, precio o recámaras.</span>
+            <Link href="/contacto" className="font-semibold text-[#80594d] hover:underline">Hablar con un asesor</Link>
+          </div>
+        </footer>
       </div>
     </div>
   )

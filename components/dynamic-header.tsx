@@ -135,7 +135,7 @@ export function DynamicHeader() {
                   alt="CONECTIA"
                   width={160}
                   height={45}
-                  className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+                  className="conectia-nav-logo h-8 w-auto object-contain transition-transform group-hover:scale-105"
                 />
               </Link>
               <div className="w-px h-6 bg-[#B0ACA6]/25 flex-shrink-0" />
@@ -273,7 +273,7 @@ export function DynamicHeader() {
                     alt="CONECTIA"
                     width={130}
                     height={36}
-                    className="h-6.5 w-auto object-contain transition-all duration-300"
+                    className="conectia-nav-logo h-6.5 w-auto object-contain transition-all duration-300"
                   />
                 </Link>
 
@@ -301,7 +301,7 @@ export function DynamicHeader() {
                       alt="CONECTIA"
                       width={160}
                       height={50}
-                      className="h-8 w-auto object-contain"
+                      className="conectia-nav-logo h-8 w-auto object-contain"
                     />
                   </Link>
                   <div className="flex items-center gap-2">
@@ -542,16 +542,11 @@ export function DynamicHeader() {
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOtrosMenuOpen(false)} />
           <div
-            className="fixed z-50 w-52 rounded-2xl overflow-hidden"
+            className="nav-popover fixed z-50 w-52 rounded-2xl overflow-hidden"
             style={{
               top: otrosRect.top,
               bottom: otrosRect.bottom,
               right: otrosRect.right,
-              background: 'rgba(250,247,244,0.94)',
-              backdropFilter: 'blur(24px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-              border: '1px solid rgba(234,228,221,0.50)',
-              boxShadow: '0 20px 60px rgba(23,49,58,0.22), 0 4px 12px rgba(23,49,58,0.12)',
             }}
           >
             <div className="py-2">

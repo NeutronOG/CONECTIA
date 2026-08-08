@@ -1,0 +1,105 @@
+{
+  "name": "CONECTIA · Lizzie · Telegram Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message", "edited_message"],
+        "additionalFields": {}
+      },
+      "id": "04d6ae31-3f72-4a8f-91c1-1d4dfe313d63",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [-640, 160],
+      "webhookId": "38f1efb2-e065-4385-a162-3c6be37a1a35"
+    },
+    {
+      "parameters": {
+        "jsCode": "const update = $json;\nconst message = update.message || update.edited_message;\nif (!message?.from?.id || !message?.chat?.id) {\n  return [];\n}\nif (!message.text) {\n  return [{ json: {\n    telegram_user_id: String(message.from.id),\n    telegram_chat_id: String(message.chat.id),\n    message_id: String(message.message_id || ''),\n    first_name: message.from.first_name || 'Usuario',\n    text: 'El usuario envió un contenido no textual. Indícale que por ahora debe escribir su solicitud.'\n  }}];\n}\nreturn [{ json: {\n  telegram_user_id: String(message.from.id),\n  telegram_chat_id: String(message.chat.id),\n  message_id: String(message.message_id || ''),\n  first_name: message.from.first_name || 'Usuario',\n  text: message.text.trim()\n}}];"
+      },
+      "id": "90ec7f9d-39f6-4a37-bff7-a4c4a3110d24",
+      "name": "Normalizar mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-400, 160]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.CONECTIA_BASE_URL + '/api/n8n/agent' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $env.N8N_AGENT_SECRET }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify($json) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 65000
+        }
+      },
+      "id": "5b32191e-8f18-4fb6-9a75-1840414eb6a4",
+      "name": "Agente CONECTIA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-120, 160]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Normalizar mensaje').item.json.telegram_chat_id }}",
+        "text": "={{ $json.text || $json.error || 'No pude procesar la solicitud.' }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disableWebPagePreview": true
+        }
+      },
+      "id": "4057cf4a-5213-4b6c-89b2-723c43ae06ed",
+      "name": "Responder en Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [160, 160]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{"node": "Normalizar mensaje", "type": "main", "index": 0}]]
+    },
+    "Normalizar mensaje": {
+      "main": [[{"node": "Agente CONECTIA", "type": "main", "index": 0}]]
+    },
+    "Agente CONECTIA": {
+      "main": [[{"node": "Responder en Telegram", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "none",
+    "executionTimeout": 90
+  },
+  "versionId": "f8c1e2a0-424c-47a5-84dd-5d2537869fd5",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

@@ -41,15 +41,19 @@ export function HomeYellow() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
+    <div className="home-experience min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
 
       {/* ── HERO ───────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-12 mt-[60px]">
+      <section className="home-hero max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-12 mt-[60px]">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
           {/* Left */}
-          <div className="flex-1 space-y-8">
-            <h1 className="text-[5rem] sm:text-[6.5rem] md:text-[8rem] font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.88] tracking-tighter">
+          <div className="home-hero-copy flex-1 space-y-8">
+            <div className="home-eyebrow">
+              <span className="home-signal" aria-hidden="true" />
+              <span>{t('home.hero.badge')}</span>
+            </div>
+            <h1 className="home-display text-[5rem] sm:text-[6.5rem] md:text-[8rem] font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.88] tracking-tighter">
               {t('home.hero.title')}
               <span className="block font-serif italic font-normal text-[var(--conectia-arcilla)]">
                 {t('home.hero.titleHighlight')}
@@ -62,14 +66,14 @@ export function HomeYellow() {
 
             <div className="flex flex-wrap gap-3">
               <Link href="/propiedades">
-                <button className="flex items-center gap-2 bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
+                <button className="home-primary-cta flex items-center gap-2 bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
                   <ArrowRight className="h-4 w-4" weight="bold" />
                   {t('home.hero.ctaPrimary')}
                 </button>
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors duration-200 text-sm"
+                className="home-secondary-cta flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors duration-200 text-sm"
               >
                 <List className="h-4 w-4" weight="duotone" />
                 {t('home.categories.title')}
@@ -83,7 +87,7 @@ export function HomeYellow() {
                 { icon: Star,  value: '98%',  label: t('home.hero.stats.happyClients').toUpperCase() },
                 { icon: MapPin,value: 'CTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
-                <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
+                <div key={i} className="home-metric-card flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
                   <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
                   <p className="text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-none">{s.value}</p>
                   <p className="text-[9px] uppercase tracking-widest text-[#9CA3AF] dark:text-[#B0ACA6] font-semibold">{s.label}</p>
@@ -93,9 +97,9 @@ export function HomeYellow() {
           </div>
 
           {/* Right: gran foto — blob shape */}
-          <div className="flex-1 w-full lg:max-w-[52%]">
+          <div className="home-hero-visual flex-1 w-full lg:max-w-[52%]">
             <div
-              className="relative w-full aspect-[4/3] overflow-hidden shadow-2xl bg-[#F3F4F6] dark:bg-[#17313A]/20"
+              className="home-hero-media relative w-full aspect-[4/3] overflow-hidden shadow-2xl bg-[#F3F4F6] dark:bg-[#17313A]/20"
               style={{ borderRadius: '24px 96px 24px 96px' }}
             >
               {isLoadingProp ? (
@@ -124,11 +128,11 @@ export function HomeYellow() {
 
       {/* ── PROPIEDAD DESTACADA ────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8 pb-16">
-        <div className="rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 overflow-hidden shadow-sm">
+        <div className="home-feature-panel rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 overflow-hidden shadow-sm">
           <div className="flex flex-col md:flex-row">
             {/* Galería */}
             <div className="md:w-[55%] p-4 flex flex-col gap-3">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3F4F6] dark:bg-[#17313A]/20">
+              <div className="home-feature-image relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3F4F6] dark:bg-[#17313A]/20">
                 {isLoadingProp ? (
                   <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
                 ) : featuredProp ? (
@@ -154,7 +158,7 @@ export function HomeYellow() {
                     <button
                       key={i}
                       onClick={() => setActiveThumb(i)}
-                      className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                      className={`home-thumbnail relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all duration-200 ${
                         activeThumb === i ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                       }`}
                     >
@@ -224,7 +228,7 @@ export function HomeYellow() {
               </div>
 
               <Link href={isLoadingProp || !featuredProp ? '/propiedades' : `/propiedades/${featuredProp.id}`} className="mt-6">
-                <div className="flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors cursor-pointer group">
+                <div className="home-detail-link flex items-center justify-between p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors cursor-pointer group">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#1e40af]/10 dark:bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
                       <Star className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
@@ -243,7 +247,7 @@ export function HomeYellow() {
       </section>
 
       {/* ── PROPIEDADES DESTACADAS CAROUSEL ───────────────────── */}
-      <section className="relative py-16 sm:py-24 px-4 sm:px-8 lg:px-16">
+      <section className="home-featured-section relative py-16 sm:py-24 px-4 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8 mb-12 sm:mb-16">
             <div>
@@ -269,7 +273,7 @@ export function HomeYellow() {
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section className="relative py-16 sm:py-20 px-4 sm:px-8">
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden bg-[#17313A] dark:bg-[#17313A] px-10 sm:px-16 py-14">
+          <div className="home-cta-panel relative rounded-3xl overflow-hidden bg-[#17313A] dark:bg-[#17313A] px-10 sm:px-16 py-14">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
               <div className="space-y-4 md:max-w-lg">
                 <p className="text-[10px] uppercase tracking-[0.40em] text-[var(--conectia-arcilla)] font-semibold">{t('home.newsletter.title')}</p>
@@ -309,7 +313,7 @@ export function HomeYellow() {
               { icon: MapPin,  value: 'GTO',  label: t('home.hero.stats.brokers') },
               { icon: TrendUp, value: '45d',  label: t('home.cta.title') },
             ].map((stat, i) => (
-              <div key={i} className="group p-6 text-center rounded-2xl bg-white dark:bg-[#17313A]/10 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-sm hover:border-[var(--conectia-arcilla)]/30 transition-colors duration-200">
+              <div key={i} className="home-stat-card group p-6 text-center rounded-2xl bg-white dark:bg-[#17313A]/10 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-sm hover:border-[var(--conectia-arcilla)]/30 transition-colors duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center mx-auto mb-3">
                   <stat.icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                 </div>
@@ -330,7 +334,7 @@ export function HomeYellow() {
           />
           <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
             <div
-              className="bg-white dark:bg-[#17313A] border-t border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-xl w-full pointer-events-auto animate-in slide-in-from-bottom-4 duration-300 rounded-t-3xl"
+              className="home-drawer bg-white dark:bg-[#17313A] border-t border-[#E5E7EB] dark:border-[#EAE4DD]/10 shadow-xl w-full pointer-events-auto animate-in slide-in-from-bottom-4 duration-300 rounded-t-3xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-center pt-4 pb-2">
@@ -360,7 +364,7 @@ export function HomeYellow() {
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
                   ].map(({ href, icon: Icon, label }) => (
                     <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
-                      <button className="w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
+                      <button className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
                         <div className="w-10 h-10 bg-[var(--conectia-arcilla)]/8 rounded-lg flex items-center justify-center group-hover:bg-[var(--conectia-arcilla)]/15 transition-colors">
                           <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                         </div>
@@ -371,7 +375,7 @@ export function HomeYellow() {
                 </div>
                 <div className="mt-4">
                   <Link href="/brokers" onClick={() => setIsCategoriasMenuOpen(false)}>
-                    <button className="w-full p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 transition-all duration-200 group flex items-center justify-center gap-3 shadow-sm">
+                    <button className="home-category-card w-full p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 transition-all duration-200 group flex items-center justify-center gap-3 shadow-sm">
                       <div className="w-9 h-9 bg-[var(--conectia-arcilla)]/10 rounded-lg flex items-center justify-center">
                         <Users className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                       </div>

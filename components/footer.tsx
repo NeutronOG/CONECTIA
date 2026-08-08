@@ -54,7 +54,7 @@ export function Footer() {
                 alt="CONECTIA"
                 width={200}
                 height={60}
-                className="h-11 w-auto object-contain"
+                className="conectia-nav-logo h-11 w-auto object-contain"
               />
             </div>
             <p className="text-sm text-[#B0ACA6] leading-relaxed mb-8 max-w-xs">

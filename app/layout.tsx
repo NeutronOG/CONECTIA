@@ -13,6 +13,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/lib/i18n"
 import { LanguageHtml } from "@/components/language-html"
 import { PanelShell } from "@/components/panel-shell"
+import { AIAgent } from "@/components/ai-agent"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default function RootLayout({
                   <DynamicHeader />
                   <PanelShell>{children}</PanelShell>
                   <Footer />
+                  <AIAgent />
                   <Toaster position="top-right" richColors />
                 </WishlistProvider>
               </AuthProvider>

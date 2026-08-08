@@ -142,6 +142,12 @@ function formatPropertyForTelegram(p: any) {
 }
 
 export async function POST(req: NextRequest) {
+  const configuredSecret = process.env.TELEGRAM_WEBHOOK_SECRET
+  const suppliedSecret = req.headers.get('x-conectia-telegram-secret')
+  if (!configuredSecret || suppliedSecret !== configuredSecret) {
+    return NextResponse.json({ ok: false, error: 'No autorizado' }, { status: 401 })
+  }
+
   let update: any = null
   try {
     update = await req.json()
