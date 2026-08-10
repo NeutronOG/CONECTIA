@@ -161,7 +161,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
               {message.properties && message.properties.length > 0 && (
                 <div className="mt-3 space-y-3">
                   {message.properties.slice(0, 3).map(property => (
-                    <Link key={property.id} href={`/propiedades/${property.id}`} className="group block overflow-hidden rounded-2xl border border-[#17313a]/10 bg-white transition hover:-translate-y-0.5 hover:border-[#17313a]/25 hover:shadow-lg">
+                    <a key={property.id} href={`/propiedades/${property.id}`} onClick={event => event.stopPropagation()} className="group block overflow-hidden rounded-2xl border border-[#17313a]/10 bg-white transition hover:-translate-y-0.5 hover:border-[#17313a]/25 hover:shadow-lg">
                       <div className="flex gap-3 p-3">
                         <img src={property.imagen || "/placeholder.svg"} alt="" className="h-[76px] w-[88px] rounded-xl object-cover" />
                         <div className="min-w-0 flex-1">
@@ -174,7 +174,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   ))}
                   {message.properties.length > 3 && <Link href="/propiedades" className="block pt-1 text-center text-xs font-semibold text-[#80594d] hover:underline">Ver las {message.properties.length} opciones</Link>}
                 </div>
