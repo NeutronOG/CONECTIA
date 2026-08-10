@@ -123,6 +123,22 @@ export function ShareButton({
     return lines.join('\n')
   }
 
+  const buildFacebookQuote = () => {
+    const lines = [`🏠 ${title}`]
+    if (propertyMeta?.ubicacion) lines.push(`📍 ${propertyMeta.ubicacion}`)
+    if (propertyMeta?.precioTexto) lines.push(`💰 ${propertyMeta.precioTexto}`)
+    if (propertyMeta?.habitaciones || propertyMeta?.banos || propertyMeta?.areaTexto) {
+      const stats = [
+        propertyMeta.habitaciones ? `${propertyMeta.habitaciones} rec.` : null,
+        propertyMeta.banos ? `${propertyMeta.banos} baños` : null,
+        propertyMeta.areaTexto || null,
+      ].filter(Boolean)
+      lines.push(stats.join(' · '))
+    }
+    lines.push('Conoce todos los detalles de esta propiedad en CONECTIA.')
+    return lines.join('\n')
+  }
+
   const getShareImages = () => Array.from(new Set(
     (images?.length ? images : [image]).filter((imageUrl): imageUrl is string => Boolean(imageUrl))
   ))
@@ -193,7 +209,11 @@ export function ShareButton({
   }
 
   const handleFacebook = () => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getFullUrl())}`, '_blank', 'width=600,height=400')
+    const params = new URLSearchParams({
+      u: getFullUrl(),
+      quote: buildFacebookQuote(),
+    })
+    window.open(`https://www.facebook.com/sharer/sharer.php?${params.toString()}`, '_blank', 'width=600,height=400')
     if (propertyId) trackPropertyShare(propertyId)
   }
 
@@ -300,6 +320,9 @@ export function ShareButton({
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[var(--conectia-arcilla)]/12 border border-[var(--conectia-arcilla)]/25 text-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla)] disabled:cursor-wait disabled:opacity-60 transition-all text-sm font-semibold">
                 <Share2 className="h-4 w-4" /> {isPreparingPhotos ? 'Preparando fotos...' : 'Enviar enlace y fotos'}
               </button>
+              <p className="text-center text-[11px] leading-relaxed text-white/45 px-2">
+                Para Facebook usa el botón azul: mostrará la vista previa con la foto principal y el enlace.
+              </p>
             </div>
           </>
         ) : (

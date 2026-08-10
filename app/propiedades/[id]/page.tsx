@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (prop.banos) parts.push(`${prop.banos} baños`)
     if (prop.area_texto) parts.push(prop.area_texto)
     const description = parts.join(' · ')
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://conectia.mx'
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.conectiaselect.com'
     const pageUrl = `${siteUrl}/propiedades/${id}`
 
     return {

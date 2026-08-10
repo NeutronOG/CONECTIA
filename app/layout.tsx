@@ -30,6 +30,7 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.conectiaselect.com'),
   title: "CONECTIA - Tu Plataforma Inmobiliaria de Confianza",
   description: "Exclusividad, Conexión y Confianza. Confía tu propiedad a CONECTIA.",
   generator: "v0.app",
