@@ -17,6 +17,7 @@ interface PropertyCardProps {
     precioTexto: string
     tipo: string
     imagen?: string
+    galeria?: string[]
     habitaciones?: number
     banos?: number
     areaTexto?: string
@@ -185,6 +186,8 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
                 title={propiedad.titulo}
                 url={`/propiedades/${propiedad.id}`}
                 image={imgSrc}
+                images={propiedad.galeria}
+                propertyId={propiedad.id}
                 variant="outline"
                 size="sm"
                 className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"

@@ -52,6 +52,8 @@ interface ShareButtonProps {
   description?: string
   url: string
   image?: string
+  /** Todas las fotos que se adjuntarán cuando el dispositivo soporte compartir archivos. */
+  images?: string[]
   variant?: 'default' | 'outline' | 'ghost' | 'secondary'
   size?: 'default' | 'sm' | 'lg' | 'icon'
   className?: string
@@ -64,6 +66,7 @@ export function ShareButton({
   description = '',
   url,
   image,
+  images,
   variant = 'outline',
   size = 'default',
   className = '',
@@ -73,6 +76,7 @@ export function ShareButton({
   const [copied, setCopied] = useState(false)
   const [open, setOpen] = useState(false)
   const [panel, setPanel] = useState<'main' | 'instagram'>('main')
+  const [isPreparingPhotos, setIsPreparingPhotos] = useState(false)
 
   const getFullUrl = () => {
     if (typeof window === 'undefined') return url
@@ -119,6 +123,70 @@ export function ShareButton({
     return lines.join('\n')
   }
 
+  const getShareImages = () => Array.from(new Set(
+    (images?.length ? images : [image]).filter((imageUrl): imageUrl is string => Boolean(imageUrl))
+  ))
+
+  const imageExtension = (imageUrl: string, mimeType: string) => {
+    const extension = imageUrl.split('?')[0].match(/\.([a-zA-Z0-9]+)$/)?.[1]
+    if (extension) return extension.toLowerCase()
+    return mimeType.split('/')[1]?.replace('jpeg', 'jpg') || 'jpg'
+  }
+
+  /**
+   * El selector nativo es la única forma en que una web puede pasar fotos a
+   * WhatsApp, Instagram o Facebook sin pedir que el usuario las adjunte una a una.
+   */
+  const handleShareWithPhotos = async () => {
+    if (typeof navigator === 'undefined' || !navigator.share) {
+      toast.error('Abre esta página desde un teléfono para compartir las fotos directamente')
+      return
+    }
+
+    setIsPreparingPhotos(true)
+    try {
+      const photoUrls = getShareImages()
+      const files = (await Promise.all(photoUrls.map(async (imageUrl, index) => {
+        try {
+          const response = await fetch(imageUrl)
+          if (!response.ok) return null
+          const blob = await response.blob()
+          if (!blob.type.startsWith('image/')) return null
+          return new File(
+            [blob],
+            `conectia-propiedad-${propertyId ?? 'foto'}-${index + 1}.${imageExtension(imageUrl, blob.type)}`,
+            { type: blob.type }
+          )
+        } catch {
+          return null
+        }
+      }))).filter((file): file is File => file !== null)
+
+      const shareData = {
+        title,
+        text: buildWhatsAppMessage(),
+        files,
+      }
+
+      if (files.length && (!navigator.canShare || navigator.canShare({ files }))) {
+        await navigator.share(shareData)
+      } else {
+        // Conserva al menos el texto y la liga si el navegador no acepta archivos.
+        await navigator.share({ title, text: buildWhatsAppMessage(), url: getFullUrl() })
+        if (photoUrls.length) toast.info('Este dispositivo compartió el enlace; no admite adjuntar fotos desde el navegador')
+      }
+
+      if (propertyId) trackPropertyShare(propertyId)
+      setOpen(false)
+    } catch (error) {
+      // AbortError significa que la persona cerró el selector y no es un error que debamos mostrar.
+      if (error instanceof DOMException && error.name === 'AbortError') return
+      toast.error('No se pudo preparar el contenido para compartir')
+    } finally {
+      setIsPreparingPhotos(false)
+    }
+  }
+
   const handleWhatsApp = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(buildWhatsAppMessage())}`, '_blank')
     if (propertyId) trackPropertyShare(propertyId)
@@ -137,16 +205,6 @@ export function ShareButton({
       setTimeout(() => setCopied(false), 2000)
     } catch {
       toast.error('No se pudo copiar')
-    }
-  }
-
-  const handleNativeShare = async () => {
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try {
-        await navigator.share({ title, text: propertyMeta?.precioTexto || description, url: getFullUrl() })
-        if (propertyId) trackPropertyShare(propertyId)
-        setOpen(false)
-      } catch { /* cancelado */ }
     }
   }
 
@@ -238,9 +296,9 @@ export function ShareButton({
                 </button>
               </div>
 
-              <button onClick={handleNativeShare}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[var(--conectia-arcilla)]/12 border border-[var(--conectia-arcilla)]/25 text-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla)]/22 transition-all text-sm font-semibold">
-                <Share2 className="h-4 w-4" /> Compartir en mi dispositivo
+              <button onClick={handleShareWithPhotos} disabled={isPreparingPhotos}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[var(--conectia-arcilla)]/12 border border-[var(--conectia-arcilla)]/25 text-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla)] disabled:cursor-wait disabled:opacity-60 transition-all text-sm font-semibold">
+                <Share2 className="h-4 w-4" /> {isPreparingPhotos ? 'Preparando fotos...' : 'Enviar enlace y fotos'}
               </button>
             </div>
           </>

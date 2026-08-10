@@ -507,6 +507,8 @@ export default function PropiedadesAsesorPage() {
                       title={propiedad.titulo}
                       url={`/propiedades/${propiedad.id}`}
                       image={propiedad.imagen}
+                      images={propiedad.galeria}
+                      propertyId={propiedad.id}
                       variant="ghost"
                       size="sm"
                       className="flex-shrink-0 px-3 py-2 h-auto bg-white/5 border border-white/15 hover:bg-white/10 text-white rounded-xl text-xs font-semibold"
