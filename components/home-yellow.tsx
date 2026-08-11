@@ -373,17 +373,27 @@ export function HomeYellow() {
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
                     { href: '/preventa',   icon: Buildings,   label: 'Preventa' },
-                    { href: '/desarrollos', icon: Buildings,  label: 'Desarrollos' },
-                    { href: '/remates',    icon: Gavel,       label: 'Remates Judiciales' },
-                  ].map(({ href, icon: Icon, label }) => (
-                    <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
-                      <button className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
+                    { href: '/desarrollos', icon: Buildings,  label: 'Desarrollos', comingSoon: true },
+                    { href: '/remates',    icon: Gavel,       label: 'Remates Judiciales', comingSoon: true },
+                  ].map(({ href, icon: Icon, label, comingSoon }) => (
+                    comingSoon ? (
+                      <div key={href} aria-disabled="true" className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 opacity-60 cursor-not-allowed flex flex-col items-center gap-2 shadow-sm">
+                        <div className="w-10 h-10 bg-[var(--conectia-arcilla)]/8 rounded-lg flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
+                        </div>
+                        <span className="text-center text-xs font-bold text-[#17313A] dark:text-[#EAE4DD]">{label}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      </div>
+                    ) : (
+                      <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
+                        <button className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">
                         <div className="w-10 h-10 bg-[var(--conectia-arcilla)]/8 rounded-lg flex items-center justify-center group-hover:bg-[var(--conectia-arcilla)]/15 transition-colors">
                           <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                         </div>
                         <span className="text-xs font-bold text-[#17313A] dark:text-[#EAE4DD]">{label}</span>
-                      </button>
-                    </Link>
+                        </button>
+                      </Link>
+                    )
                   ))}
                 </div>
                 <div className="mt-4">

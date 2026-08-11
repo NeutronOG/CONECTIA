@@ -1,8 +1,8 @@
 'use client'
 
 import { Gavel } from "lucide-react"
-import { CategoryPropertyPage } from "@/components/category-property-page"
+import { ComingSoonPage } from "@/components/coming-soon-page"
 
 export default function RematesPage() {
-  return <CategoryPropertyPage title="Remates judiciales" description="Explora las propiedades publicadas como remate judicial." badge="Remate judicial" icon={Gavel} categories={['remate']} />
+  return <ComingSoonPage title="Remates judiciales" description="Esta sección estará disponible muy pronto." icon={Gavel} />
 }

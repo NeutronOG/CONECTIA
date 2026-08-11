@@ -401,18 +401,16 @@ export function DynamicHeader() {
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Preventa</span>
                         </button>
                       </Link>
-                      <Link href="/desarrollos" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                      <div aria-disabled="true" className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
                           <Building className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Desarrollos</span>
-                        </button>
-                      </Link>
-                      <Link href="/remates" onClick={() => setIsMobileMenuOpen(false)}>
-                        <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
+                          <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      </div>
+                      <div aria-disabled="true" className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
                           <Tag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Remates Judiciales</span>
-                        </button>
-                      </Link>
+                          <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -581,24 +579,22 @@ export function DynamicHeader() {
                 </button>
               </Link>
               <div className="my-1.5 mx-4 border-t border-[#B0ACA6]/25" />
-              <Link href="/desarrollos" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+              <div aria-disabled="true" className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] opacity-60 cursor-not-allowed flex items-center gap-2">
                   <Building className="h-4 w-4 text-[#17313A]" />
                   <span>{t('nav.menu.developments')}</span>
-                </button>
-              </Link>
+                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+              </div>
               <Link href="/preventa" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Building className="h-4 w-4 text-[#17313A]" />
                   <span>Preventa</span>
                 </button>
               </Link>
-              <Link href="/remates" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
+              <div aria-disabled="true" className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] opacity-60 cursor-not-allowed flex items-center gap-2">
                   <Tag className="h-4 w-4 text-[#17313A]" />
                   <span>Remates Judiciales</span>
-                </button>
-              </Link>
+                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+              </div>
               <Link href="/brokers" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Users className="h-4 w-4 text-[#17313A]" />

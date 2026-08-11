@@ -265,7 +265,6 @@ export default function PropiedadesPage() {
                       <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
                         <div className="relative h-52 sm:h-60 overflow-hidden">
                           <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#F6F2EE]/60 dark:from-[#0F2027]/60 via-transparent to-transparent" />
                           <div className="absolute top-4 left-4">
                             <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
                           </div>
@@ -306,7 +305,6 @@ export default function PropiedadesPage() {
                         <div className="flex flex-col md:flex-row">
                           <div className="relative md:w-80 h-56 md:h-48 overflow-hidden">
                             <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/40 dark:from-[#0F2027]/40 via-transparent to-transparent" />
                             <div className="absolute top-4 left-4">
                               <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
                             </div>

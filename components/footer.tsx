@@ -74,13 +74,19 @@ export function Footer() {
               {[
                 { label: t('footer.links.about'), href: '/empresa' },
                 { label: t('footer.links.brokers'), href: '/brokers' },
-                { label: t('footer.links.developments'), href: '/desarrollos' },
+                { label: t('footer.links.developments'), href: '/desarrollos', comingSoon: true },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
-                    {item.label}
-                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                  </Link>
+                  {item.comingSoon ? (
+                    <span aria-disabled="true" className="flex items-center gap-2 text-sm text-[#4A4F57]/60 dark:text-[#B0ACA6]/60 cursor-not-allowed">
+                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                    </span>
+                  ) : (
+                    <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -96,14 +102,20 @@ export function Footer() {
                 { label: t('footer.links.ofertas'), href: '/ofertas' },
                 { label: t('footer.links.especial'), href: '/especiales' },
                 { label: t('footer.links.preventa'), href: '/preventa' },
-                { label: t('footer.links.developments'), href: '/desarrollos' },
-                { label: 'Remates Judiciales', href: '/remates' },
+                { label: t('footer.links.developments'), href: '/desarrollos', comingSoon: true },
+                { label: 'Remates Judiciales', href: '/remates', comingSoon: true },
               ].map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
-                    {item.label}
-                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                  </Link>
+                  {item.comingSoon ? (
+                    <span aria-disabled="true" className="flex items-center gap-2 text-sm text-[#4A4F57]/60 dark:text-[#B0ACA6]/60 cursor-not-allowed">
+                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                    </span>
+                  ) : (
+                    <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
