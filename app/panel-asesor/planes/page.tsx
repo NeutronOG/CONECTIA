@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { Button } from '@/components/ui/button'
@@ -17,8 +17,13 @@ export default function PlanesPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
-  if (!isAuthenticated || user?.role !== 'asesor') {
-    router.push('/login')
+  useEffect(() => {
+    if (!loading && (!isAuthenticated || user?.role !== 'asesor')) {
+      router.replace('/login')
+    }
+  }, [isAuthenticated, loading, router, user?.role])
+
+  if (loading || !isAuthenticated || user?.role !== 'asesor') {
     return null
   }
 
@@ -54,12 +59,12 @@ export default function PlanesPage() {
 
       // Redirigir a Stripe Checkout
       if (data.url) {
-        window.location.href = data.url
+        window.location.assign(data.url)
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error:', error)
       toast.error(t('panelAsesor.planes.errors.paymentError'), {
-        description: error.message || t('panelAsesor.planes.errors.tryAgain')
+        description: error instanceof Error ? error.message : t('panelAsesor.planes.errors.tryAgain')
       })
       setLoading(false)
     }

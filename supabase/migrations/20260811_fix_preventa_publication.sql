@@ -22,7 +22,7 @@ WITH category_markers AS (
     SUBSTRING(marker FROM CHAR_LENGTH('__conectia_internal_category__:') + 1) AS requested_category
   FROM public.propiedades AS p
   CROSS JOIN LATERAL UNNEST(COALESCE(p.caracteristicas, ARRAY[]::TEXT[])) AS marker
-  WHERE marker LIKE '__conectia_internal_category__:%'
+  WHERE LEFT(marker, CHAR_LENGTH('__conectia_internal_category__:')) = '__conectia_internal_category__:'
   ORDER BY p.id
 )
 UPDATE public.propiedades AS p
@@ -43,7 +43,7 @@ WITH bonus_markers AS (
     SUBSTRING(marker FROM CHAR_LENGTH('__conectia_internal_bonus__:') + 1) AS requested_bonus
   FROM public.propiedades AS p
   CROSS JOIN LATERAL UNNEST(COALESCE(p.caracteristicas, ARRAY[]::TEXT[])) AS marker
-  WHERE marker LIKE '__conectia_internal_bonus__:%'
+  WHERE LEFT(marker, CHAR_LENGTH('__conectia_internal_bonus__:')) = '__conectia_internal_bonus__:'
   ORDER BY p.id
 )
 UPDATE public.propiedades AS p

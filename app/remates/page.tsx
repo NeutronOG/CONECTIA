@@ -1,3 +1,5 @@
+'use client'
+
 import { Gavel } from "lucide-react"
 import { CategoryPropertyPage } from "@/components/category-property-page"
 
