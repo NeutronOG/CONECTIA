@@ -185,8 +185,6 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
               <ShareButton
                 title={propiedad.titulo}
                 url={`/propiedades/${propiedad.id}`}
-                image={imgSrc}
-                images={propiedad.galeria}
                 propertyId={propiedad.id}
                 variant="outline"
                 size="sm"

@@ -18,7 +18,6 @@ import {
   Music2,
   Copy,
   Check,
-  Download,
   Eye,
 } from 'lucide-react'
 
@@ -196,19 +195,6 @@ ${fullUrl}`
     }
   }
 
-  const handleDownload = (platform: string, text: string) => {
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
-    const url = URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `conectia-${platform}-${property.id}.txt`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
-    toast.success(`Archivo descargado`)
-  }
-
   const selectedPlatform = platforms.find(p => p.id === previewPlatform)
 
   return (
@@ -250,7 +236,7 @@ ${fullUrl}`
             Compartir en Redes Sociales
           </DialogTitle>
           <p className="text-sm mt-2" style={{ color: `${BRAND_COLORS.cream}80` }}>
-            Formato personalizado para cada plataforma - manteniendo la identidad CONECTIA
+            Copia el texto y comparte siempre la liga oficial de CONECTIA. No se descargan ni adjuntan fotos.
           </p>
         </DialogHeader>
 
@@ -301,17 +287,6 @@ ${fullUrl}`
                         Copiar
                       </>
                     )}
-                  </button>
-                  <button
-                    onClick={() => handleDownload(selectedPlatform.id, selectedPlatform.format)}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
-                    style={{
-                      backgroundColor: `${BRAND_COLORS.cream}10`,
-                      color: BRAND_COLORS.cream
-                    }}
-                  >
-                    <Download className="h-3.5 w-3.5" />
-                    Descargar
                   </button>
                 </div>
               </div>

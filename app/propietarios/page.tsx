@@ -45,6 +45,7 @@ import { OwnerSubmissionsStorage } from "@/lib/owner-submissions-storage"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useLanguage } from "@/lib/i18n"
+import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
 
 export default function PropietariosPage() {
   const { t } = useLanguage()
@@ -608,14 +609,9 @@ export default function PropietariosPage() {
                       <SelectValue placeholder="Selecciona la categoría" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="venta">Venta</SelectItem>
-                      <SelectItem value="renta">Renta</SelectItem>
-                      <SelectItem value="compra">Compra</SelectItem>
-                      <SelectItem value="preventa">Preventa</SelectItem>
-                      <SelectItem value="exclusivo">Exclusivo</SelectItem>
-                      <SelectItem value="especiales">Especiales</SelectItem>
-                      <SelectItem value="oferta">Oferta</SelectItem>
-                      <SelectItem value="remate">Remate</SelectItem>
+                      {PUBLIC_PROPERTY_CATEGORIES.map((category) => (
+                        <SelectItem key={category.value} value={category.value}>{category.label}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

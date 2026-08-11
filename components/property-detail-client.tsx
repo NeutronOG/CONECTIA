@@ -104,7 +104,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 </div>
               </div>
               <div className="flex gap-2">
-                <ShareButton title={propertyData.titulo} description={propertyData.descripcion} url={`/propiedades/${propertyData.id}`} image={propertyData.imagen} images={images} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: propertyData.precioTexto, tipo: propertyData.tipo, ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
+                <ShareButton title={propertyData.titulo} description={propertyData.descripcion} url={`/propiedades/${propertyData.id}`} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: propertyData.precioTexto, tipo: propertyData.tipo, ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
                 <WishlistButton property={{ id: String(propertyData.id), title: propertyData.titulo, price: propertyData.precioTexto, location: propertyData.ubicacion, image: propertyData.imagen, bedrooms: propertyData.habitaciones, bathrooms: propertyData.banos, area: propertyData.areaTexto }} />
               </div>
             </div>

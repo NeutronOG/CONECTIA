@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 
 // Usar service role key para bypasear RLS
 const supabaseAdmin = createClient(
@@ -48,6 +49,8 @@ export async function GET(request: Request) {
         return NextResponse.json({ propiedad: null }, { status: 404 })
       }
 
+      const publicProp = normalizePersistedProperty(prop)
+
       // Obtener nombre del asesor
       let agenteNombre = 'Asesor CONECTIA'
       if (prop.usuario_id) {
@@ -83,12 +86,13 @@ export async function GET(request: Request) {
         areaTexto: prop.area_texto,
         imagen: imagenPrincipal,
         descripcion: prop.descripcion || '',
-        caracteristicas: prop.caracteristicas || [],
+        caracteristicas: publicProp.caracteristicas,
         status: prop.status,
-        categoria: prop.categoria,
+        categoria: publicProp.categoria,
         fechaPublicacion: prop.fecha_publicacion,
         tourVirtual: prop.tour_virtual || undefined,
         galeria: galeriaCompleta,
+        bono: publicProp.bono,
         unidadSuperficie: prop.unidad_superficie || undefined,
         comisionAsesorPct: prop.comision_asesor_pct || undefined,
         agente: {
@@ -131,37 +135,40 @@ export async function GET(request: Request) {
       }
     }
 
-    const result = (propiedades || []).map((prop: any) => ({
-      id: Number(prop.id),
-      usuarioId: prop.usuario_id || undefined,
-      titulo: prop.titulo,
-      ubicacion: prop.ubicacion,
-      precio: Number(prop.precio),
-      precioTexto: prop.precio_texto,
-      tipo: prop.tipo,
-      habitaciones: prop.habitaciones,
-      banos: prop.banos,
-      area: prop.area,
-      areaTexto: prop.area_texto,
-      imagen: resolvePropertyImage(prop.imagen),
-      descripcion: prop.descripcion || '',
-      caracteristicas: prop.caracteristicas || [],
-      status: prop.status,
-      categoria: prop.categoria,
-      fechaPublicacion: prop.created_at || prop.fecha_publicacion,
-      tourVirtual: prop.tour_virtual || undefined,
-      galeria: undefined,
-      bono: prop.bono || undefined,
-      comisionAsesorPct: prop.comision_asesor_pct || undefined,
-      agente: prop.usuario_id && usuariosMap[prop.usuario_id] ? {
-        nombre: usuariosMap[prop.usuario_id],
-        especialidad: 'Especialista en Propiedades',
-        rating: 5.0,
-        ventas: 0,
-        telefono: '',
-        email: '',
-      } : undefined,
-    }))
+    const result = (propiedades || []).map((persistedProp: any) => {
+      const prop = normalizePersistedProperty(persistedProp)
+      return {
+        id: Number(prop.id),
+        usuarioId: prop.usuario_id || undefined,
+        titulo: prop.titulo,
+        ubicacion: prop.ubicacion,
+        precio: Number(prop.precio),
+        precioTexto: prop.precio_texto,
+        tipo: prop.tipo,
+        habitaciones: prop.habitaciones,
+        banos: prop.banos,
+        area: prop.area,
+        areaTexto: prop.area_texto,
+        imagen: resolvePropertyImage(prop.imagen),
+        descripcion: prop.descripcion || '',
+        caracteristicas: prop.caracteristicas,
+        status: prop.status,
+        categoria: prop.categoria,
+        fechaPublicacion: prop.created_at || prop.fecha_publicacion,
+        tourVirtual: prop.tour_virtual || undefined,
+        galeria: undefined,
+        bono: prop.bono,
+        comisionAsesorPct: prop.comision_asesor_pct || undefined,
+        agente: prop.usuario_id && usuariosMap[prop.usuario_id] ? {
+          nombre: usuariosMap[prop.usuario_id],
+          especialidad: 'Especialista en Propiedades',
+          rating: 5.0,
+          ventas: 0,
+          telefono: '',
+          email: '',
+        } : undefined,
+      }
+    })
 
     return NextResponse.json({ propiedades: result })
   } catch (error: any) {

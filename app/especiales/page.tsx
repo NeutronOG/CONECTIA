@@ -13,7 +13,7 @@ export default function EspecialesPage() {
   const { t } = useLanguage()
   const { properties } = usePropertiesStatic()
   const propiedades = useMemo(() =>
-    properties.filter(p => p.categoria === 'especial' || p.categoria === 'especiales'),
+    properties.filter(p => p.categoria === 'especial' || p.categoria === 'especiales' || p.categoria === 'exclusivo'),
     [properties]
   )
 

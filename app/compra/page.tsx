@@ -18,7 +18,7 @@ export default function CompraPage() {
   const [tipoFilter, setTipoFilter] = useState<string[]>([])
 
   const propiedades = useMemo(() => {
-    let result = properties.filter(p => p.categoria === 'compra' || p.categoria === 'venta')
+    let result = properties.filter(p => p.categoria === 'compra')
     if (tipoFilter.length > 0) {
       result = result.filter(p => tipoFilter.some(t => p.tipo?.toLowerCase() === t.toLowerCase()))
     }

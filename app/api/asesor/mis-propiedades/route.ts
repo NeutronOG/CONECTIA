@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 
 // Usar service role key para bypasear RLS
 const supabaseAdmin = createClient(
@@ -36,20 +37,22 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    console.log('Total propiedades en DB:', data?.length)
+    const normalizedData = (data || []).map((property: any) => normalizePersistedProperty(property))
+
+    console.log('Total propiedades en DB:', normalizedData.length)
     
     // Log de los propietarios para debugging
-    const usuarioIds = [...new Set(data?.map(p => p.usuario_id).filter(Boolean))]
+    const usuarioIds = [...new Set(normalizedData.map(p => p.usuario_id).filter(Boolean))]
     console.log('Valores únicos de usuario_id:', usuarioIds)
 
     // Si es super usuario (Lizzie o admin), devolver todas las propiedades
     if (isSuperUser) {
       console.log('Super usuario detectado, devolviendo todas las propiedades:', email)
       return NextResponse.json({ 
-        propiedades: data || [],
-        total: data?.length || 0,
+        propiedades: normalizedData,
+        total: normalizedData.length,
         debug: {
-          totalEnDB: data?.length,
+          totalEnDB: normalizedData.length,
           usuarioIdsUnicos: usuarioIds,
           superUser: true
         }
@@ -57,7 +60,7 @@ export async function GET(request: Request) {
     }
 
     // Filtrar propiedades del usuario
-    const filtered = (data || []).filter((p: any) => {
+    const filtered = normalizedData.filter((p: any) => {
       const uid = p.usuario_id ? String(p.usuario_id).toLowerCase().trim() : ''
       const ownerEmail = p.asesor_email ? String(p.asesor_email).toLowerCase().trim() : ''
       if (!uid && !ownerEmail) return false
@@ -89,7 +92,7 @@ export async function GET(request: Request) {
       propiedades: filtered,
       total: filtered.length,
       debug: {
-        totalEnDB: data?.length,
+        totalEnDB: normalizedData.length,
         usuarioIdsUnicos: usuarioIds
       }
     })

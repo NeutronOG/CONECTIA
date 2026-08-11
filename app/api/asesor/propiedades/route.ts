@@ -1,5 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { isPropertyCategory } from '@/lib/property-categories'
+import {
+  isLegacyCategoryConstraintError,
+  isLegacyNumericBonusError,
+  normalizePersistedProperty,
+  sanitizePropertyPersistenceInput,
+  withLegacyBonusFallback,
+  withLegacyCategoryFallback,
+} from '@/lib/property-persistence-compat'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -47,6 +56,54 @@ function databaseError(error: { message?: string } | null) {
   )
 }
 
+type DatabaseMutationError = { code?: string; message?: string } | null
+
+async function persistWithSchemaCompatibility(
+  initialData: Record<string, any>,
+  mutation: (data: Record<string, any>) => Promise<{ data: any; error: DatabaseMutationError }>,
+) {
+  const requestedCategory = initialData.categoria
+  const requestedBonus = typeof initialData.bono === 'string' ? initialData.bono.trim() : initialData.bono
+  let candidate = sanitizePropertyPersistenceInput(initialData)
+  let categoryFallbackApplied = false
+  let bonusFallbackApplied = false
+
+  // Máximo tres intentos: normal, compatibilidad de categoría y compatibilidad de bono.
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const result = await mutation(candidate)
+    if (!result.error) {
+      return {
+        data: result.data ? normalizePersistedProperty(result.data) : result.data,
+        error: null,
+      }
+    }
+
+    if (
+      !categoryFallbackApplied
+      && isPropertyCategory(requestedCategory)
+      && isLegacyCategoryConstraintError(result.error)
+    ) {
+      candidate = withLegacyCategoryFallback(candidate, requestedCategory)
+      categoryFallbackApplied = true
+      continue
+    }
+
+    if (
+      !bonusFallbackApplied
+      && typeof requestedBonus === 'string'
+      && isLegacyNumericBonusError(result.error, requestedBonus)
+    ) {
+      candidate = withLegacyBonusFallback(candidate, requestedBonus)
+      bonusFallbackApplied = true
+      continue
+    }
+
+    return result
+  }
+
+  return mutation(candidate)
+}
+
 export async function POST(request: Request) {
   try {
     const { property, usuarioId, asesorEmail } = await request.json()
@@ -55,6 +112,9 @@ export async function POST(request: Request) {
     if (!data.titulo || !data.ubicacion || !data.precio || !data.tipo || !data.area) {
       return NextResponse.json({ error: 'Faltan campos obligatorios de la propiedad' }, { status: 400 })
     }
+    if (!isPropertyCategory(data.categoria)) {
+      return NextResponse.json({ error: 'Selecciona una categoría pública válida' }, { status: 400 })
+    }
 
     const ownerId = await resolveUserId(usuarioId, asesorEmail)
     const ownership = {
@@ -62,20 +122,26 @@ export async function POST(request: Request) {
       ...(typeof asesorEmail === 'string' && asesorEmail ? { asesor_email: asesorEmail.trim().toLowerCase() } : {}),
     }
 
-    let { data: inserted, error } = await supabaseAdmin
-      .from('propiedades')
-      .insert({ ...data, ...ownership })
-      .select()
-      .single()
+    let { data: inserted, error } = await persistWithSchemaCompatibility(
+      { ...data, ...ownership },
+      async (candidate) => supabaseAdmin
+        .from('propiedades')
+        .insert(candidate)
+        .select()
+        .single(),
+    )
 
     // Permite guardar en instalaciones que aún no han añadido asesor_email,
     // conservando de todos modos el UUID correcto en usuario_id.
     if (error?.message?.includes('asesor_email')) {
-      ;({ data: inserted, error } = await supabaseAdmin
-        .from('propiedades')
-        .insert({ ...data, ...(ownerId ? { usuario_id: ownerId } : {}) })
-        .select()
-        .single())
+      ;({ data: inserted, error } = await persistWithSchemaCompatibility(
+        { ...data, ...(ownerId ? { usuario_id: ownerId } : {}) },
+        async (candidate) => supabaseAdmin
+          .from('propiedades')
+          .insert(candidate)
+          .select()
+          .single(),
+      ))
     }
 
     if (error) return databaseError(error)
@@ -93,17 +159,41 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: 'ID de propiedad inválido' }, { status: 400 })
     }
 
-    const data = pickPropertyFields(property)
-    if (Object.keys(data).length === 0) {
+    const requestedChanges = pickPropertyFields(property)
+    if (Object.keys(requestedChanges).length === 0) {
       return NextResponse.json({ error: 'No hay cambios para guardar' }, { status: 400 })
     }
+    if (requestedChanges.categoria !== undefined && !isPropertyCategory(requestedChanges.categoria)) {
+      return NextResponse.json({ error: 'Selecciona una categoría pública válida' }, { status: 400 })
+    }
 
-    const { data: updated, error } = await supabaseAdmin
+    // Partimos de la fila actual para que una edición parcial nunca borre
+    // galería, bono, comisión, características u otros campos no enviados.
+    const { data: currentProperty, error: currentError } = await supabaseAdmin
       .from('propiedades')
-      .update(data)
+      .select('*')
       .eq('id', Number(id))
-      .select()
       .single()
+
+    if (currentError || !currentProperty) {
+      return NextResponse.json({ error: 'La propiedad que intentas actualizar no existe' }, { status: 404 })
+    }
+
+    const normalizedCurrent = normalizePersistedProperty(currentProperty)
+    const data = {
+      ...pickPropertyFields(normalizedCurrent),
+      ...requestedChanges,
+    }
+
+    const { data: updated, error } = await persistWithSchemaCompatibility(
+      data,
+      async (candidate) => supabaseAdmin
+        .from('propiedades')
+        .update(candidate)
+        .eq('id', Number(id))
+        .select()
+        .single(),
+    )
 
     if (error) return databaseError(error)
     return NextResponse.json({ property: updated })

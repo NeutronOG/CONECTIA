@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, ShoppingBag, Bathtub, Ruler } from "@phosphor-icons/react"
+import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, ShoppingBag, Bathtub, Ruler, Buildings, Gavel } from "@phosphor-icons/react"
 import Link from "next/link"
 import Image from "next/image"
 import { FeaturedPropertiesCarousel } from "./featured-properties-carousel"
@@ -372,6 +372,9 @@ export function HomeYellow() {
                     { href: '/renta',      icon: Key,         label: t('home.search.rent') },
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
+                    { href: '/preventa',   icon: Buildings,   label: 'Preventa' },
+                    { href: '/desarrollos', icon: Buildings,  label: 'Desarrollos' },
+                    { href: '/remates',    icon: Gavel,       label: 'Remates Judiciales' },
                   ].map(({ href, icon: Icon, label }) => (
                     <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
                       <button className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 hover:scale-105 active:scale-95 transition-all duration-200 group flex flex-col items-center gap-2 shadow-sm">

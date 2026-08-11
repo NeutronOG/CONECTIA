@@ -39,6 +39,7 @@ import { ShareButton } from '@/components/share-button'
 import { useLanguage } from '@/lib/i18n'
 import { getUserByEmail } from '@/data/internal-users'
 import { isSuperUser } from '@/lib/super-users'
+import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 
 export default function PropiedadesAsesorPage() {
   const { t } = useLanguage()
@@ -107,7 +108,8 @@ export default function PropiedadesAsesorPage() {
         const data = await res.json()
         console.log('Loaded properties:', data.total, data.debug)
         // Mapear campos DB a campos App (snake_case -> camelCase)
-        const mapped = (data.propiedades || []).map((p: any) => {
+        const mapped = (data.propiedades || []).map((persistedProperty: any) => {
+          const p = normalizePersistedProperty(persistedProperty)
           const asesorEmail = p.asesor_email || p.usuario_id || undefined
           const asesorInfo = asesorEmail ? getUserByEmail(asesorEmail) : undefined
           return {
@@ -506,8 +508,8 @@ export default function PropiedadesAsesorPage() {
                     <ShareButton
                       title={propiedad.titulo}
                       url={`/propiedades/${propiedad.id}`}
-                      image={propiedad.imagen}
-                      images={propiedad.galeria}
+                      allowMediaShare
+                      images={[propiedad.imagen, ...(propiedad.galeria || [])]}
                       propertyId={propiedad.id}
                       variant="ghost"
                       size="sm"

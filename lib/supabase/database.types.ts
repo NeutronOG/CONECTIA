@@ -28,11 +28,12 @@ export interface Database {
                     descripcion: string | null
                     caracteristicas: string[] | null
                     status: 'Disponible' | 'Exclusiva' | 'Reservada'
-                    categoria: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    categoria: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie: 'm²' | 'Hectáreas' | null
                     fecha_publicacion: string
                     tour_virtual: string | null
                     galeria: string[] | null
+                    bono: string | null
                     usuario_id: string | null
                     created_at: string
                     updated_at: string
@@ -55,11 +56,12 @@ export interface Database {
                     descripcion?: string | null
                     caracteristicas?: string[] | null
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
-                    categoria?: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    categoria?: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie?: 'm²' | 'Hectáreas' | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null
+                    bono?: string | null
                     usuario_id?: string | null
                     created_at?: string
                     updated_at?: string
@@ -82,11 +84,12 @@ export interface Database {
                     descripcion?: string | null
                     caracteristicas?: string[] | null
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
-                    categoria?: 'venta' | 'renta' | 'especial' | 'remate' | 'exclusivo'
+                    categoria?: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie?: 'm²' | 'Hectáreas' | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null
+                    bono?: string | null
                     usuario_id?: string | null
                     created_at?: string
                     updated_at?: string

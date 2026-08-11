@@ -11,6 +11,7 @@ import { Propiedad } from "@/data/propiedades"
 import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto } from "@/lib/commission"
+import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
 
 const labelClass = "text-sm font-semibold text-[#17313A] dark:text-white/90"
 const inputClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57]/60 dark:placeholder:text-white/30 focus-visible:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
@@ -837,14 +838,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   <SelectValue placeholder="Selecciona dónde se mostrará" />
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
-                  <SelectItem value="venta" className={selectItemClass}>Venta</SelectItem>
-                  <SelectItem value="renta" className={selectItemClass}>Renta</SelectItem>
-                  <SelectItem value="compra" className={selectItemClass}>Compra</SelectItem>
-                  <SelectItem value="preventa" className={selectItemClass}>Preventa</SelectItem>
-                  <SelectItem value="exclusivo" className={selectItemClass}>Exclusivo</SelectItem>
-                  <SelectItem value="especiales" className={selectItemClass}>Especiales</SelectItem>
-                  <SelectItem value="oferta" className={selectItemClass}>Oferta</SelectItem>
-                  <SelectItem value="remate" className={selectItemClass}>Remate</SelectItem>
+                  {PUBLIC_PROPERTY_CATEGORIES.map((category) => (
+                    <SelectItem key={category.value} value={category.value} className={selectItemClass}>
+                      {category.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

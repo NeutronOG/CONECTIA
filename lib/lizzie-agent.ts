@@ -134,7 +134,7 @@ const tools: any[] = [
       properties: {
         query: { type: 'string', description: 'Texto libre para título, ubicación o tipo.' },
         location: { type: 'string' },
-        category: { type: 'string', enum: ['venta', 'renta', 'especial', 'remate', 'exclusivo'] },
+        category: { type: 'string', enum: ['compra', 'venta', 'renta', 'oferta', 'especiales', 'preventa', 'desarrollo', 'remate', 'especial', 'exclusivo'] },
         type: { type: 'string' },
         status: { type: 'string' },
         min_price: { type: 'number', minimum: 0 },

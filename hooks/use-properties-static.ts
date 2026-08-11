@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import { supabase } from '@/lib/supabase/client'
 import type { Propiedad } from '@/data/propiedades'
+import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 
 // Fetcher via API route (bypasses RLS using service role key on server)
 const fetchPropertiesFromAPI = async (): Promise<Propiedad[]> => {
@@ -70,7 +71,7 @@ export function usePropertiesStatic() {
       console.log('🔄 Realtime update received:', payload.eventType)
 
       if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
-        const newProp = payload.new as any
+        const newProp = normalizePersistedProperty(payload.new as any)
         const formattedProp: Propiedad = {
           id: Number(newProp.id),
           usuarioId: newProp.usuario_id || undefined,

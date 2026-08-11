@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS propiedades (
   descripcion TEXT,
   caracteristicas TEXT[],
   status TEXT CHECK (status IN ('Disponible', 'Exclusiva', 'Reservada')) DEFAULT 'Disponible',
-  categoria TEXT CHECK (categoria IN ('venta', 'renta', 'especial', 'remate', 'exclusivo')) DEFAULT 'venta',
+  categoria TEXT CHECK (categoria IN ('compra', 'venta', 'renta', 'oferta', 'especiales', 'preventa', 'desarrollo', 'remate', 'especial', 'exclusivo')) DEFAULT 'venta',
   unidad_superficie TEXT CHECK (unidad_superficie IN ('m²', 'Hectáreas')) DEFAULT 'm²',
   fecha_publicacion TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   tour_virtual TEXT,
@@ -228,7 +228,7 @@ ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS imagenes TEXT[] DEFAULT '{}';
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS usuario_id UUID REFERENCES auth.users(id);
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS tipo_credito TEXT;
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS asesor_email TEXT;
-ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS bono NUMERIC;
+ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS bono TEXT;
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS comision_asesor_pct NUMERIC DEFAULT 4;
 
 -- =====================

@@ -14,6 +14,7 @@ import { LanguageProvider } from "@/lib/i18n"
 import { LanguageHtml } from "@/components/language-html"
 import { PanelShell } from "@/components/panel-shell"
 import { AIAgent } from "@/components/ai-agent"
+import { MediaProtection } from "@/components/media-protection"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -82,6 +83,7 @@ export default function RootLayout({
               <AuthProvider>
                 <WishlistProvider>
                   <LanguageHtml />
+                  <MediaProtection />
                   <DynamicHeader />
                   <PanelShell>{children}</PanelShell>
                   <Footer />

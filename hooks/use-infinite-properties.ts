@@ -4,6 +4,7 @@ import useSWRInfinite, { SWRInfiniteConfiguration } from 'swr/infinite'
 import { Propiedad } from '@/data/propiedades'
 import { supabaseOptimized, withRetry } from '@/lib/supabase/optimized-client'
 import type { Database } from '@/lib/supabase/database.types'
+import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
@@ -13,6 +14,7 @@ const PAGE_SIZE = 20
  * Convierte formato DB a formato App
  */
 function dbToApp(dbProp: PropiedadRow): Propiedad {
+    dbProp = normalizePersistedProperty(dbProp) as PropiedadRow
     return {
         id: Number(dbProp.id),
         titulo: dbProp.titulo,

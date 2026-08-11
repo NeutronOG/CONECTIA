@@ -1,3 +1,5 @@
+import type { PropertyCategory } from '@/lib/property-categories'
+
 export interface Propiedad {
   id: number
   usuarioId?: string
@@ -18,7 +20,7 @@ export interface Propiedad {
   descripcion: string
   caracteristicas: string[]
   status: "Disponible" | "Exclusiva" | "Reservada"
-  categoria: "venta" | "compra" | "renta" | "oferta" | "especiales" | "preventa" | "especial" | "remate" | "exclusivo"
+  categoria: PropertyCategory
   frente?: number
   fondo?: number
   comisionAsesorPct?: number

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useMemo, useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
@@ -23,6 +23,8 @@ import {
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import { useLanguage } from "@/lib/i18n"
+import { usePropertiesStatic } from "@/hooks/use-properties-static"
+import { PropertyCard, EmptyProperties } from "@/components/property-card"
 
 type UnitStatus = 'disponible' | 'reservado' | 'vendido'
 
@@ -248,6 +250,11 @@ function UnidadesSection() {
 
 export default function DesarrollosPage() {
   const { t } = useLanguage()
+  const { properties } = usePropertiesStatic()
+  const propiedadesDeDesarrollo = useMemo(
+    () => properties.filter((property) => property.categoria === 'desarrollo'),
+    [properties]
+  )
   return (
     <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
       {/* Hero Section */}
@@ -283,6 +290,25 @@ export default function DesarrollosPage() {
                 {t('desarrollos.heroSecondary')}
               </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Publicaciones de asesores: categoría Desarrollos */}
+      <section className="py-16 bg-white/40 dark:bg-[#0F2027]/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-7">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--conectia-arcilla)]">Explorar</p>
+              <h2 className="mt-2 text-3xl font-black text-[#17313A] dark:text-white">Desarrollos publicados</h2>
+            </div>
+            <Badge className="bg-[#17313A] text-white">{propiedadesDeDesarrollo.length} desarrollos</Badge>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {propiedadesDeDesarrollo.map((property) => (
+              <PropertyCard key={property.id} propiedad={property} badgeLabel="Desarrollo" />
+            ))}
+            {propiedadesDeDesarrollo.length === 0 && <EmptyProperties label="Aún no hay desarrollos publicados." />}
           </div>
         </div>
       </section>

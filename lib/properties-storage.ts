@@ -2,6 +2,7 @@ import { Propiedad } from '@/data/propiedades'
 import { getUserByEmail } from '@/data/internal-users'
 import type { Database } from './supabase/database.types'
 import { supabase } from './supabase/client'
+import { normalizePersistedProperty } from './property-persistence-compat'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
@@ -13,6 +14,7 @@ const getDbClient = () => supabase
 export class PropertiesStorage {
   // Convertir de formato DB a formato App
   static dbToApp(dbProp: PropiedadRow): Propiedad {
+    dbProp = normalizePersistedProperty(dbProp) as PropiedadRow
     const asesorEmail = (dbProp as any).asesor_email || (dbProp as any).usuario_id || undefined
     const asesorInfo = asesorEmail ? getUserByEmail(asesorEmail) : undefined
 
@@ -181,6 +183,42 @@ export class PropertiesStorage {
     return dbData
   }
 
+  // Convierte sólo los campos presentes. Evita que una edición parcial
+  // sustituya datos existentes con 0, null o valores predeterminados.
+  private static appUpdatesToDb(updates: Partial<Propiedad>): any {
+    const dbData: Record<string, unknown> = {}
+    const has = (field: keyof Propiedad) => Object.prototype.hasOwnProperty.call(updates, field)
+
+    if (has('titulo')) dbData.titulo = updates.titulo
+    if (has('ubicacion')) dbData.ubicacion = updates.ubicacion
+    if (has('precio')) dbData.precio = Math.round(Number(updates.precio) || 0)
+    if (has('precioTexto')) dbData.precio_texto = updates.precioTexto
+    if (has('tipo')) dbData.tipo = updates.tipo
+    if (has('habitaciones')) dbData.habitaciones = Math.round(Number(updates.habitaciones) || 0)
+    if (has('banos')) dbData.banos = Math.round(Number(updates.banos) || 0)
+    if (has('mediosBanos')) dbData.medios_banos = Math.round(Number(updates.mediosBanos) || 0)
+    if (has('area')) dbData.area = Math.round(Number(updates.area) || 0)
+    if (has('areaConstruccion')) dbData.area_construccion = Math.round(Number(updates.areaConstruccion) || 0)
+    if (has('cochera')) dbData.cochera = Math.round(Number(updates.cochera) || 0)
+    if (has('areaTexto')) dbData.area_texto = updates.areaTexto
+    if (has('imagen')) dbData.imagen = updates.imagen
+    if (has('descripcion')) dbData.descripcion = updates.descripcion
+    if (has('caracteristicas')) dbData.caracteristicas = updates.caracteristicas || []
+    if (has('status')) dbData.status = updates.status
+    if (has('categoria')) dbData.categoria = updates.categoria
+    if (has('fechaPublicacion')) dbData.fecha_publicacion = updates.fechaPublicacion
+    if (has('tourVirtual')) dbData.tour_virtual = updates.tourVirtual || null
+    if (has('galeria')) dbData.galeria = updates.galeria || []
+    if (has('bono')) dbData.bono = updates.bono || null
+    if (has('comisionAsesorPct')) dbData.comision_asesor_pct = updates.comisionAsesorPct ?? null
+    if (has('unidadSuperficie')) dbData.unidad_superficie = updates.unidadSuperficie || 'm²'
+    if (Object.prototype.hasOwnProperty.call(updates, 'tipoCredito')) {
+      dbData.tipo_credito = (updates as any).tipoCredito || null
+    }
+
+    return dbData
+  }
+
   // Obtener todas las propiedades
   static async getAll(): Promise<Propiedad[]> {
     try {
@@ -341,7 +379,7 @@ export class PropertiesStorage {
       const response = await fetch('/api/asesor/propiedades', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, property: this.appToDb(updates as any) }),
+        body: JSON.stringify({ id, property: this.appUpdatesToDb(updates) }),
       })
       const result = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(result.error || 'No se pudo actualizar la propiedad')
