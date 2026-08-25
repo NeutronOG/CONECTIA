@@ -1,0 +1,200 @@
+POLÍTICA ANTIFRAUDE
+CONECTIA ECOSISTEMA INMOBILIARIO
+
+I. OBJETO
+La presente Política Antifraude tiene por objeto establecer los principios, lineamientos, medidas preventivas, mecanismos de detección, procedimientos de actuación y responsabilidades destinados a prevenir, identificar, investigar y atender cualquier acto de fraude, falsedad, simulación, suplantación de identidad, lavado de activos, operaciones ilícitas o cualquier otra conducta que represente un riesgo para CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA"), sus usuarios, clientes, asesores inmobiliarios, propietarios, desarrolladores, inversionistas, colaboradores y demás personas relacionadas con sus actividades.
+Asimismo, esta Política busca fortalecer la cultura de integridad, legalidad, transparencia, cumplimiento normativo y gestión de riesgos, protegiendo la seguridad jurídica, el patrimonio y la reputación de CONECTIA y de quienes participan en su ecosistema inmobiliario.
+
+II. ALCANCE
+La presente Política es obligatoria para:
+	•	
+	•	Usuarios registrados.
+	•	Usuarios visitantes, cuando utilicen los servicios de CONECTIA.
+	•	Propietarios.
+	•	Compradores.
+	•	Vendedores.
+	•	Arrendadores.
+	•	Arrendatarios.
+	•	Asesores inmobiliarios.
+	•	Empresas inmobiliarias.
+	•	Desarrolladores.
+	•	Representantes legales.
+	•	Colaboradores.
+	•	Prestadores de servicios.
+	•	Socios comerciales.
+	•	Proveedores tecnológicos.
+	•	Cualquier persona física o moral que utilice los servicios, plataformas o herramientas de CONECTIA.
+
+
+III. PRINCIPIOS RECTORES
+Toda actuación relacionada con la presente Política deberá observar los siguientes principios:
+	•	
+	•	Buena fe.
+	•	Honestidad.
+	•	Integridad.
+	•	Transparencia.
+	•	Legalidad.
+	•	Profesionalismo.
+	•	Seguridad jurídica.
+	•	Debida diligencia.
+	•	Prevención de riesgos.
+	•	Protección de datos personales.
+	•	Confidencialidad.
+	•	Objetividad.
+	•	Colaboración con autoridades competentes cuando exista obligación legal.
+
+
+IV. POLÍTICA DE TOLERANCIA CERO
+CONECTIA mantiene una política de cero tolerancia frente a cualquier conducta fraudulenta o ilícita.
+En consecuencia, queda estrictamente prohibido utilizar la plataforma, los servicios o cualquier recurso de CONECTIA para:
+	•	Obtener beneficios mediante engaño.
+	•	Utilizar información falsa o inexacta.
+	•	Alterar, falsificar o fabricar documentos.
+	•	Simular operaciones inmobiliarias o comerciales.
+	•	Suplantar identidades.
+	•	Ocultar información relevante.
+	•	Publicar inmuebles sin autorización.
+	•	Utilizar la plataforma con fines ilícitos.
+	•	Manipular sistemas informáticos o utilizar herramientas tecnológicas para alterar información.
+	•	Emplear inteligencia artificial para generar documentación, imágenes, audios o cualquier otro contenido falso con fines fraudulentos.
+El incumplimiento de esta Política podrá dar lugar a la suspensión preventiva de servicios, cancelación de cuentas, terminación de relaciones contractuales o comerciales y, cuando corresponda, a la presentación de las denuncias o acciones legales procedentes.
+
+V. CONDUCTAS CONSIDERADAS FRAUDE
+Se consideran, de manera enunciativa mas no limitativa, actos de fraude:
+Fraude documental
+	•	
+	•	Escrituras alteradas.
+	•	Poderes falsificados.
+	•	Identificaciones apócrifas.
+	•	Comprobantes falsos.
+	•	Documentación modificada o manipulada.
+
+Fraude inmobiliario
+	•	
+	•	Publicación de inmuebles inexistentes.
+	•	Comercialización de propiedades sin autorización.
+	•	Ocultamiento de gravámenes o limitaciones jurídicas.
+	•	Simulación de propietarios.
+	•	Uso de fotografías, videos o información falsa.
+	•	Manipulación deliberada de precios.
+	•	Ocultamiento de información relevante.
+
+Fraude financiero
+	•	
+	•	Solicitud de depósitos mediante engaño.
+	•	Simulación de apartados o pagos.
+	•	Cobros no autorizados.
+	•	Transferencias fraudulentas.
+	•	Operaciones con recursos de procedencia ilícita.
+
+Fraude digital
+	•	
+	•	Robo o suplantación de identidad.
+	•	Creación de cuentas falsas.
+	•	Phishing.
+	•	Accesos no autorizados.
+	•	Manipulación de plataformas digitales.
+	•	Uso indebido de credenciales.
+	•	Alteración de registros electrónicos.
+	•	Uso de herramientas tecnológicas o inteligencia artificial para inducir al error o facilitar actividades fraudulentas.
+
+
+VI. OBLIGACIONES DE LOS USUARIOS
+Toda persona que utilice los servicios de CONECTIA deberá:
+	•	Proporcionar información veraz, completa y actualizada.
+	•	Utilizar únicamente documentos auténticos.
+	•	Acreditar su identidad cuando sea requerido.
+	•	Contar con autorización suficiente para comercializar bienes inmuebles.
+	•	Mantener actualizada la información publicada.
+	•	Proteger sus credenciales de acceso.
+	•	Informar cualquier acceso no autorizado o actividad sospechosa.
+	•	Reportar cualquier irregularidad detectada.
+	•	Colaborar en los procesos de verificación e investigación.
+	•	Actuar conforme a la legislación aplicable y a las políticas internas de CONECTIA.
+
+VII. MECANISMOS DE PREVENCIÓN
+Con el propósito de reducir riesgos y fortalecer la seguridad del ecosistema inmobiliario, CONECTIA podrá implementar, entre otras, las siguientes medidas:
+	•	Verificación de identidad.
+	•	Validación documental.
+	•	Confirmación telefónica y por correo electrónico.
+	•	Solicitud de documentación adicional.
+	•	Validación de autorizaciones para comercializar inmuebles.
+	•	Monitoreo de publicaciones.
+	•	Auditorías internas.
+	•	Controles tecnológicos de seguridad.
+	•	Sistemas automatizados de detección de riesgos.
+	•	Herramientas de inteligencia artificial utilizadas conforme a la Política de Uso Responsable de la Inteligencia Artificial.
+
+VIII. SEÑALES DE ALERTA
+Podrán considerarse indicadores de riesgo, entre otros:
+	•	Información inconsistente.
+	•	Cambios frecuentes de propietario.
+	•	Precios significativamente inferiores al valor de mercado sin justificación.
+	•	Negativa a proporcionar documentación.
+	•	Solicitudes de pagos urgentes o fuera de los canales autorizados.
+	•	Fotografías que no correspondan al inmueble.
+	•	Publicaciones duplicadas.
+	•	Datos de contacto inconsistentes.
+	•	Negativa injustificada a realizar visitas.
+	•	Identificaciones alteradas.
+	•	Documentación incompleta.
+	•	Presión para formalizar operaciones sin revisión jurídica.
+La existencia de una señal de alerta no implica, por sí misma, la existencia de fraude; sin embargo, podrá motivar la aplicación de medidas preventivas y procedimientos de verificación.
+
+IX. FACULTADES DE CONECTIA
+Con el fin de proteger a los usuarios y preservar la integridad del ecosistema inmobiliario, CONECTIA se reserva el derecho de:
+	•	Solicitar información o documentación adicional.
+	•	Verificar la autenticidad de la información proporcionada.
+	•	Suspender preventivamente publicaciones.
+	•	Suspender temporalmente cuentas de usuario.
+	•	Retirar publicaciones que incumplan la normativa aplicable.
+	•	Limitar el acceso a determinados servicios.
+	•	Cancelar cuentas cuando exista incumplimiento acreditado.
+	•	Colaborar con autoridades competentes en los casos previstos por la legislación aplicable.
+
+X. INVESTIGACIÓN INTERNA
+Cuando existan elementos razonables que permitan presumir la posible comisión de una conducta fraudulenta, CONECTIA podrá iniciar un procedimiento interno que podrá comprender:
+	•	Apertura de un expediente.
+	•	Requerimiento de información complementaria.
+	•	Revisión y análisis de documentación.
+	•	Verificación de la información disponible.
+	•	Suspensión preventiva de publicaciones o cuentas, cuando resulte necesaria para proteger a los usuarios o a la plataforma.
+	•	Emisión de una determinación interna.
+	•	Presentación de denuncias o colaboración con las autoridades competentes, cuando corresponda.
+Las medidas preventivas tendrán carácter cautelar y no constituirán, por sí mismas, una determinación definitiva sobre la existencia de una conducta fraudulenta.
+
+XI. PROTECCIÓN AL DENUNCIANTE
+Toda persona podrá reportar, de buena fe, cualquier conducta que considere irregular o potencialmente fraudulenta.
+CONECTIA procurará:
+	•	Preservar la confidencialidad de la identidad del denunciante.
+	•	Protegerlo contra represalias indebidas.
+	•	Analizar objetivamente los hechos reportados.
+	•	Dar seguimiento a las investigaciones.
+Las denuncias presentadas con dolo o mala fe podrán generar las responsabilidades legales o contractuales correspondientes.
+
+XII. CONSECUENCIAS DEL INCUMPLIMIENTO
+Dependiendo de la naturaleza y gravedad de la conducta, CONECTIA podrá aplicar una o varias de las siguientes medidas:
+	•	Solicitud de aclaraciones.
+	•	Amonestación.
+	•	Suspensión preventiva de servicios.
+	•	Eliminación de publicaciones.
+	•	Cancelación definitiva de la cuenta.
+	•	Terminación de contratos o relaciones comerciales.
+	•	Reclamación de daños y perjuicios.
+	•	Presentación de denuncias o ejercicio de las acciones legales procedentes.
+La aplicación de estas medidas será independiente de las responsabilidades civiles, administrativas o penales que correspondan conforme a la legislación aplicable.
+
+XIII. CONSERVACIÓN DE EVIDENCIA
+CONECTIA podrá conservar la documentación, registros electrónicos, bitácoras, comunicaciones, imágenes, grabaciones y demás elementos relacionados con investigaciones internas durante el tiempo necesario para cumplir obligaciones legales, atender procedimientos administrativos o judiciales, ejercer o defender derechos y preservar la integridad de las investigaciones, conforme a la legislación aplicable y a la Política de Protección de Datos Personales.
+
+XIV. COLABORACIÓN CON AUTORIDADES
+Cuando exista obligación legal o indicios de conductas posiblemente constitutivas de delito, CONECTIA podrá colaborar con las autoridades competentes proporcionando únicamente la información que legalmente resulte procedente, observando en todo momento la legislación aplicable en materia de protección de datos personales, confidencialidad y debido proceso.
+
+XV. ACTUALIZACIÓN DE LA POLÍTICA
+CONECTIA podrá modificar la presente Política para adecuarla a reformas legales, criterios de autoridades competentes, avances tecnológicos, mejoras en sus procesos internos o nuevas medidas de prevención de riesgos.
+Las modificaciones serán publicadas en los medios oficiales de CONECTIA y surtirán efectos a partir de la fecha de su publicación, salvo disposición expresa en contrario.
+
+XVI. VIGENCIA
+La presente Política Antifraude entrará en vigor a partir de la fecha de su publicación y será obligatoria para todas las personas comprendidas en su ámbito de aplicación.
+Esta Política complementa el Manual Jurídico Corporativo, los Términos y Condiciones, el Código de Ética, la Política Comercial, la Política de Publicación de Inmuebles, la Política de Protección de Datos Personales y las demás políticas internas de CONECTIA, integrando el sistema de prevención de riesgos y cumplimiento normativo de la organización.
+

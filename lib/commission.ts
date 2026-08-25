@@ -15,14 +15,18 @@ export function getPrecioTotal(propiedad: Partial<Propiedad> | null | undefined)
   return precio
 }
 
+export function usaComisionPorcentual(propiedad: Partial<Propiedad> | null | undefined): boolean {
+  return Boolean(propiedad) && propiedad?.categoria !== "renta"
+}
+
 /**
  * Calcula la comisión que le corresponde al asesor.
  * El asesor recibe la mitad del porcentaje total elegido.
  */
 export function getComisionAsesor(propiedad: Partial<Propiedad> | null | undefined): number {
-  if (!propiedad) return 0
+  if (!usaComisionPorcentual(propiedad)) return 0
   const precioTotal = getPrecioTotal(propiedad)
-  const pctTotal = Number(propiedad.comisionAsesorPct) || 4
+  const pctTotal = Number(propiedad?.comisionAsesorPct) || 4
   const pctAsesor = pctTotal / 2
   return Math.round(precioTotal * (pctAsesor / 100))
 }
@@ -31,8 +35,8 @@ export function getComisionAsesor(propiedad: Partial<Propiedad> | null | undefin
  * Texto descriptivo de la comisión del asesor.
  */
 export function getComisionAsesorTexto(propiedad: Partial<Propiedad> | null | undefined): string {
-  if (!propiedad) return ""
-  const pctTotal = Number(propiedad.comisionAsesorPct) || 4
+  if (!usaComisionPorcentual(propiedad)) return ""
+  const pctTotal = Number(propiedad?.comisionAsesorPct) || 4
   const pctAsesor = pctTotal / 2
   return `${pctAsesor}%`
 }

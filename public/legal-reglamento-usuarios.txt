@@ -1,0 +1,147 @@
+REGLAMENTO DE USUARIOS
+CONECTIA ECOSISTEMA INMOBILIARIO
+
+TÍTULO PRIMERO
+DISPOSICIONES GENERALES
+Artículo 1. Objeto
+El presente Reglamento tiene por objeto establecer las normas de conducta, derechos, obligaciones, responsabilidades y medidas disciplinarias aplicables a todos los usuarios que accedan, utilicen o interactúen con el ecosistema digital de CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA"), con el fin de garantizar un entorno seguro, transparente, confiable y conforme a la legislación aplicable.
+
+Artículo 2. Ámbito de aplicación
+Este Reglamento es obligatorio para toda persona física o moral que utilice los servicios de CONECTIA, incluyendo, entre otros:
+	•	
+	•	Propietarios de inmuebles.
+	•	Compradores.
+	•	Vendedores.
+	•	Arrendadores.
+	•	Arrendatarios.
+	•	Asesores inmobiliarios.
+	•	Desarrolladores inmobiliarios.
+	•	Inversionistas.
+	•	Empresas afiliadas.
+	•	Proveedores autorizados.
+	•	Usuarios registrados y visitantes cuando interactúen con los servicios de la plataforma.
+
+
+Artículo 3. Relación con otros documentos
+El presente Reglamento complementa los siguientes documentos:
+	•	
+	•	Términos y Condiciones de Uso.
+	•	Aviso de Privacidad.
+	•	Política de Cookies.
+	•	Política de Seguridad de la Información.
+	•	Política de Publicación de Inmuebles.
+	•	Política de Inteligencia Artificial y Automatización.
+	•	Política Antifraude.
+	•	Código de Ética.
+	•	Demás políticas emitidas por CONECTIA.
+
+En caso de contradicción, prevalecerán los Términos y Condiciones y, posteriormente, las políticas específicas aplicables.
+
+TÍTULO SEGUNDO
+REGISTRO DE USUARIOS
+Artículo 4. Registro
+Para acceder a determinados servicios será necesario crear una cuenta proporcionando información completa, veraz, actualizada y verificable.
+CONECTIA podrá solicitar documentación adicional para acreditar la identidad del usuario o la representación legal con la que actúe.
+
+Artículo 5. Cuenta de usuario
+Cada cuenta es personal e intransferible.
+El usuario será responsable de todas las actividades realizadas mediante sus credenciales de acceso y deberá adoptar medidas razonables para protegerlas.
+Queda prohibido compartir cuentas, contraseñas o mecanismos de autenticación con terceros.
+
+Artículo 6. Actualización de información
+El usuario deberá mantener actualizados sus datos personales, información de contacto y cualquier otra información necesaria para la adecuada prestación de los servicios.
+
+TÍTULO TERCERO
+DERECHOS DE LOS USUARIOS
+Artículo 7. Derechos
+Los usuarios tendrán derecho a:
+	•	Acceder a los servicios contratados.
+	•	Recibir un trato digno, respetuoso y no discriminatorio.
+	•	Administrar su información dentro de la plataforma.
+	•	Solicitar soporte técnico.
+	•	Presentar consultas, sugerencias o reclamaciones.
+	•	Ejercer los derechos previstos en el Aviso de Privacidad.
+	•	Conocer las actualizaciones relevantes de los Términos y Condiciones, así como de las políticas aplicables.
+
+TÍTULO CUARTO
+OBLIGACIONES DE LOS USUARIOS
+Artículo 8. Obligaciones generales
+Los usuarios deberán:
+	•	Actuar con honestidad, buena fe y profesionalismo.
+	•	Proporcionar información veraz, completa y actualizada.
+	•	Utilizar la plataforma únicamente para fines lícitos.
+	•	Respetar los derechos de otros usuarios y de terceros.
+	•	Cumplir los contratos que celebren mediante la plataforma.
+	•	Mantener la confidencialidad de sus credenciales.
+	•	Reportar el uso indebido de su cuenta o cualquier incidente de seguridad del que tengan conocimiento.
+	•	Colaborar en los procesos de verificación cuando sean requeridos por CONECTIA.
+	•	CONECTIA podrá solicitar documentación que acredite la propiedad, representación o autorización para la comercialización del inmueble.
+
+TÍTULO QUINTO
+CONDUCTAS PROHIBIDAS
+Artículo 9. Prohibiciones
+Queda prohibido:
+	•	Proporcionar información falsa, incompleta o engañosa.
+	•	Publicar inmuebles sin autorización para comercializarlos.
+	•	Suplantar la identidad de otra persona.
+	•	Utilizar documentos falsificados o alterados.
+	•	Publicar información que vulnere derechos de terceros.
+	•	Difundir contenido ofensivo, discriminatorio, ilegal o contrario al orden público.
+	•	Manipular el funcionamiento de la plataforma.
+	•	Intentar acceder sin autorización a sistemas, bases de datos o cuentas de otros usuarios.
+	•	Introducir software malicioso o realizar actividades que comprometan la seguridad informática.
+	•	Utilizar herramientas automatizadas para extraer información sin autorización.
+	•	Reproducir, copiar o explotar la plataforma con fines distintos a los autorizados.
+	•	Realizar prácticas fraudulentas, simuladas o destinadas a obtener ventajas indebidas.
+
+TÍTULO SEXTO
+PUBLICACIÓN Y GESTIÓN DE INMUEBLES
+Artículo 10. Responsabilidad del usuario
+Todo usuario que publique un inmueble será responsable de la autenticidad, legalidad y actualización de la información proporcionada.
+Asimismo, deberá contar con las autorizaciones necesarias para su promoción y comercialización.
+CONECTIA, podrá solicitar documentación que acredite la propiedad, representación o autorización para la comercialización del inmueble.
+
+Artículo 11. Actualización de publicaciones
+El usuario deberá actualizar oportunamente la información cuando cambien las condiciones del inmueble, su disponibilidad, precio o cualquier dato relevante.
+
+TÍTULO SÉPTIMO
+CONFIDENCIALIDAD Y SEGURIDAD
+Artículo 12. Protección de la información
+Los usuarios deberán utilizar de manera responsable la información obtenida mediante la plataforma y abstenerse de divulgar datos confidenciales o personales sin autorización.
+
+
+Artículo 13. Seguridad de la cuenta
+Cuando el usuario detecte un acceso no autorizado, pérdida de credenciales o cualquier incidente que comprometa la seguridad de su cuenta, deberá comunicarlo de inmediato a CONECTIA.
+
+TÍTULO OCTAVO
+MEDIDAS DISCIPLINARIAS
+Artículo 14. Incumplimientos
+Cuando un usuario incumpla este Reglamento o cualquiera de las políticas de CONECTIA podrá imponer de manera proporcional a la gravedad de la conducta, las siguientes medidas:
+	•	Amonestación.
+	•	Requerimiento de corrección.
+	•	Suspensión temporal de publicaciones.
+	•	Restricción parcial de funcionalidades.
+	•	Suspensión temporal de la cuenta.
+	•	Cancelación definitiva de la cuenta.
+	•	Terminación de contratos vigentes, cuando corresponda.
+	•	Ejercicio de las acciones legales procedentes.
+La aplicación de estas medidas no limita el derecho de CONECTIA o de terceros para reclamar la reparación de daños y perjuicios cuando exista responsabilidad.
+
+TÍTULO NOVENO
+ATENCIÓN A USUARIOS
+Artículo 15. Consultas y reclamaciones
+Los usuarios podrán presentar consultas, solicitudes de aclaración, sugerencias o reclamaciones mediante los canales oficiales habilitados por CONECTIA.
+La empresa dará seguimiento conforme a sus procedimientos internos y procurará resolver las solicitudes en un plazo razonable.
+
+
+TÍTULO DÉCIMO
+MODIFICACIONES Y VIGENCIA
+Artículo 16. Actualización del Reglamento
+CONECTIA podrá modificar el presente Reglamento cuando resulte necesario por cambios legales, tecnológicos, operativos o comerciales.
+Las modificaciones serán publicadas en los medios oficiales y entrarán en vigor en la fecha que se indique en la versión correspondiente.
+Las modificaciones no tendrán efectos retroactivos, salvo disposición legal aplicable.
+
+Artículo 17. Aceptación
+El registro, acceso o uso de la plataforma implica el conocimiento y aceptación del presente Reglamento.
+Los usuarios se obligan a cumplir las disposiciones contenidas en este documento, así como en los Términos y Condiciones y demás políticas corporativas que integran el marco jurídico de CONECTIA.
+

@@ -15,6 +15,7 @@ function RegistroContent() {
     telefono: '',
     mensaje: ''
   })
+  const [acceptedLegal, setAcceptedLegal] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -32,6 +33,12 @@ function RegistroContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    if (!acceptedLegal) {
+      setError('Debes aceptar los Términos y Condiciones y confirmar que leíste el Aviso de Privacidad.')
+      return
+    }
+
     setLoading(true)
 
     try {
@@ -43,7 +50,7 @@ function RegistroContent() {
           nombre: formData.nombre,
           email: formData.email,
           telefono: formData.telefono,
-          mensaje: formData.mensaje || 'Solicitud de información para ser asesor CONECTIA',
+          mensaje: `${formData.mensaje || 'Solicitud de información para ser asesor CONECTIA'}\n\nConsentimiento: Términos y Aviso de Privacidad aceptados el ${new Date().toISOString()}.`,
           tipo: 'solicitud_asesor',
           fecha: new Date().toISOString()
         })
@@ -54,8 +61,8 @@ function RegistroContent() {
       }
       
       setSuccess(true)
-    } catch (err: any) {
-      setError(err.message || t('registro.errors.retryError'))
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t('registro.errors.retryError'))
     } finally {
       setLoading(false)
     }
@@ -181,7 +188,7 @@ function RegistroContent() {
                   value={formData.telefono}
                   onChange={handleChange}
                   className="w-full pl-11 pr-4 py-3 bg-[#17313A] border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-conectia-gold focus:border-transparent outline-none transition-all text-gray-900 dark:text-white"
-                  placeholder="+52 1 477 123 4567"
+                  placeholder="563-157-2468"
                   required
                 />
               </div>
@@ -206,6 +213,21 @@ function RegistroContent() {
               </div>
             </div>
 
+            <label className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300 leading-6">
+              <input
+                type="checkbox"
+                checked={acceptedLegal}
+                onChange={(event) => setAcceptedLegal(event.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-gray-400 accent-[var(--conectia-arcilla)]"
+                required
+              />
+              <span>
+                Acepto los{' '}
+                <Link href="/legal/terminos-condiciones" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Términos y Condiciones</Link>{' '}
+                y confirmo que leí el{' '}
+                <Link href="/legal/aviso-privacidad-integral" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Aviso de Privacidad Integral</Link>.
+              </span>
+            </label>
 
             {/* Error */}
             {error && (

@@ -1,117 +1,91 @@
-import { Card } from "@/components/ui/card"
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { ArrowRight, Bot, Cookie, FileCheck2, Scale, ShieldCheck, UserRoundCheck } from 'lucide-react'
+import { legalDocuments } from '@/lib/legal-documents'
+
+export const metadata: Metadata = {
+  title: 'Centro Legal | CONECTIA',
+  description: 'Avisos de privacidad, términos, políticas y reglas aplicables al ecosistema inmobiliario CONECTIA.',
+}
+
+const categoryConfig = {
+  privacidad: { label: 'Privacidad', icon: ShieldCheck },
+  uso: { label: 'Uso de la plataforma', icon: FileCheck2 },
+  seguridad: { label: 'Seguridad', icon: UserRoundCheck },
+  tecnologia: { label: 'Tecnología', icon: Bot },
+}
 
 export default function LegalPage() {
   return (
-    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#17313A]">
-      {/* Header */}
-      <div className="pt-24 pb-16 text-center">
-        <h1 className="font-serif text-5xl md:text-6xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-6">Información Legal</h1>
-        <p className="text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-3xl mx-auto px-6">
-          Transparencia y cumplimiento en todos nuestros procesos
-        </p>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-6 pb-24 space-y-8">
-        {/* Privacy Policy */}
-        <Card className="p-8 rounded-3xl glass-card rounded-3xl">
-          <h2 className="font-serif text-3xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-6">Política de Privacidad</h2>
-          <div className="prose prose-gray max-w-none">
-            <p className="mb-4">
-              En CONECTIA, protegemos tu privacidad y datos personales conforme al Reglamento General de Protección de
-              Datos (RGPD).
-            </p>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Datos que recopilamos</h3>
-            <ul className="list-disc pl-6 mb-4">
-              <li>Información de contacto (nombre, email, teléfono)</li>
-              <li>Detalles de la propiedad</li>
-              <li>Preferencias de comunicación</li>
-              <li>Datos de navegación web</li>
-            </ul>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Uso de los datos</h3>
-            <ul className="list-disc pl-6 mb-4">
-              <li>Prestación de servicios inmobiliarios</li>
-              <li>Comunicación sobre tu propiedad</li>
-              <li>Mejora de nuestros servicios</li>
-              <li>Cumplimiento de obligaciones legales</li>
-            </ul>
-          </div>
-        </Card>
-
-        {/* Terms of Use */}
-        <Card className="p-8 rounded-3xl glass-card rounded-3xl">
-          <h2 className="font-serif text-3xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-6">Términos de Uso</h2>
-          <div className="prose prose-gray max-w-none">
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Servicios</h3>
-            <p className="mb-4">
-              CONECTIA proporciona servicios de intermediación <span className="text-[var(--conectia-arcilla)]">inmobiliaria</span> exclusiva para propiedades de lujo.
-            </p>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Responsabilidades del cliente</h3>
-            <ul className="list-disc pl-6 mb-4">
-              <li>Proporcionar información veraz sobre la propiedad</li>
-              <li>Cumplir con los términos del contrato de exclusividad</li>
-              <li>Colaborar en el proceso de venta</li>
-            </ul>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Limitación de responsabilidad</h3>
-            <p className="mb-4">
-              CONECTIA actúa como intermediario y no garantiza la venta en un plazo específico, aunque nos comprometemos a
-              usar nuestros mejores esfuerzos.
+    <main className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F2027] pt-24 pb-24">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative overflow-hidden rounded-[32px] bg-[#17313A] text-white px-6 py-14 sm:px-12 sm:py-20 mb-12">
+          <div className="absolute -top-24 right-0 w-96 h-96 rounded-full bg-[var(--conectia-arcilla)]/20 blur-3xl" />
+          <div className="relative max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/10 rounded-full text-xs font-bold uppercase tracking-[0.2em] text-[var(--conectia-arcilla)] mb-6">
+              <Scale className="h-4 w-4" /> Transparencia y cumplimiento
+            </div>
+            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-6">Centro Legal</h1>
+            <p className="text-lg sm:text-xl text-white/70 leading-8 max-w-3xl">
+              Consulta los documentos que regulan el uso de CONECTIA, el tratamiento de datos personales, la publicación de inmuebles y nuestras prácticas de seguridad y tecnología.
             </p>
           </div>
-        </Card>
+        </div>
 
-        {/* Cookies Policy */}
-        <Card className="p-8 rounded-3xl glass-card rounded-3xl">
-          <h2 className="font-serif text-3xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mb-6">Política de Cookies</h2>
-          <div className="prose prose-gray max-w-none">
-            <p className="mb-4">
-              Utilizamos cookies para mejorar tu experiencia en nuestro sitio web y proporcionar servicios
-              personalizados.
-            </p>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Tipos de cookies</h3>
-            <ul className="list-disc pl-6 mb-4">
-              <li>
-                <strong>Esenciales:</strong> Necesarias para el funcionamiento del sitio
-              </li>
-              <li>
-                <strong>Analíticas:</strong> Para entender cómo usas nuestro sitio
-              </li>
-              <li>
-                <strong>Marketing:</strong> Para personalizar anuncios y contenido
-              </li>
-              <li>
-                <strong>Funcionales:</strong> Para recordar tus preferencias
-              </li>
-            </ul>
-            <h3 className="text-xl font-semibold text-[#17313A] dark:text-[#EAE4DD] mt-6 mb-3">Control de cookies</h3>
-            <p className="mb-4">
-              Puedes gestionar tus preferencias de cookies en cualquier momento a través de la configuración de tu
-              navegador.
-            </p>
-          </div>
-        </Card>
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {legalDocuments.map((document) => {
+            const category = categoryConfig[document.category]
+            const Icon = document.slug === 'politica-cookies' ? Cookie : category.icon
 
-        {/* Contact for Legal */}
-        <Card className="p-8 rounded-3xl border-0 bg-gradient-to-br from-[#EAE4DD] to-[#D5D2C9] dark:from-conectia-graphite dark:to-gray-900 text-[#17313A] dark:text-white shadow-xl">
-          <h2 className="font-serif text-3xl font-semibold mb-6">Contacto Legal</h2>
-          <p className="text-[#4A4F57] dark:text-gray-300 mb-4">
-            Para consultas sobre privacidad, términos de uso o cualquier asunto legal:
-          </p>
-          <div className="space-y-2">
-            <p>
-              <strong>Email:</strong> legal@conectia.es
+            return (
+              <Link
+                key={document.slug}
+                href={`/legal/${document.slug}`}
+                className="group flex flex-col min-h-64 p-6 sm:p-7 rounded-[24px] bg-white dark:bg-[#17313A]/35 border border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 hover:-translate-y-1 transition-all shadow-sm"
+              >
+                <div className="flex items-center justify-between mb-7">
+                  <div className="h-11 w-11 rounded-xl bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#4A4F57] dark:text-[#B0ACA6]">{category.label}</span>
+                </div>
+                <h2 className="font-serif text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-3 group-hover:text-[var(--conectia-arcilla)] transition-colors">
+                  {document.title}
+                </h2>
+                <p className="text-sm text-[#4A4F57] dark:text-[#B0ACA6] leading-6 flex-1">{document.description}</p>
+                <span className="inline-flex items-center gap-2 mt-6 text-sm font-bold text-[var(--conectia-arcilla)]">
+                  Consultar documento <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+            )
+          })}
+        </div>
+
+        <div className="mt-12 grid lg:grid-cols-[1.4fr_1fr] gap-5">
+          <div className="p-7 sm:p-8 rounded-[24px] bg-white dark:bg-[#17313A]/35 border border-[#17313A]/10 dark:border-white/10">
+            <div className="flex items-center gap-3 mb-4">
+              <ShieldCheck className="h-6 w-6 text-[var(--conectia-arcilla)]" />
+              <h2 className="font-serif text-2xl font-black text-[#17313A] dark:text-[#EAE4DD]">Privacidad y derechos ARCO</h2>
+            </div>
+            <p className="text-[#4A4F57] dark:text-[#B0ACA6] leading-7 mb-5">
+              Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos mediante el formulario oficial, seleccionando el asunto “Privacidad y derechos ARCO”.
             </p>
-            <p>
-              <strong>Dirección:</strong> Calle Serrano 123, 28006 Madrid, España
-            </p>
-            <p>
-              <strong>Registro Mercantil:</strong> Madrid, Tomo 12345, Folio 67, Hoja M-123456
-            </p>
-            <p>
-              <strong>CIF:</strong> B-12345678
-            </p>
+            <Link href="/contacto" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#17313A] dark:bg-[var(--conectia-arcilla)] text-white dark:text-[#0F2027] font-bold">
+              Iniciar solicitud <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </Card>
-      </div>
-    </div>
+
+          <div className="p-7 sm:p-8 rounded-[24px] bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20">
+            <h2 className="font-serif text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] mb-4">Contacto legal</h2>
+            <div className="space-y-2 text-sm text-[#4A4F57] dark:text-[#D1CDC7]">
+              <p><strong>Responsable:</strong> CONECTIA ECOSISTEMA INMOBILIARIO</p>
+              <p><strong>Domicilio:</strong> León, Guanajuato, México</p>
+              <p><strong>Teléfono:</strong> 563-157-2468</p>
+              <p><strong>Correo de privacidad:</strong> pendiente de designación</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

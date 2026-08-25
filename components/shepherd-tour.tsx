@@ -278,7 +278,7 @@ export function ShepherdTour() {
         <p>Aquí encontrarás todas las formas de contactarnos:</p>
         <ul style="margin:8px 0;padding-left:16px;">
           <li><strong>WhatsApp:</strong> Respuesta inmediata</li>
-          <li><strong>Teléfono:</strong> +52 1 477 475 6951</li>
+          <li><strong>Teléfono:</strong> 563-157-2468</li>
           <li><strong>Email:</strong> conectiaselect@gmail.com</li>
           <li><strong>Formulario:</strong> Te respondemos en 24h</li>
         </ul>

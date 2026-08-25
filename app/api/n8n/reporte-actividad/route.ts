@@ -81,6 +81,7 @@ export async function GET(request: Request) {
         precio: Number(p.precio) || 0,
         area: Number((p as any).area) || 0,
         unidadSuperficie: (p as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+        categoria: p.categoria,
         comisionAsesorPct: Number((p as any).comision_asesor_pct) || 4,
       })
     }, 0))
@@ -108,6 +109,7 @@ export async function GET(request: Request) {
         precio: Number(prop.precio) || 0,
         area: Number((prop as any).area) || 0,
         unidadSuperficie: (prop as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+        categoria: prop.categoria,
         comisionAsesorPct: Number((prop as any).comision_asesor_pct) || 4,
       })
       porAsesor[prop.usuario_id].comisionPotencial += comisionAsesor
@@ -154,6 +156,7 @@ export async function GET(request: Request) {
           precio: Number(p.precio) || 0,
           area: Number((p as any).area) || 0,
           unidadSuperficie: (p as any).unidad_superficie === 'Hectáreas' ? 'Hectáreas' : 'm²',
+          categoria: p.categoria,
           comisionAsesorPct: Number((p as any).comision_asesor_pct) || 4,
         }),
       })),

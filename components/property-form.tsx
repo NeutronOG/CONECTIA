@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Propiedad } from "@/data/propiedades"
 import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
-import { getComisionAsesorTexto } from "@/lib/commission"
+import { getComisionAsesorTexto, usaComisionPorcentual } from "@/lib/commission"
 import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
 
 const labelClass = "text-sm font-semibold text-[#17313A] dark:text-white/90"
@@ -293,7 +294,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           especialidad: "Asesor Inmobiliario",
           rating: 4.5,
           ventas: 0,
-          telefono: "+52 1 477 475 6951",
+          telefono: "563-157-2468",
           email: asesorEmail
         },
         detalles: {
@@ -308,7 +309,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         galeria: galeriaUrls,
         tourVirtual: undefined,
         unidadSuperficie: formData.unidadSuperficie || "m²",
-        comisionAsesorPct: formData.comisionAsesorPct || 4,
+        comisionAsesorPct: usaComisionPorcentual(formData) ? formData.comisionAsesorPct || 4 : undefined,
         tipoCredito: (formData as any).tipoCredito || undefined,
         observaciones: observaciones || undefined,
         bono: bono.trim() || undefined,
@@ -548,30 +549,34 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
                 className={inputClass}
               />
-              <div className="space-y-2 mt-4">
-                <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
-                <Select
-                  value={String(formData.comisionAsesorPct || 4)}
-                  onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
-                >
-                  <SelectTrigger className={selectTriggerClass}>
-                    <SelectValue placeholder="Selecciona el porcentaje" />
-                  </SelectTrigger>
-                  <SelectContent className={selectContentClass}>
-                    {[1, 2, 3, 4, 5, 6].map((pct) => (
-                      <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
-                        {pct}% total — tú recibes {pct / 2}%
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {formData.precio && formData.precio > 0 && (
-                <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
-                  <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
-                    Tu comisión: {getComisionAsesorTexto(formData)}
-                  </p>
-                </div>
+              {usaComisionPorcentual(formData) && (
+                <>
+                  <div className="space-y-2 mt-4">
+                    <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
+                    <Select
+                      value={String(formData.comisionAsesorPct || 4)}
+                      onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
+                    >
+                      <SelectTrigger className={selectTriggerClass}>
+                        <SelectValue placeholder="Selecciona el porcentaje" />
+                      </SelectTrigger>
+                      <SelectContent className={selectContentClass}>
+                        {[1, 2, 3, 4, 5, 6].map((pct) => (
+                          <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
+                            {pct}% total — tú recibes {pct / 2}%
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {formData.precio && formData.precio > 0 && (
+                    <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
+                      <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
+                        Tu comisión: {getComisionAsesorTexto(formData)}
+                      </p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -1253,6 +1258,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           )}
         </div>
       </div>
+
+      <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] leading-6 text-right">
+        Al {initialData ? 'actualizar' : 'publicar'} confirmas que la información es veraz, que cuentas con autorización y que aceptas la{' '}
+        <Link href="/legal/publicacion-inmuebles" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Política de Publicación de Inmuebles</Link>.
+      </p>
 
       <div className="flex gap-4 justify-end">
         {onCancel && (

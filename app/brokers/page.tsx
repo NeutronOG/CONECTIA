@@ -12,28 +12,28 @@ const notariasAsociadas = [
     notario: "Lic. Jorge Arturo Zepeda Orozco",
     especialidad: "Escrituración y Compraventa",
     ubicacion: "León, Guanajuato",
-    telefono: "+52 477 475 6951"
+    telefono: "563-157-2468"
   },
   {
     nombre: "Notaría 65",
     notario: "Lic. Pablo Francisco Toriello Arce",
     especialidad: "Compraventa y Fideicomisos",
     ubicacion: "León, Guanajuato",
-    telefono: "+52 477 475 6951"
+    telefono: "563-157-2468"
   },
   {
     nombre: "Notaría 98",
     notario: "Lic. Jose Manuel Toriello Arce",
     especialidad: "Desarrollos Inmobiliarios",
     ubicacion: "León, Guanajuato",
-    telefono: "+52 477 475 6951"
+    telefono: "563-157-2468"
   },
   {
     nombre: "Notaría 15",
     notario: "Lic. Cesar Santos del Muro Amador",
     especialidad: "Hipotecas y Escrituración",
     ubicacion: "León, Guanajuato",
-    telefono: "+52 477 475 6951"
+    telefono: "563-157-2468"
   },
   {
     nombre: "Notaría 82",
@@ -41,7 +41,7 @@ const notariasAsociadas = [
     especialidad: "Compraventa Inmobiliaria",
     especialidadDisplay: "Compraventa <span class='text-[var(--conectia-arcilla)]'>Inmobiliaria</span>",
     ubicacion: "León, Guanajuato",
-    telefono: "+52 477 475 6951"
+    telefono: "563-157-2468"
   }
 ]
 

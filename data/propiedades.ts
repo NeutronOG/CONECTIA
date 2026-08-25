@@ -70,7 +70,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Propiedades de Lujo",
       rating: 4.9,
       ventas: 127,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "maria.vazquez@conectiaselect.mx"
     },
     detalles: {
@@ -110,7 +110,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Propiedades de Lujo",
       rating: 4.9,
       ventas: 127,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "maria.vazquez@conectiaselect.mx"
     },
     detalles: {
@@ -150,7 +150,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Villas de Lujo",
       rating: 4.8,
       ventas: 95,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "carlos.mendoza@conectiaselect.mx"
     },
     detalles: {
@@ -184,7 +184,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Roma Norte",
       rating: 4.7,
       ventas: 78,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "ana.ruiz@conectiaselect.mx"
     },
     detalles: {
@@ -218,7 +218,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Lofts Modernos",
       rating: 4.6,
       ventas: 62,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "roberto.silva@conectiaselect.mx"
     },
     detalles: {
@@ -252,7 +252,7 @@ export const propiedades: Propiedad[] = [
       especialidad: "Especialista en Interlomas",
       rating: 4.5,
       ventas: 89,
-      telefono: "+52 1 477 475 6951",
+      telefono: "563-157-2468",
       email: "luis.garcia@conectiaselect.mx"
     },
     detalles: {

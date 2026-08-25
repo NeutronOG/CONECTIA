@@ -517,7 +517,7 @@ export function DynamicHeader() {
                     <span>León, Guanajuato</span>
                   </div>
                   <div className="space-y-1 text-sm text-[#4A4F57] dark:text-[#EAE4DD]/80">
-                    <div>+52 1 477 475 6951</div>
+                    <div>563-157-2468</div>
                     <div>conectiaselect@gmail.com</div>
                   </div>
                 </div>

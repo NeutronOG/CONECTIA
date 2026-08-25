@@ -56,7 +56,7 @@ VALUES (
     'ari@conectia.mx',
     'Ari',
     'admin',
-    '+52 477 475 6952',
+    '563-157-2468',
     '/avatars/ari.jpg',
     ARRAY['editar_propiedades', 'subir_propiedades', 'bajar_propiedades', 'ver_logs'],
     true
@@ -64,7 +64,7 @@ VALUES (
 ON CONFLICT (email) DO UPDATE SET
     nombre = 'Ari',
     role = 'admin',
-    telefono = '+52 477 475 6952',
+    telefono = '563-157-2468',
     avatar = '/avatars/ari.jpg',
     permisos = ARRAY['editar_propiedades', 'subir_propiedades', 'bajar_propiedades', 'ver_logs'],
     es_editor_principal = true;

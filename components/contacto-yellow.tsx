@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Calendar, MessagesSquare } from "lucide-react"
+import { MapPin, Mail, Clock, Send, Calendar, MessagesSquare } from "lucide-react"
 import { useLanguage } from "@/lib/i18n"
 
 export function ContactoYellow() {
@@ -15,9 +16,48 @@ export function ContactoYellow() {
     apellido: '',
     email: '',
     telefono: '',
-    tipo: '',
+    tipo: 'consulta_general',
     mensaje: ''
   })
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData((current) => ({ ...current, [event.target.name]: event.target.value }))
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!acceptedPrivacy) return
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('/api/contacto-asesor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: `${formData.nombre} ${formData.apellido}`.trim(),
+          email: formData.email,
+          telefono: formData.telefono,
+          tipo: formData.tipo,
+          mensaje: `${formData.mensaje}\n\nAviso de Privacidad leído y tratamiento necesario autorizado.`,
+          fecha: new Date().toISOString(),
+        }),
+      })
+
+      if (!response.ok) throw new Error('No se pudo enviar la solicitud')
+      setSubmitStatus('success')
+      setFormData({ nombre: '', apellido: '', email: '', telefono: '', tipo: 'consulta_general', mensaje: '' })
+      setAcceptedPrivacy(false)
+    } catch {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0F2027] relative overflow-hidden">
@@ -58,25 +98,33 @@ export function ContactoYellow() {
               </div>
 
               <Card className="p-6 sm:p-8 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 rounded-2xl shadow-sm">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                         {t('contact.labels.name')}
                       </label>
-                      <Input 
+                      <Input
+                        name="nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
                         className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
                         placeholder={t('contact.placeholders.name')}
+                        required
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                         {t('contact.labels.lastName')}
                       </label>
-                      <Input 
-                      className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                      placeholder={t('contact.placeholders.lastName')}
-                    />
+                      <Input
+                        name="apellido"
+                        value={formData.apellido}
+                        onChange={handleChange}
+                        className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
+                        placeholder={t('contact.placeholders.lastName')}
+                        required
+                      />
                     </div>
                   </div>
 
@@ -84,34 +132,44 @@ export function ContactoYellow() {
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                       {t('contact.labels.email')}
                     </label>
-                    <Input 
-                    type="email"
-                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder={t('contact.placeholders.email')}
-                  />
+                    <Input
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
+                      placeholder={t('contact.placeholders.email')}
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                       {t('contact.labels.phone')}
                     </label>
-                    <Input 
-                    type="tel"
-                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder={t('contact.placeholders.phone')}
-                  />
+                    <Input
+                      name="telefono"
+                      type="tel"
+                      value={formData.telefono}
+                      onChange={handleChange}
+                      className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 h-11 font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
+                      placeholder="563-157-2468"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                       {t('contact.labels.type')}
                     </label>
-                    <select className="w-full px-4 h-11 rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 font-medium text-[#17313A] dark:text-[#EAE4DD]">
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.sell')}</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.rent')}</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.buy')}</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.general')}</option>
-                      <option className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.services')}</option>
+                    <select name="tipo" value={formData.tipo} onChange={handleChange} className="w-full px-4 h-11 rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                      <option value="venta" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.sell')}</option>
+                      <option value="renta" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.rent')}</option>
+                      <option value="compra" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.buy')}</option>
+                      <option value="consulta_general" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.general')}</option>
+                      <option value="servicios" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.services')}</option>
+                      <option value="derechos_arco" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Privacidad y derechos ARCO</option>
+                      <option value="reporte_fraude" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Reporte de posible fraude</option>
                     </select>
                   </div>
 
@@ -119,16 +177,38 @@ export function ContactoYellow() {
                     <label className="block text-sm font-bold text-[#17313A] dark:text-[var(--conectia-arcilla)] uppercase tracking-wide">
                       {t('contact.labels.message')}
                     </label>
-                    <Textarea 
-                    rows={5}
-                    className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 resize-none font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
-                    placeholder={t('contact.placeholders.message')}
-                  />
+                    <Textarea
+                      name="mensaje"
+                      value={formData.mensaje}
+                      onChange={handleChange}
+                      rows={5}
+                      className="rounded-xl bg-[#F9FAFB] dark:bg-[#0F2027]/60 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 resize-none font-medium text-[#17313A] dark:text-[#EAE4DD] placeholder:text-[#9CA3AF] dark:placeholder:text-[#6B7280]"
+                      placeholder={t('contact.placeholders.message')}
+                      required
+                    />
                   </div>
 
-                  <Button className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all">
+                  <label className="flex items-start gap-3 text-sm text-[#4A4F57] dark:text-[#D1CDC7] leading-6">
+                    <input
+                      type="checkbox"
+                      checked={acceptedPrivacy}
+                      onChange={(event) => setAcceptedPrivacy(event.target.checked)}
+                      className="mt-1 h-4 w-4 rounded border-[#17313A]/30 accent-[var(--conectia-arcilla)]"
+                      required
+                    />
+                    <span>
+                      Confirmo que leí el{' '}
+                      <Link href="/legal/aviso-privacidad-integral" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Aviso de Privacidad Integral</Link>{' '}
+                      y autorizo el tratamiento necesario para atender mi solicitud.
+                    </span>
+                  </label>
+
+                  {submitStatus === 'success' && <p className="text-sm font-semibold text-green-600 dark:text-green-400">Tu solicitud fue recibida correctamente.</p>}
+                  {submitStatus === 'error' && <p className="text-sm font-semibold text-red-600 dark:text-red-400">No fue posible enviar la solicitud. Inténtalo nuevamente.</p>}
+
+                  <Button type="submit" disabled={isSubmitting || !acceptedPrivacy} className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all disabled:opacity-50">
                     <Send className="h-5 w-5 mr-2" />
-                    {t('contact.labels.submit')}
+                    {isSubmitting ? 'Enviando...' : t('contact.labels.submit')}
                   </Button>
                 </form>
               </Card>

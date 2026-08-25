@@ -132,7 +132,7 @@ INSTRUCCIONES:
 - Formatea con HTML de Telegram: <b>negrita</b>, <i>cursiva</i>, <a href="...">link</a>
 - IMPORTANTE: No uses caracteres < o > fuera de tags HTML válidos. No uses markdown.
 - No uses & excepto en entidades HTML (&amp; &lt; &gt;)
-- Para contacto: +52 477 475 6951 | conectiaselect@gmail.com
+- Para contacto: 563-157-2468 | conectiaselect@gmail.com
 - Para propiedades: https://www.conectiaselect.com/propiedades`
 }
 
@@ -342,19 +342,19 @@ async function processUpdate(update: any) {
 
   if (text === '/propiedades') {
     const properties = await getProperties()
-    if (properties.length === 0) { await sendTelegramMessage(chatId, 'No hay propiedades disponibles. Contacta: +52 477 475 6951'); return }
+    if (properties.length === 0) { await sendTelegramMessage(chatId, 'No hay propiedades disponibles. Contacta: 563-157-2468'); return }
     const msgs = properties.slice(0, 5).map(formatPropertyForTelegram).join('\n\n──────────\n\n')
     await sendTelegramMessage(chatId, `📋 <b>PROPIEDADES DISPONIBLES</b>\n\n${msgs}\n\n🔍 <a href="https://www.conectiaselect.com/propiedades">Ver todas →</a>`)
     return
   }
 
   if (text === '/contacto') {
-    await sendTelegramMessage(chatId, `📞 <b>CONTACTO CONECTIA</b>\n\n📱 <a href="https://wa.me/5214774756951">+52 477 475 6951</a>\n📧 conectiaselect@gmail.com\n🌐 <a href="https://www.conectiaselect.com">www.conectiaselect.com</a>\n\n⏰ Lunes a Sábado 9am - 7pm`)
+    await sendTelegramMessage(chatId, `📞 <b>CONTACTO CONECTIA</b>\n\n📱 <a href="https://wa.me/5631572468">563-157-2468</a>\n📧 conectiaselect@gmail.com\n🌐 <a href="https://www.conectiaselect.com">www.conectiaselect.com</a>\n\n⏰ Lunes a Sábado 9am - 7pm`)
     return
   }
 
   if (text === '/asesor') {
-    await sendTelegramMessage(chatId, `👤 <b>HABLAR CON UN ASESOR</b>\n\n📱 <a href="https://wa.me/5214774756951?text=Hola,%20me%20interesa%20información%20sobre%20propiedades">Contactar por WhatsApp →</a>\n\nDisponibles Lunes a Sábado, 9am - 7pm.`)
+    await sendTelegramMessage(chatId, `👤 <b>HABLAR CON UN ASESOR</b>\n\n📱 <a href="https://wa.me/5631572468?text=Hola,%20me%20interesa%20información%20sobre%20propiedades">Contactar por WhatsApp →</a>\n\nDisponibles Lunes a Sábado, 9am - 7pm.`)
     return
   }
 

@@ -1298,7 +1298,7 @@ export default function PropietariosPage() {
                     </Label>
                     <Input
                       id="phone"
-                      placeholder="+52 477 123 4567"
+                      placeholder="563-157-2468"
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
                       className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)] focus:ring-[var(--conectia-arcilla)]/20"
@@ -1381,8 +1381,9 @@ export default function PropietariosPage() {
                         className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="terms" className="text-sm leading-relaxed">
-                        Acepto los <strong>términos y condiciones</strong> del servicio de CONECTIA,
-                        incluyendo la comisión competitiva del 4% sobre el precio final de venta.
+                        Acepto los{' '}
+                        <Link href="/legal/terminos-condiciones" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">términos y condiciones</Link>{' '}
+                        del servicio de CONECTIA, incluyendo la comisión competitiva del 4% sobre el precio final de venta.
                       </Label>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1393,8 +1394,9 @@ export default function PropietariosPage() {
                         className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="privacy" className="text-sm leading-relaxed">
-                        Autorizo el <strong>tratamiento de mis datos</strong> conforme a la política de privacidad
-                        de CONECTIA para fines de comercialización exclusiva de mi propiedad.
+                        Autorizo el tratamiento de mis datos conforme al{' '}
+                        <Link href="/legal/aviso-privacidad-integral" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Aviso de Privacidad Integral</Link>{' '}
+                        de CONECTIA para fines de comercialización de mi propiedad.
                       </Label>
                     </div>
                   </div>

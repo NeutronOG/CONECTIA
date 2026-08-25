@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from "react"
 import { translations, Language } from "./translations"
+import { hasCookieConsent } from "@/lib/cookie-consent"
 
 type Translations = typeof translations
 
@@ -18,12 +19,12 @@ const DEFAULT_LANGUAGE: Language = "es"
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-function getNestedValue(obj: any, key: string): string | undefined {
+function getNestedValue(obj: unknown, key: string): string | undefined {
   const parts = key.split(".")
-  let current = obj
+  let current: unknown = obj
   for (const part of parts) {
     if (current == null || typeof current !== "object") return undefined
-    current = current[part]
+    current = (current as Record<string, unknown>)[part]
   }
   return typeof current === "string" ? current : undefined
 }
@@ -33,20 +34,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Language | null
-      if (stored && translations[stored]) {
-        setLanguageState(stored)
+    const initialize = window.setTimeout(() => {
+      setMounted(true)
+      try {
+        if (!hasCookieConsent('preferences')) return
+        const stored = localStorage.getItem(STORAGE_KEY) as Language | null
+        if (stored && translations[stored]) {
+          setLanguageState(stored)
+        }
+      } catch {
+        // ignore
       }
-    } catch {
-      // ignore
-    }
+    }, 0)
+
+    return () => window.clearTimeout(initialize)
   }, [])
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
     try {
+      if (!hasCookieConsent('preferences')) return
       localStorage.setItem(STORAGE_KEY, lang)
     } catch {
       // ignore
@@ -91,7 +98,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
           toggleLanguage,
           t: (key: string, params?: Record<string, string | number>) => {
             const dict = translations[DEFAULT_LANGUAGE]
-            let value = getNestedValue(dict, key) ?? key
+            const value = getNestedValue(dict, key) ?? key
             if (params) {
               return Object.entries(params).reduce((acc, [paramKey, paramValue]) => {
                 return acc.replace(new RegExp(`\\{${paramKey}\\}`, "g"), String(paramValue))

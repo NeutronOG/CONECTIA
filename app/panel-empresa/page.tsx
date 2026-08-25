@@ -11,11 +11,11 @@ import { Input } from '@/components/ui/input'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
 
 const ASESORES = [
-  { id:'a1', nombre:'Ana García', email:'ana@conectia.mx', telefono:'+52 477 123 4567', especialidad:'Residencial Exclusivo', propActivas:8, propVendidas:12, leads:42, visitas:28, ofertas:9, ventas:3, cartera:'$24,500,000', comisiones:'$490,000', rating:4.9, ultimaAct:'Hace 2 horas' },
-  { id:'a2', nombre:'Roberto Silva', email:'roberto@conectia.mx', telefono:'+52 477 234 5678', especialidad:'Comercial e Industrial', propActivas:5, propVendidas:7, leads:31, visitas:18, ofertas:6, ventas:2, cartera:'$15,200,000', comisiones:'$304,000', rating:4.7, ultimaAct:'Hace 5 horas' },
-  { id:'a3', nombre:'María López', email:'maria@conectia.mx', telefono:'+52 477 345 6789', especialidad:'Renta Residencial', propActivas:6, propVendidas:9, leads:27, visitas:15, ofertas:4, ventas:1, cartera:'$18,900,000', comisiones:'$378,000', rating:4.8, ultimaAct:'Hace 1 día' },
-  { id:'a4', nombre:'Daniela Belmonte', email:'daniela@conectia.mx', telefono:'+52 477 456 7801', especialidad:'Desarrollos Nuevos', propActivas:4, propVendidas:5, leads:19, visitas:11, ofertas:3, ventas:1, cartera:'$9,800,000', comisiones:'$196,000', rating:4.6, ultimaAct:'Hace 3 horas' },
-  { id:'a5', nombre:'Subje Hamue', email:'subje@conectia.mx', telefono:'+52 477 456 7802', especialidad:'Residencial Medio', propActivas:3, propVendidas:4, leads:14, visitas:8, ofertas:2, ventas:0, cartera:'$7,400,000', comisiones:'$148,000', rating:4.5, ultimaAct:'Hace 6 horas' },
+  { id:'a1', nombre:'Ana García', email:'ana@conectia.mx', telefono:'563-157-2468', especialidad:'Residencial Exclusivo', propActivas:8, propVendidas:12, leads:42, visitas:28, ofertas:9, ventas:3, cartera:'$24,500,000', comisiones:'$490,000', rating:4.9, ultimaAct:'Hace 2 horas' },
+  { id:'a2', nombre:'Roberto Silva', email:'roberto@conectia.mx', telefono:'563-157-2468', especialidad:'Comercial e Industrial', propActivas:5, propVendidas:7, leads:31, visitas:18, ofertas:6, ventas:2, cartera:'$15,200,000', comisiones:'$304,000', rating:4.7, ultimaAct:'Hace 5 horas' },
+  { id:'a3', nombre:'María López', email:'maria@conectia.mx', telefono:'563-157-2468', especialidad:'Renta Residencial', propActivas:6, propVendidas:9, leads:27, visitas:15, ofertas:4, ventas:1, cartera:'$18,900,000', comisiones:'$378,000', rating:4.8, ultimaAct:'Hace 1 día' },
+  { id:'a4', nombre:'Daniela Belmonte', email:'daniela@conectia.mx', telefono:'563-157-2468', especialidad:'Desarrollos Nuevos', propActivas:4, propVendidas:5, leads:19, visitas:11, ofertas:3, ventas:1, cartera:'$9,800,000', comisiones:'$196,000', rating:4.6, ultimaAct:'Hace 3 horas' },
+  { id:'a5', nombre:'Subje Hamue', email:'subje@conectia.mx', telefono:'563-157-2468', especialidad:'Residencial Medio', propActivas:3, propVendidas:4, leads:14, visitas:8, ofertas:2, ventas:0, cartera:'$7,400,000', comisiones:'$148,000', rating:4.5, ultimaAct:'Hace 6 horas' },
 ]
 const PROPIEDADES = [
   { id:1, titulo:'Residencia Argentum', ubicacion:'La Valenciana, León', precio:'$12,398,000', asesor:'Ana García', status:'Disponible', tipo:'Residencia', leads:15, visitas:8 },
@@ -36,12 +36,12 @@ const ACTIVIDADES = [
   { id:8, asesor:'Roberto Silva', descripcion:'Oferta formal presentada en Local Torres Landa', fecha:'Hace 3 días', color:'bg-yellow-500' },
 ]
 const LEADS = [
-  { id:1, nombre:'Carlos Ramírez', email:'carlos.r@email.com', telefono:'+52 477 111 2222', propiedad:'Residencia Argentum', asesor:'Ana García', status:'Calificado', fecha:'Hoy' },
-  { id:2, nombre:'Sofía Torres', email:'sofia.t@email.com', telefono:'+52 477 222 3333', propiedad:'Penthouse Lomas', asesor:'María López', status:'Nuevo', fecha:'Hoy' },
-  { id:3, nombre:'Familia Hernández', email:'hernandez@email.com', telefono:'+52 477 333 4444', propiedad:'Casa La Cañada', asesor:'Roberto Silva', status:'Contactado', fecha:'Ayer' },
-  { id:4, nombre:'Inversionista Anónimo', email:'inv@email.com', telefono:'+52 477 444 5555', propiedad:'Preventa Nogal', asesor:'Daniela Belmonte', status:'Calificado', fecha:'Ayer' },
-  { id:5, nombre:'Pedro Gutiérrez', email:'pedro.g@email.com', telefono:'+52 477 555 6666', propiedad:'Local Torres Landa', asesor:'Roberto Silva', status:'Nuevo', fecha:'Hace 2 días' },
-  { id:6, nombre:'Lucía Morales', email:'lucia.m@email.com', telefono:'+52 477 666 7777', propiedad:'Residencia Argentum', asesor:'Ana García', status:'Contactado', fecha:'Hace 2 días' },
+  { id:1, nombre:'Carlos Ramírez', email:'carlos.r@email.com', telefono:'563-157-2468', propiedad:'Residencia Argentum', asesor:'Ana García', status:'Calificado', fecha:'Hoy' },
+  { id:2, nombre:'Sofía Torres', email:'sofia.t@email.com', telefono:'563-157-2468', propiedad:'Penthouse Lomas', asesor:'María López', status:'Nuevo', fecha:'Hoy' },
+  { id:3, nombre:'Familia Hernández', email:'hernandez@email.com', telefono:'563-157-2468', propiedad:'Casa La Cañada', asesor:'Roberto Silva', status:'Contactado', fecha:'Ayer' },
+  { id:4, nombre:'Inversionista Anónimo', email:'inv@email.com', telefono:'563-157-2468', propiedad:'Preventa Nogal', asesor:'Daniela Belmonte', status:'Calificado', fecha:'Ayer' },
+  { id:5, nombre:'Pedro Gutiérrez', email:'pedro.g@email.com', telefono:'563-157-2468', propiedad:'Local Torres Landa', asesor:'Roberto Silva', status:'Nuevo', fecha:'Hace 2 días' },
+  { id:6, nombre:'Lucía Morales', email:'lucia.m@email.com', telefono:'563-157-2468', propiedad:'Residencia Argentum', asesor:'Ana García', status:'Contactado', fecha:'Hace 2 días' },
 ]
 const SC: Record<string,string> = {
   'Nuevo':'bg-blue-100 text-blue-700','Contactado':'bg-yellow-100 text-gray-900',

@@ -100,7 +100,7 @@ export async function GET(request: Request) {
           especialidad: 'Especialista en Propiedades',
           rating: 5.0,
           ventas: 0,
-          telefono: '+52 1 477 475 6951',
+          telefono: '563-157-2468',
           email: 'conectiaselect@gmail.com',
         },
       }

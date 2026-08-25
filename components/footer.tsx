@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-react"
+import { MapPin, Mail, ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/lib/i18n"
+import { openCookieSettings } from "@/lib/cookie-consent"
 
 export function Footer() {
   const { t } = useLanguage()
@@ -153,13 +154,22 @@ export function Footer() {
         <div className="pt-8 border-t border-[#17313A]/10 dark:border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <span className="text-sm text-[#4A4F57]">{t('common.copyright', { year: new Date().getFullYear() })}</span>
-            <div className="flex gap-6">
-              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+              <Link href="/legal/aviso-privacidad-integral" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
                 {t('footer.links.privacy')}
               </Link>
-              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
+              <Link href="/legal/terminos-condiciones" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
                 {t('footer.links.terms')}
               </Link>
+              <Link href="/legal/politica-cookies" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
+                Cookies
+              </Link>
+              <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
+                Centro Legal
+              </Link>
+              <button type="button" onClick={openCookieSettings} className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
+                Configurar cookies
+              </button>
             </div>
           </div>
         </div>

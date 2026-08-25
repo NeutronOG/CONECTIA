@@ -1,0 +1,157 @@
+POLÍTICA DE USO RESPONSABLE DE LA INTELIGENCIA ARTIFICIAL
+CONECTIA ECOSISTEMA INMOBILIARIO
+I. OBJETO
+La presente Política tiene por objeto establecer los principios, reglas de conducta, obligaciones y responsabilidades para el uso responsable de las herramientas de Inteligencia Artificial (IA) disponibles dentro del ecosistema digital de CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA").
+Su finalidad es garantizar que dichas tecnologías se utilicen de forma ética, segura, transparente y conforme a la legislación aplicable, protegiendo los derechos de los usuarios, la privacidad de la información y la confianza en los servicios ofrecidos por CONECTIA.
+
+II. ÁMBITO DE APLICACIÓN
+Esta Política es obligatoria para:
+	•	
+	•	Usuarios registrados.
+	•	Asesores inmobiliarios.
+	•	Colaboradores.
+	•	Desarrolladores.
+	•	Empresas afiliadas.
+	•	Proveedores tecnológicos.
+	•	Prestadores de servicios.
+	•	Cualquier persona que utilice herramientas de inteligencia artificial integradas en la plataforma.
+
+
+III. PRINCIPIOS RECTORES
+Toda interacción con herramientas de IA deberá observar los siguientes principios:
+	•	
+	•	Legalidad.
+	•	Ética.
+	•	Transparencia.
+	•	Responsabilidad.
+	•	Buena fe.
+	•	Protección de datos personales.
+	•	Seguridad de la información.
+	•	Supervisión humana.
+	•	No discriminación.
+	•	Respeto a los derechos humanos.
+	•	Innovación responsable.
+
+
+IV. USOS AUTORIZADOS
+Las herramientas de inteligencia artificial podrán utilizarse para apoyar actividades relacionadas con:
+	•	
+	•	Atención automatizada a usuarios.
+	•	Elaboración de descripciones de inmuebles.
+	•	Generación de publicaciones.
+	•	Traducción de contenido.
+	•	Organización de información.
+	•	Automatización administrativa.
+	•	Programación de citas.
+	•	Clasificación documental.
+	•	Elaboración de reportes.
+	•	Análisis estadísticos.
+	•	Apoyo en procesos comerciales.
+	•	Optimización de búsquedas.
+	•	Recomendación de inmuebles.
+	•	Asistencia en la gestión inmobiliaria.
+
+
+La utilización de estas herramientas tiene carácter auxiliar y no sustituye el análisis profesional cuando este resulte necesario.
+
+V. USOS PROHIBIDOS
+Queda estrictamente prohibido utilizar herramientas de inteligencia artificial para:
+	•	
+	•	Generar información falsa o engañosa.
+	•	Alterar documentos públicos o privados.
+	•	Crear contratos falsificados.
+	•	Suplantar identidades.
+	•	Manipular fotografías o videos para inducir a error.
+	•	Difundir noticias falsas.
+	•	Vulnerar derechos de autor.
+	•	Obtener acceso no autorizado a sistemas informáticos.
+	•	Compartir información confidencial sin autorización.
+	•	Realizar actividades fraudulentas.
+	•	Eludir controles de seguridad.
+	•	Elaborar perfiles discriminatorios.
+	•	Utilizar la IA para acosar, amenazar o intimidar a terceros.
+	•	Promover actividades ilícitas o contrarias al presente marco normativo.
+
+
+VI. INFORMACIÓN PROPORCIONADA A LA IA
+Los usuarios deberán abstenerse de introducir en herramientas de inteligencia artificial:
+	•	
+	•	Datos personales de terceros sin autorización.
+	•	Información confidencial de clientes.
+	•	Expedientes jurídicos completos cuando no resulte necesario.
+	•	Contraseñas.
+	•	Claves de acceso.
+	•	Información bancaria.
+	•	Información clasificada por CONECTIA como restringida.
+	•	Secretos industriales.
+	•	Información protegida por acuerdos de confidencialidad
+
+Cada usuario será responsable del contenido que incorpore a estas herramientas.
+
+VII. CONTENIDO GENERADO POR IA
+Todo contenido generado mediante inteligencia artificial deberá ser revisado por el usuario antes de su utilización.
+La revisión deberá verificar, entre otros aspectos:
+	•	
+	•	Exactitud.
+	•	Coherencia.
+	•	Actualización.
+	•	Legalidad.
+	•	Ortografía.
+	•	Información técnica.
+	•	Datos económicos.
+	•	Información jurídica.
+	•	Protección de datos personales
+
+La IA constituye una herramienta de apoyo y no sustituye el criterio profesional ni la validación humana.
+
+VIII. DECISIONES ASISTIDAS POR IA
+Las recomendaciones, análisis o resultados generados por herramientas de inteligencia artificial tienen carácter orientativo.
+Las decisiones relacionadas con operaciones inmobiliarias, contratación, aspectos jurídicos, financieros o cualquier otra actividad que produzca efectos relevantes deberán ser evaluadas por la persona responsable antes de su ejecución.
+
+
+IX. TRANSPARENCIA
+Cuando la interacción del usuario ocurra mediante asistentes virtuales o herramientas automatizadas de CONECTIA, la plataforma procurará informar que la comunicación se realiza con apoyo de inteligencia artificial.
+
+X. PROPIEDAD INTELECTUAL
+Los contenidos generados por herramientas de inteligencia artificial dentro de CONECTIA deberán utilizarse respetando la legislación en materia de propiedad intelectual.
+Queda prohibido utilizar dichas herramientas para reproducir, copiar o distribuir obras protegidas sin autorización de sus titulares.
+
+XI. SEGURIDAD DE LA INFORMACIÓN
+Los usuarios deberán utilizar las herramientas de IA respetando las políticas de seguridad de la información de CONECTIA.
+Queda prohibido intentar modificar, vulnerar o alterar el funcionamiento de los sistemas de inteligencia artificial implementados por la plataforma.
+
+XII. RESPONSABILIDAD DEL USUARIO
+Cada usuario será responsable por:
+	•	
+	•	La información que proporcione a la IA.
+	•	El uso que haga de las respuestas obtenidas.
+	•	La revisión del contenido generado.
+	•	El cumplimiento de la legislación aplicable.
+	•	Los daños ocasionados por un uso indebido de estas herramientas.
+
+
+XIII. RESPONSABILIDAD DE CONECTIA
+CONECTIA utilizará herramientas de inteligencia artificial como mecanismos de apoyo para la prestación de sus servicios.
+Salvo disposición expresa en contrario, CONECTIA no garantiza que las respuestas generadas por dichas herramientas sean completas, exactas, actualizadas o adecuadas para todos los casos particulares.
+Corresponde al usuario verificar la información antes de adoptar decisiones basadas en los resultados obtenidos.
+
+XIV. INCUMPLIMIENTO
+El uso indebido de herramientas de inteligencia artificial podrá dar lugar a:
+	•	
+	•	Requerimientos de corrección.
+	•	Suspensión temporal del acceso.
+	•	Restricción de funcionalidades.
+	•	Cancelación de la cuenta.
+	•	Terminación de contratos.
+	•	Exclusión del ecosistema CONECTIA.
+	•	Ejercicio de las acciones legales procedentes.
+
+
+XV. ACTUALIZACIÓN DE LA POLÍTICA
+CONECTIA podrá modificar la presente Política cuando existan cambios tecnológicos, regulatorios, operativos o legales.
+Las modificaciones serán publicadas en los medios oficiales y surtirán efectos a partir de la fecha de su entrada en vigor.
+
+XVI. ACEPTACIÓN
+El acceso y uso de las herramientas de inteligencia artificial disponibles dentro del ecosistema CONECTIA implica el conocimiento y aceptación de la presente Política.
+Los usuarios se obligan a utilizar dichas herramientas con responsabilidad, diligencia, buena fe y respeto a los derechos de terceros, observando en todo momento la legislación aplicable y las políticas internas de CONECTIA.
+

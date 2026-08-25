@@ -15,6 +15,7 @@ import { LanguageHtml } from "@/components/language-html"
 import { PanelShell } from "@/components/panel-shell"
 import { AIAgent } from "@/components/ai-agent"
 import { MediaProtection } from "@/components/media-protection"
+import { CookieConsent } from "@/components/cookie-consent"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -89,6 +90,7 @@ export default function RootLayout({
                   <Footer />
                   <AIAgent />
                   <Toaster position="top-right" richColors />
+                  <CookieConsent />
                 </WishlistProvider>
               </AuthProvider>
             </SWRProvider>

@@ -4,6 +4,8 @@
  * Usa localStorage como backend temporal (migrable a Supabase)
  */
 
+import { hasCookieConsent } from '@/lib/cookie-consent'
+
 export interface PropertyAnalytics {
   propertyId: string | number
   views: number
@@ -17,7 +19,7 @@ export interface PropertyAnalytics {
 const STORAGE_KEY = 'conectia_property_analytics'
 
 function getAll(): Record<string, PropertyAnalytics> {
-  if (typeof window === 'undefined') return {}
+  if (typeof window === 'undefined' || !hasCookieConsent('analytics')) return {}
   try {
     const data = localStorage.getItem(STORAGE_KEY)
     return data ? JSON.parse(data) : {}
@@ -27,7 +29,7 @@ function getAll(): Record<string, PropertyAnalytics> {
 }
 
 function saveAll(data: Record<string, PropertyAnalytics>) {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined' || !hasCookieConsent('analytics')) return
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 }
 

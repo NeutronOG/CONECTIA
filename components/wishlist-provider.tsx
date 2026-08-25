@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react"
+import { hasCookieConsent } from "@/lib/cookie-consent"
 
 interface Property {
   id: string
@@ -28,18 +29,24 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
   // Load wishlist from localStorage on mount
   useEffect(() => {
-    const savedWishlist = localStorage.getItem("conectia-wishlist")
-    if (savedWishlist) {
-      try {
-        setWishlist(JSON.parse(savedWishlist))
-      } catch (error) {
-        console.error("Error loading wishlist:", error)
+    const initialize = window.setTimeout(() => {
+      if (!hasCookieConsent('preferences')) return
+      const savedWishlist = localStorage.getItem("conectia-wishlist")
+      if (savedWishlist) {
+        try {
+          setWishlist(JSON.parse(savedWishlist))
+        } catch (error) {
+          console.error("Error loading wishlist:", error)
+        }
       }
-    }
+    }, 0)
+
+    return () => window.clearTimeout(initialize)
   }, [])
 
   // Save to localStorage whenever wishlist changes
   useEffect(() => {
+    if (!hasCookieConsent('preferences')) return
     localStorage.setItem("conectia-wishlist", JSON.stringify(wishlist))
   }, [wishlist])
 

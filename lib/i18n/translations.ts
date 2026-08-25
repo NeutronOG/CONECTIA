@@ -814,7 +814,7 @@ export const translations = {
         name: "Juan",
         lastName: "Pérez",
         email: "juan@email.com",
-        phone: "+52 477 123 4567",
+        phone: "563-157-2468",
         message: "Cuéntanos sobre tu propiedad o consulta...",
       },
       options: {
@@ -1888,7 +1888,7 @@ export const translations = {
         name: "John",
         lastName: "Doe",
         email: "john@email.com",
-        phone: "+1 555 123 4567",
+        phone: "563-157-2468",
         message: "Tell us about your property or inquiry...",
       },
       options: {

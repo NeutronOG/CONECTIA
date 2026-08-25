@@ -69,7 +69,7 @@ export function SocialShareFormats({
 
   const asesorInfo = property.asesor || {
     nombre: 'CONECTIA',
-    telefono: '+52 477 475 6951'
+    telefono: '563-157-2468'
   }
 
   // Formato WhatsApp (texto plano, emojis estratégicos)

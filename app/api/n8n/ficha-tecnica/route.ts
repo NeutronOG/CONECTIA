@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { getComisionAsesor, getComisionAsesorTexto, getPrecioTotal } from '@/lib/commission'
+import { getComisionAsesor, getComisionAsesorTexto, getPrecioTotal, usaComisionPorcentual } from '@/lib/commission'
 import { authorizeN8nRequest } from '@/lib/n8n-auth'
 
 const supabaseAdmin = createClient(
@@ -64,13 +64,15 @@ export async function GET(request: Request) {
       precio: Number(prop.precio) || 0,
       area: Number(prop.area) || 0,
       unidadSuperficie: prop.unidad_superficie === 'Hectáreas' ? 'Hectáreas' as const : 'm²' as const,
+      categoria: prop.categoria,
       comisionAsesorPct: Number(prop.comision_asesor_pct) || 4,
     }
     const precioTotal = getPrecioTotal(propForCalc)
+    const aplicaComisionPorcentual = usaComisionPorcentual(propForCalc)
     const comisionAsesor = getComisionAsesor(propForCalc)
-    const comisionAsesorTexto = `$${comisionAsesor.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})`
+    const comisionAsesorTexto = aplicaComisionPorcentual ? `$${comisionAsesor.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})` : ''
     const comisionEmpresa = getComisionAsesor(propForCalc)
-    const comisionEmpresaTexto = `$${comisionEmpresa.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})`
+    const comisionEmpresaTexto = aplicaComisionPorcentual ? `$${comisionEmpresa.toLocaleString('es-MX')} MXN (${getComisionAsesorTexto(propForCalc)})` : ''
 
     // 5. Construir ficha técnica estructurada
     const fichaTecnica = {
@@ -108,10 +110,10 @@ export async function GET(request: Request) {
       financiero: {
         precio: precioTotal,
         precioTexto: prop.precio_texto || `$${precioTotal.toLocaleString('es-MX')} MXN`,
-        comisionTotalPct: propForCalc.comisionAsesorPct,
-        comisionAsesor: comisionAsesor,
+        comisionTotalPct: aplicaComisionPorcentual ? propForCalc.comisionAsesorPct : null,
+        comisionAsesor: aplicaComisionPorcentual ? comisionAsesor : null,
         comisionAsesorTexto: comisionAsesorTexto,
-        comisionEmpresa: comisionEmpresa,
+        comisionEmpresa: aplicaComisionPorcentual ? comisionEmpresa : null,
         comisionEmpresaTexto: comisionEmpresaTexto,
         bono: prop.bono || null,
       },
@@ -129,7 +131,7 @@ export async function GET(request: Request) {
       } : {
         nombre: 'Asesor CONECTIA',
         email: 'conectiaselect@gmail.com',
-        telefono: '+52 1 477 475 6951',
+        telefono: '563-157-2468',
         rol: 'asesor',
       },
       metricas: {
@@ -172,8 +174,7 @@ Amueblado: ${prop.amueblado || 'No especificado'}
 
 ─── INFORMACIÓN FINANCIERA ───
 Precio: ${fichaTecnica.financiero.precioTexto}
-Comisión Asesor: ${fichaTecnica.financiero.comisionTotalPct / 2}%
-Comisión Empresa: ${fichaTecnica.financiero.comisionTotalPct / 2}%
+${aplicaComisionPorcentual ? `Comisión Asesor: ${propForCalc.comisionAsesorPct / 2}%\nComisión Empresa: ${propForCalc.comisionAsesorPct / 2}%` : ''}
 ${prop.bono ? `Bono: ${prop.bono}` : ''}
 
 ─── CARACTERÍSTICAS ───

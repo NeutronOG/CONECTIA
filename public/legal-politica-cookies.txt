@@ -1,0 +1,150 @@
+POLÍTICA DE COOKIES
+CONECTIA ECOSISTEMA INMOBILIARIO
+
+I. OBJETO
+La presente Política de Cookies tiene por objeto informar a los usuarios sobre el uso de cookies y demás tecnologías similares empleadas por CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA") a través de su sitio web, aplicación móvil, sistema CRM y demás plataformas digitales, así como establecer las reglas aplicables para su utilización, administración y el tratamiento de la información obtenida mediante dichas tecnologías.
+Esta Política complementa el Aviso de Privacidad Integral, los Términos y Condiciones y las demás políticas corporativas de CONECTIA.
+
+II. ¿QUÉ SON LAS COOKIES?
+Las cookies son pequeños archivos de texto que un sitio web, una aplicación o una plataforma digital almacenan en el dispositivo del usuario cuando éste navega o utiliza los servicios ofrecidos por CONECTIA.
+Las cookies permiten reconocer el dispositivo, mantener sesiones activas, recordar preferencias, facilitar procesos de autenticación, mejorar la experiencia de navegación, fortalecer la seguridad y obtener información estadística sobre el uso de los servicios.
+Cuando la información obtenida mediante cookies permita identificar o hacer identificable a una persona física, será tratada como dato personal conforme al Aviso de Privacidad Integral y a la legislación aplicable.
+Además de las cookies, CONECTIA podrá utilizar otras tecnologías similares, entre ellas:
+	•	
+	•	Almacenamiento local (Local Storage).
+	•	Cookies de sesión.
+	•	Cookies persistentes.
+	•	Balizas web (Web Beacons).
+	•	Etiquetas de seguimiento (Tags).
+	•	SDK para aplicaciones móviles.
+	•	Identificadores publicitarios.
+	•	Píxeles de conversión.
+	•	Tecnologías de análisis y monitoreo.
+	•	Tecnologías equivalentes que permitan mejorar la operación y seguridad de la plataforma.
+
+
+III. FINALIDADES DEL USO DE COOKIES
+Las cookies y demás tecnologías similares podrán utilizarse para:
+	•	Permitir el funcionamiento adecuado de la plataforma.
+	•	Mantener la sesión iniciada del usuario.
+	•	Recordar preferencias de navegación.
+	•	Facilitar procesos de autenticación.
+	•	Mejorar la velocidad, disponibilidad y rendimiento del sitio web y de la aplicación.
+	•	Analizar el uso de la plataforma para optimizar la experiencia del usuario.
+	•	Detectar accesos no autorizados y prevenir actividades fraudulentas.
+	•	Implementar medidas de seguridad informática.
+	•	Generar estadísticas sobre el funcionamiento de los servicios.
+	•	Personalizar contenidos y comunicaciones cuando el usuario haya otorgado su consentimiento, en los casos en que resulte aplicable.
+	•	Medir la eficacia de campañas comerciales y publicitarias.
+	•	Cumplir obligaciones legales, regulatorias y de seguridad relacionadas con la operación de la plataforma.
+
+IV. TIPOS DE COOKIES UTILIZADAS
+1. Cookies estrictamente necesarias
+Son indispensables para el funcionamiento de la plataforma y no requieren consentimiento cuando la legislación aplicable así lo permita.
+Permiten, entre otras funciones:
+	•	Inicio de sesión.
+	•	Autenticación.
+	•	Seguridad.
+	•	Navegación.
+	•	Balanceo de carga.
+	•	Gestión de formularios.
+	•	Prevención de fraudes.
+La desactivación de estas cookies puede impedir el funcionamiento correcto de determinados servicios.
+
+2. Cookies de preferencias
+Permiten recordar información previamente proporcionada por el usuario, como:
+	•	Idioma.
+	•	Región.
+	•	Configuración del sitio.
+	•	Preferencias de visualización.
+	•	Opciones de accesibilidad.
+
+3. Cookies analíticas
+Permiten conocer la forma en que los usuarios interactúan con la plataforma para:
+	•	Medir el tráfico.
+	•	Detectar errores.
+	•	Analizar el comportamiento de navegación.
+	•	Mejorar funcionalidades.
+	•	Optimizar procesos.
+Siempre que sea posible, la información recopilada será utilizada de forma agregada, anonimizada o seudonimizada con fines estadísticos y de mejora continua.
+
+4. Cookies de rendimiento
+Se utilizan para:
+	•	Evaluar tiempos de carga.
+	•	Detectar fallas técnicas.
+	•	Monitorear la estabilidad de los servicios.
+	•	Optimizar el desempeño de la infraestructura tecnológica.
+
+5. Cookies de personalización
+Permiten adaptar determinados contenidos, funcionalidades o configuraciones conforme a las preferencias o hábitos de navegación del usuario, siempre que éste haya otorgado el consentimiento correspondiente cuando sea necesario.
+
+6. Cookies publicitarias
+Cuando el usuario otorgue su consentimiento, podrán utilizarse para:
+	•	Mostrar anuncios relevantes.
+	•	Medir campañas publicitarias.
+	•	Limitar la frecuencia de anuncios.
+	•	Analizar conversiones.
+	•	Personalizar publicidad.
+
+V. COOKIES DE TERCEROS
+CONECTIA podrá integrar servicios tecnológicos proporcionados por terceros cuya operación requiera el uso de cookies o tecnologías similares.
+Dependiendo de las funcionalidades habilitadas, podrán intervenir, entre otros:
+	•	
+	•	Servicios de análisis de tráfico.
+	•	Herramientas de seguridad.
+	•	Plataformas de mapas y geolocalización.
+	•	Servicios de autenticación.
+	•	Plataformas de mensajería.
+	•	Herramientas de videoconferencia.
+	•	Plataformas de pago.
+	•	Servicios de almacenamiento en la nube.
+	•	Sistemas CRM.
+	•	Herramientas de automatización.
+	•	Servicios de inteligencia artificial.
+	•	Redes sociales e integración de contenido.
+
+Cada proveedor será responsable del tratamiento de la información que recabe mediante sus propias tecnologías y actuará conforme a sus respectivos avisos de privacidad, políticas de cookies y condiciones de uso. CONECTIA recomienda a los usuarios consultar dichos documentos antes de utilizar los servicios correspondientes.
+
+VI. CONSENTIMIENTO
+Cuando la legislación aplicable lo requiera, CONECTIA solicitará el consentimiento del usuario antes de instalar cookies que no sean estrictamente necesarias para el funcionamiento de la plataforma.
+El consentimiento podrá otorgarse mediante el banner de cookies, el centro de preferencias o cualquier otro mecanismo habilitado por CONECTIA.
+El usuario podrá en cualquier momento:
+	•	Aceptar todas las cookies.
+	•	Rechazar las cookies no esenciales.
+	•	Configurar sus preferencias.
+	•	Modificar o retirar su consentimiento.
+La negativa respecto de determinadas cookies podrá afectar parcialmente algunas funcionalidades del sitio web o de la aplicación.
+
+VII. ADMINISTRACIÓN DE COOKIES
+El usuario podrá administrar las cookies mediante:
+	•	El panel de configuración disponible en el sitio web.
+	•	La configuración del navegador.
+	•	La configuración del dispositivo móvil.
+	•	Las herramientas de privacidad proporcionadas por el sistema operativo.
+La desactivación de las cookies estrictamente necesarias podrá impedir el correcto funcionamiento de determinados servicios.
+
+VIII. CONSERVACIÓN DE LA INFORMACIÓN
+Las cookies permanecerán almacenadas únicamente durante el tiempo necesario para cumplir las finalidades para las cuales fueron instaladas.
+Su periodo de conservación dependerá de su naturaleza, finalidad y configuración, pudiendo eliminarse:
+	•	Al cerrar la sesión.
+	•	Al concluir el plazo de vigencia establecido.
+	•	Cuando el usuario las elimine manualmente.
+	•	Cuando el usuario retire su consentimiento, en los casos aplicables.
+
+
+
+IX. SEGURIDAD
+CONECTIA implementa medidas administrativas, técnicas y organizacionales razonables para proteger la información obtenida mediante cookies contra accesos no autorizados, alteraciones, pérdida, destrucción o uso indebido.
+La información obtenida mediante estas tecnologías será tratada conforme al Aviso de Privacidad Integral, la Política de Protección de Datos Personales y la Política de Seguridad de la Información de CONECTIA.
+
+X. ACTUALIZACIÓN TECNOLÓGICA
+CONECTIA podrá incorporar nuevas tecnologías de autenticación, análisis, monitoreo o seguimiento que sustituyan o complementen las cookies tradicionales, siempre que su utilización sea compatible con la legislación aplicable y con las disposiciones del presente instrumento.
+
+XI. MODIFICACIONES A LA POLÍTICA
+CONECTIA podrá modificar la presente Política cuando existan reformas legales, cambios regulatorios, avances tecnológicos, mejoras operativas, nuevos servicios o cualquier otra circunstancia que haga necesaria su actualización.
+Las modificaciones serán publicadas en los medios oficiales de CONECTIA y surtirán efectos a partir de la fecha de su publicación.
+
+XII. CONTACTO
+Para cualquier consulta relacionada con el uso de cookies, tecnologías similares o el tratamiento de la información obtenida mediante éstas, los usuarios podrán comunicarse con el área responsable de protección de datos personales o utilizar los canales oficiales de atención publicados en el sitio web y la aplicación móvil de CONECTIA.
+XIII. VIGENCIA
+La presente Política de Cookies entrará en vigor a partir de la fecha de su publicación y permanecerá vigente hasta que sea sustituida por una versión posterior debidamente aprobada y publicada por CONECTIA.

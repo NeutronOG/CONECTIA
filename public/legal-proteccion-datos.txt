@@ -1,0 +1,188 @@
+POLÍTICA DE PROTECCIÓN DE DATOS PERSONALES
+CONECTIA ECOSISTEMA INMOBILIARIO
+CAPÍTULO I
+DISPOSICIONES GENERALES
+Artículo 1. Objeto
+La presente Política de Protección de Datos Personales tiene por objeto establecer los principios, lineamientos, responsabilidades, procedimientos y medidas que regulan el tratamiento de los datos personales recabados por CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA"), garantizando el respeto a los derechos de privacidad, autodeterminación informativa y protección de los datos personales de sus titulares, conforme a la legislación aplicable.
+Asimismo, esta Política tiene por finalidad asegurar que el tratamiento de los datos personales se realice durante todo su ciclo de vida bajo los principios de licitud, consentimiento, información, calidad, finalidad, lealtad, proporcionalidad, responsabilidad, confidencialidad y seguridad.
+Artículo 2. Alcance
+La presente Política es obligatoria para:
+	•	
+	•	Usuarios registrados.
+	•	Propietarios.
+	•	Compradores.
+	•	Vendedores.
+	•	Arrendadores.
+	•	Arrendatarios.
+	•	Asesores inmobiliarios.
+	•	Desarrolladores.
+	•	Empresas afiliadas.
+	•	Prestadores de servicios.
+	•	Colaboradores.
+	•	Socios comerciales.
+	•	Proveedores tecnológicos.
+	•	Encargados del tratamiento de datos personales.
+	•	Personal administrativo, jurídico y tecnológico.
+	•	Cualquier persona física o moral que recabe, trate, almacene o proporcione datos personales en relación con los servicios de CONECTIA.
+
+
+CAPÍTULO II
+DEFINICIONES
+Para efectos de la presente Política se entenderá por:
+	•	Datos Personales: Cualquier información concerniente a una persona física identificada o identificable.
+	•	Datos Personales Sensibles: Aquellos que puedan revelar aspectos íntimos del titular o cuya utilización indebida pueda dar origen a discriminación o representar un riesgo grave para éste.
+	•	Titular: Persona física a quien corresponden los datos personales.
+	•	Responsable: CONECTIA ECOSISTEMA INMOBILIARIO.
+	•	Encargado: Persona física o moral que trate datos personales por cuenta de CONECTIA.
+	•	Tratamiento: La obtención, uso, almacenamiento, conservación, acceso, organización, consulta, aprovechamiento, transferencia, remisión, bloqueo, eliminación o cualquier otra operación realizada sobre datos personales.
+	•	Transferencia: Toda comunicación de datos personales realizada a un tercero distinto del responsable o del encargado, en los términos de la legislación aplicable.
+	•	Remisión: Comunicación de datos personales a un encargado para su tratamiento por cuenta de CONECTIA.
+	•	Incidente de Seguridad: Cualquier evento que comprometa o pueda comprometer la confidencialidad, integridad, disponibilidad o autenticidad de los datos personales.
+
+CAPÍTULO III
+PRINCIPIOS DEL TRATAMIENTO
+El tratamiento de los datos personales deberá observar los siguientes principios:
+	•	
+	•	Licitud.
+	•	Consentimiento.
+	•	Información.
+	•	Calidad.
+	•	Finalidad.
+	•	Lealtad.
+	•	Proporcionalidad.
+	•	Responsabilidad.
+	•	Confidencialidad.
+	•	Seguridad.
+	•	
+CONECTIA procurará además aplicar criterios de privacidad desde el diseño y por defecto en el desarrollo y operación de sus procesos y plataformas tecnológicas.
+
+CAPÍTULO IV
+DATOS PERSONALES QUE PODRÁN RECABARSE
+Dependiendo del servicio solicitado, CONECTIA podrá recabar las siguientes categorías de datos:
+Datos de identificación
+	•	
+	•	Nombre completo.
+	•	Fecha de nacimiento.
+	•	Nacionalidad.
+	•	CURP.
+	•	RFC.
+	•	Identificación oficial.
+
+Datos de contacto
+	•	
+	•	Domicilio.
+	•	Teléfono.
+	•	Correo electrónico.
+	•	Redes sociales proporcionadas voluntariamente.
+
+Datos patrimoniales y financieros
+	•	
+	•	Información relacionada con bienes inmuebles.
+	•	Información bancaria cuando resulte necesaria para la prestación de los servicios.
+	•	Información fiscal.
+	•	Información financiera vinculada con operaciones inmobiliarias.
+
+Datos laborales o profesionales
+	•	
+	•	Empresa.
+	•	Cargo.
+	•	Actividad económica.
+	•	Experiencia profesional.
+
+Datos tecnológicos
+	•	Dirección IP.
+	•	Cookies y demás tecnologías de rastreo.
+	•	Tipo de navegador.
+	•	Sistema operativo.
+	•	Identificadores de sesión.
+	•	Registros de acceso.
+	•	Geolocalización, únicamente cuando sea autorizada por el titular o resulte necesaria para la prestación del servicio.
+CONECTIA recabará únicamente los datos personales estrictamente necesarios para el cumplimiento de las finalidades informadas al titular.
+
+CAPÍTULO V
+FINALIDADES DEL TRATAMIENTO
+Los datos personales podrán ser utilizados para:
+	•	Crear y administrar cuentas de usuario.
+	•	Verificar la identidad de los titulares.
+	•	Integrar expedientes.
+	•	Publicar y administrar inmuebles.
+	•	Facilitar operaciones inmobiliarias.
+	•	Gestionar contratos.
+	•	Prestar servicios tecnológicos.
+	•	Atender consultas y solicitudes.
+	•	Dar seguimiento a operaciones.
+	•	Emitir comprobantes fiscales.
+	•	Cumplir obligaciones legales y contractuales.
+	•	Prevenir fraudes y conductas ilícitas.
+	•	Implementar mecanismos de seguridad.
+	•	Mejorar la plataforma y la experiencia del usuario.
+	•	Generar indicadores y estadísticas mediante información anonimizada cuando sea posible.
+	•	Desarrollar, evaluar y mejorar herramientas tecnológicas, procesos automatizados e inteligencia artificial, preferentemente mediante datos anonimizados o seudonimizados y, cuando corresponda, conforme al consentimiento del titular y a la Política de Uso Responsable de la Inteligencia Artificial de CONECTIA.
+
+CAPÍTULO VI
+CONSENTIMIENTO
+El tratamiento de los datos personales se realizará conforme a la legislación aplicable y, cuando corresponda, con el consentimiento del titular.
+El consentimiento podrá otorgarse de forma expresa, tácita o mediante cualquier mecanismo permitido por la legislación aplicable, incluyendo:
+	•	Registro en la plataforma.
+	•	Aceptación electrónica.
+	•	Firma autógrafa.
+	•	Firma electrónica.
+	•	Cualquier otro medio que permita acreditar la manifestación de voluntad del titular.
+
+CAPÍTULO VII
+CONFIDENCIALIDAD
+Toda la información personal será considerada confidencial.
+Las personas que tengan acceso a datos personales deberán:
+	•	Guardar estricta confidencialidad.
+	•	Utilizar la información únicamente para fines autorizados.
+	•	Impedir accesos no autorizados.
+	•	Proteger la información durante todo su ciclo de vida.
+	•	Reportar cualquier vulneración o incidente de seguridad.
+La obligación de confidencialidad subsistirá aun después de concluida la relación jurídica, laboral, contractual o comercial con CONECTIA.
+
+CAPÍTULO VIII
+MEDIDAS DE SEGURIDAD
+CONECTIA implementará medidas administrativas, técnicas, físicas y organizacionales apropiadas para proteger los datos personales contra acceso no autorizado, alteración, pérdida, destrucción, robo, uso indebido, divulgación o cualquier tratamiento ilícito.
+Asimismo, realizará evaluaciones periódicas de riesgos, revisiones de cumplimiento y acciones de mejora continua para fortalecer su sistema de protección de datos personales.
+
+CAPÍTULO IX
+TRANSFERENCIAS Y REMISIONES
+Las transferencias y remisiones de datos personales únicamente se realizarán en los casos permitidos por la legislación aplicable y cuando sean necesarias para la prestación de los servicios, el cumplimiento de obligaciones legales o contractuales, o la atención de requerimientos de autoridades competentes.
+En todos los casos, CONECTIA procurará que los terceros involucrados adopten medidas adecuadas para la protección de los datos personales.
+
+CAPÍTULO X
+DERECHOS DE LOS TITULARES
+Los titulares podrán ejercer en cualquier momento sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO), así como solicitar la revocación del consentimiento o la limitación del uso y divulgación de sus datos personales, conforme al procedimiento previsto en el Aviso de Privacidad Integral.
+
+CAPÍTULO XI
+CONSERVACIÓN DE LA INFORMACIÓN
+Los datos personales serán conservados únicamente durante el tiempo necesario para cumplir las finalidades para las cuales fueron recabados, atender obligaciones legales o contractuales, resolver controversias y ejercer o defender derechos.
+Concluidos los plazos de conservación, los datos serán bloqueados, anonimizados o eliminados conforme a la legislación aplicable y a las políticas internas de CONECTIA.
+
+CAPÍTULO XII
+RESPONSABILIDADES
+Toda persona que tenga acceso a datos personales deberá:
+	•	Cumplir la presente Política.
+	•	Proteger la confidencialidad de la información.
+	•	Reportar incidentes de seguridad.
+	•	Utilizar exclusivamente sistemas autorizados.
+	•	Respetar los controles de acceso establecidos.
+	•	Abstenerse de copiar, divulgar o utilizar información para fines distintos a los autorizados.
+
+CAPÍTULO XIII
+GESTIÓN DE INCIDENTES DE SEGURIDAD
+Cuando CONECTIA tenga conocimiento de un incidente que comprometa la seguridad de los datos personales, adoptará las medidas necesarias para contenerlo, evaluar su alcance, mitigar sus efectos, documentar el incidente, implementar acciones correctivas y, cuando resulte procedente conforme a la legislación aplicable, notificar al titular y a las autoridades competentes.
+
+CAPÍTULO XIV
+ACTUALIZACIÓN DE LA POLÍTICA
+CONECTIA podrá modificar la presente Política para adecuarla a reformas legales, criterios de las autoridades competentes, avances tecnológicos o cambios en sus procesos internos.
+Las modificaciones serán publicadas en los medios oficiales de CONECTIA y surtirán efectos a partir de la fecha de su publicación, salvo disposición en contrario.
+
+CAPÍTULO XV
+GOBERNANZA Y MEJORA CONTINUA
+CONECTIA promoverá una cultura permanente de protección de datos personales mediante programas de capacitación, revisiones internas, evaluación de riesgos, auditorías de cumplimiento y acciones de mejora continua, con el fin de fortalecer la seguridad de la información y garantizar el cumplimiento de la legislación aplicable y de sus políticas internas.
+
+CAPÍTULO XVI
+VIGENCIA
+La presente Política entrará en vigor a partir de la fecha de su aprobación y será obligatoria para todas las personas comprendidas en su ámbito de aplicación. Cualquier situación no prevista se resolverá conforme a la legislación aplicable, al Aviso de Privacidad Integral y a las demás políticas corporativas de CONECTIA.
+

@@ -133,7 +133,7 @@ Eso es ARKIN SELECT.
 
 ## 📞 CONTACTO
 
-**Teléfono:** +52 1 477 475 6951 (WhatsApp)  
+**Teléfono:** 563-157-2468 (WhatsApp)  
 **Email:** arkinselect@gmail.com  
 **Ubicación:** León, Guanajuato  
 

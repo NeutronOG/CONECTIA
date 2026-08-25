@@ -61,14 +61,14 @@ END;
 $$;
 
 -- Crear todos los asesores
-SELECT create_asesor('roberto@arkin.mx', 'Roberto Silva', '+52 477 234 5678');
-SELECT create_asesor('maria@arkin.mx', 'María López', '+52 477 345 6789');
-SELECT create_asesor('daniela@arkin.mx', 'Daniela Belmonte', '+52 477 456 7801');
-SELECT create_asesor('subje@arkin.mx', 'Subje Hamue', '+52 477 456 7802');
-SELECT create_asesor('gris@arkin.mx', 'Gris Ayala', '+52 477 456 7803');
-SELECT create_asesor('lizzie@arkin.mx', 'Lizzie Lazarini', '+52 477 456 7804');
-SELECT create_asesor('ingrid@arkin.mx', 'Ingrid Gonzalez', '+52 477 456 7805');
-SELECT create_asesor('sofia.ayala@arkin.mx', 'Sofía Ayala', '+52 477 456 7806');
+SELECT create_asesor('roberto@arkin.mx', 'Roberto Silva', '563-157-2468');
+SELECT create_asesor('maria@arkin.mx', 'María López', '563-157-2468');
+SELECT create_asesor('daniela@arkin.mx', 'Daniela Belmonte', '563-157-2468');
+SELECT create_asesor('subje@arkin.mx', 'Subje Hamue', '563-157-2468');
+SELECT create_asesor('gris@arkin.mx', 'Gris Ayala', '563-157-2468');
+SELECT create_asesor('lizzie@arkin.mx', 'Lizzie Lazarini', '563-157-2468');
+SELECT create_asesor('ingrid@arkin.mx', 'Ingrid Gonzalez', '563-157-2468');
+SELECT create_asesor('sofia.ayala@arkin.mx', 'Sofía Ayala', '563-157-2468');
 
 -- Verificar que se crearon todos
 SELECT email, nombre, telefono FROM usuarios WHERE role = 'asesor' ORDER BY nombre;

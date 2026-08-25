@@ -89,11 +89,11 @@ CREATE TABLE IF NOT EXISTS favoritos (
 
 -- Insertar Agentes
 INSERT INTO agentes (nombre, especialidad, rating, ventas, telefono, email) VALUES
-('María Elena Vázquez', 'Especialista en Propiedades de Lujo', 4.9, 127, '+52 1 477 475 6951', 'maria.vazquez@arkinselect.mx'),
-('Carlos Mendoza', 'Especialista en Villas de Lujo', 4.8, 95, '+52 1 477 475 6951', 'carlos.mendoza@arkinselect.mx'),
-('Ana Sofía Ruiz', 'Especialista en Roma Norte', 4.7, 78, '+52 1 477 475 6951', 'ana.ruiz@arkinselect.mx'),
-('Roberto Silva', 'Especialista en Lofts Modernos', 4.6, 62, '+52 1 477 475 6951', 'roberto.silva@arkinselect.mx'),
-('Luis Fernando García', 'Especialista en Interlomas', 4.5, 89, '+52 1 477 475 6951', 'luis.garcia@arkinselect.mx')
+('María Elena Vázquez', 'Especialista en Propiedades de Lujo', 4.9, 127, '563-157-2468', 'maria.vazquez@arkinselect.mx'),
+('Carlos Mendoza', 'Especialista en Villas de Lujo', 4.8, 95, '563-157-2468', 'carlos.mendoza@arkinselect.mx'),
+('Ana Sofía Ruiz', 'Especialista en Roma Norte', 4.7, 78, '563-157-2468', 'ana.ruiz@arkinselect.mx'),
+('Roberto Silva', 'Especialista en Lofts Modernos', 4.6, 62, '563-157-2468', 'roberto.silva@arkinselect.mx'),
+('Luis Fernando García', 'Especialista en Interlomas', 4.5, 89, '563-157-2468', 'luis.garcia@arkinselect.mx')
 ON CONFLICT (email) DO NOTHING;
 
 -- Insertar Propiedades

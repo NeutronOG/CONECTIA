@@ -1,0 +1,176 @@
+POLÍTICA DE PUBLICACIÓN DE INMUEBLES
+
+I. OBJETO
+La presente Política de Publicación de Inmuebles tiene por objeto establecer los requisitos, lineamientos, responsabilidades y procedimientos aplicables a la publicación, promoción, actualización, suspensión y retiro de inmuebles dentro del ecosistema digital de CONECTIA ECOSISTEMA INMOBILIARIO (en adelante, "CONECTIA").
+Su finalidad es garantizar que toda la información publicada sea veraz, suficiente, verificable y conforme a la legislación aplicable, brindando certeza jurídica a propietarios, asesores inmobiliarios, desarrolladores, compradores, arrendadores, arrendatarios, inversionistas y demás usuarios de la plataforma.
+La presente Política complementa los Términos y Condiciones de Uso, el Aviso de Privacidad, la Política de Seguridad de la Información, la Política Antifraude y las demás disposiciones emitidas por CONECTIA.
+
+II. ÁMBITO DE APLICACIÓN
+Esta Política es obligatoria para toda persona física o moral que publique, administre, promocione o comercialice inmuebles a través del sitio web, aplicación móvil, CRM o cualquier herramienta tecnológica de CONECTIA.
+Aplica particularmente a:
+	•	
+	•	Propietarios.
+	•	Copropietarios.
+	•	Representantes legales.
+	•	Asesores inmobiliarios.
+	•	Desarrolladores inmobiliarios.
+	•	Constructoras.
+	•	Administradores de inmuebles.
+	•	Empresas inmobiliarias afiliadas.
+	•	Colaboradores autorizados.
+	•	Usuarios con permisos de publicación.
+
+
+
+
+
+
+III. PRINCIPIOS DE PUBLICACIÓN
+Toda publicación deberá observar los siguientes principios:
+	•	Legalidad: el inmueble deberá poder comercializarse conforme a la legislación vigente.
+	•	Veracidad: la información deberá corresponder a las características reales del inmueble.
+	•	Transparencia: no podrán omitirse datos relevantes que puedan influir en la decisión de los interesados.
+	•	Actualización: la información deberá mantenerse vigente durante toda la publicación.
+	•	Buena fe: los usuarios actuarán con honestidad y lealtad comercial.
+	•	Responsabilidad: quien publique un inmueble responderá por la autenticidad y exactitud de la información proporcionada.
+
+IV. REQUISITOS PARA LA PUBLICACIÓN
+Para publicar un inmueble, el usuario deberá proporcionar, cuando menos, la información siguiente:
+	•	Tipo de operación (venta, renta, preventa u otra).
+	•	Tipo de inmueble.
+	•	Ubicación general.
+	•	Precio o condiciones económicas.
+	•	Superficie del terreno y construcción, cuando corresponda.
+	•	Número de recámaras, baños y estacionamientos, cuando aplique.
+	•	Características relevantes.
+	•	Estado físico y jurídico del inmueble.
+	•	Fotografías recientes.
+	•	Datos de contacto del responsable de la publicación.
+
+CONECTIA podrá solicitar información o documentación adicional cuando resulte necesaria para verificar la autenticidad del inmueble.
+
+
+
+V. DOCUMENTACIÓN
+Cuando corresponda, el responsable de la publicación deberá contar con documentación suficiente para acreditar la posibilidad legal de comercializar el inmueble, incluyendo, según el caso:
+	•	Escritura pública o título de propiedad.
+	•	Certificado parcelario o documento equivalente.
+	•	Poder de representación legal.
+	•	Contrato de exclusividad o autorización para comercialización.
+	•	Identificación oficial del propietario o representante.
+	•	Documentación fiscal cuando resulte necesaria.
+	•	Licencias, permisos o autorizaciones aplicables.
+	•	Cualquier otro documento que CONECTIA considere necesario para la validación de la publicación.
+La documentación podrá ser requerida antes, durante o después de la publicación.
+
+VI. RESPONSABILIDAD SOBRE LA INFORMACIÓN
+El usuario que publique un inmueble declara y garantiza que:
+	•	Cuenta con autorización suficiente para promover el inmueble.
+	•	La información proporcionada es verdadera, completa y actualizada.
+	•	Las fotografías, videos, planos y demás materiales corresponden al inmueble publicado.
+	•	La publicación no infringe derechos de terceros.
+	•	El inmueble puede ser comercializado conforme a la legislación aplicable.
+
+El usuario será responsable de cualquier daño, reclamación o procedimiento derivado de información falsa, inexacta, incompleta o engañosa.
+
+VII. CONTENIDO PERMITIDO
+Las publicaciones deberán contener información objetiva y relacionada exclusivamente con el inmueble ofertado.
+Podrán incluir:
+	•	
+	•	Fotografías.
+	•	Videos.
+	•	Recorridos virtuales.
+	•	Planos.
+	•	Ubicación aproximada o exacta, según la configuración elegida.
+	•	Amenidades.
+	•	Características técnicas.
+	•	Información comercial.
+	•	Información urbanística cuando sea relevante.
+
+
+VIII. CONTENIDO PROHIBIDO
+No podrán publicarse inmuebles que:
+	•	Carezcan de autorización para su comercialización.
+	•	Contengan información falsa o engañosa.
+	•	Utilicen fotografías que no correspondan al inmueble.
+	•	Omitan deliberadamente información relevante.
+	•	Infrinjan derechos de propiedad intelectual.
+	•	Promuevan actividades ilícitas.
+	•	Contengan lenguaje ofensivo, discriminatorio o engañoso.
+	•	Simulen operaciones inexistentes.
+	•	Dupliquen publicaciones con el propósito de manipular la visibilidad de la plataforma.
+Asimismo, queda prohibido publicar información personal de terceros sin contar con la autorización correspondiente.
+
+IX. VERIFICACIÓN DE PUBLICACIONES
+CONECTIA podrá implementar procedimientos de revisión para validar la información publicada, incluyendo:
+	•	Revisión documental.
+	•	Validación de identidad.
+	•	Confirmación con el propietario o representante.
+	•	Revisión de fotografías.
+	•	Verificación de ubicación.
+	•	Revisión de información registral cuando resulte procedente.
+	•	Controles automatizados mediante herramientas tecnológicas o inteligencia artificial.
+La validación realizada por CONECTIA tiene fines administrativos y de control interno; no constituye una certificación sobre la situación jurídica del inmueble ni sustituye la diligencia que corresponde a las partes involucradas en la operación.
+
+X. ACTUALIZACIÓN DE LA INFORMACIÓN
+El responsable de la publicación deberá mantener actualizados:
+	•	
+	•	Precio.
+	•	Disponibilidad.
+	•	Estado del inmueble.
+	•	Condiciones de venta o arrendamiento.
+	•	Información de contacto.
+	•	Fotografías cuando existan cambios relevantes.
+
+Cuando un inmueble deje de estar disponible, deberá notificarse de inmediato para proceder a su actualización o retiro.
+
+XI. FACULTADES DE CONECTIA
+CONECTIA podrá, sin necesidad de autorización previa:
+	•	Solicitar documentación adicional.
+	•	Corregir errores evidentes de formato.
+	•	Requerir aclaraciones.
+	•	Suspender publicaciones.
+	•	Ocultar temporalmente inmuebles.
+	•	Rechazar publicaciones que incumplan esta Política.
+	•	Eliminar contenido que vulnere la legislación, los Términos y Condiciones o los derechos de terceros.
+	•	Bloquear cuentas en casos de reincidencia o conductas fraudulentas.
+Estas medidas podrán adoptarse de manera preventiva cuando existan indicios razonables de incumplimiento.
+
+XII. PROPIEDAD INTELECTUAL
+El usuario declara que cuenta con los derechos o autorizaciones necesarias para utilizar las fotografías, videos, planos, renders, recorridos virtuales y demás materiales que incorpore a la publicación.
+Al publicar un inmueble, concede a CONECTIA una licencia no exclusiva, gratuita y revocable para reproducir, almacenar, adaptar, distribuir y comunicar públicamente dicho contenido únicamente con la finalidad de promocionar el inmueble y prestar los servicios contratados.
+La titularidad de los derechos de autor sobre los materiales seguirá correspondiendo a su propietario, salvo pacto expreso en contrario.
+
+XIII. PROTECCIÓN DE DATOS PERSONALES
+La información que contenga datos personales será tratada conforme al Aviso de Privacidad de CONECTIA.
+No deberán incorporarse a las publicaciones datos personales innecesarios, documentos de identidad completos, información financiera o cualquier dato cuya difusión pueda afectar la privacidad o seguridad de las personas.
+
+XIV. RESPONSABILIDAD DE CONECTIA
+CONECTIA actúa como proveedor de servicios tecnológicos para la publicación y promoción de inmuebles.
+Salvo que exista un contrato específico que disponga lo contrario, CONECTIA no garantiza:
+	•	La celebración de operaciones inmobiliarias.
+	•	La solvencia de las partes.
+	•	La disponibilidad permanente del inmueble.
+	•	La exactitud absoluta de la información proporcionada por los usuarios.
+	•	La inexistencia de cargas, gravámenes, litigios o limitaciones jurídicas sobre los inmuebles publicados.
+La responsabilidad por la veracidad y legalidad de la información corresponde al usuario que realiza la publicación.
+
+XV. INCUMPLIMIENTO
+El incumplimiento de esta Política podrá dar lugar, según la gravedad del caso, a:
+	•	Requerimientos de corrección.
+	•	Suspensión temporal de publicaciones.
+	•	Cancelación de anuncios.
+	•	Suspensión o cancelación de la cuenta.
+	•	Restricción de acceso a determinados servicios.
+	•	Terminación de la relación contractual.
+	•	Ejercicio de las acciones legales correspondientes para la protección de los derechos e intereses de CONECTIA o de terceros.
+
+XVI. MODIFICACIONES
+CONECTIA podrá modificar la presente Política para adaptarla a cambios legales, regulatorios, tecnológicos u operativos.
+Las modificaciones serán publicadas en los medios oficiales y entrarán en vigor en la fecha indicada en la versión correspondiente.
+
+XVII. ACEPTACIÓN
+La publicación de cualquier inmueble dentro del ecosistema CONECTIA implica el conocimiento y aceptación de la presente Política de Publicación de Inmuebles.
+El usuario reconoce que ha leído su contenido y se obliga a cumplir las disposiciones aquí establecidas, así como los Términos y Condiciones, el Aviso de Privacidad y las demás políticas corporativas aplicables.
+
+
