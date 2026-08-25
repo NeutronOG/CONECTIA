@@ -54,83 +54,62 @@ export function HomeYellow() {
     <div className="home-experience min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
 
       {/* ── HERO ───────────────────────────────────────────────── */}
-      <section className="home-hero max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-12 mt-[60px]">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+      <section className="home-hero relative isolate flex min-h-[760px] items-end overflow-hidden">
+        <Image
+          src="/conectia-home-hero.webp"
+          alt="Residencia contemporánea en las colinas de Guanajuato al anochecer"
+          fill
+          priority
+          sizes="100vw"
+          className="home-hero-image object-cover"
+        />
+        <div className="home-hero-shade absolute inset-0" aria-hidden="true" />
+        <div className="home-hero-glow absolute inset-0" aria-hidden="true" />
 
-          {/* Left */}
-          <div className="home-hero-copy flex-1 space-y-8">
-            <div className="home-eyebrow">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-36 sm:px-8 sm:pb-14 sm:pt-44 lg:pb-16">
+          <div className="home-hero-copy max-w-3xl space-y-7">
+            <div className="home-eyebrow home-eyebrow-on-image">
               <span className="home-signal" aria-hidden="true" />
               <span>{t('home.hero.badge')}</span>
             </div>
-            <h1 className="home-display text-[5rem] sm:text-[6.5rem] md:text-[8rem] font-black text-[#17313A] dark:text-[#EAE4DD] leading-[0.88] tracking-tighter">
+
+            <h1 className="home-display home-display-on-image text-[5rem] font-black leading-[0.86] tracking-tighter text-white sm:text-[6.5rem] md:text-[7.5rem]">
               {t('home.hero.title')}
-              <span className="block font-serif italic font-normal text-[var(--conectia-arcilla)]">
+              <span className="block font-serif text-[var(--conectia-hero-highlight)] italic font-normal">
                 {t('home.hero.titleHighlight')}
               </span>
             </h1>
 
-            <p className="text-base md:text-lg text-[#6B7280] dark:text-[#B0ACA6] max-w-sm font-normal leading-relaxed">
+            <p className="home-hero-subtitle max-w-xl text-base font-normal leading-relaxed text-white/80 md:text-lg">
               {t('home.hero.subtitle')}
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Link href="/propiedades">
-                <button className="home-primary-cta flex items-center gap-2 bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-3 rounded-xl transition-colors duration-200 text-sm">
-                  <ArrowRight className="h-4 w-4" weight="bold" />
-                  {t('home.hero.ctaPrimary')}
-                </button>
+              <Link href="/propiedades" className="home-primary-cta inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300">
+                <ArrowRight className="h-4 w-4" weight="bold" />
+                {t('home.hero.ctaPrimary')}
               </Link>
               <button
                 onClick={() => setIsCategoriasMenuOpen(true)}
-                className="home-secondary-cta flex items-center gap-2 bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] font-semibold px-6 py-3 rounded-xl hover:border-[#1e40af]/40 dark:hover:border-[var(--conectia-arcilla)]/40 transition-colors duration-200 text-sm"
+                className="home-secondary-cta inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300"
               >
                 <List className="h-4 w-4" weight="duotone" />
                 {t('home.categories.title')}
               </button>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-2">
+            <div className="home-hero-metrics grid max-w-2xl grid-cols-3 gap-2 pt-2 sm:gap-3">
               {[
                 { icon: House, value: propertyCount, label: t('home.hero.stats.properties').toUpperCase() },
                 { icon: Star,  value: '98%',  label: t('home.hero.stats.happyClients').toUpperCase() },
                 { icon: MapPin,value: 'GTO',  label: t('home.hero.stats.brokers').toUpperCase() },
               ].map((s, i) => (
-                <div key={i} className="home-metric-card flex flex-col gap-1 p-4 rounded-2xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10">
-                  <s.icon className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                  <p className="text-2xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-none">{s.value}</p>
-                  <p className="text-[9px] uppercase tracking-widest text-[#9CA3AF] dark:text-[#B0ACA6] font-semibold">{s.label}</p>
+                <div key={i} className="home-metric-card flex min-w-0 flex-col gap-1 rounded-2xl p-3 sm:p-4">
+                  <s.icon className="h-4 w-4 text-[var(--conectia-hero-highlight)]" weight="duotone" />
+                  <p className="text-xl font-black leading-none text-white sm:text-2xl">{s.value}</p>
+                  <p className="truncate text-[8px] font-semibold uppercase tracking-widest text-white/55 sm:text-[9px]">{s.label}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Right: gran foto — blob shape */}
-          <div className="home-hero-visual flex-1 w-full lg:max-w-[52%]">
-            <div
-              className="home-hero-media relative w-full aspect-[4/3] overflow-hidden shadow-2xl bg-[#F3F4F6] dark:bg-[#17313A]/20"
-              style={{ borderRadius: '24px 96px 24px 96px' }}
-            >
-              {isLoadingProp ? (
-                <div className="absolute inset-0 animate-pulse bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
-              ) : featuredProp ? (
-                <>
-                  <Image
-                    src={featuredProp.imagen || '/placeholder.svg'}
-                    alt={featuredProp.titulo}
-                    fill
-                    className="object-cover scale-[1.03] hover:scale-[1.06] transition-transform duration-700"
-                    priority
-                  />
-                  {/* subtle gradient overlay at bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                </>
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#F3F4F6] dark:bg-[#17313A]/20">
-                  <House className="h-12 w-12 text-[#9CA3AF]" weight="duotone" />
-                </div>
-              )}
             </div>
           </div>
         </div>
