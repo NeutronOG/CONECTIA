@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
+import { uniqueProperties } from '@/lib/property-deduplication'
 
 // Usar service role key para bypasear RLS
 const supabaseAdmin = createClient(
@@ -49,8 +50,8 @@ export async function GET(request: Request) {
     if (isSuperUser) {
       console.log('Super usuario detectado, devolviendo todas las propiedades:', email)
       return NextResponse.json({ 
-        propiedades: normalizedData,
-        total: normalizedData.length,
+        propiedades: uniqueProperties(normalizedData),
+        total: uniqueProperties(normalizedData).length,
         debug: {
           totalEnDB: normalizedData.length,
           usuarioIdsUnicos: usuarioIds,
@@ -88,9 +89,10 @@ export async function GET(request: Request) {
 
     console.log('Propiedades filtradas para', email || nombre, ':', filtered.length)
 
+    const uniqueFiltered = uniqueProperties(filtered)
     return NextResponse.json({ 
-      propiedades: filtered,
-      total: filtered.length,
+      propiedades: uniqueFiltered,
+      total: uniqueFiltered.length,
       debug: {
         totalEnDB: normalizedData.length,
         usuarioIdsUnicos: usuarioIds

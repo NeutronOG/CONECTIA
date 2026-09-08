@@ -4,7 +4,6 @@
  * las que ve el cliente en el menú Explorar.
  */
 export const PUBLIC_PROPERTY_CATEGORIES = [
-  { value: 'compra', label: 'Comprar', href: '/compra' },
   { value: 'venta', label: 'Vender', href: '/venta' },
   { value: 'renta', label: 'Renta', href: '/renta' },
   { value: 'oferta', label: 'Ofertas', href: '/ofertas' },
@@ -18,7 +17,7 @@ export type PublicPropertyCategory = (typeof PUBLIC_PROPERTY_CATEGORIES)[number]
 
 // También se aceptan estas claves para que las publicaciones históricas no
 // desaparezcan al migrar al nuevo catálogo.
-export const LEGACY_PROPERTY_CATEGORIES = ['especial', 'exclusivo'] as const
+export const LEGACY_PROPERTY_CATEGORIES = ['compra', 'especial', 'exclusivo'] as const
 
 export type PropertyCategory = PublicPropertyCategory | (typeof LEGACY_PROPERTY_CATEGORIES)[number]
 

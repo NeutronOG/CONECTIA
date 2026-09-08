@@ -5,7 +5,7 @@ import { trackPropertyView, startInteractionTimer } from "@/lib/property-analyti
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { 
-  MapPin, Bed, Bath, Square, Heart, Phone, Mail, MessageCircle,
+  MapPin, Bed, Bath, Square, Heart, Phone, Mail,
   Car, Wifi, Shield, TreePine, Waves, Dumbbell, ChefHat, Wind, Sun, Camera, Play,
   ArrowLeft, ArrowRight, Maximize, X, Loader2, Users
 } from "lucide-react"
@@ -303,10 +303,6 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 </div>
               </div>
               <div className="space-y-3">
-                <Button className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold rounded-xl py-5">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  WhatsApp
-                </Button>
                 <Button variant="outline" className="w-full border-[#E5E7EB] dark:border-[#EAE4DD]/20 text-[#17313A] dark:text-[#EAE4DD] hover:border-[var(--conectia-arcilla)]/40 rounded-xl font-semibold py-5">
                   <Phone className="h-4 w-4 mr-2" />
                   {t('propertyDetail.call')}

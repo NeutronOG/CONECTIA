@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { isPropertyCategory } from '@/lib/property-categories'
+import { validateReservation } from '@/lib/property-reservation'
 import {
   isLegacyCategoryConstraintError,
   isLegacyNumericBonusError,
@@ -23,7 +24,8 @@ const propertyFields = [
   'banos', 'medios_banos', 'area', 'area_construccion', 'cochera',
   'area_texto', 'imagen', 'descripcion', 'caracteristicas', 'status',
   'categoria', 'fecha_publicacion', 'tour_virtual', 'galeria', 'bono',
-  'comision_asesor_pct', 'unidad_superficie', 'tipo_credito',
+  'comision_asesor_pct', 'unidad_superficie', 'tipo_credito', 'fecha_apartado',
+  'fecha_termino_contrato',
 ] as const
 
 function pickPropertyFields(property: unknown) {
@@ -115,6 +117,8 @@ export async function POST(request: Request) {
     if (!isPropertyCategory(data.categoria)) {
       return NextResponse.json({ error: 'Selecciona una categoría pública válida' }, { status: 400 })
     }
+    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status)
+    if (reservationError) return NextResponse.json({ error: reservationError }, { status: 400 })
 
     const ownerId = await resolveUserId(usuarioId, asesorEmail)
     const ownership = {
@@ -184,6 +188,8 @@ export async function PATCH(request: Request) {
       ...pickPropertyFields(normalizedCurrent),
       ...requestedChanges,
     }
+    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status)
+    if (reservationError) return NextResponse.json({ error: reservationError }, { status: 400 })
 
     const { data: updated, error } = await persistWithSchemaCompatibility(
       data,

@@ -40,6 +40,7 @@ import { useLanguage } from '@/lib/i18n'
 import { getUserByEmail } from '@/data/internal-users'
 import { isSuperUser } from '@/lib/super-users'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
+import { reservationNotice } from '@/lib/property-reservation'
 
 export default function PropiedadesAsesorPage() {
   const { t } = useLanguage()
@@ -133,6 +134,8 @@ export default function PropiedadesAsesorPage() {
             caracteristicas: p.caracteristicas || [],
             status: p.status,
             categoria: p.categoria,
+            fechaApartado: p.fecha_apartado || undefined,
+            fechaTerminoContrato: p.fecha_termino_contrato || undefined,
             fechaPublicacion: p.created_at || p.fecha_publicacion,
             tourVirtual: p.tour_virtual || undefined,
             galeria: p.galeria || [],
@@ -467,6 +470,11 @@ export default function PropiedadesAsesorPage() {
                     <p className="text-xs font-medium text-[var(--conectia-arcilla)]/80 mb-4">
                       Tu comisión: {getComisionAsesorTexto(propiedad)}
                     </p>
+                  )}
+                  {reservationNotice(propiedad.fechaTerminoContrato) && (
+                    <div className="mb-4 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-xs font-semibold text-amber-200">
+                      {reservationNotice(propiedad.fechaTerminoContrato)}
+                    </div>
                   )}
 
                   {/* Mini analytics bar */}

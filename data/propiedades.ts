@@ -24,6 +24,8 @@ export interface Propiedad {
   frente?: number
   fondo?: number
   comisionAsesorPct?: number
+  fechaApartado?: string
+  fechaTerminoContrato?: string
   fechaPublicacion: string
   tourVirtual?: string
   agente?: {

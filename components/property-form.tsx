@@ -12,6 +12,7 @@ import { Propiedad } from "@/data/propiedades"
 import { Upload, X, Plus, Loader2 } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto, usaComisionPorcentual } from "@/lib/commission"
+import { validateReservation } from "@/lib/property-reservation"
 import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
 
 const labelClass = "text-sm font-semibold text-[#17313A] dark:text-white/90"
@@ -190,6 +191,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    const reservationError = validateReservation(formData.fechaApartado, formData.fechaTerminoContrato, formData.status)
+    if (reservationError) { alert(reservationError); return }
+
     // Validar campos requeridos
     if (!formData.titulo?.trim()) {
       alert('Por favor ingresa el título de la propiedad')
@@ -287,7 +291,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         })(),
         caracteristicas: formData.caracteristicas || [],
         status: formData.status as any,
-        categoria: (formData.categoria as any) || "venta",
+        categoria: formData.categoria === "compra" ? "venta" : formData.categoria || "venta",
+        fechaApartado: formData.fechaApartado || "",
+        fechaTerminoContrato: formData.fechaTerminoContrato || "",
         fechaPublicacion: new Date().toISOString().split('T')[0],
         agente: {
           nombre: asesorNombre,
@@ -549,35 +555,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 placeholder={formData.unidadSuperficie === 'Hectáreas' ? '150' : '18,500,000'}
                 className={inputClass}
               />
-              {usaComisionPorcentual(formData) && (
-                <>
-                  <div className="space-y-2 mt-4">
-                    <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
-                    <Select
-                      value={String(formData.comisionAsesorPct || 4)}
-                      onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
-                    >
-                      <SelectTrigger className={selectTriggerClass}>
-                        <SelectValue placeholder="Selecciona el porcentaje" />
-                      </SelectTrigger>
-                      <SelectContent className={selectContentClass}>
-                        {[1, 2, 3, 4, 5, 6].map((pct) => (
-                          <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
-                            {pct}% total — tú recibes {pct / 2}%
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {formData.precio && formData.precio > 0 && (
-                    <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
-                      <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
-                        Tu comisión: {getComisionAsesorTexto(formData)}
-                      </p>
-                    </div>
-                  )}
-                </>
-              )}
+
             </div>
 
             <div className="space-y-2">
@@ -828,6 +806,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
                   <SelectItem value="Disponible" className={selectItemClass}>Disponible</SelectItem>
+                  <SelectItem value="Reservada" className={selectItemClass}>Reservada</SelectItem>
                   <SelectItem value="Exclusiva" className={selectItemClass}>Exclusiva</SelectItem>
                 </SelectContent>
               </Select>
@@ -836,7 +815,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             <div className="space-y-2">
               <Label htmlFor="categoria" className={labelClass}>Categoría pública *</Label>
               <Select
-                value={formData.categoria}
+                value={formData.categoria === "compra" ? "venta" : formData.categoria}
                 onValueChange={(value) => setFormData({ ...formData, categoria: value as any })}
               >
                 <SelectTrigger className={selectTriggerClass}>
@@ -850,6 +829,54 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   ))}
                 </SelectContent>
               </Select>
+              {usaComisionPorcentual(formData) && (
+                <>
+                  <div className="space-y-2 mt-4">
+                    <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
+                    <Select
+                      value={String(formData.comisionAsesorPct || 4)}
+                      onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
+                    >
+                      <SelectTrigger className={selectTriggerClass}>
+                        <SelectValue placeholder="Selecciona el porcentaje" />
+                      </SelectTrigger>
+                      <SelectContent className={selectContentClass}>
+                        {[1, 2, 3, 4, 5, 6].map((pct) => (
+                          <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
+                            {pct}% total — tú recibes {pct / 2}%
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {formData.precio && formData.precio > 0 && (
+                    <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
+                      <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
+                        Tu comisión: {getComisionAsesorTexto(formData)}
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div className="space-y-3 md:col-span-2 rounded-xl border border-[var(--conectia-arcilla)]/30 p-4">
+              <h3 className={labelClass}>Calendario de apartado y contrato</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="fechaApartado" className={labelClass}>Fecha de apartado</Label>
+                  <Input id="fechaApartado" type="date" className={inputClass} value={formData.fechaApartado || ''}
+                    required={formData.status === 'Reservada' || Boolean(formData.fechaTerminoContrato)}
+                    onChange={(e) => setFormData({ ...formData, fechaApartado: e.target.value })} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="fechaTerminoContrato" className={labelClass}>Fecha de término del contrato</Label>
+                  <Input id="fechaTerminoContrato" type="date" className={inputClass} value={formData.fechaTerminoContrato || ''}
+                    min={formData.fechaApartado || undefined} required={formData.status === 'Reservada' || Boolean(formData.fechaApartado)}
+                    onChange={(e) => setFormData({ ...formData, fechaTerminoContrato: e.target.value })} />
+                </div>
+              </div>
+              <p className="text-sm text-[#4A4F57] dark:text-white/60">Verás avisos en Mis propiedades desde 7 días antes del término, el día del vencimiento y cuando haya vencido.</p>
             </div>
 
             <div className="space-y-2">

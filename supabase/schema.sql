@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS propiedades (
   status TEXT CHECK (status IN ('Disponible', 'Exclusiva', 'Reservada')) DEFAULT 'Disponible',
   categoria TEXT CHECK (categoria IN ('compra', 'venta', 'renta', 'oferta', 'especiales', 'preventa', 'desarrollo', 'remate', 'especial', 'exclusivo')) DEFAULT 'venta',
   unidad_superficie TEXT CHECK (unidad_superficie IN ('m²', 'Hectáreas')) DEFAULT 'm²',
+  fecha_apartado DATE,
+  fecha_termino_contrato DATE,
   fecha_publicacion TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   tour_virtual TEXT,
   galeria TEXT[],

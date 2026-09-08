@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
+import { uniqueProperties } from '@/lib/property-deduplication'
 
 // Usar service role key para bypasear RLS
 const supabaseAdmin = createClient(
@@ -94,6 +95,8 @@ export async function GET(request: Request) {
         galeria: galeriaCompleta,
         bono: publicProp.bono,
         unidadSuperficie: prop.unidad_superficie || undefined,
+        fechaApartado: prop.fecha_apartado || undefined,
+        fechaTerminoContrato: prop.fecha_termino_contrato || undefined,
         comisionAsesorPct: prop.comision_asesor_pct || undefined,
         agente: {
           nombre: agenteNombre,
@@ -111,7 +114,7 @@ export async function GET(request: Request) {
     // Listado completo
     const { data: propiedades, error: propError } = await supabaseAdmin
       .from('propiedades')
-      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono, comision_asesor_pct')
+      .select('id, titulo, ubicacion, precio, precio_texto, tipo, habitaciones, banos, area, area_texto, imagen, galeria, descripcion, caracteristicas, status, categoria, fecha_publicacion, tour_virtual, usuario_id, created_at, bono, comision_asesor_pct, fecha_apartado, fecha_termino_contrato')
       .order('created_at', { ascending: false })
 
     if (propError) {
@@ -156,9 +159,11 @@ export async function GET(request: Request) {
         categoria: prop.categoria,
         fechaPublicacion: prop.created_at || prop.fecha_publicacion,
         tourVirtual: prop.tour_virtual || undefined,
-        galeria: undefined,
+        galeria: prop.galeria || undefined,
         bono: prop.bono,
         comisionAsesorPct: prop.comision_asesor_pct || undefined,
+        fechaApartado: prop.fecha_apartado || undefined,
+        fechaTerminoContrato: prop.fecha_termino_contrato || undefined,
         agente: prop.usuario_id && usuariosMap[prop.usuario_id] ? {
           nombre: usuariosMap[prop.usuario_id],
           especialidad: 'Especialista en Propiedades',
@@ -170,7 +175,7 @@ export async function GET(request: Request) {
       }
     })
 
-    return NextResponse.json({ propiedades: result })
+    return NextResponse.json({ propiedades: uniqueProperties(result) })
   } catch (error: any) {
     console.error('Error in public propiedades API:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })

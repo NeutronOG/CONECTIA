@@ -6,6 +6,7 @@ import { supabaseOptimized, withRetry } from '@/lib/supabase/optimized-client'
 import { propertiesCache, CACHE_KEYS } from '@/lib/properties-cache'
 import type { Database } from '@/lib/supabase/database.types'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
+import { uniqueProperties } from '@/lib/property-deduplication'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
@@ -34,6 +35,8 @@ function dbToApp(dbProp: PropiedadRow): Propiedad {
         fechaPublicacion: dbProp.fecha_publicacion,
         tourVirtual: dbProp.tour_virtual || undefined,
         galeria: dbProp.galeria || undefined,
+        fechaApartado: dbProp.fecha_apartado || undefined,
+        fechaTerminoContrato: dbProp.fecha_termino_contrato || undefined,
     }
 }
 
@@ -48,7 +51,7 @@ async function fetchAllProperties(): Promise<Propiedad[]> {
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return (data || []).map(dbToApp)
+        return uniqueProperties((data || []).map(dbToApp))
     })
 }
 
@@ -74,7 +77,7 @@ async function fetchPropertiesByCategory(category: string): Promise<Propiedad[]>
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return (data || []).map(dbToApp)
+        return uniqueProperties((data || []).map(dbToApp))
     })
 }
 

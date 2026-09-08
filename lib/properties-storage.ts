@@ -44,6 +44,8 @@ export class PropertiesStorage {
       bono: (dbProp as any).bono || undefined,
       comisionAsesorPct: (dbProp as any).comision_asesor_pct || undefined,
       unidadSuperficie: (dbProp as any).unidad_superficie || undefined,
+      fechaApartado: (dbProp as any).fecha_apartado || undefined,
+      fechaTerminoContrato: (dbProp as any).fecha_termino_contrato || undefined,
       agente: asesorEmail ? {
         email: asesorEmail,
         nombre: asesorInfo?.nombre || asesorEmail,
@@ -151,6 +153,8 @@ export class PropertiesStorage {
       bono: (appProp as any).bono || null,
       comision_asesor_pct: (appProp as any).comisionAsesorPct || null,
       unidad_superficie: (appProp as any).unidadSuperficie || 'm²',
+      fecha_apartado: appProp.fechaApartado || null,
+      fecha_termino_contrato: appProp.fechaTerminoContrato || null,
     }
     
     // NOTA: Los campos medios_banos, area_construccion, cochera y tipo_credito
@@ -212,6 +216,8 @@ export class PropertiesStorage {
     if (has('bono')) dbData.bono = updates.bono || null
     if (has('comisionAsesorPct')) dbData.comision_asesor_pct = updates.comisionAsesorPct ?? null
     if (has('unidadSuperficie')) dbData.unidad_superficie = updates.unidadSuperficie || 'm²'
+    if (has('fechaApartado')) dbData.fecha_apartado = updates.fechaApartado || null
+    if (has('fechaTerminoContrato')) dbData.fecha_termino_contrato = updates.fechaTerminoContrato || null
     if (Object.prototype.hasOwnProperty.call(updates, 'tipoCredito')) {
       dbData.tipo_credito = (updates as any).tipoCredito || null
     }

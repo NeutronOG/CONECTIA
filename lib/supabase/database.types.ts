@@ -30,6 +30,8 @@ export interface Database {
                     status: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie: 'm²' | 'Hectáreas' | null
+                    fecha_apartado: string | null
+                    fecha_termino_contrato: string | null
                     fecha_publicacion: string
                     tour_virtual: string | null
                     galeria: string[] | null
@@ -58,6 +60,8 @@ export interface Database {
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria?: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie?: 'm²' | 'Hectáreas' | null
+                    fecha_apartado?: string | null
+                    fecha_termino_contrato?: string | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null
@@ -86,6 +90,8 @@ export interface Database {
                     status?: 'Disponible' | 'Exclusiva' | 'Reservada'
                     categoria?: 'compra' | 'venta' | 'renta' | 'oferta' | 'especiales' | 'preventa' | 'desarrollo' | 'remate' | 'especial' | 'exclusivo'
                     unidad_superficie?: 'm²' | 'Hectáreas' | null
+                    fecha_apartado?: string | null
+                    fecha_termino_contrato?: string | null
                     fecha_publicacion?: string
                     tour_virtual?: string | null
                     galeria?: string[] | null
