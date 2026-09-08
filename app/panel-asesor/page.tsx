@@ -28,7 +28,8 @@ import {
   Diamond,
   Zap,
   Megaphone,
-  MapPin
+  MapPin,
+  CalendarDays
 } from 'lucide-react'
 import { getPlanById } from '@/data/subscription-plans'
 import { DesarrollosManager } from '@/components/desarrollos-manager'
@@ -220,6 +221,9 @@ export default function PanelAsesorPage() {
                     <Megaphone className="w-4 h-4 text-[var(--conectia-arcilla)]" /> {t('panelAsesor.advertising')}
                   </button>
                 )}
+                <button onClick={() => handleNavigation('/panel-asesor/calendario')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+                  <CalendarDays className="w-4 h-4 text-[var(--conectia-arcilla)]" /> Calendario
+                </button>
                 <button onClick={() => handleNavigation('/panel-asesor/propiedades')} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
                   <Settings className="w-4 h-4" /> {t('panelAsesor.manageProperties')}
                 </button>

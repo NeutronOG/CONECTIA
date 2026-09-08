@@ -14,7 +14,7 @@ export interface Propiedad {
   area: number
   areaConstruccion?: number
   cochera?: number
-  amueblado?: "amueblado" | "semiamueblado" | "sin_amueblar"
+  amueblado?: "amueblado" | "semiamueblado" | "sin_amueblar" | "no_aplica"
   areaTexto: string
   imagen: string
   descripcion: string

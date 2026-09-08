@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Propiedad } from "@/data/propiedades"
-import { Upload, X, Plus, Loader2 } from "lucide-react"
+import { Upload, X, Plus, Loader2, Check } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto, usaComisionPorcentual } from "@/lib/commission"
 import { validateReservation } from "@/lib/property-reservation"
@@ -97,6 +97,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const [isDraggingGallery, setIsDraggingGallery] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState("")
+  const isTerreno = formData.tipo?.startsWith('Terreno') ?? false
 
   // Lista de amenidades disponibles (amenidades del desarrollo/condominio)
   const amenidadesDisponibles = [
@@ -562,7 +563,11 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Label htmlFor="tipo" className={labelClass}>Tipo de Propiedad *</Label>
               <Select
                 value={formData.tipo}
-                onValueChange={(value) => setFormData({ ...formData, tipo: value })}
+                onValueChange={(value) => setFormData({
+                  ...formData,
+                  tipo: value,
+                  ...(value.startsWith('Terreno') ? { amueblado: 'no_aplica', antiguedad: 'No aplica' } : {}),
+                } as Partial<Propiedad>)}
               >
                 <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="Selecciona tipo" />
@@ -726,6 +731,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   <SelectItem value="amueblado" className={selectItemClass}>Amueblado</SelectItem>
                   <SelectItem value="semiamueblado" className={selectItemClass}>Semiamueblado</SelectItem>
                   <SelectItem value="sin_amueblar" className={selectItemClass}>Sin amueblar</SelectItem>
+                  {isTerreno && <SelectItem value="no_aplica" className={selectItemClass}>NO APLICA</SelectItem>}
                 </SelectContent>
               </Select>
             </div>
@@ -918,6 +924,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   <SelectItem value="11-20 años" className={selectItemClass}>11-20 años</SelectItem>
                   <SelectItem value="21-30 años" className={selectItemClass}>21-30 años</SelectItem>
                   <SelectItem value="Más de 30 años" className={selectItemClass}>Más de 30 años</SelectItem>
+                  {isTerreno && <SelectItem value="No aplica" className={selectItemClass}>NO APLICA</SelectItem>}
                 </SelectContent>
               </Select>
             </div>
@@ -958,22 +965,25 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             <Label className={labelClass}>Actividades recreativas (opcional)</Label>
             <p className="text-xs text-gray-500 mb-2">Selecciona las actividades que ofrece el desarrollo</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-              {actividadesRecreativasDisponibles.map((actividad) => (
-                <button
-                  key={actividad}
-                  type="button"
-                  onClick={() => toggleActividadRecreativa(actividad)}
-                  className={`
-                    p-2 rounded-lg border text-sm font-medium transition-all text-left
-                    ${actividadesRecreativasSeleccionadas.includes(actividad)
-                      ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
-                      : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
+              {actividadesRecreativasDisponibles.map((actividad) => {
+                const isSelected = actividadesRecreativasSeleccionadas.includes(actividad)
+                return (
+                  <button
+                    key={actividad}
+                    type="button"
+                    aria-pressed={isSelected}
+                    onClick={() => toggleActividadRecreativa(actividad)}
+                    style={isSelected ? { backgroundColor: '#17313A', borderColor: '#17313A', color: '#FFFFFF' } : undefined}
+                    className={isSelected
+                      ? 'flex min-h-11 items-center gap-2 rounded-lg border p-2 text-left text-sm font-semibold text-white shadow-md ring-2 ring-[#C78F7B]/50'
+                      : 'min-h-11 rounded-lg border border-[#17313A]/20 bg-white p-2 text-left text-sm font-medium text-[#17313A] transition-all hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                     }
-                  `}
-                >
-                  {actividad}
-                </button>
-              ))}
+                  >
+                    {isSelected && <Check className="h-4 w-4 shrink-0" aria-hidden="true" />}
+                    <span>{actividad}</span>
+                  </button>
+                )
+              })}
             </div>
             {actividadesRecreativasSeleccionadas.length > 0 && (
               <p className="text-sm text-gray-500 mt-2">
