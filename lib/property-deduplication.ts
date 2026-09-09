@@ -2,8 +2,10 @@ type Listing = { id?: string | number; imagen?: string | null; galeria?: string[
 
 function photoKey(value: string): string {
   if (!value || /placeholder|^data:/i.test(value)) return ''
-  // Ignore transformation parameters, keeping the full host/path identity.
-  return value.trim().split(/[?#]/)[0]
+  let key = value.trim().split(/[?#]/)[0]
+  // Normalizar slashes finales y lowercase de host
+  key = key.replace(/\/+$/, '').replace(/^(https?:\/\/)([^/]+)/i, (_m, proto, host) => `${proto}${host.toLowerCase()}`)
+  return key
 }
 
 export function propertyPhotos(property: Listing): string[] {

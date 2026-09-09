@@ -61,7 +61,7 @@ export function SocialShareFormats({
 }: SocialShareFormatsProps) {
   const [open, setOpen] = useState(false)
   const [copiedPlatform, setCopiedPlatform] = useState<string | null>(null)
-  const [previewPlatform, setPreviewPlatform] = useState<string>('whatsapp')
+  const [previewPlatform, setPreviewPlatform] = useState<string>('instagram')
 
   const fullUrl = typeof window !== 'undefined'
     ? `${window.location.origin}/propiedades/${property.id}`
@@ -146,15 +146,6 @@ CONECTIA
 ${fullUrl}`
 
   const platforms = [
-    {
-      id: 'whatsapp',
-      name: 'WhatsApp',
-      icon: MessageCircle,
-      color: 'bg-[#25D366] hover:bg-[#1faa52]',
-      textColor: 'text-white',
-      format: whatsappFormat,
-      description: 'Formato optimizado para mensajes y estados',
-    },
     {
       id: 'instagram',
       name: 'Instagram',

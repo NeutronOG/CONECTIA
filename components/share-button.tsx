@@ -124,11 +124,6 @@ export function ShareButton({
     }
   }
 
-  const handleWhatsApp = () => {
-    window.open(`https://wa.me/?text=${encodeURIComponent(shareText())}`, '_blank', 'noopener,noreferrer')
-    recordShare()
-  }
-
   const handleFacebook = () => {
     const params = new URLSearchParams({ u: getFullUrl() })
     window.open(`https://www.facebook.com/sharer/sharer.php?${params.toString()}`, '_blank', 'noopener,noreferrer')
@@ -173,9 +168,6 @@ export function ShareButton({
             <p className="text-white font-semibold">{title}</p>
             {propertyMeta?.precioTexto && <p className="text-[var(--conectia-arcilla)] font-black mt-1">{propertyMeta.precioTexto}</p>}
           </div>
-          <button onClick={handleWhatsApp} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[#25D366] hover:bg-[#20c05b] text-white font-semibold transition-all active:scale-95 text-sm">
-            <Share2 className="h-4 w-4" /> Compartir enlace por WhatsApp
-          </button>
           <button onClick={handleFacebook} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-semibold transition-all active:scale-95 text-sm">
             <Facebook className="h-4 w-4" /> Compartir enlace en Facebook
           </button>

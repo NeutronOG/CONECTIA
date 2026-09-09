@@ -835,36 +835,35 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   ))}
                 </SelectContent>
               </Select>
-              {usaComisionPorcentual(formData) && (
-                <>
-                  <div className="space-y-2 mt-4">
-                    <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
-                    <Select
-                      value={String(formData.comisionAsesorPct || 4)}
-                      onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
-                    >
-                      <SelectTrigger className={selectTriggerClass}>
-                        <SelectValue placeholder="Selecciona el porcentaje" />
-                      </SelectTrigger>
-                      <SelectContent className={selectContentClass}>
-                        {[1, 2, 3, 4, 5, 6].map((pct) => (
-                          <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
-                            {pct}% total — tú recibes {pct / 2}%
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {formData.precio && formData.precio > 0 && (
-                    <div className="mt-2 p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
-                      <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
-                        Tu comisión: {getComisionAsesorTexto(formData)}
-                      </p>
-                    </div>
-                  )}
-                </>
-              )}
             </div>
+
+            {usaComisionPorcentual(formData) && (
+              <div className="space-y-2">
+                <Label className={labelClass}>Tu comisión total (1% - 6%) *</Label>
+                <Select
+                  value={String(formData.comisionAsesorPct || 4)}
+                  onValueChange={(value) => setFormData({ ...formData, comisionAsesorPct: Number(value) })}
+                >
+                  <SelectTrigger className={selectTriggerClass}>
+                    <SelectValue placeholder="Selecciona el porcentaje" />
+                  </SelectTrigger>
+                  <SelectContent className={selectContentClass}>
+                    {[1, 2, 3, 4, 5, 6].map((pct) => (
+                      <SelectItem key={pct} value={String(pct)} className={selectItemClass}>
+                        {pct}% total — tú recibes {pct / 2}%
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {formData.precio && formData.precio > 0 && (
+                  <div className="p-3 rounded-xl bg-[var(--conectia-arcilla)]/10 border border-[var(--conectia-arcilla)]/20 space-y-1">
+                    <p className="text-xs text-[var(--conectia-arcilla)] font-medium">
+                      Tu comisión: {getComisionAsesorTexto(formData)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="space-y-3 md:col-span-2 rounded-xl border border-[var(--conectia-arcilla)]/30 p-4">
               <h3 className={labelClass}>Calendario de apartado y contrato</h3>

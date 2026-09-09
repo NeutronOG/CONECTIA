@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, ShoppingBag, Bathtub, Ruler, Buildings, Gavel } from "@phosphor-icons/react"
+import { ArrowRight, Star, Users, MapPin, House, List, Tag, Key, Percent, Crown, X, TrendUp, Bathtub, Ruler, Buildings, Gavel } from "@phosphor-icons/react"
 import Link from "next/link"
 import Image from "next/image"
 import { FeaturedPropertiesCarousel } from "./featured-properties-carousel"
@@ -346,7 +346,6 @@ export function HomeYellow() {
               <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
                   {[
-                    { href: '/compra',     icon: ShoppingBag, label: t('home.search.buy') },
                     { href: '/venta',      icon: Tag,         label: t('home.search.sell') },
                     { href: '/renta',      icon: Key,         label: t('home.search.rent') },
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },

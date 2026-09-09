@@ -97,7 +97,6 @@ export function Footer() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#17313A] dark:text-[var(--conectia-arcilla)] font-bold mb-5">{t('footer.explore')}</p>
             <ul className="space-y-3">
               {[
-                { label: t('footer.links.buy'), href: '/compra' },
                 { label: t('footer.links.sell'), href: '/venta' },
                 { label: t('footer.links.rent'), href: '/renta' },
                 { label: t('footer.links.ofertas'), href: '/ofertas' },
