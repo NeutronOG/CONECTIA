@@ -394,15 +394,19 @@ export function DynamicHeader() {
                           <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Preventa</span>
                         </button>
                       </Link>
-                      <div aria-disabled="true" className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
-                          <Building className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
-                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Desarrollos</span>
-                          <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      <div aria-disabled="true" className="w-full min-w-0 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
+                        <div className="flex min-w-0 items-center gap-2">
+                          <Building className="h-4 w-4 shrink-0 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="min-w-0 text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Desarrollos</span>
+                        </div>
+                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
                       </div>
-                      <div aria-disabled="true" className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
-                          <Tag className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
-                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Remates Judiciales</span>
-                          <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      <div aria-disabled="true" className="w-full min-w-0 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
+                        <div className="flex min-w-0 items-center gap-2">
+                          <Tag className="h-4 w-4 shrink-0 text-[#17313A] dark:text-[#EAE4DD]" />
+                          <span className="min-w-0 text-xs font-medium leading-tight text-[#1D1F24] dark:text-[#EAE4DD]">Remates Judiciales</span>
+                        </div>
+                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
                       </div>
                     </div>
                   )}
