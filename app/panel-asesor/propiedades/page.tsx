@@ -29,7 +29,9 @@ import {
   BarChart3,
   Share2,
   MousePointerClick,
-  Camera
+  Camera,
+  FileSpreadsheet,
+  Loader2
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { logAudit } from '@/lib/audit-log'
@@ -54,11 +56,28 @@ export default function PropiedadesAsesorPage() {
   const [bajaConfirm, setBajaConfirm] = useState<Propiedad | null>(null)
   const [motivoBaja, setMotivoBaja] = useState('')
   const [analyticsLoaded, setAnalyticsLoaded] = useState(false)
+  const [isExportingExcel, setIsExportingExcel] = useState(false)
+  const canExportAllProperties = user?.email?.toLowerCase() === 'lizzie@conectia.mx'
 
   const handleNavigation = (path: string) => {
     startTransition(() => {
       router.push(path)
     })
+  }
+
+  const handleDownloadExcel = async () => {
+    if (!canExportAllProperties || propiedades.length === 0) return
+    setIsExportingExcel(true)
+    try {
+      const { downloadPropertiesExcel } = await import('@/lib/property-excel')
+      await downloadPropertiesExcel(propiedades)
+      toast.success(`${propiedades.length} propiedades exportadas de la A a la Z`)
+    } catch (error) {
+      console.error('Error exporting properties to Excel:', error)
+      toast.error('No se pudo generar el archivo Excel')
+    } finally {
+      setIsExportingExcel(false)
+    }
   }
 
   const propertyIds = useMemo(() => propiedades.map(p => p.id), [propiedades])
@@ -367,6 +386,17 @@ export default function PropiedadesAsesorPage() {
             <button onClick={() => handleNavigation('/panel-asesor/solicitud-propiedad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
               <Camera className="h-4 w-4 text-[var(--conectia-arcilla)]" /> {t('panelAsesor.propiedades.requestProperty')}
             </button>
+            {canExportAllProperties && (
+              <button
+                type="button"
+                onClick={() => void handleDownloadExcel()}
+                disabled={isExportingExcel || propiedades.length === 0}
+                className="flex items-center gap-2 rounded-xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-2.5 text-sm font-bold text-emerald-100 transition-all hover:border-emerald-300/50 hover:bg-emerald-400/20 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {isExportingExcel ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileSpreadsheet className="h-4 w-4" />}
+                {isExportingExcel ? 'Generando Excel…' : 'Descargar Excel A-Z'}
+              </button>
+            )}
             <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">
               <Plus className="h-4 w-4" /> {t('panelAsesor.propiedades.newProperty')}
             </button>

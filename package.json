@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "generate-properties": "node scripts/generate-properties.js",
+    "export-properties-excel": "node scripts/exportar-propiedades-excel.mjs",
     "prebuild": "npm run generate-properties",
     "build": "next build",
     "dev": "next dev",
@@ -51,6 +52,7 @@
     "cmdk": "1.0.4",
     "date-fns": "^2.29.3",
     "embla-carousel-react": "8.5.1",
+    "exceljs": "4.4.0",
     "framer-motion": "^12.23.24",
     "geist": "latest",
     "html2canvas": "^1.4.1",
