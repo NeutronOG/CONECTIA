@@ -334,6 +334,26 @@ html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"][class*="text
   color: var(--dashboard-text) !important;
 }
 
+.dashboard-shell .property-form button[aria-pressed="true"] {
+  background-color: #17313A !important;
+  border-color: #17313A !important;
+  color: #FFFFFF !important;
+}
+
+.dashboard-shell .property-form button[aria-pressed="true"] :is(span, svg) {
+  color: #FFFFFF !important;
+}
+
+.property-select-item[data-state="checked"] {
+  background-color: #17313A !important;
+  color: #FFFFFF !important;
+}
+
+.property-select-item[data-state="checked"][data-highlighted] {
+  background-color: #294952 !important;
+  color: #FFFFFF !important;
+}
+
 /* Utility classes para branding CONECTIA (paleta cálida) */
 @layer utilities {
   /* Mantiene contraste en los controles que cambian del arcilla al azul. */

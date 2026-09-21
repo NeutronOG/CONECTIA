@@ -4,12 +4,17 @@ import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { useLanguage } from '@/lib/i18n'
 
 type ViewTransitionDocument = Document & {
   startViewTransition?: (update: () => void) => { finished: Promise<void> }
 }
 
 export function ModeToggle() {
+  const { language } = useLanguage()
+  const labels = language === 'en'
+    ? { change: 'Change theme', light: 'Switch to light mode', dark: 'Switch to dark mode', lightActive: 'Light mode active', darkActive: 'Dark mode active' }
+    : { change: 'Cambiar tema', light: 'Cambiar a modo claro', dark: 'Cambiar a modo oscuro', lightActive: 'Modo claro activo', darkActive: 'Modo oscuro activo' }
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -21,10 +26,10 @@ export function ModeToggle() {
     return (
       <button
         className="mode-toggle opacity-0"
-        aria-label="Cambiar tema"
+        aria-label={labels.change}
         disabled
       >
-        <span className="sr-only">Cambiar tema</span>
+        <span className="sr-only">{labels.change}</span>
       </button>
     )
   }
@@ -71,8 +76,8 @@ export function ModeToggle() {
       data-theme-toggle
       onClick={handleThemeChange}
       className="mode-toggle"
-      aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-      title={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+      aria-label={isDark ? labels.light : labels.dark}
+      title={isDark ? labels.light : labels.dark}
       aria-pressed={isDark}
     >
       <span className="mode-toggle-track" aria-hidden="true">
@@ -80,7 +85,7 @@ export function ModeToggle() {
         <Moon className="mode-toggle-moon" />
         <span className="mode-toggle-thumb" />
       </span>
-      <span className="sr-only">{isDark ? 'Modo oscuro activo' : 'Modo claro activo'}</span>
+      <span className="sr-only">{isDark ? labels.darkActive : labels.lightActive}</span>
     </button>
   )
 }

@@ -8,8 +8,11 @@ import { Badge } from "@/components/ui/badge"
 import { MapPin, Bed, Bath, Square, Heart, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useLanguage } from "@/lib/i18n"
+import { translatePropertyTitle } from "@/lib/i18n/property-localization"
 
 export default function FavoritosPage() {
+  const { language } = useLanguage()
   const { wishlist, wishlistCount } = useWishlist()
 
   const handleContact = (property: any) => {
@@ -24,15 +27,17 @@ export default function FavoritosPage() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-[#17313A]/[0.08] dark:bg-white/[0.08] border border-[#17313A]/15 dark:border-white/15 rounded-full text-sm font-medium text-[#17313A] dark:text-[#EAE4DD] mb-6 backdrop-blur-md">
               <Heart className="h-4 w-4 text-[var(--conectia-arcilla)] mr-2 fill-current" />
-              Mis Propiedades Favoritas
+              {language === "en" ? "My favorite properties" : "Mis propiedades favoritas"}
             </div>
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#17313A] dark:text-[#EAE4DD] mb-6 leading-tight">
-              Tus Favoritos
+              {language === "en" ? "Your favorites" : "Tus favoritos"}
             </h1>
             <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto">
-              {wishlistCount > 0 
-                ? `Tienes ${wishlistCount} ${wishlistCount === 1 ? 'propiedad guardada' : 'propiedades guardadas'} en tu lista de favoritos`
-                : 'Aún no tienes propiedades en tu lista de favoritos'
+              {wishlistCount > 0
+                ? language === "en"
+                  ? `You have ${wishlistCount} saved ${wishlistCount === 1 ? 'property' : 'properties'} in your favorites`
+                  : `Tienes ${wishlistCount} ${wishlistCount === 1 ? 'propiedad guardada' : 'propiedades guardadas'} en tu lista de favoritos`
+                : language === "en" ? "You haven't saved any properties yet" : 'Aún no tienes propiedades en tu lista de favoritos'
               }
             </p>
           </div>
@@ -49,14 +54,14 @@ export default function FavoritosPage() {
                 <Heart className="h-12 w-12 text-[#17313A]/40 dark:text-white/40" />
               </div>
               <h3 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white mb-4">
-                No tienes favoritos aún
+                {language === "en" ? "No favorites yet" : "No tienes favoritos aún"}
               </h3>
               <p className="text-[#4A4F57] dark:text-[#B0ACA6] mb-8 max-w-md mx-auto">
-                Explora nuestras propiedades y agrega las que más te gusten a tu lista de favoritos
+                {language === "en" ? "Browse our properties and save the ones you love." : "Explora nuestras propiedades y agrega las que más te gusten a tu lista de favoritos"}
               </p>
               <Link href="/propiedades">
                 <Button className="bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white font-semibold px-8 py-3 rounded-2xl shadow-lg">
-                  Explorar Propiedades
+                  {language === "en" ? "Browse properties" : "Explorar propiedades"}
                 </Button>
               </Link>
             </div>
@@ -69,7 +74,7 @@ export default function FavoritosPage() {
                     <div className="aspect-[4/3] overflow-hidden">
                       <Image
                         src={property.image || "/placeholder.svg"}
-                        alt={property.title}
+                        alt={translatePropertyTitle(property.title, language)}
                         width={400}
                         height={300}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -94,7 +99,7 @@ export default function FavoritosPage() {
 
                   <div className="p-6">
                     <h3 className="font-serif text-xl font-semibold text-[#17313A] dark:text-white mb-2 line-clamp-2">
-                      {property.title}
+                      {translatePropertyTitle(property.title, language)}
                     </h3>
                     
                     <div className="flex items-center text-[#4A4F57] dark:text-[#B0ACA6] mb-4">
@@ -133,14 +138,14 @@ export default function FavoritosPage() {
                         className="flex-1 bg-gradient-to-r from-[var(--conectia-arcilla)] to-[var(--conectia-arcilla-hover)] hover:from-[var(--conectia-arcilla-hover)] hover:to-[var(--conectia-arcilla)] text-white rounded-xl font-medium py-2 transition-all duration-300 hover:scale-105"
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
-                        Contactar
+                        {language === "en" ? "Contact us" : "Contactar"}
                       </Button>
                       <Link href={`/propiedades/${property.id}`} className="flex-1">
                         <Button
                           variant="outline"
                           className="w-full rounded-xl font-medium py-2 border-[#17313A]/15 dark:border-white/15 bg-[#17313A]/[0.04] dark:bg-white/[0.04] text-[#17313A] dark:text-[#EAE4DD] hover:bg-[var(--conectia-arcilla)]/20 hover:border-[var(--conectia-arcilla)]/30 hover:text-[var(--conectia-arcilla)] transition-all duration-300"
                         >
-                          Ver Detalles
+                          {language === "en" ? "View details" : "Ver detalles"}
                         </Button>
                       </Link>
                     </div>

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowUp, Bot, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n"
+import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 export interface AssistantProperty {
   id: number
@@ -30,18 +32,6 @@ type Message = {
   properties?: AssistantProperty[]
 }
 
-const firstMessage: Message = {
-  id: "welcome",
-  role: "assistant",
-  content: "Hola, soy el asistente de CONECTIA. Dime qué buscas y consultaré las propiedades disponibles ahora mismo.",
-}
-
-const suggestions = [
-  "Casa en León con 3 recámaras",
-  "Departamento en renta",
-  "Terreno hasta 5 millones",
-]
-
 function localSearch(properties: AssistantProperty[], query: string) {
   const terms = query.toLocaleLowerCase("es-MX").split(/\s+/).filter(term => term.length > 3)
   return properties
@@ -65,7 +55,43 @@ interface AISearchChatProps {
 }
 
 export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatProps) {
-  const [messages, setMessages] = useState<Message[]>([firstMessage])
+  const { language } = useLanguage()
+  const copy = language === "en" ? {
+    welcome: "Hi, I'm CONECTIA's property assistant. Tell me what you're looking for and I'll search our live inventory.",
+    suggestions: ["Three-bedroom home in León", "Apartment for rent", "Land under MXN $5 million"],
+    found: (count: number) => `Here ${count === 1 ? "is" : "are"} ${count} ${count === 1 ? "property" : "properties"} that match your search.`,
+    unavailable: "I couldn't check the inventory right now. Please try again or contact one of our advisors.",
+    dialog: "CONECTIA property search assistant",
+    title: "Property assistant",
+    close: "Close assistant",
+    live: "Live inventory",
+    direct: "Direct results from CONECTIA",
+    view: "View listing",
+    viewOptions: (count: number) => `View all ${count} options`,
+    loading: "Searching available properties…",
+    placeholder: "e.g. a home in León with a garden",
+    send: "Send search",
+    hint: "Search by area, property type, price, or bedrooms.",
+    advisor: "Talk to an advisor",
+  } : {
+    welcome: "Hola, soy el asistente de CONECTIA. Dime qué buscas y consultaré las propiedades disponibles ahora mismo.",
+    suggestions: ["Casa en León con 3 recámaras", "Departamento en renta", "Terreno hasta 5 millones"],
+    found: (count: number) => `Te muestro ${count} opciones que coinciden con esa búsqueda.`,
+    unavailable: "No pude consultar el inventario en este momento. Puedes intentar nuevamente o contactar a un asesor.",
+    dialog: "Asistente de búsqueda CONECTIA",
+    title: "Asistente de propiedades",
+    close: "Cerrar asistente",
+    live: "Inventario en vivo",
+    direct: "Resultados directos de CONECTIA",
+    view: "Ver ficha",
+    viewOptions: (count: number) => `Ver las ${count} opciones`,
+    loading: "Consultando propiedades disponibles…",
+    placeholder: "Ej. casa en León con jardín",
+    send: "Enviar búsqueda",
+    hint: "Busca por zona, tipo, precio o recámaras.",
+    advisor: "Hablar con un asesor",
+  }
+  const [messages, setMessages] = useState<Message[]>([{ id: "welcome", role: "assistant", content: copy.welcome }])
   const [query, setQuery] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
@@ -93,7 +119,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
       const response = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [{ content: cleanQuery }] }),
+        body: JSON.stringify({ messages: [{ content: cleanQuery }], language }),
       })
       const data = await response.json()
       if (!response.ok) throw new Error(data.error || "Search error")
@@ -110,8 +136,8 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
         id: `assistant-${Date.now()}`,
         role: "assistant",
         content: matches.length
-          ? `Te muestro ${matches.length} opciones que coinciden con esa búsqueda.`
-          : "No pude consultar el inventario en este momento. Puedes intentar nuevamente o contactar a un asesor.",
+          ? copy.found(matches.length)
+          : copy.unavailable,
         properties: matches,
       }])
     } finally {
@@ -122,16 +148,16 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
   if (!isOpen) return null
 
   return (
-    <div onClick={onClose} className="fixed inset-0 z-[100] flex items-end justify-end bg-[#0d2026]/35 p-0 backdrop-blur-[2px] sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label="Asistente de búsqueda CONECTIA">
+    <div onClick={onClose} className="fixed inset-0 z-[100] flex items-end justify-end bg-[#0d2026]/35 p-0 backdrop-blur-[2px] sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label={copy.dialog}>
       <div className="flex h-[min(740px,100dvh)] w-full flex-col overflow-hidden bg-[#fbfaf8] shadow-2xl sm:h-[min(740px,calc(100dvh-3rem))] sm:max-w-[540px] sm:rounded-[28px]" onClick={event => event.stopPropagation()}>
         <header className="flex items-center justify-between border-b border-[#17313a]/10 bg-[#17313A] px-5 py-4 text-[#f5f0ea] sm:px-6">
           <div className="flex min-w-0 items-center">
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#dfb29e]">CONECTIA</p>
-              <h2 className="truncate font-serif text-xl leading-none">Asistente de propiedades</h2>
+              <h2 className="truncate font-serif text-xl leading-none">{copy.title}</h2>
             </div>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full text-white hover:bg-white/10 hover:text-white" aria-label="Cerrar asistente">
+          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full text-white hover:bg-white/10 hover:text-white" aria-label={copy.close}>
             <X className="h-5 w-5" />
           </Button>
         </header>
@@ -139,9 +165,9 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
         <div className="border-b border-[#17313a]/10 bg-white px-5 py-3 sm:px-6">
           <div className="flex items-center gap-2 text-xs text-[#52646a]">
             <span className="h-2 w-2 rounded-full bg-[#7d9b88]" />
-            Inventario en vivo
+            {copy.live}
             <span className="text-[#90a0a4]">·</span>
-            Resultados directos de CONECTIA
+            {copy.direct}
           </div>
         </div>
 
@@ -165,18 +191,18 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
                       <div className="flex gap-3 p-3">
                         <img src={property.imagen || "/placeholder.svg"} alt="" className="h-[76px] w-[88px] rounded-xl object-cover" />
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9a7062]">{property.tipo}</p>
-                          <h3 className="truncate font-serif text-lg leading-tight text-[#17313A]">{property.titulo}</h3>
+                          <p className="truncate text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9a7062]">{translatePropertyValue(property.tipo, language)}</p>
+                          <h3 className="truncate font-serif text-lg leading-tight text-[#17313A]">{translatePropertyTitle(property.titulo, language)}</h3>
                           <p className="mt-1 truncate text-xs text-[#64767b]">{property.ubicacion}</p>
                           <div className="mt-2 flex items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-[#17313A]">{formatPrice(property)}</p>
-                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#80594d] group-hover:underline">Ver ficha <span aria-hidden>→</span></span>
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#80594d] group-hover:underline">{copy.view} <span aria-hidden>→</span></span>
                           </div>
                         </div>
                       </div>
                     </a>
                   ))}
-                  {message.properties.length > 3 && <Link href="/propiedades" className="block pt-1 text-center text-xs font-semibold text-[#80594d] hover:underline">Ver las {message.properties.length} opciones</Link>}
+                  {message.properties.length > 3 && <Link href="/propiedades" className="block pt-1 text-center text-xs font-semibold text-[#80594d] hover:underline">{copy.viewOptions(message.properties.length)}</Link>}
                 </div>
               )}
             </div>
@@ -184,24 +210,24 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
 
           {messages.length === 1 && !isLoading && (
             <div className="flex flex-wrap gap-2 pt-1">
-              {suggestions.map(suggestion => <button key={suggestion} onClick={() => submit(suggestion)} className="rounded-full border border-[#17313a]/15 bg-white px-3 py-2 text-left text-xs text-[#3c545b] transition hover:border-[#9a7062] hover:text-[#80594d]">{suggestion}</button>)}
+              {copy.suggestions.map(suggestion => <button key={suggestion} onClick={() => submit(suggestion)} className="rounded-full border border-[#17313a]/15 bg-white px-3 py-2 text-left text-xs text-[#3c545b] transition hover:border-[#9a7062] hover:text-[#80594d]">{suggestion}</button>)}
             </div>
           )}
 
-          {isLoading && <div className="flex items-center gap-2 text-sm text-[#65777c]"><span className="h-2 w-2 animate-pulse rounded-full bg-[#9a7062]" />Consultando propiedades disponibles…</div>}
+          {isLoading && <div className="flex items-center gap-2 text-sm text-[#65777c]"><span className="h-2 w-2 animate-pulse rounded-full bg-[#9a7062]" />{copy.loading}</div>}
           <div ref={endRef} />
         </main>
 
         <footer className="border-t border-[#17313a]/10 bg-white p-4 sm:p-5">
           <div className="flex items-center gap-2 rounded-2xl border border-[#17313a]/15 bg-[#fbfaf8] p-1.5 focus-within:border-[#80594d] focus-within:ring-2 focus-within:ring-[#80594d]/10">
-            <input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === "Enter") submit() }} disabled={isLoading} placeholder="Ej. casa en León con jardín" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-[#17313A] outline-none placeholder:text-[#8c999c]" />
-            <Button onClick={() => submit()} disabled={!query.trim() || isLoading} size="icon" className="h-9 w-9 shrink-0 rounded-xl bg-[#17313A] text-white hover:bg-[#274c58]" aria-label="Enviar búsqueda">
+            <input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === "Enter") submit() }} disabled={isLoading} placeholder={copy.placeholder} className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-[#17313A] outline-none placeholder:text-[#8c999c]" />
+            <Button onClick={() => submit()} disabled={!query.trim() || isLoading} size="icon" className="h-9 w-9 shrink-0 rounded-xl bg-[#17313A] text-white hover:bg-[#274c58]" aria-label={copy.send}>
               <ArrowUp className="h-4 w-4" />
             </Button>
           </div>
           <div className="mt-3 flex items-center justify-between px-1 text-[11px] text-[#7b898d]">
-            <span>Busca por zona, tipo, precio o recámaras.</span>
-            <Link href="/contacto" className="font-semibold text-[#80594d] hover:underline">Hablar con un asesor</Link>
+            <span>{copy.hint}</span>
+            <Link href="/contacto" className="font-semibold text-[#80594d] hover:underline">{copy.advisor}</Link>
           </div>
         </footer>
       </div>

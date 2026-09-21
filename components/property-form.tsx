@@ -14,13 +14,23 @@ import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto, usaComisionPorcentual } from "@/lib/commission"
 import { validateReservation } from "@/lib/property-reservation"
 import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
+import { useLanguage } from "@/lib/i18n"
+
+const FORM_COPY = {
+  es: {
+    basicTitle: "Información Básica", basicSubtitle: "Datos principales de la propiedad", title: "Título", location: "Ubicación / Dirección", neighborhood: "Colonia / Zona", city: "Ciudad", propertyType: "Tipo de Propiedad", surfaceUnit: "Unidad de Superficie", bedrooms: "Habitaciones", fullBathrooms: "Baños Completos", halfBathrooms: "Medios Baños", landArea: "Área Terreno (m²)", furnished: "Amueblado", constructionArea: "Área Construcción (m²)", frontage: "Frente (m)", depth: "Fondo (m)", garage: "Cochera (Coches)", status: "Estado", publicCategory: "Categoría pública", creditType: "Tipo de Crédito", age: "Antigüedad", lien: "¿Tiene Gravamen?", description: "Descripción", observations: "Observaciones de la Propiedad", selectOption: "Selecciona una opción", notApplicable: "No aplica", furnishedOption: "Amueblado", semiFurnished: "Semiamueblado", unfurnished: "Sin amueblar", selectAge: "Selecciona antigüedad", newProperty: "Nueva (Estrenar)", characteristics: "Características", characteristicsSubtitle: "Agrega las características destacadas", amenities: "Amenidades", amenitiesSubtitle: "Selecciona las amenidades disponibles en la propiedad", addCharacteristic: "Agregar otra característica...", selectedCharacteristics: "característica(s) seleccionada(s)", selectedAmenities: "amenidad(es) seleccionada(s)", mainImage: "Imagen Principal", mainImageSubtitle: "Sube la imagen principal de la propiedad", gallery: "Galería de Imágenes", gallerySubtitle: "Sube hasta 30 imágenes adicionales", change: "Cambiar", remove: "Eliminar", bonus: "Bono o Descuento", cancel: "Cancelar", processing: "Procesando...", update: "Actualizar", publish: "Publicar", property: "Propiedad"
+  },
+  en: {
+    basicTitle: "Basic Information", basicSubtitle: "Main property details", title: "Title", location: "Location / Address", neighborhood: "Neighborhood / Area", city: "City", propertyType: "Property Type", surfaceUnit: "Surface Unit", bedrooms: "Bedrooms", fullBathrooms: "Full Bathrooms", halfBathrooms: "Half Bathrooms", landArea: "Land Area (m²)", furnished: "Furnished", constructionArea: "Construction Area (m²)", frontage: "Frontage (m)", depth: "Depth (m)", garage: "Garage (Cars)", status: "Status", publicCategory: "Public Category", creditType: "Credit Type", age: "Property Age", lien: "Does it have a lien?", description: "Description", observations: "Property Notes", selectOption: "Select an option", notApplicable: "Not applicable", furnishedOption: "Furnished", semiFurnished: "Semi-furnished", unfurnished: "Unfurnished", selectAge: "Select property age", newProperty: "New (Never occupied)", characteristics: "Features", characteristicsSubtitle: "Add the property's standout features", amenities: "Amenities", amenitiesSubtitle: "Select the amenities available at the property", addCharacteristic: "Add another feature...", selectedCharacteristics: "feature(s) selected", selectedAmenities: "amenity/amenities selected", mainImage: "Main Image", mainImageSubtitle: "Upload the property's main image", gallery: "Image Gallery", gallerySubtitle: "Upload up to 30 additional images", change: "Change", remove: "Remove", bonus: "Bonus or Discount", cancel: "Cancel", processing: "Processing...", update: "Update", publish: "Publish", property: "Property"
+  }
+} as const
 
 const labelClass = "text-sm font-semibold text-[#17313A] dark:text-white/90"
 const inputClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57]/60 dark:placeholder:text-white/30 focus-visible:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
 const textareaClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white placeholder:text-[#4A4F57]/60 dark:placeholder:text-white/30 focus-visible:ring-[var(--conectia-arcilla)]/50 rounded-xl"
 const selectTriggerClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white focus:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
 const selectContentClass = "bg-white dark:bg-[#17313A] border-[#17313A]/15 dark:border-white/10 text-[#17313A] dark:text-white"
-const selectItemClass = "text-[#17313A] dark:text-white/90 focus:bg-[#17313A]/10 dark:focus:bg-white/10 focus:text-[#17313A] dark:focus:text-white"
+const selectItemClass = "property-select-item text-[#17313A] dark:text-white/90 focus:bg-[#17313A]/10 dark:focus:bg-white/10 focus:text-[#17313A] dark:focus:text-white"
 
 interface PropertyFormProps {
   initialData?: Propiedad
@@ -32,6 +42,8 @@ interface PropertyFormProps {
 }
 
 export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit, onCancel, submitLabel }: PropertyFormProps) {
+  const { language } = useLanguage()
+  const copy = FORM_COPY[language]
   const [formData, setFormData] = useState<Partial<Propiedad>>(initialData || {
     titulo: "",
     ubicacion: "",
@@ -97,8 +109,6 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const [isDraggingGallery, setIsDraggingGallery] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState("")
-  const isTerreno = formData.tipo?.startsWith('Terreno') ?? false
-
   // Lista de amenidades disponibles (amenidades del desarrollo/condominio)
   const amenidadesDisponibles = [
     "Alberca",
@@ -485,16 +495,16 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="property-form space-y-6">
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Información Básica</h3>
-          <p className="text-xs text-[#B0ACA6]">Datos principales de la propiedad</p>
+          <h3 className="text-lg font-bold text-white">{copy.basicTitle}</h3>
+          <p className="text-xs text-[#B0ACA6]">{copy.basicSubtitle}</p>
         </div>
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="titulo" className={labelClass}>Título *</Label>
+              <Label htmlFor="titulo" className={labelClass}>{copy.title} *</Label>
               <Input
                 id="titulo"
                 required
@@ -506,7 +516,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ubicacion" className={labelClass}>Ubicación / Dirección *</Label>
+              <Label htmlFor="ubicacion" className={labelClass}>{copy.location} *</Label>
               <Input
                 id="ubicacion"
                 required
@@ -518,7 +528,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="colonia" className={labelClass}>Colonia / Zona *</Label>
+              <Label htmlFor="colonia" className={labelClass}>{copy.neighborhood} *</Label>
               <Input
                 id="colonia"
                 value={(formData as any).colonia || ''}
@@ -529,7 +539,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="ciudad" className={labelClass}>Ciudad *</Label>
+              <Label htmlFor="ciudad" className={labelClass}>{copy.city} *</Label>
               <Input
                 id="ciudad"
                 value={(formData as any).ciudad || ''}
@@ -560,7 +570,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tipo" className={labelClass}>Tipo de Propiedad *</Label>
+              <Label htmlFor="tipo" className={labelClass}>{copy.propertyType} *</Label>
               <Select
                 value={formData.tipo}
                 onValueChange={(value) => setFormData({
@@ -620,7 +630,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="unidadSuperficie" className={labelClass}>Unidad de Superficie</Label>
+              <Label htmlFor="unidadSuperficie" className={labelClass}>{copy.surfaceUnit}</Label>
               <Select
                 value={formData.unidadSuperficie || 'm²'}
                 onValueChange={(value) => setFormData({ ...formData, unidadSuperficie: value as 'm²' | 'Hectáreas' })}
@@ -636,12 +646,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>Habitaciones *</Label>
+              <Label className={labelClass}>{copy.bedrooms} *</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
                     key={num}
                     type="button"
+                    aria-pressed={formData.habitaciones === num}
                     onClick={() => setFormData({ ...formData, habitaciones: num })}
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
@@ -658,12 +669,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>Baños Completos *</Label>
+              <Label className={labelClass}>{copy.fullBathrooms} *</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
                     key={num}
                     type="button"
+                    aria-pressed={formData.banos === num}
                     onClick={() => setFormData({ ...formData, banos: num })}
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
@@ -680,12 +692,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>Medios Baños</Label>
+              <Label className={labelClass}>{copy.halfBathrooms}</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3].map((num) => (
                   <button
                     key={num}
                     type="button"
+                    aria-pressed={formData.mediosBanos === num}
                     onClick={() => setFormData({ ...formData, mediosBanos: num })}
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
@@ -702,7 +715,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="area" className={labelClass}>Área Terreno (m²) *</Label>
+              <Label htmlFor="area" className={labelClass}>{copy.landArea} *</Label>
               <Input
                 id="area"
                 type="number"
@@ -719,25 +732,25 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="amueblado" className={labelClass}>Amueblado</Label>
+              <Label htmlFor="amueblado" className={labelClass}>{copy.furnished}</Label>
               <Select
                 value={formData.amueblado || ''}
                 onValueChange={(value) => setFormData({ ...formData, amueblado: value as any })}
               >
                 <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue placeholder="Selecciona una opción" />
+                  <SelectValue placeholder={copy.selectOption} />
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
-                  <SelectItem value="amueblado" className={selectItemClass}>Amueblado</SelectItem>
-                  <SelectItem value="semiamueblado" className={selectItemClass}>Semiamueblado</SelectItem>
-                  <SelectItem value="sin_amueblar" className={selectItemClass}>Sin amueblar</SelectItem>
-                  {isTerreno && <SelectItem value="no_aplica" className={selectItemClass}>NO APLICA</SelectItem>}
+                  <SelectItem value="amueblado" className={selectItemClass}>{copy.furnishedOption}</SelectItem>
+                  <SelectItem value="semiamueblado" className={selectItemClass}>{copy.semiFurnished}</SelectItem>
+                  <SelectItem value="sin_amueblar" className={selectItemClass}>{copy.unfurnished}</SelectItem>
+                  <SelectItem value="no_aplica" className={selectItemClass}>{copy.notApplicable}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="areaConstruccion" className={labelClass}>Área Construcción (m²)</Label>
+              <Label htmlFor="areaConstruccion" className={labelClass}>{copy.constructionArea}</Label>
               <Input
                 id="areaConstruccion"
                 type="number"
@@ -752,7 +765,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label htmlFor="frente" className={labelClass}>Frente (m)</Label>
+                <Label htmlFor="frente" className={labelClass}>{copy.frontage}</Label>
                 <Input
                   id="frente"
                   type="number"
@@ -765,7 +778,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="fondo" className={labelClass}>Fondo (m)</Label>
+                <Label htmlFor="fondo" className={labelClass}>{copy.depth}</Label>
                 <Input
                   id="fondo"
                   type="number"
@@ -780,12 +793,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>Cochera (Coches)</Label>
+              <Label className={labelClass}>{copy.garage}</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
                     key={num}
                     type="button"
+                    aria-pressed={formData.cochera === num}
                     onClick={() => setFormData({ ...formData, cochera: num })}
                     className={`
                       h-10 w-10 rounded-lg border flex items-center justify-center transition-all
@@ -802,7 +816,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="status" className={labelClass}>Estado *</Label>
+              <Label htmlFor="status" className={labelClass}>{copy.status} *</Label>
               <Select
                 value={formData.status}
                 onValueChange={(value) => setFormData({ ...formData, status: value as any })}
@@ -819,7 +833,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="categoria" className={labelClass}>Categoría pública *</Label>
+              <Label htmlFor="categoria" className={labelClass}>{copy.publicCategory} *</Label>
               <Select
                 value={formData.categoria === "compra" ? "venta" : formData.categoria}
                 onValueChange={(value) => setFormData({ ...formData, categoria: value as any })}
@@ -885,7 +899,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="tipoCredito" className={labelClass}>Tipo de Crédito</Label>
+              <Label htmlFor="tipoCredito" className={labelClass}>{copy.creditType}</Label>
               <Select
                 value={(formData as any).tipoCredito || ''}
                 onValueChange={(value) => setFormData({ ...formData, tipoCredito: value } as any)}
@@ -908,34 +922,34 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="antiguedad" className={labelClass}>Antigüedad</Label>
+              <Label htmlFor="antiguedad" className={labelClass}>{copy.age}</Label>
               <Select
                 value={(formData as any).antiguedad || ''}
                 onValueChange={(value) => setFormData({ ...formData, antiguedad: value } as any)}
               >
                 <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue placeholder="Selecciona antigüedad" />
+                  <SelectValue placeholder={copy.selectAge} />
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
-                  <SelectItem value="Nueva" className={selectItemClass}>Nueva (Estrenar)</SelectItem>
+                  <SelectItem value="Nueva" className={selectItemClass}>{copy.newProperty}</SelectItem>
                   <SelectItem value="1-5 años" className={selectItemClass}>1-5 años</SelectItem>
                   <SelectItem value="6-10 años" className={selectItemClass}>6-10 años</SelectItem>
                   <SelectItem value="11-20 años" className={selectItemClass}>11-20 años</SelectItem>
                   <SelectItem value="21-30 años" className={selectItemClass}>21-30 años</SelectItem>
                   <SelectItem value="Más de 30 años" className={selectItemClass}>Más de 30 años</SelectItem>
-                  {isTerreno && <SelectItem value="No aplica" className={selectItemClass}>NO APLICA</SelectItem>}
+                  <SelectItem value="No aplica" className={selectItemClass}>{copy.notApplicable}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="gravamen" className={labelClass}>¿Tiene Gravamen?</Label>
+              <Label htmlFor="gravamen" className={labelClass}>{copy.lien}</Label>
               <Select
                 value={(formData as any).gravamen || ''}
                 onValueChange={(value) => setFormData({ ...formData, gravamen: value } as any)}
               >
                 <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue placeholder="Selecciona una opción" />
+                  <SelectValue placeholder={copy.selectOption} />
                 </SelectTrigger>
                 <SelectContent className={selectContentClass}>
                   <SelectItem value="no" className={selectItemClass}>No tiene gravamen</SelectItem>
@@ -948,7 +962,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="descripcion" className={labelClass}>Descripción *</Label>
+            <Label htmlFor="descripcion" className={labelClass}>{copy.description} *</Label>
             <Textarea
               id="descripcion"
               required
@@ -992,7 +1006,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="observaciones" className={labelClass}>Observaciones de la Propiedad</Label>
+            <Label htmlFor="observaciones" className={labelClass}>{copy.observations}</Label>
             <Textarea
               id="observaciones"
               value={observaciones}
@@ -1007,8 +1021,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Características</h3>
-          <p className="text-xs text-[#B0ACA6]">Agrega las características destacadas</p>
+          <h3 className="text-lg font-bold text-white">{copy.characteristics}</h3>
+          <p className="text-xs text-[#B0ACA6]">{copy.characteristicsSubtitle}</p>
         </div>
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -1016,16 +1030,20 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <button
                 key={car}
                 type="button"
+                aria-pressed={formData.caracteristicas?.includes(car) ?? false}
                 onClick={() => toggleCaracteristica(car)}
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${formData.caracteristicas?.includes(car)
-                    ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
+                    ? 'bg-[#17313A] !text-white border-[#17313A] shadow-lg ring-2 ring-[#C78F7B]/45 dark:bg-[#C78F7B] dark:!text-[#0F2027] dark:border-[#C78F7B]'
                     : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                   }
                 `}
               >
-                {car}
+                <span className="flex items-center justify-between gap-2">
+                  <span>{car}</span>
+                  {formData.caracteristicas?.includes(car) && <Check className="h-4 w-4 shrink-0" aria-hidden="true" />}
+                </span>
               </button>
             ))}
           </div>
@@ -1034,7 +1052,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             <Input
               value={caracteristicaPersonalizada}
               onChange={(e) => setCaracteristicaPersonalizada(e.target.value)}
-              placeholder="Agregar otra característica..."
+              placeholder={copy.addCharacteristic}
               onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCaracteristicaPersonalizada())}
               className={inputClass}
             />
@@ -1046,7 +1064,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           {formData.caracteristicas && formData.caracteristicas.length > 0 && (
             <div className="space-y-2">
               <p className="text-sm text-gray-500">
-                {formData.caracteristicas.length} característica(s) seleccionada(s)
+                {formData.caracteristicas.length} {copy.selectedCharacteristics}
               </p>
               <div className="flex flex-wrap gap-2">
                 {formData.caracteristicas.filter(c => !caracteristicasDisponibles.includes(c)).map((car) => (
@@ -1072,8 +1090,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Amenidades</h3>
-          <p className="text-xs text-[#B0ACA6]">Selecciona las amenidades disponibles en la propiedad</p>
+          <h3 className="text-lg font-bold text-white">{copy.amenities}</h3>
+          <p className="text-xs text-[#B0ACA6]">{copy.amenitiesSubtitle}</p>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -1081,22 +1099,26 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <button
                 key={amenidad}
                 type="button"
+                aria-pressed={amenidadesSeleccionadas.includes(amenidad)}
                 onClick={() => toggleAmenidad(amenidad)}
                 className={`
                   p-3 rounded-lg border text-sm font-medium transition-all text-left
                   ${amenidadesSeleccionadas.includes(amenidad)
-                    ? 'bg-[#17313A] text-white border-[#17313A] shadow-md'
+                    ? 'bg-[#17313A] !text-white border-[#17313A] shadow-lg ring-2 ring-[#C78F7B]/45 dark:bg-[#C78F7B] dark:!text-[#0F2027] dark:border-[#C78F7B]'
                     : 'bg-white text-[#17313A] border-[#17313A]/20 hover:border-[#17313A]/40 hover:bg-[#17313A]/5'
                   }
                 `}
               >
-                {amenidad}
+                <span className="flex items-center justify-between gap-2">
+                  <span>{amenidad}</span>
+                  {amenidadesSeleccionadas.includes(amenidad) && <Check className="h-4 w-4 shrink-0" aria-hidden="true" />}
+                </span>
               </button>
             ))}
           </div>
           {amenidadesSeleccionadas.length > 0 && (
             <p className="text-sm text-gray-500 mt-3">
-              {amenidadesSeleccionadas.length} amenidad(es) seleccionada(s)
+              {amenidadesSeleccionadas.length} {copy.selectedAmenities}
             </p>
           )}
         </div>
@@ -1104,12 +1126,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Imagen Principal</h3>
-          <p className="text-xs text-[#B0ACA6]">Sube la imagen principal de la propiedad</p>
+          <h3 className="text-lg font-bold text-white">{copy.mainImage}</h3>
+          <p className="text-xs text-[#B0ACA6]">{copy.mainImageSubtitle}</p>
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="imagen" className={labelClass}>Imagen Principal *</Label>
+            <Label htmlFor="imagen" className={labelClass}>{copy.mainImage} *</Label>
 
             {!imagePreview ? (
               <div
@@ -1158,7 +1180,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     <Button type="button" size="sm" className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027]" asChild>
                       <span>
                         <Upload className="h-4 w-4 mr-2" />
-                        Cambiar
+                        {copy.change}
                       </span>
                     </Button>
                   </label>
@@ -1169,7 +1191,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                     className="bg-red-500 hover:bg-red-600 text-white"
                   >
                     <X className="h-4 w-4 mr-2" />
-                    Eliminar
+                    {copy.remove}
                   </Button>
                 </div>
               </div>
@@ -1180,12 +1202,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Galería de Imágenes</h3>
-          <p className="text-xs text-[#B0ACA6]">Sube hasta 30 imágenes adicionales</p>
+          <h3 className="text-lg font-bold text-white">{copy.gallery}</h3>
+          <p className="text-xs text-[#B0ACA6]">{copy.gallerySubtitle}</p>
         </div>
         <div className="p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="galeria" className={labelClass}>Imágenes de la Galería</Label>
+            <Label htmlFor="galeria" className={labelClass}>{copy.gallery}</Label>
 
             <div
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 ${
@@ -1254,7 +1276,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       {/* Bono / Descuento */}
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
-          <h3 className="text-lg font-bold text-white">Bono o Descuento</h3>
+          <h3 className="text-lg font-bold text-white">{copy.bonus}</h3>
           <p className="text-xs text-[#B0ACA6]">Opcional — se mostrará como un listón en la esquina de la publicación</p>
         </div>
         <div className="p-6 space-y-4">
@@ -1303,7 +1325,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       <div className="flex gap-4 justify-end">
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel}>
-            Cancelar
+            {copy.cancel}
           </Button>
         )}
         <Button
@@ -1314,10 +1336,10 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
           {isUploading ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              {uploadProgress || 'Procesando...'}
+              {uploadProgress || copy.processing}
             </>
           ) : (
-            <>{submitLabel || `${initialData ? 'Actualizar' : 'Publicar'} Propiedad`}</>
+            <>{submitLabel || `${initialData ? copy.update : copy.publish} ${copy.property}`}</>
           )}
         </Button>
       </div>

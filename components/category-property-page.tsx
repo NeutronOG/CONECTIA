@@ -7,6 +7,8 @@ import { PropertyCard, EmptyProperties } from "@/components/property-card"
 import { SubcategoryFilter } from "@/components/subcategory-filter"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import type { PropertyCategory } from "@/lib/property-categories"
+import { useLanguage } from "@/lib/i18n"
+import { translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface CategoryPropertyPageProps {
   title: string
@@ -18,6 +20,7 @@ interface CategoryPropertyPageProps {
 
 /** Página reutilizable para que cada categoría del menú muestre sus publicaciones. */
 export function CategoryPropertyPage({ title, description, badge, icon: Icon, categories }: CategoryPropertyPageProps) {
+  const { language } = useLanguage()
   const { properties } = usePropertiesStatic()
   const [tipoFilter, setTipoFilter] = useState<string[]>([])
 
@@ -36,12 +39,12 @@ export function CategoryPropertyPage({ title, description, badge, icon: Icon, ca
       <section className="bg-[#17313A] text-white px-5 py-14 sm:px-10 sm:py-20">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-3 text-[var(--conectia-arcilla)] text-xs font-bold uppercase tracking-[0.3em]">
-            <Icon className="h-4 w-4" /> Explorar
+            <Icon className="h-4 w-4" /> {language === 'en' ? 'Explore' : 'Explorar'}
           </div>
           <h1 className="mt-4 text-4xl sm:text-6xl font-black">{title}</h1>
           <p className="mt-4 max-w-2xl text-white/75 text-base sm:text-lg">{description}</p>
           <Badge className="mt-6 bg-[var(--conectia-arcilla)]/20 text-[var(--conectia-arcilla)] border border-[var(--conectia-arcilla)]/30 px-4 py-2">
-            {propiedades.length} {badge.toLowerCase()}
+            {propiedades.length} {translatePropertyValue(badge, language).toLowerCase()}
           </Badge>
         </div>
       </section>
@@ -50,9 +53,9 @@ export function CategoryPropertyPage({ title, description, badge, icon: Icon, ca
         <SubcategoryFilter onChange={setTipoFilter} resultCount={propiedades.length} />
         <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {propiedades.map((property) => (
-            <PropertyCard key={property.id} propiedad={property} badgeLabel={badge} />
+            <PropertyCard key={property.id} propiedad={property} badgeLabel={translatePropertyValue(badge, language)} />
           ))}
-          {propiedades.length === 0 && <EmptyProperties label={`Aún no hay propiedades en ${title.toLowerCase()}.`} />}
+          {propiedades.length === 0 && <EmptyProperties label={language === 'en' ? `There are no properties in ${title.toLowerCase()} yet.` : `Aún no hay propiedades en ${title.toLowerCase()}.`} />}
         </div>
       </section>
     </main>

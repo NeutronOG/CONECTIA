@@ -48,11 +48,11 @@ export function PageHero({
           {/* Eyebrow */}
           <div className="flex items-center gap-3">
             {Icon && (
-              <div className="w-10 h-10 bg-conectia-primary rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+              <div className="w-10 h-10 bg-white/12 border border-white/20 rounded-xl flex items-center justify-center shadow-lg backdrop-blur-md flex-shrink-0">
                 <Icon className="h-5 w-5 text-white" />
               </div>
             )}
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-conectia-primary font-bold">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#F0C2B0] font-bold">
               {eyebrow}
             </span>
           </div>
@@ -63,7 +63,7 @@ export function PageHero({
             {titleAccent && (
               <>
                 <br />
-                <span className="text-conectia-primary">{titleAccent}</span>
+                <span className="text-[#F0C2B0] drop-shadow-[0_2px_18px_rgba(240,194,176,0.25)]">{titleAccent}</span>
               </>
             )}
           </h1>
@@ -77,7 +77,7 @@ export function PageHero({
 
           {/* Badge */}
           {badge && (
-            <Badge className="bg-conectia-primary/90 text-white border-0 px-4 py-2 text-sm font-semibold shadow-lg backdrop-blur-sm">
+            <Badge className="bg-white/12 text-white border border-white/15 px-4 py-2 text-sm font-semibold shadow-lg backdrop-blur-md">
               {badge}
             </Badge>
           )}

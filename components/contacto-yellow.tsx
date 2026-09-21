@@ -10,7 +10,8 @@ import { MapPin, Mail, Clock, Send, Calendar, MessagesSquare } from "lucide-reac
 import { useLanguage } from "@/lib/i18n"
 
 export function ContactoYellow() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
+  const l = (es: string, en: string) => language === 'en' ? en : es
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -43,12 +44,12 @@ export function ContactoYellow() {
           email: formData.email,
           telefono: formData.telefono,
           tipo: formData.tipo,
-          mensaje: `${formData.mensaje}\n\nAviso de Privacidad leído y tratamiento necesario autorizado.`,
+          mensaje: `${formData.mensaje}\n\n${l('Aviso de Privacidad leído y tratamiento necesario autorizado.', 'Privacy Notice read and required processing authorized.')}`,
           fecha: new Date().toISOString(),
         }),
       })
 
-      if (!response.ok) throw new Error('No se pudo enviar la solicitud')
+      if (!response.ok) throw new Error(l('No se pudo enviar la solicitud', 'Unable to send the request'))
       setSubmitStatus('success')
       setFormData({ nombre: '', apellido: '', email: '', telefono: '', tipo: 'consulta_general', mensaje: '' })
       setAcceptedPrivacy(false)
@@ -168,8 +169,8 @@ export function ContactoYellow() {
                       <option value="compra" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.buy')}</option>
                       <option value="consulta_general" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.general')}</option>
                       <option value="servicios" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{t('contact.options.services')}</option>
-                      <option value="derechos_arco" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Privacidad y derechos ARCO</option>
-                      <option value="reporte_fraude" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">Reporte de posible fraude</option>
+                      <option value="derechos_arco" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{l('Privacidad y derechos ARCO', 'Privacy and ARCO rights')}</option>
+                      <option value="reporte_fraude" className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-[#EAE4DD]">{l('Reporte de posible fraude', 'Report suspected fraud')}</option>
                     </select>
                   </div>
 
@@ -197,18 +198,18 @@ export function ContactoYellow() {
                       required
                     />
                     <span>
-                      Confirmo que leí el{' '}
-                      <Link href="/legal/aviso-privacidad-integral" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Aviso de Privacidad Integral</Link>{' '}
-                      y autorizo el tratamiento necesario para atender mi solicitud.
+                      {l('Confirmo que leí el', 'I confirm that I have read the')}{' '}
+                      <Link href="/legal/aviso-privacidad-integral" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">{l('Aviso de Privacidad Integral', 'Comprehensive Privacy Notice')}</Link>{' '}
+                      {l('y autorizo el tratamiento necesario para atender mi solicitud.', 'and authorize the processing required to respond to my request.')}
                     </span>
                   </label>
 
-                  {submitStatus === 'success' && <p className="text-sm font-semibold text-green-600 dark:text-green-400">Tu solicitud fue recibida correctamente.</p>}
-                  {submitStatus === 'error' && <p className="text-sm font-semibold text-red-600 dark:text-red-400">No fue posible enviar la solicitud. Inténtalo nuevamente.</p>}
+                  {submitStatus === 'success' && <p className="text-sm font-semibold text-green-600 dark:text-green-400">{l('Tu solicitud fue recibida correctamente.', 'Your request has been received.')}</p>}
+                  {submitStatus === 'error' && <p className="text-sm font-semibold text-red-600 dark:text-red-400">{l('No fue posible enviar la solicitud. Inténtalo nuevamente.', 'We could not send your request. Please try again.')}</p>}
 
                   <Button type="submit" disabled={isSubmitting || !acceptedPrivacy} className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold py-5 rounded-xl text-base hover:scale-[1.02] transition-all disabled:opacity-50">
                     <Send className="h-5 w-5 mr-2" />
-                    {isSubmitting ? 'Enviando...' : t('contact.labels.submit')}
+                    {isSubmitting ? l('Enviando...', 'Sending...') : t('contact.labels.submit')}
                   </Button>
                 </form>
               </Card>

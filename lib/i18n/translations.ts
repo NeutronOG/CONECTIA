@@ -80,6 +80,8 @@ export const translations = {
       login: "Iniciar sesión",
       register: "Registrarse",
       dashboard: "Panel",
+      adminPanel: "Panel Admin",
+      myCompany: "Mi Empresa",
       logout: "Cerrar sesión",
       menu: {
         investor: "Soy inversionista",
@@ -89,6 +91,9 @@ export const translations = {
         valuations: "Avalúos",
         developments: "Desarrollos",
         brokers: "Brokers",
+        presale: "Preventa",
+        foreclosures: "Remates Judiciales",
+        comingSoon: "Próximamente",
       },
     },
     footer: {
@@ -96,6 +101,9 @@ export const translations = {
       company: "Empresa",
       support: "Soporte",
       legal: "Legal",
+      comingSoon: "Próximamente",
+      legalCenter: "Centro Legal",
+      cookieSettings: "Configurar cookies",
       newsletter: {
         title: "Mantente conectado",
         subtitle: "Recibe las propiedades exclusivas y noticias del mercado inmobiliario.",
@@ -164,6 +172,10 @@ export const translations = {
       featured: {
         title: "Propiedades destacadas",
         subtitle: "Selección exclusiva de las mejores propiedades del mercado",
+        emptyLabel: "Propiedad destacada",
+        emptyTitle: "Sin propiedad destacada",
+        bedroomsShort: "Rec",
+        photoAlt: "Foto {number}",
       },
       special: {
         title: "Propiedades especiales",
@@ -277,6 +289,7 @@ export const translations = {
         private: "Privada",
         protectedInfo: "Información Protegida",
         locationGeneral: "Ubicación general por privacidad del propietario",
+        fullDescriptionHint: "Abre la ficha para consultar la descripción completa.",
       },
     },
     propertyDetail: {
@@ -1047,6 +1060,7 @@ export const translations = {
         sectionEyebrow: "Red Legal Verificada",
         sectionTitle: "Notarías Asociadas",
         sectionDescription: "Trabajamos con notarías de confianza que garantizan seguridad jurídica en todas las transacciones inmobiliarias.",
+        verified: "Verificada",
       },
       desarrollos: {
         title: "Desarrollos inmobiliarios",
@@ -1154,6 +1168,8 @@ export const translations = {
       login: "Log in",
       register: "Sign up",
       dashboard: "Dashboard",
+      adminPanel: "Admin Dashboard",
+      myCompany: "My Company",
       logout: "Log out",
       menu: {
         investor: "I'm an investor",
@@ -1163,6 +1179,9 @@ export const translations = {
         valuations: "Appraisals",
         developments: "Developments",
         brokers: "Brokers",
+        presale: "Presale",
+        foreclosures: "Foreclosures",
+        comingSoon: "Coming soon",
       },
     },
     footer: {
@@ -1170,6 +1189,9 @@ export const translations = {
       company: "Company",
       support: "Support",
       legal: "Legal",
+      comingSoon: "Coming soon",
+      legalCenter: "Legal Center",
+      cookieSettings: "Cookie settings",
       newsletter: {
         title: "Stay connected",
         subtitle: "Receive exclusive properties and real estate market news.",
@@ -1205,7 +1227,7 @@ export const translations = {
       hero: {
         badge: "Your next home awaits",
         title: "Find the",
-        titleHighlight: "perfect",
+        titleHighlight: "perfect property",
         subtitle: "CONECTIA connects people with extraordinary spaces. Buy, rent or sell with the most innovative real estate network.",
         ctaPrimary: "Explore properties",
         ctaSecondary: "Sell my property",
@@ -1238,6 +1260,10 @@ export const translations = {
       featured: {
         title: "Featured properties",
         subtitle: "Exclusive selection of the best properties on the market",
+        emptyLabel: "Featured property",
+        emptyTitle: "No featured property",
+        bedroomsShort: "Beds",
+        photoAlt: "Photo {number}",
       },
       special: {
         title: "Special properties",
@@ -1351,6 +1377,7 @@ export const translations = {
         private: "Private",
         protectedInfo: "Protected Information",
         locationGeneral: "General location for owner privacy",
+        fullDescriptionHint: "Open the property page to read the full English description.",
       },
     },
     propertyDetail: {
@@ -2121,6 +2148,7 @@ export const translations = {
         sectionEyebrow: "Verified Legal Network",
         sectionTitle: "Associated Notaries",
         sectionDescription: "We work with trusted notaries that guarantee legal security in all real estate transactions.",
+        verified: "Verified",
       },
       desarrollos: {
         title: "Real estate developments",

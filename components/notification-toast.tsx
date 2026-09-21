@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "./ui/button"
 import { Card } from "./ui/card"
 import { X, Heart, MessageCircle, CheckCircle } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
 
 interface NotificationToastProps {
   isOpen: boolean
@@ -20,6 +21,7 @@ export function NotificationToast({
   propertyTitle,
   type = "wishlist" 
 }: NotificationToastProps) {
+  const { language } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -74,10 +76,10 @@ export function NotificationToast({
                 </div>
                 <div>
                   <h3 className="font-semibold text-white text-base leading-tight">
-                    ¡Agregado a Favoritos!
+                    {language === "en" ? "Added to favorites" : "¡Agregado a Favoritos!"}
                   </h3>
                   <p className="text-green-100 text-xs mt-0.5">
-                    Propiedad guardada exitosamente
+                    {language === "en" ? "Property saved successfully" : "Propiedad guardada exitosamente"}
                   </p>
                 </div>
               </div>
@@ -96,8 +98,9 @@ export function NotificationToast({
               {propertyTitle}
             </h4>
             <p className="text-gray-500 text-sm leading-relaxed mb-5">
-              La propiedad ha sido agregada a tu lista de favoritos. ¿Te gustaría contactarnos
-              para obtener más información y agendar una cita?
+              {language === "en"
+                ? "This property has been added to your favorites. Would you like to contact us for more information or to schedule a viewing?"
+                : "La propiedad ha sido agregada a tu lista de favoritos. ¿Te gustaría contactarnos para obtener más información y agendar una cita?"}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -106,14 +109,14 @@ export function NotificationToast({
                 className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-all duration-200 hover:scale-[1.02] shadow-md whitespace-nowrap"
               >
                 <MessageCircle className="h-4 w-4 mr-2 shrink-0" />
-                Contactar Asesor
+                {language === "en" ? "Contact an advisor" : "Contactar asesor"}
               </Button>
               <Button
                 variant="outline"
                 onClick={handleClose}
                 className="shrink-0 px-5 font-medium rounded-xl border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors whitespace-nowrap"
               >
-                Ahora no
+                {language === "en" ? "Not now" : "Ahora no"}
               </Button>
             </div>
           </div>

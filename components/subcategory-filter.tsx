@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { ChevronLeft } from "lucide-react"
+import { useLanguage } from "@/lib/i18n"
+import { translatePropertyValue } from "@/lib/i18n/property-localization"
 
 export const SUBCATEGORY_GROUPS = [
   {
@@ -51,11 +53,19 @@ interface SubcategoryFilterProps {
 }
 
 export function SubcategoryFilter({ onChange, variant = "light", resultCount }: SubcategoryFilterProps) {
+  const { language } = useLanguage()
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
   const [selectedSub, setSelectedSub] = useState<string | null>(null)
 
   const isDark = variant === "dark"
   const activeGroup = SUBCATEGORY_GROUPS.find(g => g.label === selectedGroup)
+  const groupLabel = (label: string) => language === "en" ? ({
+    Residencial: "Residential",
+    Terrenos: "Land",
+    Comercial: "Commercial",
+    Industrial: "Industrial",
+    Especial: "Special",
+  }[label] || label) : label
 
   const handleGroupClick = (groupLabel: string) => {
     if (selectedGroup === groupLabel) {
@@ -104,14 +114,14 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
       {/* Header row */}
       <div className="flex items-center justify-between">
         <p className={`text-[10px] uppercase tracking-[0.35em] font-bold ${isDark ? "text-[var(--conectia-arcilla)]" : "text-[#17313A]/50"}`}>
-          Subcategoría
+          {language === "en" ? "Property category" : "Subcategoría"}
         </p>
         {(selectedGroup || selectedSub) && (
           <button
             onClick={handleAllClick}
             className={`text-xs font-medium transition-colors ${isDark ? "text-white/40 hover:text-white/70" : "text-[#B0ACA6] hover:text-[#17313A]"}`}
           >
-            Limpiar filtro
+            {language === "en" ? "Clear filter" : "Limpiar filtro"}
           </button>
         )}
       </div>
@@ -122,7 +132,7 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
           onClick={handleAllClick}
           className={`${groupBase} ${!selectedGroup ? groupActive : groupInactive}`}
         >
-          Todas
+          {language === "en" ? "All" : "Todas"}
         </button>
         {SUBCATEGORY_GROUPS.map(g => (
           <button
@@ -130,7 +140,7 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
             onClick={() => handleGroupClick(g.label)}
             className={`${groupBase} ${selectedGroup === g.label ? groupActive : groupInactive}`}
           >
-            {g.label}
+            {groupLabel(g.label)}
           </button>
         ))}
       </div>
@@ -142,7 +152,7 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
             onClick={handleAllClick}
             className={`${subBase} flex items-center gap-1 ${isDark ? "bg-white/10 text-white/50 hover:text-white border border-white/10" : "border border-[#17313A]/10 text-[#B0ACA6] hover:text-[#17313A]"}`}
           >
-            <ChevronLeft className="h-3 w-3" /> Todo {activeGroup.label}
+            <ChevronLeft className="h-3 w-3" /> {language === "en" ? `All ${groupLabel(activeGroup.label)}` : `Todo ${activeGroup.label}`}
           </button>
           {activeGroup.items.map(sub => (
             <button
@@ -150,7 +160,7 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
               onClick={() => handleSubClick(sub)}
               className={`${subBase} ${selectedSub === sub ? subActive : subInactive}`}
             >
-              {sub}
+              {translatePropertyValue(sub, language)}
             </button>
           ))}
         </div>
@@ -159,8 +169,11 @@ export function SubcategoryFilter({ onChange, variant = "light", resultCount }: 
       {/* Result count */}
       {resultCount !== undefined && (selectedGroup || selectedSub) && (
         <p className={`text-xs ${isDark ? "text-white/40" : "text-[#B0ACA6]"}`}>
-          {resultCount} {resultCount === 1 ? "propiedad" : "propiedades"} encontrada{resultCount === 1 ? "" : "s"}
-          {selectedSub ? ` en "${selectedSub}"` : selectedGroup ? ` en ${selectedGroup}` : ""}
+          {language === "en" ? (
+            <>{resultCount} {resultCount === 1 ? "property" : "properties"} found{selectedSub ? ` in “${translatePropertyValue(selectedSub, language)}”` : selectedGroup ? ` in ${groupLabel(selectedGroup)}` : ""}</>
+          ) : (
+            <>{resultCount} {resultCount === 1 ? "propiedad" : "propiedades"} encontrada{resultCount === 1 ? "" : "s"}{selectedSub ? ` en “${selectedSub}”` : selectedGroup ? ` en ${selectedGroup}` : ""}</>
+          )}
         </p>
       )}
     </div>

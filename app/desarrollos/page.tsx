@@ -1,3 +1,5 @@
+"use client"
+
 import { Building2 } from "lucide-react"
 import { ComingSoonPage } from "@/components/coming-soon-page"
 

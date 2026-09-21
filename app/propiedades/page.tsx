@@ -13,9 +13,10 @@ import { Propiedad } from "@/data/propiedades"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { useAuth } from "@/contexts/auth-context"
 import { useLanguage } from "@/lib/i18n"
+import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 export default function PropiedadesPage() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   // Hook con datos estáticos + realtime - carga instantánea
   const { properties: propiedades, isLoading, refresh, realtimeCount } = usePropertiesStatic()
@@ -147,7 +148,7 @@ export default function PropiedadesPage() {
               <span className="font-serif text-sm font-semibold uppercase tracking-[0.28em] text-[#17313A] dark:text-[#EAE4DD]">{t('common.appName')}</span>
             </div>
             <h1 className="font-titles text-5xl sm:text-6xl md:text-7xl font-black text-[#17313A] dark:text-white leading-[0.95] mb-2">
-              Nuestras propiedades
+              {language === 'en' ? 'Our properties' : 'Nuestras propiedades'}
             </h1>
             <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-base sm:text-lg mb-7 leading-relaxed max-w-md">
               {t('properties.pageSubtitle')}
@@ -264,29 +265,29 @@ export default function PropiedadesPage() {
                     <Link href={`/propiedades/${propiedad.id}`} key={propiedad.id} className="group">
                       <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[28px] shadow-xl hover:shadow-2xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-500 overflow-hidden h-full flex flex-col">
                         <div className="relative h-52 sm:h-60 overflow-hidden">
-                          <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                          <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={translatePropertyTitle(propiedad.titulo, language)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute top-4 left-4">
-                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{translatePropertyValue(propiedad.status, language)}</span>
                           </div>
-                          <div className="absolute top-4 right-4"><WishlistButton property={{ id: propiedad.id.toString(), title: propiedad.titulo, price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
+                          <div className="absolute top-4 right-4"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                           <div className="absolute bottom-4 right-4"><span className="text-xl sm:text-2xl font-black text-white dark:text-white drop-shadow-lg">{propiedad.precioTexto}</span></div>
                         </div>
                         <div className="p-5 sm:p-6 flex-1 flex flex-col">
-                          <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{propiedad.tipo}</span>
-                          <h3 className="text-base sm:text-lg font-serif font-bold text-[#17313A] dark:text-white mb-2 line-clamp-2 uppercase">{propiedad.titulo}</h3>
+                          <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{translatePropertyValue(propiedad.tipo, language)}</span>
+                          <h3 className="text-base sm:text-lg font-serif font-bold text-[#17313A] dark:text-white mb-2 line-clamp-2 uppercase">{translatePropertyTitle(propiedad.titulo, language)}</h3>
                           <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-3.5 w-3.5 mr-1.5 text-[var(--conectia-arcilla)] flex-shrink-0" /><span className="text-xs sm:text-sm line-clamp-1">{propiedad.ubicacion}</span></div>
-                          <p className="text-[#4A4F57]/80 dark:text-[#17313A]/60 dark:text-[#B0ACA6]/80 text-xs sm:text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
+                          <p className="text-[#4A4F57]/80 dark:text-[#17313A]/60 dark:text-[#B0ACA6]/80 text-xs sm:text-sm mb-4 line-clamp-2 flex-1">{language === 'en' ? t('properties.cards.fullDescriptionHint') : propiedad.descripcion}</p>
                           <div className="flex items-center gap-4 mb-4 text-xs text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
                             <div className="flex items-center gap-1"><Bed className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.habitaciones}</span></div>
                             <div className="flex items-center gap-1"><Bath className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.banos}</span></div>
                             <div className="flex items-center gap-1"><Square className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" /><span>{propiedad.areaTexto}</span></div>
                           </div>
                           <div className="flex flex-wrap gap-2 mb-4">
-                            {propiedad.caracteristicas.slice(0, 2).map((c, i) => (<span key={i} className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.10] dark:bg-white/[0.04] text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-medium border border-[#17313A]/[0.08] dark:border-white/[0.08]">{c}</span>))}
+                            {propiedad.caracteristicas.slice(0, 2).map((c, i) => (<span key={i} className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.10] dark:bg-white/[0.04] text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-medium border border-[#17313A]/[0.08] dark:border-white/[0.08]">{translatePropertyValue(c, language)}</span>))}
                             {propiedad.caracteristicas.length > 2 && (<span className="px-2.5 py-1 rounded-lg bg-[var(--conectia-arcilla)]/10 text-[var(--conectia-arcilla)] text-[10px] font-bold border border-[var(--conectia-arcilla)]/20">+{propiedad.caracteristicas.length - 2}</span>)}
                           </div>
                           <div className="flex gap-3 mt-auto">
-                            <Button className="flex-1 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />{t('common.scheduleVisit')}</Button>
+                            <Button className="flex-1 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20" onClick={(e) => { e.preventDefault(); window.location.href = `/contacto?propiedad=${encodeURIComponent(translatePropertyTitle(propiedad.titulo, language))}`; }}><Calendar className="h-3.5 w-3.5 mr-2" />{t('common.scheduleVisit')}</Button>
                             <Button variant="outline" className="px-4 bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-white/15 text-[#17313A] dark:text-white hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[var(--conectia-arcilla)]/30 rounded-xl text-sm">{t('common.viewDetails')}</Button>
                           </div>
                         </div>
@@ -304,9 +305,9 @@ export default function PropiedadesPage() {
                       <div className="relative bg-[#17313A]/[0.10] dark:bg-white/[0.03] backdrop-blur-md border border-[#17313A]/20 dark:border-white/10 rounded-[24px] shadow-lg hover:shadow-xl hover:shadow-[var(--conectia-arcilla)]/5 transition-all duration-300 overflow-hidden">
                         <div className="flex flex-col md:flex-row">
                           <div className="relative md:w-80 h-56 md:h-48 overflow-hidden">
-                            <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <img src={propiedad.imagen || "/placeholder.svg"} onError={(event) => { event.currentTarget.src = '/placeholder.svg' }} alt={translatePropertyTitle(propiedad.titulo, language)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             <div className="absolute top-4 left-4">
-                              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{propiedad.status}</span>
+                              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{translatePropertyValue(propiedad.status, language)}</span>
                             </div>
                           </div>
                           <div className="flex-1 p-5 sm:p-6">
@@ -314,19 +315,19 @@ export default function PropiedadesPage() {
                               <div className="flex items-start justify-between mb-3">
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                                    <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propiedad.tipo}</span>
+                                    <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{translatePropertyValue(propiedad.tipo, language)}</span>
                                     <span className="text-xl sm:text-2xl font-black text-[var(--conectia-arcilla)]">{propiedad.precioTexto}</span>
                                   </div>
-                                  <h3 className="text-lg sm:text-xl font-serif font-bold text-[#17313A] dark:text-white mb-2 uppercase">{propiedad.titulo}</h3>
+                                  <h3 className="text-lg sm:text-xl font-serif font-bold text-[#17313A] dark:text-white mb-2 uppercase">{translatePropertyTitle(propiedad.titulo, language)}</h3>
                                   <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[var(--conectia-arcilla)]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
                                 </div>
-                                <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: propiedad.titulo, price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
+                                <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                               </div>
-                              <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{propiedad.descripcion}</p>
+                              <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{language === 'en' ? t('properties.cards.fullDescriptionHint') : propiedad.descripcion}</p>
                               <div className="flex items-center justify-between mt-auto">
                                 <div className="flex items-center gap-5 text-sm text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6]">
-                                  <div className="flex items-center gap-1"><Bed className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.habitaciones} hab</span></div>
-                                  <div className="flex items-center gap-1"><Bath className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.banos} baños</span></div>
+                                  <div className="flex items-center gap-1"><Bed className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.habitaciones} {language === 'en' ? 'beds' : 'hab'}</span></div>
+                                  <div className="flex items-center gap-1"><Bath className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.banos} {language === 'en' ? 'baths' : 'baños'}</span></div>
                                   <div className="flex items-center gap-1"><Square className="h-4 w-4 text-[var(--conectia-arcilla)]" /><span>{propiedad.areaTexto}</span></div>
                                 </div>
                                 <div className="flex gap-2">

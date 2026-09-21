@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import { Crown, Star, Diamond, ShieldCheck, Landmark } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
-import { PropertyCard, EmptyProperties } from "@/components/property-card"
+import { PropertyCard } from "@/components/property-card"
 import { useLanguage } from "@/lib/i18n"
 
 const HERO_IMAGE = "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80"
@@ -27,7 +27,7 @@ export default function EspecialesPage() {
     <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F1114] transition-colors duration-500 overflow-hidden">
 
       {/* HERO — Cinematic Editorial Split Layout */}
-      <section className="relative min-h-[92dvh] flex items-center pt-24 pb-16 px-4 sm:px-8 lg:px-16 overflow-hidden">
+      <section className="relative min-h-[92dvh] flex items-center pt-24 pb-16 px-4 sm:px-8 lg:px-16 overflow-hidden [--conectia-arcilla:#F0B49F] [--conectia-arcilla-hover:#F7C7B5]">
         {/* Cinematic Backdrop Image */}
         <div className="absolute inset-0 z-0">
           <img

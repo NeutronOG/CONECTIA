@@ -5,6 +5,7 @@ import { Heart } from "lucide-react"
 import { useWishlist } from "./wishlist-provider"
 import { Button } from "./ui/button"
 import { NotificationToast } from "./notification-toast"
+import { useLanguage } from "@/lib/i18n"
 
 interface Property {
   id: string
@@ -30,6 +31,7 @@ export function WishlistButton({
   size = "md",
   showCount = false 
 }: WishlistButtonProps) {
+  const { language } = useLanguage()
   const { addToWishlist, removeFromWishlist, isInWishlist, wishlistCount } = useWishlist()
   const [showNotification, setShowNotification] = useState(false)
   const isLiked = isInWishlist(property.id)
@@ -69,6 +71,9 @@ export function WishlistButton({
         variant="ghost"
         size="sm"
         onClick={handleClick}
+        aria-label={isLiked
+          ? (language === "en" ? "Remove from favorites" : "Quitar de favoritos")
+          : (language === "en" ? "Add to favorites" : "Agregar a favoritos")}
         className={`
           ${sizeClasses[size]} rounded-full p-0
           ${isLiked 

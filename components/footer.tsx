@@ -7,7 +7,7 @@ import { useLanguage } from "@/lib/i18n"
 import { openCookieSettings } from "@/lib/cookie-consent"
 
 export function Footer() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
 
   return (
     <footer className="bg-[#F6F2EE] dark:bg-[#0F2027] text-[#17313A] dark:text-white relative overflow-hidden transition-colors duration-300">
@@ -39,7 +39,7 @@ export function Footer() {
             </Link>
             <Link href="/propiedades">
               <button className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#17313A]/5 dark:bg-white/5 border border-[#17313A]/15 dark:border-white/15 text-[#17313A] dark:text-white font-semibold hover:bg-[#17313A]/10 dark:hover:bg-white/10 hover:border-[#17313A]/30 dark:hover:border-[var(--conectia-arcilla)]/30 transition-all duration-300">
-                {t('common.seeMore')} {t('properties.pageTitle')}
+                {language === 'en' ? 'View more properties' : 'Ver más propiedades'}
               </button>
             </Link>
           </div>
@@ -80,7 +80,7 @@ export function Footer() {
                 <li key={item.label}>
                   {item.comingSoon ? (
                     <span aria-disabled="true" className="flex items-center gap-2 text-sm text-[#4A4F57]/60 dark:text-[#B0ACA6]/60 cursor-not-allowed">
-                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">{t('footer.comingSoon')}</span>
                     </span>
                   ) : (
                     <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
@@ -103,12 +103,12 @@ export function Footer() {
                 { label: t('footer.links.especial'), href: '/especiales' },
                 { label: t('footer.links.preventa'), href: '/preventa' },
                 { label: t('footer.links.developments'), href: '/desarrollos', comingSoon: true },
-                { label: 'Remates Judiciales', href: '/remates', comingSoon: true },
+                { label: t('nav.menu.foreclosures'), href: '/remates', comingSoon: true },
               ].map((item) => (
                 <li key={item.label}>
                   {item.comingSoon ? (
                     <span aria-disabled="true" className="flex items-center gap-2 text-sm text-[#4A4F57]/60 dark:text-[#B0ACA6]/60 cursor-not-allowed">
-                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                      {item.label}<span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">{t('footer.comingSoon')}</span>
                     </span>
                   ) : (
                     <Link href={item.href} className="group text-sm text-[#4A4F57] dark:text-[#B0ACA6] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors duration-300 flex items-center gap-1">
@@ -131,7 +131,7 @@ export function Footer() {
                 </div>
                 <div>
                   <p className="text-[11px] text-[#4A4F57] uppercase tracking-wider">{t('common.location')}</p>
-                  <p className="text-sm text-[#17313A] dark:text-[#EAE4DD]">León, Guanajuato, México</p>
+                  <p className="text-sm text-[#17313A] dark:text-[#EAE4DD]">{language === 'en' ? 'León, Guanajuato, Mexico' : 'León, Guanajuato, México'}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 group">
@@ -161,13 +161,13 @@ export function Footer() {
                 {t('footer.links.terms')}
               </Link>
               <Link href="/legal/politica-cookies" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
-                Cookies
+                {t('footer.links.cookies')}
               </Link>
               <Link href="/legal" className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
-                Centro Legal
+                {t('footer.legalCenter')}
               </Link>
               <button type="button" onClick={openCookieSettings} className="text-sm text-[#4A4F57] hover:text-[#17313A] dark:hover:text-[var(--conectia-arcilla)] transition-colors">
-                Configurar cookies
+                {t('footer.cookieSettings')}
               </button>
             </div>
           </div>

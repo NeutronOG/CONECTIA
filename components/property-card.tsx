@@ -8,6 +8,7 @@ import { ShareButton } from "@/components/share-button"
 import { MapPin, Bed, Bathtub, Square, Calendar, CaretUp, CaretDown } from "@phosphor-icons/react"
 import Link from "next/link"
 import { useLanguage } from "@/lib/i18n"
+import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyCardProps {
   propiedad: {
@@ -39,17 +40,19 @@ const FALLBACK_IMAGES = [
 ]
 
 export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: PropertyCardProps) {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   const fallback = FALLBACK_IMAGES[Number(propiedad.id) % FALLBACK_IMAGES.length]
   const imgSrc = propiedad.imagen || fallback
+  const localizedTitle = translatePropertyTitle(propiedad.titulo, language)
+  const localizedType = translatePropertyValue(propiedad.tipo, language)
 
   const handleAgendar = () => {
     if (onAgendarVisita) {
       onAgendarVisita(propiedad.id)
       return
     }
-    window.location.href = `/contacto?propiedad=${encodeURIComponent(propiedad.titulo)}`
+    window.location.href = `/contacto?propiedad=${encodeURIComponent(localizedTitle)}`
   }
 
   return (
@@ -57,7 +60,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
       {/* Imagen de fondo completa */}
       <img
         src={imgSrc}
-        alt={propiedad.titulo}
+        alt={localizedTitle}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
 
@@ -78,7 +81,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
         <WishlistButton
           property={{
             id: propiedad.id.toString(),
-            title: propiedad.titulo,
+            title: localizedTitle,
             price: propiedad.precioTexto,
             location: propiedad.ubicacion,
             image: imgSrc,
@@ -94,7 +97,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
       {propiedad.bono && (
         <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
           <span className="btn-glass-secondary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-            {propiedad.bono}
+            {translatePropertyTitle(propiedad.bono, language)}
           </span>
         </div>
       )}
@@ -116,14 +119,14 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <Badge className="bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-semibold border border-[var(--conectia-arcilla)]/25 rounded-full px-2 py-0.5">
-                {propiedad.tipo}
+                {localizedType}
               </Badge>
               <span className="text-sm font-bold text-[var(--conectia-arcilla)]" style={{fontFamily: "var(--font-titles)"}}>
                 {propiedad.precioTexto}
               </span>
             </div>
             <h3 className="text-base font-semibold text-[#17313A] dark:text-white leading-snug line-clamp-1" style={{fontFamily: "var(--font-titles)"}}>
-              {propiedad.titulo}
+              {localizedTitle}
             </h3>
           </div>
           <button
@@ -145,7 +148,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
           {/* Descripción */}
           {propiedad.descripcion && (
             <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] mb-4 line-clamp-3 leading-relaxed">
-              {propiedad.descripcion}
+              {language === 'en' ? t('properties.cards.fullDescriptionHint') : propiedad.descripcion}
             </p>
           )}
 
@@ -183,13 +186,13 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
             </Button>
             <div onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
               <ShareButton
-                title={propiedad.titulo}
+                title={localizedTitle}
                 url={`/propiedades/${propiedad.id}`}
                 propertyId={propiedad.id}
                 variant="outline"
                 size="sm"
                 className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"
-                propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: propiedad.tipo, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
+                propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: localizedType, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
               />
             </div>
             <Link href={`/propiedades/${propiedad.id}`} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => e.stopPropagation()}>

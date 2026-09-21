@@ -15,6 +15,7 @@ import { ShareButton } from "@/components/share-button"
 import type { Propiedad } from "@/data/propiedades"
 import { usePropertyStatic } from "@/hooks/use-properties-static"
 import { useLanguage } from "@/lib/i18n"
+import { translatePropertyList, translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyDetailClientProps {
   propertyData: Propiedad | null
@@ -22,10 +23,11 @@ interface PropertyDetailClientProps {
 }
 
 export function PropertyDetailClient({ propertyData: initialData, propertyId }: PropertyDetailClientProps) {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isImageFullscreen, setIsImageFullscreen] = useState(false)
   const [showAllThumbnails, setShowAllThumbnails] = useState(false)
+  const [englishContent, setEnglishContent] = useState<{ title: string; description: string; features: string[] } | null>(null)
   
   const id = parseInt(propertyId, 10)
   const { property: propertyData, isLoading, error: loadError } = usePropertyStatic(id)
@@ -38,6 +40,56 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
       return endTimer
     }
   }, [propertyData])
+
+  useEffect(() => {
+    if (language !== 'en' || !propertyData) {
+      setEnglishContent(null)
+      return
+    }
+
+    const controller = new AbortController()
+    setEnglishContent({
+      title: translatePropertyTitle(propertyData.titulo, language),
+      description: propertyData.descripcion || '',
+      features: translatePropertyList(propertyData.caracteristicas, language),
+    })
+
+    void fetch('/api/translate-property', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        id: propertyData.id,
+        title: propertyData.titulo,
+        description: propertyData.descripcion,
+        features: propertyData.caracteristicas || [],
+      }),
+    })
+      .then(response => response.ok ? response.json() : null)
+      .then(data => {
+        if (data?.title || data?.description || data?.features) {
+          setEnglishContent({
+            title: data.title || translatePropertyTitle(propertyData.titulo, language),
+            description: data.description || propertyData.descripcion || '',
+            features: Array.isArray(data.features) && data.features.length > 0
+              ? data.features
+              : translatePropertyList(propertyData.caracteristicas, language),
+          })
+        }
+      })
+      .catch(error => {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        console.warn('Property translation unavailable:', error)
+      })
+
+    return () => controller.abort()
+  }, [language, propertyData])
+
+  useEffect(() => {
+    if (!propertyData) return
+    const title = englishContent?.title || translatePropertyTitle(propertyData.titulo, language)
+    document.title = `${title} | CONECTIA`
+  }, [englishContent?.title, language, propertyData])
 
   if (isLoading) {
     return (
@@ -69,6 +121,9 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
 
   const visibleThumbnails = showAllThumbnails ? images : images.slice(0, 3)
   const remainingCount = Math.max(0, images.length - 3)
+  const localizedTitle = englishContent?.title || translatePropertyTitle(propertyData.titulo, language)
+  const localizedDescription = englishContent?.description || propertyData.descripcion
+  const localizedFeatures = englishContent?.features || translatePropertyList(propertyData.caracteristicas, language)
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
@@ -94,18 +149,18 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="px-3 py-1 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold uppercase tracking-wider">{propertyData.status}</span>
-                  <span className="px-3 py-1 rounded-full bg-[#F3F4F6] dark:bg-[#17313A]/30 text-[#6B7280] dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{propertyData.tipo}</span>
+                  <span className="px-3 py-1 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold uppercase tracking-wider">{translatePropertyValue(propertyData.status, language)}</span>
+                  <span className="px-3 py-1 rounded-full bg-[#F3F4F6] dark:bg-[#17313A]/30 text-[#6B7280] dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{translatePropertyValue(propertyData.tipo, language)}</span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">{propertyData.titulo}</h1>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">{localizedTitle}</h1>
                 <div className="flex items-center gap-1.5 mt-3 text-[#6B7280] dark:text-[#B0ACA6]">
                   <MapPin className="h-4 w-4 text-[var(--conectia-arcilla)]" />
                   <span className="text-sm">{propertyData.ubicacion}</span>
                 </div>
               </div>
               <div className="flex gap-2">
-                <ShareButton title={propertyData.titulo} description={propertyData.descripcion} url={`/propiedades/${propertyData.id}`} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: propertyData.precioTexto, tipo: propertyData.tipo, ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
-                <WishlistButton property={{ id: String(propertyData.id), title: propertyData.titulo, price: propertyData.precioTexto, location: propertyData.ubicacion, image: propertyData.imagen, bedrooms: propertyData.habitaciones, bathrooms: propertyData.banos, area: propertyData.areaTexto }} />
+                <ShareButton title={localizedTitle} description={localizedDescription} url={`/propiedades/${propertyData.id}`} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: propertyData.precioTexto, tipo: translatePropertyValue(propertyData.tipo, language), ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
+                <WishlistButton property={{ id: String(propertyData.id), title: localizedTitle, price: propertyData.precioTexto, location: propertyData.ubicacion, image: propertyData.imagen, bedrooms: propertyData.habitaciones, bathrooms: propertyData.banos, area: propertyData.areaTexto }} />
               </div>
             </div>
 
@@ -122,7 +177,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
             >
               <img
                 src={images[currentImageIndex]}
-                alt={propertyData.titulo}
+                alt={localizedTitle}
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
 
@@ -173,7 +228,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       i === currentImageIndex ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                     }`}
                   >
-                    <img src={src} alt={`${propertyData.titulo} ${i + 1}`} className="w-full h-full object-cover" />
+                    <img src={src} alt={`${localizedTitle} ${i + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
                 {!showAllThumbnails && remainingCount > 0 && (
@@ -181,7 +236,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     onClick={() => setShowAllThumbnails(true)}
                     className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-[var(--conectia-arcilla)] hover:border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)] text-white flex flex-col items-center justify-center text-xs font-bold leading-tight"
                   >
-                    <span>Ver</span>
+                    <span>{t('common.seeMore')}</span>
                     <span>+{remainingCount}</span>
                   </button>
                 )}
@@ -209,7 +264,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               {/* Descripción */}
               <div className="rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 p-6 sm:p-8">
                 <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-4">{t('propertyDetail.about')}</h3>
-                <p className="text-[#6B7280] dark:text-[#B0ACA6] leading-relaxed whitespace-pre-line">{propertyData.descripcion || t('propertyDetail.noDescription')}</p>
+                <p className="text-[#6B7280] dark:text-[#B0ACA6] leading-relaxed whitespace-pre-line">{localizedDescription || t('propertyDetail.noDescription')}</p>
                 {propertyData.tourVirtual && (
                   <div className="pt-6 mt-6 border-t border-[#E5E7EB] dark:border-[#EAE4DD]/10">
                     <Button className="w-full bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-deep)] text-white font-bold rounded-xl py-5" asChild>
@@ -220,12 +275,13 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               </div>
 
               {/* Amenidades */}
-              {propertyData.caracteristicas && propertyData.caracteristicas.length > 0 && (
+              {localizedFeatures.length > 0 && (
                 <div className="rounded-3xl border border-[#E5E7EB] dark:border-[#EAE4DD]/10 bg-white dark:bg-[#17313A]/10 p-6 sm:p-8">
                   <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-4">{t('propertyDetail.amenities')}</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {propertyData.caracteristicas.map((car, i) => {
-                      const Icon = amenityIcons[car] || Shield
+                    {localizedFeatures.map((car, i) => {
+                      const originalFeature = propertyData.caracteristicas?.[i] || car
+                      const Icon = (amenityIcons[originalFeature] || Shield) as React.ComponentType<{ className?: string }>
                       return (
                         <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10">
                           <div className="w-9 h-9 rounded-lg bg-[var(--conectia-arcilla)]/10 flex items-center justify-center">
@@ -244,12 +300,12 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <h3 className="text-lg font-bold text-[#17313A] dark:text-[#EAE4DD] mb-4">{t('propertyDetail.details')}</h3>
                 <div className="space-y-3">
                   {[
-                    { label: t('propertyDetail.propertyType'), value: propertyData.detalles?.tipoPropiedad || propertyData.tipo },
+                    { label: t('propertyDetail.propertyType'), value: translatePropertyValue(propertyData.detalles?.tipoPropiedad || propertyData.tipo, language) },
                     { label: t('propertyDetail.totalArea'), value: propertyData.areaTexto },
                     ...(propertyData.detalles?.areaTerreno ? [{ label: t('propertyDetail.landArea'), value: propertyData.detalles.areaTerreno }] : []),
-                    ...(propertyData.detalles?.antiguedad ? [{ label: t('propertyDetail.age'), value: propertyData.detalles.antiguedad }] : []),
-                    { label: t('propertyDetail.status'), value: propertyData.status },
-                    { label: t('propertyDetail.category'), value: propertyData.categoria },
+                    ...(propertyData.detalles?.antiguedad ? [{ label: t('propertyDetail.age'), value: translatePropertyValue(propertyData.detalles.antiguedad, language) }] : []),
+                    { label: t('propertyDetail.status'), value: translatePropertyValue(propertyData.status, language) },
+                    { label: t('propertyDetail.category'), value: translatePropertyValue(propertyData.categoria.charAt(0).toUpperCase() + propertyData.categoria.slice(1), language) },
                     ...(propertyData.detalles?.publicado ? [{ label: t('propertyDetail.publishedDate'), value: propertyData.detalles.publicado }] : []),
                   ].map((item, i) => (
                     <div key={i} className="flex justify-between items-center py-3 border-b border-[#E5E7EB] dark:border-[#EAE4DD]/10 last:border-0">
@@ -330,7 +386,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <div className="h-px bg-[#E5E7EB] dark:bg-[#EAE4DD]/10" />
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-[#6B7280] dark:text-[#B0ACA6]">{t('propertyDetail.status')}</span>
-                  <span className="px-2 py-0.5 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold">{propertyData.status}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-[var(--conectia-arcilla)]/15 text-[var(--conectia-arcilla)] text-[10px] font-bold">{translatePropertyValue(propertyData.status, language)}</span>
                 </div>
               </div>
             </div>
@@ -348,7 +404,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
           </button>
           <img
             src={images[currentImageIndex]}
-            alt={propertyData.titulo}
+            alt={localizedTitle}
             className="max-w-[95%] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
           />
           {images.length > 1 && (

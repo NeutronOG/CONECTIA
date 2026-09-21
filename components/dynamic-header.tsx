@@ -221,7 +221,7 @@ export function DynamicHeader() {
                     {user.role === 'admin' ? (
                       <>
                         <Shield className="h-2.5 w-2.5" />
-                        <span>Admin</span>
+                        <span>{t('nav.adminPanel')}</span>
                       </>
                     ) : user.role === 'propietario' ? (
                       <>
@@ -236,7 +236,7 @@ export function DynamicHeader() {
                     ) : user.role === 'empresa' ? (
                       <>
                         <Briefcase className="h-2.5 w-2.5" />
-                        <span>Mi Empresa</span>
+                        <span>{t('nav.myCompany')}</span>
                       </>
                     ) : (
                       <>
@@ -253,7 +253,7 @@ export function DynamicHeader() {
                     className="rounded-xl px-2 py-0.5 font-medium text-xs h-5 ml-0.5 transition-all duration-300 hover:scale-105 whitespace-nowrap flex items-center gap-1 border border-[#17313A]/15 bg-white text-[#17313A] hover:bg-[#F6F2EE] hover:text-[var(--conectia-arcilla-hover)] shadow-sm dark:bg-[#17313A] dark:border-[#EAE4DD]/20 dark:text-[#EAE4DD] dark:hover:bg-[#0F2027]"
                   >
                     <UserCircle className="h-2.5 w-2.5" />
-                    <span>Acceso</span>
+                    <span>{t('nav.access')}</span>
                   </Button>
                 </Link>
               )}
@@ -305,6 +305,15 @@ export function DynamicHeader() {
                   </Link>
                   <div className="flex items-center gap-2">
                     <ModeToggle />
+                    <button
+                      type="button"
+                      onClick={toggleLanguage}
+                      className="flex h-8 items-center justify-center rounded-full border border-[#17313A]/15 bg-white/70 px-3 text-[10px] font-black tracking-widest text-[#17313A] shadow-sm transition-all hover:bg-white dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+                      aria-label={t('common.language')}
+                      title={t('common.language')}
+                    >
+                      {langLabel}
+                    </button>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -391,22 +400,22 @@ export function DynamicHeader() {
                       <Link href="/preventa" onClick={() => setIsMobileMenuOpen(false)}>
                         <button className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl glass-pill hover:opacity-80 transition-all">
                           <Building className="h-4 w-4 text-[#17313A] dark:text-[#EAE4DD]" />
-                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Preventa</span>
+                          <span className="text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('nav.menu.presale')}</span>
                         </button>
                       </Link>
                       <div aria-disabled="true" className="w-full min-w-0 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
                         <div className="flex min-w-0 items-center gap-2">
                           <Building className="h-4 w-4 shrink-0 text-[#17313A] dark:text-[#EAE4DD]" />
-                          <span className="min-w-0 text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">Desarrollos</span>
+                          <span className="min-w-0 text-xs font-medium text-[#1D1F24] dark:text-[#EAE4DD]">{t('nav.menu.developments')}</span>
                         </div>
-                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">{t('nav.menu.comingSoon')}</span>
                       </div>
                       <div aria-disabled="true" className="w-full min-w-0 px-3 py-2.5 rounded-xl glass-pill opacity-60 cursor-not-allowed">
                         <div className="flex min-w-0 items-center gap-2">
                           <Tag className="h-4 w-4 shrink-0 text-[#17313A] dark:text-[#EAE4DD]" />
-                          <span className="min-w-0 text-xs font-medium leading-tight text-[#1D1F24] dark:text-[#EAE4DD]">Remates Judiciales</span>
+                          <span className="min-w-0 text-xs font-medium leading-tight text-[#1D1F24] dark:text-[#EAE4DD]">{t('nav.menu.foreclosures')}</span>
                         </div>
-                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                        <span className="mt-1 block text-right text-[9px] font-bold uppercase leading-none tracking-wide text-[var(--conectia-arcilla)]">{t('nav.menu.comingSoon')}</span>
                       </div>
                     </div>
                   )}
@@ -558,14 +567,14 @@ export function DynamicHeader() {
                 </button>
               </Link>
               <Link href="/especiales" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Crown className="h-4 w-4 text-[#17313A]" />
+                <button className={`w-full px-4 py-2.5 text-left text-sm transition-colors flex items-center gap-2 ${isActive('/especiales') ? 'bg-[#17313A] !text-white font-bold dark:bg-[var(--conectia-arcilla)] dark:!text-[#0F2027]' : 'text-[#1D1F24] hover:bg-[#17313A]/08'}`}>
+                  <Crown className={`h-4 w-4 ${isActive('/especiales') ? 'text-white dark:text-[#0F2027]' : 'text-[#17313A]'}`} />
                   <span>{t('home.search.especial')}</span>
                 </button>
               </Link>
               <Link href="/ofertas" onClick={() => setIsOtrosMenuOpen(false)}>
-                <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
-                  <Percent className="h-4 w-4 text-[#17313A]" />
+                <button className={`w-full px-4 py-2.5 text-left text-sm transition-colors flex items-center gap-2 ${isActive('/ofertas') ? 'bg-[#17313A] !text-white font-bold dark:bg-[var(--conectia-arcilla)] dark:!text-[#0F2027]' : 'text-[#1D1F24] hover:bg-[#17313A]/08'}`}>
+                  <Percent className={`h-4 w-4 ${isActive('/ofertas') ? 'text-white dark:text-[#0F2027]' : 'text-[#17313A]'}`} />
                   <span>{t('home.search.ofertas')}</span>
                 </button>
               </Link>
@@ -573,23 +582,23 @@ export function DynamicHeader() {
               <div aria-disabled="true" className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] opacity-60 cursor-not-allowed flex items-center gap-2">
                   <Building className="h-4 w-4 text-[#17313A]" />
                   <span>{t('nav.menu.developments')}</span>
-                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">{t('nav.menu.comingSoon')}</span>
               </div>
               <Link href="/preventa" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Building className="h-4 w-4 text-[#17313A]" />
-                  <span>Preventa</span>
+                  <span>{t('nav.menu.presale')}</span>
                 </button>
               </Link>
               <div aria-disabled="true" className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] opacity-60 cursor-not-allowed flex items-center gap-2">
                   <Tag className="h-4 w-4 text-[#17313A]" />
-                  <span>Remates Judiciales</span>
-                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                  <span>{t('nav.menu.foreclosures')}</span>
+                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">{t('nav.menu.comingSoon')}</span>
               </div>
               <Link href="/brokers" onClick={() => setIsOtrosMenuOpen(false)}>
                 <button className="w-full px-4 py-2.5 text-left text-sm text-[#1D1F24] hover:bg-[#17313A]/08 transition-colors flex items-center gap-2">
                   <Users className="h-4 w-4 text-[#17313A]" />
-                  <span>{t('nav.menu.broker')}</span>
+                  <span>{t('nav.menu.brokers')}</span>
                 </button>
               </Link>
             </div>

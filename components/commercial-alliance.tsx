@@ -9,8 +9,34 @@ import { Badge } from "@/components/ui/badge"
 import { Check, Buildings, Lightning, CircleNotch, Users, Diamond } from "@phosphor-icons/react"
 import Link from "next/link"
 import { toast } from "sonner"
+import { useLanguage } from "@/lib/i18n"
+
+const ALLIANCE_EN: Record<string, string> = {
+    'Alianza Comercial': 'Commercial Partnership', 'Impulsa tu carrera': 'Advance your', 'inmobiliaria': 'real estate career',
+    'Únete a la red de asesores más exclusiva. Elige el plan que mejor se adapte a tu portafolio.': 'Join the most exclusive advisor network. Choose the plan that best fits your portfolio.',
+    'Individual': 'Individual', 'Equipo': 'Team', 'Para 2 o más miembros · Precio por miembro/mes': 'For 2 or more members · Price per member/month',
+    'Plan Cimientos': 'Foundation Plan', 'Plan Torre': 'Tower Plan', 'Plan Conjunto': 'Team Plan', 'Plan Ciudad': 'City Plan',
+    '/mes': '/month', '/mes por miembro': '/month per member', 'Hasta 6 propiedades': 'Up to 6 properties', 'Hasta 40 propiedades': 'Up to 40 properties',
+    'Hasta 6 propiedades por miembro': 'Up to 6 properties per member', 'Hasta 40 propiedades por miembro': 'Up to 40 properties per member',
+    'Comienza a construir tu carrera como asesor inmobiliario.': 'Start building your career as a real estate advisor.',
+    'Eleva tu portafolio y llega más alto en el mercado.': 'Elevate your portfolio and go further in the market.',
+    'Construye en equipo. Unidos crean más oportunidades.': 'Build as a team. Together you create more opportunities.',
+    'Un equipo que domina el territorio y escala sin límites.': 'A team that masters its market and scales without limits.',
+    'Básico': 'Basic', 'Más Popular': 'Most Popular', 'Mínimo 2 miembros': 'Minimum 2 members',
+    'Hasta 6 propiedades activas': 'Up to 6 active properties', 'Hasta 40 propiedades activas': 'Up to 40 active properties',
+    'Hasta 6 propiedades activas por miembro': 'Up to 6 active properties per member', 'Hasta 40 propiedades activas por miembro': 'Up to 40 active properties per member',
+    'Panel de gestión básico': 'Basic management dashboard', 'Panel de gestión avanzado': 'Advanced management dashboard',
+    'Estadísticas de propiedades': 'Property statistics', 'Estadísticas detalladas y reportes': 'Detailed statistics and reports',
+    'Gestión de leads': 'Lead management', 'Gestión avanzada de leads': 'Advanced lead management', 'Soporte por email': 'Email support',
+    'Acceso a la plataforma web': 'Web platform access', 'Asistente con Inteligencia Artificial': 'Artificial Intelligence assistant',
+    'Prioridad en soporte': 'Priority support', 'Acceso a herramientas exclusivas': 'Access to exclusive tools',
+    'Marketing automatizado': 'Automated marketing', 'Análisis predictivo de mercado': 'Predictive market analysis',
+    'Seleccionar Plan': 'Select Plan', 'Procesando...': 'Processing...'
+}
 
 export function CommercialAlliance() {
+    const { language } = useLanguage()
+    const tr = (text: string) => language === 'en' ? (ALLIANCE_EN[text] || text) : text
     const router = useRouter()
     const { user, isAuthenticated } = useAuth()
     const [loading, setLoading] = useState(false)
@@ -202,14 +228,14 @@ export function CommercialAlliance() {
                     {/* Header */}
                     <div className="text-center mb-12 space-y-6">
                         <Badge variant="outline" className="px-4 py-1.5 text-sm border-[#17313A]/40 text-[#17313A] dark:border-[var(--conectia-arcilla)]/40 dark:text-[var(--conectia-arcilla)] bg-[#17313A]/10 dark:bg-[var(--conectia-arcilla)]/10 backdrop-blur-sm">
-                            Alianza Comercial
+                            {tr('Alianza Comercial')}
                         </Badge>
                         <h1 className="font-serif text-4xl md:text-6xl font-black text-[#17313A] dark:text-[var(--conectia-arcilla)] tracking-tight leading-tight">
-                            Impulsa tu carrera <br />
-                            <span className="text-[var(--conectia-arcilla)] italic">inmobiliaria</span>
+                            {tr('Impulsa tu carrera')} <br />
+                            <span className="text-[var(--conectia-arcilla)] italic">{tr('inmobiliaria')}</span>
                         </h1>
                         <p className="text-xl text-[#4A4F57] dark:text-[#B0ACA6] max-w-2xl mx-auto font-light">
-                            Únete a la red de asesores más exclusiva. Elige el plan que mejor se adapte a tu portafolio.
+                            {tr('Únete a la red de asesores más exclusiva. Elige el plan que mejor se adapte a tu portafolio.')}
                         </p>
                     </div>
 
@@ -233,7 +259,7 @@ export function CommercialAlliance() {
                                 }`}
                             >
                                 <Buildings className="h-4 w-4" weight={!isTeam ? "fill" : "duotone"} />
-                                Individual
+                                {tr('Individual')}
                             </button>
                             <button
                                 onClick={() => setIsTeam(true)}
@@ -244,7 +270,7 @@ export function CommercialAlliance() {
                                 }`}
                             >
                                 <Users className="h-4 w-4" weight={isTeam ? "fill" : "duotone"} />
-                                Equipo
+                                {tr('Equipo')}
                                 <span className={`ml-1 text-xs px-1.5 py-0.5 rounded-full font-bold transition-colors duration-300 ${
                                     isTeam
                                         ? 'bg-white/20 text-white dark:bg-[#17313A]/15 dark:text-[#17313A]'
@@ -259,7 +285,7 @@ export function CommercialAlliance() {
                     {/* Subtitle for team */}
                     {isTeam && (
                         <p className="text-center text-[#4A4F57] dark:text-[#B0ACA6] text-sm mb-8 -mt-6">
-                            Para 2 o más miembros · Precio por miembro/mes
+                            {tr('Para 2 o más miembros · Precio por miembro/mes')}
                         </p>
                     )}
 
@@ -275,7 +301,7 @@ export function CommercialAlliance() {
                                     {plan.highlight && (
                                         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                                             <Badge className="bg-[#17313A] text-white dark:bg-[var(--conectia-arcilla)] dark:text-white px-4 py-1 font-bold shadow-lg">
-                                                {plan.badge}
+                                                {tr(plan.badge)}
                                             </Badge>
                                         </div>
                                     )}
@@ -286,27 +312,27 @@ export function CommercialAlliance() {
                                             </div>
                                             {!plan.highlight && (
                                                 <Badge variant="secondary" className={`font-medium ${plan.badgeClass}`}>
-                                                    {plan.badge}
+                                                    {tr(plan.badge)}
                                                 </Badge>
                                             )}
                                         </div>
-                                        <CardTitle className={`text-2xl font-bold ${plan.titleColor}`}>{plan.name}</CardTitle>
-                                        <CardDescription className={`mt-2 ${plan.descColor}`}>{plan.description}</CardDescription>
+                                        <CardTitle className={`text-2xl font-bold ${plan.titleColor}`}>{tr(plan.name)}</CardTitle>
+                                        <CardDescription className={`mt-2 ${plan.descColor}`}>{tr(plan.description)}</CardDescription>
                                     </CardHeader>
                                     <CardContent className="flex-grow">
                                         <div className="mb-6">
                                             <span className={`text-4xl font-black ${plan.priceColor}`}>{plan.price}</span>
-                                            <span className={`ml-2 font-medium text-sm ${plan.periodColor}`}>{plan.period}</span>
-                                            <div className={`mt-2 text-sm ${plan.propColor}`}>{plan.properties}</div>
+                                            <span className={`ml-2 font-medium text-sm ${plan.periodColor}`}>{tr(plan.period)}</span>
+                                            <div className={`mt-2 text-sm ${plan.propColor}`}>{tr(plan.properties)}</div>
                                             {isTeam && (
-                                                <p className={`text-xs mt-1 opacity-60 ${plan.titleColor}`}>Mínimo 2 miembros</p>
+                                                <p className={`text-xs mt-1 opacity-60 ${plan.titleColor}`}>{tr('Mínimo 2 miembros')}</p>
                                             )}
                                         </div>
                                         <ul className="space-y-3">
                                             {plan.features.map((feature, i) => (
                                                 <li key={i} className="flex items-start">
                                                     <Check className={`h-5 w-5 mr-3 flex-shrink-0 ${plan.checkColor}`} />
-                                                    <span className={`text-sm ${plan.featureColor}`}>{feature}</span>
+                                                    <span className={`text-sm ${plan.featureColor}`}>{tr(feature)}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -318,9 +344,9 @@ export function CommercialAlliance() {
                                             className={`w-full py-7 text-lg font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] ${plan.btnClass}`}
                                         >
                                             {loading && selectedPlanId === plan.id ? (
-                                                <><CircleNotch className="h-5 w-5 mr-2 animate-spin" weight="bold" />Procesando...</>
+                                                <><CircleNotch className="h-5 w-5 mr-2 animate-spin" weight="bold" />{tr('Procesando...')}</>
                                             ) : (
-                                                'Seleccionar Plan'
+                                                tr('Seleccionar Plan')
                                             )}
                                         </Button>
                                     </CardFooter>

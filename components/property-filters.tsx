@@ -5,6 +5,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 import { MagnifyingGlass, MapPin, House, Bed, Bathtub, ArrowsOut, CurrencyDollar, Faders, X } from "@phosphor-icons/react"
+import { useLanguage } from "@/lib/i18n"
+import { translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyFiltersProps {
   onFiltersChange: (filters: any) => void
@@ -13,6 +15,48 @@ interface PropertyFiltersProps {
 }
 
 export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyFiltersProps) {
+  const { language } = useLanguage()
+  const copy = language === "en" ? {
+    advanced: "Advanced filters",
+    active: "Active",
+    searchFilters: "Search filters",
+    clear: "Clear",
+    search: "Search",
+    searchPlaceholder: "Name, location, features...",
+    location: "Location",
+    selectLocation: "Select a location",
+    type: "Type",
+    propertyType: "Property type",
+    surfaceUnit: "Area unit",
+    all: "All",
+    price: "Price",
+    bedrooms: "Bedrooms",
+    bathrooms: "Bathrooms",
+    any: "Any",
+    area: "Area",
+    status: "Status",
+    amenities: "Amenities",
+  } : {
+    advanced: "Filtros avanzados",
+    active: "Activos",
+    searchFilters: "Filtros de búsqueda",
+    clear: "Limpiar",
+    search: "Búsqueda general",
+    searchPlaceholder: "Nombre, ubicación, características...",
+    location: "Ubicación",
+    selectLocation: "Selecciona ubicación",
+    type: "Tipo",
+    propertyType: "Tipo de propiedad",
+    surfaceUnit: "Unidad de superficie",
+    all: "Todas",
+    price: "Precio",
+    bedrooms: "Recámaras",
+    bathrooms: "Baños",
+    any: "Cualq.",
+    area: "Área",
+    status: "Estado",
+    amenities: "Amenidades",
+  }
   const [filters, setFilters] = useState({
     search: "",
     location: "",
@@ -140,7 +184,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
   }
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-MX', {
+    return new Intl.NumberFormat(language === 'en' ? 'en-US' : 'es-MX', {
       style: 'currency',
       currency: 'MXN',
       minimumFractionDigits: 0,
@@ -159,10 +203,10 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
         >
           <span className="flex items-center gap-2">
             <Faders className="h-4 w-4 text-[#A9DCE6]" weight="duotone" />
-            Filtros Avanzados
+            {copy.advanced}
           </span>
           {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--conectia-arcilla)] text-white">Activos</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--conectia-arcilla)] text-white">{copy.active}</span>
           )}
         </button>
       </div>
@@ -183,24 +227,24 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
           <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid rgba(234,228,221,0.12)' }}>
             <div className="flex items-center gap-2">
               <Faders className="h-4 w-4 text-[#A9DCE6]" weight="duotone" />
-              <span className="text-sm font-semibold text-[#EAE4DD] tracking-wide">Filtros de Búsqueda</span>
+              <span className="text-sm font-semibold text-[#EAE4DD] tracking-wide">{copy.searchFilters}</span>
             </div>
             <button
               onClick={clearFilters}
               className="text-[10px] uppercase tracking-widest text-[#B0ACA6] hover:text-[var(--conectia-arcilla)] transition-colors font-medium"
             >
-              Limpiar
+              {copy.clear}
             </button>
           </div>
 
           <div className="p-5 space-y-5">
             {/* Search */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Búsqueda General</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">{copy.search}</label>
               <div className="relative">
                 <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#B0ACA6]" weight="duotone" />
                 <input
-                  placeholder="Nombre, ubicación, características..."
+                  placeholder={copy.searchPlaceholder}
                   value={filters.search}
                   onChange={(e) => handleFilterChange("search", e.target.value)}
                   className="w-full pl-9 pr-4 py-2.5 text-sm text-[#EAE4DD] placeholder-[#B0ACA6]/60 rounded-xl outline-none transition-all"
@@ -212,12 +256,12 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Location */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <MapPin className="h-3 w-3" weight="duotone" /> Ubicación
+                <MapPin className="h-3 w-3" weight="duotone" /> {copy.location}
               </label>
               <Select value={filters.location} onValueChange={(v) => handleFilterChange("location", v)}>
                 <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl border-0 outline-none"
                   style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                  <SelectValue placeholder="Selecciona ubicación" />
+                  <SelectValue placeholder={copy.selectLocation} />
                 </SelectTrigger>
                 <SelectContent>
                   {locations.map(l => <SelectItem key={l} value={l}>{l}</SelectItem>)}
@@ -228,15 +272,15 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Property Type */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <House className="h-3 w-3" weight="duotone" /> Tipo
+                <House className="h-3 w-3" weight="duotone" /> {copy.type}
               </label>
               <Select value={filters.propertyType} onValueChange={(v) => handleFilterChange("propertyType", v)}>
                 <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                   style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                  <SelectValue placeholder="Tipo de propiedad" />
+                  <SelectValue placeholder={copy.propertyType} />
                 </SelectTrigger>
                 <SelectContent>
-                  {propertyTypes.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                  {propertyTypes.map(t => <SelectItem key={t} value={t}>{translatePropertyValue(t, language)}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
@@ -244,15 +288,15 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Surface Unit */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <ArrowsOut className="h-3 w-3" weight="duotone" /> Unidad de Superficie
+                <ArrowsOut className="h-3 w-3" weight="duotone" /> {copy.surfaceUnit}
               </label>
               <Select value={filters.surfaceUnit} onValueChange={(v) => handleFilterChange("surfaceUnit", v)}>
                 <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                   style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                  <SelectValue placeholder="Todas" />
+                  <SelectValue placeholder={copy.all} />
                 </SelectTrigger>
                 <SelectContent>
-                  {surfaceUnits.map(u => <SelectItem key={u} value={u}>{u}</SelectItem>)}
+                  {surfaceUnits.map(u => <SelectItem key={u} value={u}>{translatePropertyValue(u, language)}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
@@ -260,7 +304,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Price Range */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <CurrencyDollar className="h-3 w-3" weight="duotone" /> Precio
+                <CurrencyDollar className="h-3 w-3" weight="duotone" /> {copy.price}
               </label>
               <Slider value={filters.priceRange} onValueChange={(v) => handleFilterChange("priceRange", v)}
                 max={50000000} min={0} step={500000} className="w-full" />
@@ -274,12 +318,12 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                  <Bed className="h-3 w-3" weight="duotone" /> Recámaras
+                  <Bed className="h-3 w-3" weight="duotone" /> {copy.bedrooms}
                 </label>
                 <Select value={filters.bedrooms} onValueChange={(v) => handleFilterChange("bedrooms", v)}>
                   <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                     style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                    <SelectValue placeholder="Cualq." />
+                    <SelectValue placeholder={copy.any} />
                   </SelectTrigger>
                   <SelectContent>
                     {['1','2','3','4','5'].map(n => <SelectItem key={n} value={n}>{n}+</SelectItem>)}
@@ -288,12 +332,12 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                  <Bathtub className="h-3 w-3" weight="duotone" /> Baños
+                  <Bathtub className="h-3 w-3" weight="duotone" /> {copy.bathrooms}
                 </label>
                 <Select value={filters.bathrooms} onValueChange={(v) => handleFilterChange("bathrooms", v)}>
                   <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                     style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                    <SelectValue placeholder="Cualq." />
+                    <SelectValue placeholder={copy.any} />
                   </SelectTrigger>
                   <SelectContent>
                     {['1','2','3','4','5'].map(n => <SelectItem key={n} value={n}>{n}+</SelectItem>)}
@@ -305,7 +349,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Area */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <ArrowsOut className="h-3 w-3" weight="duotone" /> {filters.surfaceUnit || 'Área (m²)'}
+                <ArrowsOut className="h-3 w-3" weight="duotone" /> {filters.surfaceUnit ? translatePropertyValue(filters.surfaceUnit, language) : `${copy.area} (m²)`}
               </label>
               <Slider value={filters.areaRange} onValueChange={(v) => handleFilterChange("areaRange", v)}
                 max={1000} min={0} step={50} className="w-full" />
@@ -317,23 +361,23 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
 
             {/* Status */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Estado</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">{copy.status}</label>
               <Select value={filters.status} onValueChange={(v) => handleFilterChange("status", v)}>
                 <SelectTrigger className="text-sm text-[#EAE4DD] rounded-xl"
                   style={{ background: 'rgba(234,228,221,0.08)', border: '1px solid rgba(234,228,221,0.15)' }}>
-                  <SelectValue placeholder="Todos" />
+                  <SelectValue placeholder={copy.all} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Disponible">Disponible</SelectItem>
-                  <SelectItem value="Exclusiva">Exclusiva</SelectItem>
-                  <SelectItem value="Reservada">Reservada</SelectItem>
+                  <SelectItem value="Disponible">{translatePropertyValue('Disponible', language)}</SelectItem>
+                  <SelectItem value="Exclusiva">{translatePropertyValue('Exclusiva', language)}</SelectItem>
+                  <SelectItem value="Reservada">{translatePropertyValue('Reservada', language)}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             {/* Amenities */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">Amenidades</label>
+              <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6]">{copy.amenities}</label>
               <div className="grid grid-cols-1 gap-1.5 max-h-44 overflow-y-auto pr-1 scrollbar-thin">
                 {amenities.map((amenity) => (
                   <div key={amenity} className="flex items-center gap-2 py-1">
@@ -343,7 +387,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
                       onCheckedChange={() => handleAmenityToggle(amenity)}
                       className="border-[#B0ACA6]/40 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                     />
-                    <label htmlFor={amenity} className="text-xs text-[#B0ACA6] hover:text-[#EAE4DD] cursor-pointer transition-colors">{amenity}</label>
+                    <label htmlFor={amenity} className="text-xs text-[#B0ACA6] hover:text-[#EAE4DD] cursor-pointer transition-colors">{translatePropertyValue(amenity, language)}</label>
                   </div>
                 ))}
               </div>
@@ -352,7 +396,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Active Filters */}
             {(filters.search || filters.location || filters.propertyType || filters.surfaceUnit || filters.amenities.length > 0) && (
               <div className="pt-3" style={{ borderTop: '1px solid rgba(234,228,221,0.12)' }}>
-                <p className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] mb-2">Activos</p>
+                <p className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] mb-2">{copy.active}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {filters.search && (
                     <span className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
@@ -371,21 +415,21 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
                   {filters.propertyType && (
                     <span className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
                       style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)' }}>
-                      {filters.propertyType}
+                      {translatePropertyValue(filters.propertyType, language)}
                       <X className="h-2.5 w-2.5 cursor-pointer" onClick={() => handleFilterChange("propertyType", "")} />
                     </span>
                   )}
                   {filters.surfaceUnit && (
                     <span className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
                       style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)' }}>
-                      {filters.surfaceUnit}
+                      {translatePropertyValue(filters.surfaceUnit, language)}
                       <X className="h-2.5 w-2.5 cursor-pointer" onClick={() => handleFilterChange("surfaceUnit", "")} />
                     </span>
                   )}
                   {filters.amenities.map((amenity) => (
                     <span key={amenity} className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium text-[#EAE4DD]"
                       style={{ background: 'rgba(199,143,123,0.20)', border: '1px solid rgba(199,143,123,0.35)' }}>
-                      {amenity}
+                      {translatePropertyValue(amenity, language)}
                       <X className="h-2.5 w-2.5 cursor-pointer" onClick={() => handleAmenityToggle(amenity)} />
                     </span>
                   ))}

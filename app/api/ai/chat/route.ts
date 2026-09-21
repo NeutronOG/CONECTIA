@@ -49,22 +49,22 @@ function readAmount(query: string) {
 function searchProperties(properties: Property[], rawQuery: string) {
   const query = normalize(rawQuery)
   const amount = readAmount(query)
-  const wantsMaximum = /hasta|menos de|maximo|presupuesto|no mas de|barato|economico/.test(query)
-  const wantsMinimum = /desde|mas de|al menos|superior a/.test(query)
-  const bedrooms = query.match(/(\d+)\s*(?:recamaras?|habitaciones?|cuartos?|hab\b)/)?.[1]
-  const bathrooms = query.match(/(\d+)\s*(?:banos?|baths?)/)?.[1]
-  const area = query.match(/(\d+)\s*(?:m2|m²|metros?(?: cuadrados?)?)/)?.[1]
-  const isRental = /renta|rentar|alquilar|arrendar/.test(query)
-  const isSale = /venta|comprar|compra|adquirir/.test(query)
+  const wantsMaximum = /hasta|menos de|maximo|presupuesto|no mas de|barato|economico|up to|under|below|budget|maximum|max\b/.test(query)
+  const wantsMinimum = /desde|mas de|al menos|superior a|from|over|above|at least|minimum|min\b/.test(query)
+  const bedrooms = query.match(/(\d+)\s*(?:recamaras?|habitaciones?|cuartos?|hab\b|bedrooms?|beds?)/)?.[1]
+  const bathrooms = query.match(/(\d+)\s*(?:banos?|bathrooms?|baths?)/)?.[1]
+  const area = query.match(/(\d+)\s*(?:m2|m²|metros?(?: cuadrados?)?|square meters?|sq\.?\s*m)/)?.[1]
+  const isRental = /renta|rentar|alquilar|arrendar|rent|rental|lease/.test(query)
+  const isSale = /venta|comprar|compra|adquirir|buy|sale|purchase/.test(query)
 
   const typeAliases: Record<string, string[]> = {
-    casa: ["casa", "residencia", "villa"],
+    casa: ["casa", "residencia", "villa", "house", "home", "residence"],
     departamento: ["departamento", "depto", "apartamento", "dpto", "flat"],
     penthouse: ["penthouse", "pent house"],
-    terreno: ["terreno", "lote", "predio"],
-    oficina: ["oficina"],
-    local: ["local", "comercial"],
-    bodega: ["bodega", "nave"],
+    terreno: ["terreno", "lote", "predio", "land", "lot"],
+    oficina: ["oficina", "office"],
+    local: ["local", "comercial", "retail"],
+    bodega: ["bodega", "nave", "warehouse", "industrial facility"],
     loft: ["loft"],
   }
   const detectedType = Object.entries(typeAliases).find(([, aliases]) => aliases.some(alias => query.includes(alias)))
@@ -113,13 +113,19 @@ function searchProperties(properties: Property[], rawQuery: string) {
     .map(item => item.property)
 }
 
-function buildReply(query: string, results: Property[]) {
+function buildReply(query: string, results: Property[], language: "es" | "en") {
   if (results.length === 0) {
-    return "No encontré una coincidencia exacta en el inventario disponible. Prueba con otra zona, un presupuesto distinto o deja tus datos y un asesor hará una búsqueda personalizada."
+    return language === "en"
+      ? "I couldn't find an exact match in our available inventory. Try another area or budget, or leave your details and an advisor can run a personalized search."
+      : "No encontré una coincidencia exacta en el inventario disponible. Prueba con otra zona, un presupuesto distinto o deja tus datos y un asesor hará una búsqueda personalizada."
   }
 
   const summary = results.length === 1 ? "Encontré una opción que encaja" : `Encontré ${results.length} opciones que encajan`
   const first = results[0]
+  if (language === "en") {
+    const count = results.length === 1 ? "I found one property that matches" : `I found ${results.length} properties that match`
+    return `${count} your search. The first is ${first.titulo}, in ${first.ubicacion}, listed at ${first.precioTexto || formatPrice(first.precio)}. Open the listing to see all the details.`
+  }
   return `${summary} con tu búsqueda. La primera es ${first.titulo}, en ${first.ubicacion}, desde ${first.precioTexto || formatPrice(first.precio)}. Puedes abrir la ficha para revisar todos los detalles.`
 }
 
@@ -128,6 +134,7 @@ export async function POST(request: NextRequest) {
     const payload = await request.json()
     const rawMessage = payload?.messages?.at?.(-1)?.content
     const query = typeof rawMessage === "string" ? rawMessage.trim().slice(0, 500) : ""
+    const language = payload?.language === "en" ? "en" : "es"
 
     if (!query) return NextResponse.json({ error: "Escribe qué estás buscando." }, { status: 400 })
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -163,7 +170,7 @@ export async function POST(request: NextRequest) {
     const results = searchProperties(properties, query)
 
     return NextResponse.json({
-      response: buildReply(query, results),
+      response: buildReply(query, results, language),
       properties: results,
       total: results.length,
       source: "supabase",

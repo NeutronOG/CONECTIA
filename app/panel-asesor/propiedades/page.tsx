@@ -45,7 +45,7 @@ import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 import { reservationNotice } from '@/lib/property-reservation'
 
 export default function PropiedadesAsesorPage() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
@@ -391,10 +391,12 @@ export default function PropiedadesAsesorPage() {
                 type="button"
                 onClick={() => void handleDownloadExcel()}
                 disabled={isExportingExcel || propiedades.length === 0}
-                className="flex items-center gap-2 rounded-xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-2.5 text-sm font-bold text-emerald-100 transition-all hover:border-emerald-300/50 hover:bg-emerald-400/20 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-2 rounded-xl border border-emerald-300 bg-emerald-500 px-4 py-2.5 text-sm font-black text-white shadow-lg shadow-emerald-950/25 transition-all hover:border-emerald-200 hover:bg-emerald-400 hover:text-[#0F2027] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2027] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isExportingExcel ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileSpreadsheet className="h-4 w-4" />}
-                {isExportingExcel ? 'Generando Excel…' : 'Descargar Excel A-Z'}
+                {isExportingExcel
+                  ? (language === 'en' ? 'Generating Excel…' : 'Generando Excel…')
+                  : (language === 'en' ? 'Download Excel A-Z' : 'Descargar Excel A-Z')}
               </button>
             )}
             <button onClick={handleNewProperty} className="flex items-center gap-2 px-4 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold shadow-lg shadow-[var(--conectia-arcilla)]/20">

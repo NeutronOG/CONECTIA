@@ -37,8 +37,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const initialize = window.setTimeout(() => {
       setMounted(true)
       try {
-        if (!hasCookieConsent('preferences')) return
-        const stored = localStorage.getItem(STORAGE_KEY) as Language | null
+        const stored = (
+          sessionStorage.getItem(STORAGE_KEY) ||
+          (hasCookieConsent('preferences') ? localStorage.getItem(STORAGE_KEY) : null)
+        ) as Language | null
         if (stored && translations[stored]) {
           setLanguageState(stored)
         }
@@ -53,8 +55,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang)
     try {
-      if (!hasCookieConsent('preferences')) return
-      localStorage.setItem(STORAGE_KEY, lang)
+      // La selección siempre se conserva durante la sesión. Solo se hace
+      // persistente entre visitas cuando el usuario aceptó preferencias.
+      sessionStorage.setItem(STORAGE_KEY, lang)
+      if (hasCookieConsent('preferences')) localStorage.setItem(STORAGE_KEY, lang)
     } catch {
       // ignore
     }

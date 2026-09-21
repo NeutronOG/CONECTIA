@@ -10,9 +10,10 @@ import { HomepageAdSlot } from "./homepage-ads"
 import { Propiedad } from "@/data/propiedades"
 import { useLanguage } from "@/lib/i18n"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
+import { translatePropertyTitle } from "@/lib/i18n/property-localization"
 
 export function HomeYellow() {
-  const { t } = useLanguage()
+  const { language, t } = useLanguage()
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
   const [activeThumb, setActiveThumb] = useState(0)
   const [featuredProp, setFeaturedProp] = useState<Propiedad | null>(null)
@@ -57,7 +58,7 @@ export function HomeYellow() {
       <section className="home-hero relative isolate flex min-h-[760px] items-end overflow-hidden">
         <Image
           src="/conectia-home-hero.webp"
-          alt="Residencia contemporánea en las colinas de Guanajuato al anochecer"
+          alt={language === 'en' ? 'Contemporary residence in the hills of Guanajuato at dusk' : 'Residencia contemporánea en las colinas de Guanajuato al anochecer'}
           fill
           priority
           sizes="100vw"
@@ -127,7 +128,7 @@ export function HomeYellow() {
                 ) : featuredProp ? (
                   <Image
                     src={gallery[activeThumb] || '/placeholder.svg'}
-                    alt={featuredProp.titulo}
+                    alt={translatePropertyTitle(featuredProp.titulo, language)}
                     fill
                     className="object-cover transition-all duration-500"
                   />
@@ -151,7 +152,7 @@ export function HomeYellow() {
                         activeThumb === i ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                       }`}
                     >
-                      <Image src={src || '/placeholder.svg'} alt={`foto ${i}`} fill className="object-cover" />
+                    <Image src={src || '/placeholder.svg'} alt={t('home.featured.photoAlt', { number: i + 1 })} fill className="object-cover" />
                     </button>
                   ))
                 ) : (
@@ -171,7 +172,7 @@ export function HomeYellow() {
                   ) : featuredProp ? (
                     <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{featuredProp.ubicacion}</p>
                   ) : (
-                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">Propiedad destacada</p>
+                    <p className="text-xs font-semibold text-[#9CA3AF] dark:text-[#B0ACA6] uppercase tracking-widest">{t('home.featured.emptyLabel')}</p>
                   )}
                   <span className="bg-[#1e40af] dark:bg-[var(--conectia-arcilla)] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                     {isLoadingProp ? '...' : t('common.featured')}
@@ -182,11 +183,11 @@ export function HomeYellow() {
                   <div className="h-8 w-3/4 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
                 ) : featuredProp ? (
                   <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                    {featuredProp.titulo}
+                    {translatePropertyTitle(featuredProp.titulo, language)}
                   </h2>
                 ) : (
                   <h2 className="text-2xl md:text-3xl font-bold text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                    Sin propiedad destacada
+                    {t('home.featured.emptyTitle')}
                   </h2>
                 )}
 
@@ -203,11 +204,11 @@ export function HomeYellow() {
                 <div className="flex flex-wrap gap-4 text-sm text-[#6B7280] dark:text-[#B0ACA6]">
                   <span className="flex items-center gap-1.5">
                     <House className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.habitaciones} Rec` : '—'}
+                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.habitaciones} ${t('home.featured.bedroomsShort')}` : '—'}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Bathtub className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
-                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.banos} Baños` : '—'}
+                    {isLoadingProp ? '...' : featuredProp ? `${featuredProp.banos} ${t('common.bathrooms')}` : '—'}
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Ruler className="h-4 w-4 text-[#1e40af] dark:text-[var(--conectia-arcilla)]" weight="duotone" />
@@ -242,7 +243,7 @@ export function HomeYellow() {
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[var(--conectia-arcilla)] font-bold mb-2">{t('home.featured.subtitle')}</p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">
-                {t('properties.pageTitle')} <span className="font-serif italic font-normal text-[var(--conectia-arcilla)]">{t('common.featured')}</span>
+                {language === 'en' ? <><span className="font-serif italic font-normal text-[var(--conectia-arcilla)]">Featured</span> Properties</> : <>Propiedades <span className="font-serif italic font-normal text-[var(--conectia-arcilla)]">destacadas</span></>}
               </h2>
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-[#E5E7EB] to-transparent mb-1 hidden sm:block dark:from-[#EAE4DD]/10" />
@@ -282,7 +283,7 @@ export function HomeYellow() {
                 </Link>
                 <Link href="/propiedades">
                   <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-[#EAE4DD] border border-[#EAE4DD]/20 hover:border-[var(--conectia-arcilla)]/50 hover:bg-white/5 transition-all duration-200">
-                    {t('common.seeMore')} {t('properties.pageTitle')}
+                    {language === 'en' ? 'View more properties' : 'Ver más propiedades'}
                     <ArrowRight className="h-4 w-4" weight="bold" />
                   </button>
                 </Link>
@@ -344,15 +345,16 @@ export function HomeYellow() {
                 </button>
               </div>
               <div className="p-4 sm:p-6">
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
                   {[
                     { href: '/venta',      icon: Tag,         label: t('home.search.sell') },
                     { href: '/renta',      icon: Key,         label: t('home.search.rent') },
                     { href: '/especiales', icon: Crown,       label: t('home.search.especial') },
                     { href: '/ofertas',    icon: Percent,     label: t('home.search.ofertas') },
-                    { href: '/preventa',   icon: Buildings,   label: 'Preventa' },
-                    { href: '/desarrollos', icon: Buildings,  label: 'Desarrollos', comingSoon: true },
-                    { href: '/remates',    icon: Gavel,       label: 'Remates Judiciales', comingSoon: true },
+                    { href: '/preventa',   icon: Buildings,   label: t('nav.menu.presale') },
+                    { href: '/brokers',    icon: Users,       label: t('nav.menu.brokers') },
+                    { href: '/desarrollos', icon: Buildings,  label: t('nav.menu.developments'), comingSoon: true },
+                    { href: '/remates',    icon: Gavel,       label: t('nav.menu.foreclosures'), comingSoon: true },
                   ].map(({ href, icon: Icon, label, comingSoon }) => (
                     comingSoon ? (
                       <div key={href} aria-disabled="true" className="home-category-card w-full p-3 sm:p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 opacity-60 cursor-not-allowed flex flex-col items-center gap-2 shadow-sm">
@@ -360,7 +362,7 @@ export function HomeYellow() {
                           <Icon className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
                         </div>
                         <span className="text-center text-xs font-bold text-[#17313A] dark:text-[#EAE4DD]">{label}</span>
-                        <span className="text-[10px] font-bold uppercase tracking-wide text-[var(--conectia-arcilla)]">Próximamente</span>
+                        <span className="text-[9px] font-bold uppercase leading-tight tracking-wide text-[var(--conectia-arcilla)]">{t('nav.menu.comingSoon')}</span>
                       </div>
                     ) : (
                       <Link key={href} href={href} onClick={() => setIsCategoriasMenuOpen(false)}>
@@ -373,16 +375,6 @@ export function HomeYellow() {
                       </Link>
                     )
                   ))}
-                </div>
-                <div className="mt-4">
-                  <Link href="/brokers" onClick={() => setIsCategoriasMenuOpen(false)}>
-                    <button className="home-category-card w-full p-4 rounded-xl bg-white dark:bg-[#17313A]/30 border border-[#E5E7EB] dark:border-[#EAE4DD]/10 hover:border-[var(--conectia-arcilla)]/40 transition-all duration-200 group flex items-center justify-center gap-3 shadow-sm">
-                      <div className="w-9 h-9 bg-[var(--conectia-arcilla)]/10 rounded-lg flex items-center justify-center">
-                        <Users className="h-5 w-5 text-[var(--conectia-arcilla)]" weight="duotone" />
-                      </div>
-                      <span className="text-sm font-black text-[#17313A] dark:text-[#EAE4DD] uppercase tracking-wide">{t('nav.menu.broker')}</span>
-                    </button>
-                  </Link>
                 </div>
                 <div className="h-4 sm:h-6" />
               </div>
