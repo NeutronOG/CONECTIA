@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS propiedades (
   tipo TEXT NOT NULL,
   habitaciones INTEGER NOT NULL,
   banos INTEGER NOT NULL,
-  area INTEGER NOT NULL,
+  area NUMERIC NOT NULL,
   area_texto TEXT NOT NULL,
   imagen TEXT,
   descripcion TEXT,

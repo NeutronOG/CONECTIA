@@ -7,7 +7,7 @@ ADD COLUMN IF NOT EXISTS medios_banos INTEGER DEFAULT 0;
 
 -- Área de construcción
 ALTER TABLE propiedades 
-ADD COLUMN IF NOT EXISTS area_construccion INTEGER DEFAULT 0;
+ADD COLUMN IF NOT EXISTS area_construccion NUMERIC DEFAULT 0;
 
 -- Cochera (número de coches)
 ALTER TABLE propiedades 

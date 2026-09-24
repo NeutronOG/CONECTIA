@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS propiedades (
   tipo TEXT NOT NULL,
   habitaciones INTEGER NOT NULL,
   banos INTEGER NOT NULL,
-  area INTEGER NOT NULL,
+  area NUMERIC NOT NULL,
   area_texto TEXT NOT NULL,
   imagen TEXT,
   descripcion TEXT,
@@ -219,7 +219,7 @@ CREATE POLICY "Detalles de propiedades son visibles para todos" ON propiedad_det
 -- =====================
 
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS medios_banos INTEGER DEFAULT 0;
-ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS area_construccion INTEGER DEFAULT 0;
+ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS area_construccion NUMERIC DEFAULT 0;
 ALTER TABLE propiedades ADD COLUMN IF NOT EXISTS cochera INTEGER DEFAULT 0;
 
 -- Campo fotógrafo

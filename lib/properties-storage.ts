@@ -140,7 +140,7 @@ export class PropertiesStorage {
       tipo: appProp.tipo,
       habitaciones: Math.round(Number(appProp.habitaciones) || 0),
       banos: Math.round(Number(appProp.banos) || 0),
-      area: Math.round(Number(appProp.area) || 0),
+      area: Number(appProp.area) || 0,
       area_texto: appProp.areaTexto,
       imagen: appProp.imagen,
       descripcion: appProp.descripcion,
@@ -161,7 +161,7 @@ export class PropertiesStorage {
     // requieren que existan en la tabla de Supabase. Ejecuta en Supabase:
     // ALTER TABLE propiedades 
     // ADD COLUMN IF NOT EXISTS medios_banos INTEGER DEFAULT 0,
-    // ADD COLUMN IF NOT EXISTS area_construccion INTEGER DEFAULT 0,
+    // ADD COLUMN IF NOT EXISTS area_construccion NUMERIC DEFAULT 0,
     // ADD COLUMN IF NOT EXISTS cochera INTEGER DEFAULT 0,
     // ADD COLUMN IF NOT EXISTS tipo_credito TEXT;
     
@@ -201,8 +201,8 @@ export class PropertiesStorage {
     if (has('habitaciones')) dbData.habitaciones = Math.round(Number(updates.habitaciones) || 0)
     if (has('banos')) dbData.banos = Math.round(Number(updates.banos) || 0)
     if (has('mediosBanos')) dbData.medios_banos = Math.round(Number(updates.mediosBanos) || 0)
-    if (has('area')) dbData.area = Math.round(Number(updates.area) || 0)
-    if (has('areaConstruccion')) dbData.area_construccion = Math.round(Number(updates.areaConstruccion) || 0)
+    if (has('area')) dbData.area = Number(updates.area) || 0
+    if (has('areaConstruccion')) dbData.area_construccion = Number(updates.areaConstruccion) || 0
     if (has('cochera')) dbData.cochera = Math.round(Number(updates.cochera) || 0)
     if (has('areaTexto')) dbData.area_texto = updates.areaTexto
     if (has('imagen')) dbData.imagen = updates.imagen

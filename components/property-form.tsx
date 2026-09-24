@@ -31,6 +31,7 @@ const textareaClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:bord
 const selectTriggerClass = "bg-white/80 dark:bg-white/5 border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-white focus:ring-[var(--conectia-arcilla)]/50 h-11 rounded-xl"
 const selectContentClass = "bg-white dark:bg-[#17313A] border-[#17313A]/15 dark:border-white/10 text-[#17313A] dark:text-white"
 const selectItemClass = "property-select-item text-[#17313A] dark:text-white/90 focus:bg-[#17313A]/10 dark:focus:bg-white/10 focus:text-[#17313A] dark:focus:text-white"
+const surfacePattern = String.raw`(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)`
 
 interface PropertyFormProps {
   initialData?: Propiedad
@@ -109,6 +110,17 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const [isDraggingGallery, setIsDraggingGallery] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState("")
+  const [surfaceInputs, setSurfaceInputs] = useState(() => ({
+    area: initialData?.area?.toString() ?? "",
+    areaConstruccion: initialData?.areaConstruccion?.toString() ?? "",
+    frente: initialData?.frente?.toString() ?? "",
+    fondo: initialData?.fondo?.toString() ?? "",
+  }))
+  const updateSurface = (field: keyof typeof surfaceInputs, value: string) => {
+    setSurfaceInputs(previous => ({ ...previous, [field]: value }))
+    const parsed = Number(value)
+    setFormData(previous => ({ ...previous, [field]: value === "" || !Number.isFinite(parsed) ? undefined : parsed }))
+  }
   // Lista de amenidades disponibles (amenidades del desarrollo/condominio)
   const amenidadesDisponibles = [
     "Alberca",
@@ -718,14 +730,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Label htmlFor="area" className={labelClass}>{copy.landArea} *</Label>
               <Input
                 id="area"
-                type="number"
-                step="0.01"
+                type="text"
+                inputMode="decimal"
+                pattern={surfacePattern}
                 required
-                value={formData.area ?? ''}
-                onChange={(e) => {
-                  const raw = e.target.value
-                  setFormData({ ...formData, area: raw === '' ? undefined : Number(raw) })
-                }}
+                value={surfaceInputs.area}
+                onChange={(e) => updateSurface('area', e.target.value)}
                 placeholder="450"
                 className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
               />
@@ -753,12 +763,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Label htmlFor="areaConstruccion" className={labelClass}>{copy.constructionArea}</Label>
               <Input
                 id="areaConstruccion"
-                type="number"
-                step="0.01"
-                value={formData.areaConstruccion === undefined ? '' : formData.areaConstruccion}
-                onChange={(e) => setFormData({ ...formData, areaConstruccion: e.target.value === '' ? undefined : Number(e.target.value) })}
+                type="text"
+                inputMode="decimal"
+                pattern={surfacePattern}
+                value={surfaceInputs.areaConstruccion}
+                onChange={(e) => updateSurface('areaConstruccion', e.target.value)}
                 placeholder="350"
-                min="0"
                 className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
               />
             </div>
@@ -768,12 +778,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 <Label htmlFor="frente" className={labelClass}>{copy.frontage}</Label>
                 <Input
                   id="frente"
-                  type="number"
-                  step="0.01"
-                  value={(formData as any).frente ?? ''}
-                  onChange={(e) => setFormData({ ...formData, frente: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
+                  type="text"
+                  inputMode="decimal"
+                  pattern={surfacePattern}
+                  value={surfaceInputs.frente}
+                  onChange={(e) => updateSurface('frente', e.target.value)}
                   placeholder="Ej: 12"
-                  min="0"
                   className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
                 />
               </div>
@@ -781,12 +791,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                 <Label htmlFor="fondo" className={labelClass}>{copy.depth}</Label>
                 <Input
                   id="fondo"
-                  type="number"
-                  step="0.01"
-                  value={(formData as any).fondo ?? ''}
-                  onChange={(e) => setFormData({ ...formData, fondo: e.target.value === '' ? undefined : Number(e.target.value) } as any)}
+                  type="text"
+                  inputMode="decimal"
+                  pattern={surfacePattern}
+                  value={surfaceInputs.fondo}
+                  onChange={(e) => updateSurface('fondo', e.target.value)}
                   placeholder="Ej: 20"
-                  min="0"
                   className={`${inputClass} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
                 />
               </div>

@@ -240,7 +240,7 @@ export async function PATCH(request: Request) {
           ? `$${precioNum.toLocaleString('es-MX')}` 
           : 'Consultar precio'
 
-        const areaNum = Math.round(Number(solicitud.area) || 0)
+        const areaNum = Number(solicitud.area) || 0
         const habitacionesNum = Math.round(Number(String(solicitud.habitaciones || '0').replace(/\+.*/, '')) || 0)
         const banosNum = Math.round(Number(String(solicitud.banos || '0').replace(/\+.*/, '')) || 0)
         const asesorEmail = typeof solicitud.asesor_email === 'string'
@@ -269,7 +269,7 @@ export async function PATCH(request: Request) {
           medios_banos: Math.round(Number(extra.mediosBanos) || 0),
           area: areaNum,
           area_texto: extra.areaTexto || (areaNum > 0 ? `${areaNum} m²` : '0 m²'),
-          area_construccion: Math.round(Number(extra.areaConstruccion) || 0),
+          area_construccion: Number(extra.areaConstruccion) || 0,
           cochera: Math.round(Number(extra.cochera) || 0),
           imagen: imagenPrincipal,
           galeria: galeria,

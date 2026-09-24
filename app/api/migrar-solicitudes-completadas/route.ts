@@ -47,7 +47,7 @@ export async function POST(request: Request) {
           ? `$${precioNum.toLocaleString('es-MX')}`
           : 'Consultar precio'
 
-        const areaNum = Math.round(Number(solicitud.area) || 0)
+        const areaNum = Number(solicitud.area) || 0
         const habitacionesNum = Math.round(Number(String(solicitud.habitaciones || '0').replace(/\+.*/, '')) || 0)
         const banosNum = Math.round(Number(String(solicitud.banos || '0').replace(/\+.*/, '')) || 0)
 
