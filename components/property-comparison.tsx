@@ -18,6 +18,7 @@ import {
   ArrowRight
 } from "lucide-react"
 import Link from "next/link"
+import { useCurrency } from "@/lib/currency-provider"
 
 interface Property {
   id: number
@@ -50,18 +51,10 @@ export function PropertyComparison({
   favorites 
 }: PropertyComparisonProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const { formatPrice } = useCurrency()
 
   if (properties.length === 0) {
     return null
-  }
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: 'MXN',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
   }
 
   const getPricePerSqm = (price: number, area: number) => {
@@ -188,7 +181,7 @@ export function PropertyComparison({
                       </Badge>
                       <div className="flex items-center space-x-1">
                         <span className="text-lg font-bold text-conectia-gold">
-                          {property.precioTexto}
+                          {formatPrice(property.precio, property.precioTexto)}
                         </span>
                         {property.precio === getHighestPrice() && (
                           <Badge className="bg-red-100 text-red-700 text-xs">

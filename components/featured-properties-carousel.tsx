@@ -6,10 +6,12 @@ import { ChevronLeft, ChevronRight, MapPin, Bed, Bath, Square, Eye, Video } from
 import Link from "next/link"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 export function FeaturedPropertiesCarousel() {
   const { language, t } = useLanguage()
+  const { formatPrice } = useCurrency()
   const ui = language === 'en'
     ? { loading: 'Loading properties...', previous: 'Previous property', next: 'Next property', view: 'View', viewProperty: 'View property', virtualTour: 'Open virtual tour', beds: 'Beds' }
     : { loading: 'Cargando propiedades...', previous: 'Propiedad anterior', next: 'Propiedad siguiente', view: 'Ver', viewProperty: 'Ver propiedad', virtualTour: 'Abrir tour virtual', beds: 'Hab' }
@@ -145,7 +147,7 @@ export function FeaturedPropertiesCarousel() {
             <div>
               <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#4A4F57] dark:text-[#B0ACA6]">{t('common.price')}</p>
               <p className="text-2xl font-black text-[#17313A] dark:bg-gradient-to-r dark:from-[var(--conectia-arcilla)] dark:to-[var(--conectia-arcilla-soft)] dark:bg-clip-text dark:text-transparent sm:text-3xl lg:text-4xl">
-                {currentProperty.precioTexto}
+                {formatPrice(currentProperty.precio, currentProperty.precioTexto)}
               </p>
             </div>
 

@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 import { MagnifyingGlass, MapPin, House, Bed, Bathtub, ArrowsOut, CurrencyDollar, Faders, X } from "@phosphor-icons/react"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyFiltersProps {
@@ -16,6 +17,7 @@ interface PropertyFiltersProps {
 
 export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyFiltersProps) {
   const { language } = useLanguage()
+  const { currency, formatPrice } = useCurrency()
   const copy = language === "en" ? {
     advanced: "Advanced filters",
     active: "Active",
@@ -183,15 +185,6 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
     onFiltersChange(clearedFilters)
   }
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat(language === 'en' ? 'en-US' : 'es-MX', {
-      style: 'currency',
-      currency: 'MXN',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
-  }
-
   return (
     <>
       {/* Mobile Filter Toggle */}
@@ -304,7 +297,7 @@ export function PropertyFilters({ onFiltersChange, isOpen, onToggle }: PropertyF
             {/* Price Range */}
             <div className="space-y-2">
               <label className="text-[10px] uppercase tracking-widest font-semibold text-[#A9DCE6] flex items-center gap-1">
-                <CurrencyDollar className="h-3 w-3" weight="duotone" /> {copy.price}
+                <CurrencyDollar className="h-3 w-3" weight="duotone" /> {copy.price} ({currency})
               </label>
               <Slider value={filters.priceRange} onValueChange={(v) => handleFilterChange("priceRange", v)}
                 max={50000000} min={0} step={500000} className="w-full" />

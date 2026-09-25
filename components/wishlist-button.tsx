@@ -11,6 +11,7 @@ interface Property {
   id: string
   title: string
   price: string
+  priceMxn?: number
   location: string
   image: string
   bedrooms?: number

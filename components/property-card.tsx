@@ -8,6 +8,7 @@ import { ShareButton } from "@/components/share-button"
 import { MapPin, Bed, Bathtub, Square, Calendar, CaretUp, CaretDown } from "@phosphor-icons/react"
 import Link from "next/link"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyCardProps {
@@ -16,6 +17,7 @@ interface PropertyCardProps {
     titulo: string
     ubicacion: string
     precioTexto: string
+    precio?: number
     tipo: string
     imagen?: string
     galeria?: string[]
@@ -41,6 +43,8 @@ const FALLBACK_IMAGES = [
 
 export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: PropertyCardProps) {
   const { language, t } = useLanguage()
+  const { formatPrice } = useCurrency()
+  const displayPrice = formatPrice(propiedad.precio, propiedad.precioTexto)
   const [expanded, setExpanded] = useState(false)
   const fallback = FALLBACK_IMAGES[Number(propiedad.id) % FALLBACK_IMAGES.length]
   const imgSrc = propiedad.imagen || fallback
@@ -83,6 +87,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
             id: propiedad.id.toString(),
             title: localizedTitle,
             price: propiedad.precioTexto,
+            priceMxn: propiedad.precio,
             location: propiedad.ubicacion,
             image: imgSrc,
             bedrooms: propiedad.habitaciones,
@@ -122,7 +127,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
                 {localizedType}
               </Badge>
               <span className="text-sm font-bold text-[var(--conectia-arcilla)]" style={{fontFamily: "var(--font-titles)"}}>
-                {propiedad.precioTexto}
+                {displayPrice}
               </span>
             </div>
             <h3 className="text-base font-semibold text-[#17313A] dark:text-white leading-snug line-clamp-1" style={{fontFamily: "var(--font-titles)"}}>
@@ -192,7 +197,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
                 variant="outline"
                 size="sm"
                 className="btn-glass-tertiary rounded-xl text-xs h-9 px-3 border-0"
-                propertyMeta={{ precioTexto: propiedad.precioTexto, tipo: localizedType, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
+                propertyMeta={{ precioTexto: displayPrice, tipo: localizedType, ubicacion: propiedad.ubicacion, habitaciones: propiedad.habitaciones, banos: propiedad.banos, areaTexto: propiedad.areaTexto }}
               />
             </div>
             <Link href={`/propiedades/${propiedad.id}`} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => e.stopPropagation()}>

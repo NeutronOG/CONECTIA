@@ -13,10 +13,12 @@ import { Propiedad } from "@/data/propiedades"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { useAuth } from "@/contexts/auth-context"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 export default function PropiedadesPage() {
   const { language, t } = useLanguage()
+  const { formatPrice } = useCurrency()
   const { user, isAuthenticated } = useAuth()
   // Hook con datos estáticos + realtime - carga instantánea
   const { properties: propiedades, isLoading, refresh, realtimeCount } = usePropertiesStatic()
@@ -269,8 +271,8 @@ export default function PropiedadesPage() {
                           <div className="absolute top-4 left-4">
                             <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${propiedad.status === "Disponible" ? "bg-green-500/80 text-white" : propiedad.status === "Exclusiva" ? "bg-[var(--conectia-arcilla)]/80 text-[#0F2027]" : "bg-red-500/80 text-white"}`}>{translatePropertyValue(propiedad.status, language)}</span>
                           </div>
-                          <div className="absolute top-4 right-4"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
-                          <div className="absolute bottom-4 right-4"><span className="text-xl sm:text-2xl font-black text-white dark:text-white drop-shadow-lg">{propiedad.precioTexto}</span></div>
+                          <div className="absolute top-4 right-4"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, priceMxn: propiedad.precio, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
+                          <div className="absolute bottom-4 right-4"><span className="text-xl sm:text-2xl font-black text-white dark:text-white drop-shadow-lg">{formatPrice(propiedad.precio, propiedad.precioTexto)}</span></div>
                         </div>
                         <div className="p-5 sm:p-6 flex-1 flex flex-col">
                           <span className="inline-flex self-start px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider mb-2">{translatePropertyValue(propiedad.tipo, language)}</span>
@@ -316,12 +318,12 @@ export default function PropiedadesPage() {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                                     <span className="px-2.5 py-1 rounded-lg bg-[#17313A]/[0.12] dark:bg-white/[0.05] border border-[#17313A]/20 dark:border-white/10 text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-[10px] font-semibold uppercase tracking-wider">{translatePropertyValue(propiedad.tipo, language)}</span>
-                                    <span className="text-xl sm:text-2xl font-black text-[var(--conectia-arcilla)]">{propiedad.precioTexto}</span>
+                                    <span className="text-xl sm:text-2xl font-black text-[var(--conectia-arcilla)]">{formatPrice(propiedad.precio, propiedad.precioTexto)}</span>
                                   </div>
                                   <h3 className="text-lg sm:text-xl font-serif font-bold text-[#17313A] dark:text-white mb-2 uppercase">{translatePropertyTitle(propiedad.titulo, language)}</h3>
                                   <div className="flex items-center text-[#17313A]/60 dark:text-[#B0ACA6] mb-3"><MapPin className="h-4 w-4 mr-2 text-[var(--conectia-arcilla)]" /><span className="text-sm">{propiedad.ubicacion}</span></div>
                                 </div>
-                                <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
+                                <div className="flex space-x-2 flex-shrink-0"><WishlistButton property={{ id: propiedad.id.toString(), title: translatePropertyTitle(propiedad.titulo, language), price: propiedad.precioTexto, priceMxn: propiedad.precio, location: propiedad.ubicacion, image: propiedad.imagen, bedrooms: propiedad.habitaciones, bathrooms: propiedad.banos, area: propiedad.areaTexto }} size="sm" /></div>
                               </div>
                               <p className="text-[#4A4F57] dark:text-[#17313A]/60 dark:text-[#B0ACA6] text-sm mb-4 line-clamp-2 flex-1">{language === 'en' ? t('properties.cards.fullDescriptionHint') : propiedad.descripcion}</p>
                               <div className="flex items-center justify-between mt-auto">

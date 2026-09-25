@@ -15,6 +15,7 @@ import { ShareButton } from "@/components/share-button"
 import type { Propiedad } from "@/data/propiedades"
 import { usePropertyStatic } from "@/hooks/use-properties-static"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyList, translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
 
 interface PropertyDetailClientProps {
@@ -24,6 +25,7 @@ interface PropertyDetailClientProps {
 
 export function PropertyDetailClient({ propertyData: initialData, propertyId }: PropertyDetailClientProps) {
   const { language, t } = useLanguage()
+  const { currency, rate, formatPrice } = useCurrency()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isImageFullscreen, setIsImageFullscreen] = useState(false)
   const [showAllThumbnails, setShowAllThumbnails] = useState(false)
@@ -124,6 +126,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
   const localizedTitle = englishContent?.title || translatePropertyTitle(propertyData.titulo, language)
   const localizedDescription = englishContent?.description || propertyData.descripcion
   const localizedFeatures = englishContent?.features || translatePropertyList(propertyData.caracteristicas, language)
+  const displayPrice = formatPrice(propertyData.precio, propertyData.precioTexto)
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
@@ -159,15 +162,20 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 </div>
               </div>
               <div className="flex gap-2">
-                <ShareButton title={localizedTitle} description={localizedDescription} url={`/propiedades/${propertyData.id}`} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: propertyData.precioTexto, tipo: translatePropertyValue(propertyData.tipo, language), ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
-                <WishlistButton property={{ id: String(propertyData.id), title: localizedTitle, price: propertyData.precioTexto, location: propertyData.ubicacion, image: propertyData.imagen, bedrooms: propertyData.habitaciones, bathrooms: propertyData.banos, area: propertyData.areaTexto }} />
+                <ShareButton title={localizedTitle} description={localizedDescription} url={`/propiedades/${propertyData.id}`} propertyId={propertyData.id} variant="outline" size="sm" propertyMeta={{ precioTexto: displayPrice, tipo: translatePropertyValue(propertyData.tipo, language), ubicacion: propertyData.ubicacion, habitaciones: propertyData.habitaciones, banos: propertyData.banos, areaTexto: propertyData.areaTexto }} />
+                <WishlistButton property={{ id: String(propertyData.id), title: localizedTitle, price: propertyData.precioTexto, priceMxn: propertyData.precio, location: propertyData.ubicacion, image: propertyData.imagen, bedrooms: propertyData.habitaciones, bathrooms: propertyData.banos, area: propertyData.areaTexto }} />
               </div>
             </div>
 
             {/* Price */}
             <div>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[#9CA3AF] font-bold mb-2">{t('common.price')}</p>
-              <p className="text-4xl sm:text-5xl font-black text-[var(--conectia-arcilla)]">{propertyData.precioTexto}</p>
+              <p className="text-4xl sm:text-5xl font-black text-[var(--conectia-arcilla)]">{displayPrice}</p>
+              {currency === 'USD' && rate && (
+                <p className="mt-2 text-xs text-[#6B7280] dark:text-[#B0ACA6]">
+                  {language === 'es' ? 'Conversión aproximada' : 'Approximate conversion'} · 1 USD = {rate.rate} MXN ({rate.date})
+                </p>
+              )}
             </div>
 
             {/* Main image — blob shape */}

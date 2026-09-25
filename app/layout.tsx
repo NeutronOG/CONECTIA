@@ -11,6 +11,7 @@ import { SWRProvider } from "@/components/swr-provider"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/lib/i18n"
+import { CurrencyProvider } from "@/lib/currency-provider"
 import { LanguageHtml } from "@/components/language-html"
 import { PanelShell } from "@/components/panel-shell"
 import { AIAgent } from "@/components/ai-agent"
@@ -79,7 +80,8 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={`${montserrat.variable} ${cormorant.variable} font-sans m-0 p-0`}>
         <LanguageProvider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+          <CurrencyProvider>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
             <SWRProvider>
               <AuthProvider>
                 <WishlistProvider>
@@ -94,7 +96,8 @@ export default function RootLayout({
                 </WishlistProvider>
               </AuthProvider>
             </SWRProvider>
-          </ThemeProvider>
+            </ThemeProvider>
+          </CurrencyProvider>
         </LanguageProvider>
       </body>
     </html>

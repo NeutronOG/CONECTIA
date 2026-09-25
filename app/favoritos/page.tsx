@@ -9,10 +9,12 @@ import { MapPin, Bed, Bath, Square, Heart, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyTitle } from "@/lib/i18n/property-localization"
 
 export default function FavoritosPage() {
   const { language } = useLanguage()
+  const { formatPrice } = useCurrency()
   const { wishlist, wishlistCount } = useWishlist()
 
   const handleContact = (property: any) => {
@@ -92,7 +94,7 @@ export default function FavoritosPage() {
                     {/* Price Badge */}
                     <div className="absolute bottom-4 left-4">
                       <Badge className="bg-conectia-gold/90 text-conectia-graphite font-bold px-3 py-1 text-sm backdrop-blur-sm">
-                        {property.price}
+                        {formatPrice(property.priceMxn, property.price)}
                       </Badge>
                     </div>
                   </div>

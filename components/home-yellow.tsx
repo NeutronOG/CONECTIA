@@ -9,11 +9,13 @@ import { CommercialAlliance } from "./commercial-alliance"
 import { HomepageAdSlot } from "./homepage-ads"
 import { Propiedad } from "@/data/propiedades"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { translatePropertyTitle } from "@/lib/i18n/property-localization"
 
 export function HomeYellow() {
   const { language, t } = useLanguage()
+  const { formatPrice } = useCurrency()
   const [isCategoriasMenuOpen, setIsCategoriasMenuOpen] = useState(false)
   const [activeThumb, setActiveThumb] = useState(0)
   const [featuredProp, setFeaturedProp] = useState<Propiedad | null>(null)
@@ -46,11 +48,6 @@ export function HomeYellow() {
   }, [])
 
   const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder.svg']
-  const formatPrice = (p?: number) => {
-    if (p === undefined || p === null || isNaN(p)) return '—'
-    return p >= 1_000_000 ? `$${(p / 1_000_000).toFixed(1).replace(/\.0$/, '')}M` : `$${(p / 1_000).toFixed(0)}K`
-  }
-
   return (
     <div className="home-experience min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
 
@@ -196,7 +193,7 @@ export function HomeYellow() {
                 {isLoadingProp ? (
                   <div className="h-10 w-32 bg-[#E5E7EB] dark:bg-[#EAE4DD]/10 rounded animate-pulse" />
                 ) : featuredProp ? (
-                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">{formatPrice(featuredProp.precio)}</p>
+                  <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">{formatPrice(featuredProp.precio, featuredProp.precioTexto)}</p>
                 ) : (
                   <p className="text-4xl font-black text-[#17313A] dark:text-[#EAE4DD]">—</p>
                 )}

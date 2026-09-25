@@ -30,6 +30,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { useLanguage } from "@/lib/i18n"
+import { useCurrency } from "@/lib/currency-provider"
+import { toast } from "sonner"
 import Image from "next/image"
 
 export function DynamicHeader() {
@@ -39,8 +41,12 @@ export function DynamicHeader() {
   const [isOtrosMenuOpen, setIsOtrosMenuOpen] = useState(false)
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
   const { language, toggleLanguage, t } = useLanguage()
-
-  const langLabel = language.toUpperCase()
+  const { currency, rate, loading: currencyLoading, toggleCurrency } = useCurrency()
+  const languageFlag = language === 'es' ? '🇲🇽' : '🇺🇸'
+  const changeCurrency = () => void toggleCurrency().catch(() => toast.error(language === 'es' ? 'No se pudo consultar el tipo de cambio. Los precios siguen en MXN.' : 'Exchange rate unavailable. Prices remain in MXN.'))
+  const currencyTitle = currency === 'USD' && rate
+    ? `${language === 'es' ? 'Volver a pesos. Tipo de cambio referencial' : 'Switch to pesos. Reference exchange rate'}: 1 USD = ${rate.rate} MXN (${rate.date})`
+    : language === 'es' ? 'Ver precios en dólares (USD)' : 'Show prices in US dollars (USD)'
   const otrosButtonRef = useRef<HTMLButtonElement | null>(null)
   const [otrosRect, setOtrosRect] = useState<{ top?: number; bottom?: number; right: number } | null>(null)
 
@@ -175,12 +181,17 @@ export function DynamicHeader() {
                   <Search className="h-3.5 w-3.5" />
                 </button>
                 <ModeToggle />
+                <button type="button" onClick={changeCurrency} disabled={currencyLoading} aria-label={currencyTitle} title={currencyTitle} className="flex h-7 items-center rounded-lg border border-[#17313A]/20 bg-[#17313A]/5 px-2 text-[10px] font-bold text-[#17313A] transition-all hover:scale-105 disabled:opacity-50 dark:border-[#EAE4DD]/20 dark:bg-white/10 dark:text-[#EAE4DD]">
+                  {currencyLoading ? '…' : currency}
+                </button>
                 <button
+                  type="button"
                   onClick={toggleLanguage}
-                  className="flex items-center justify-center h-7 px-2 py-1 rounded-lg text-[10px] font-bold tracking-widest border border-[#17313A]/20 bg-[#17313A]/5 text-[#17313A] dark:border-[#EAE4DD]/20 dark:bg-white/10 dark:text-[#EAE4DD] transition-all duration-200 hover:scale-105"
+                  className="flex items-center justify-center h-7 px-2 py-1 rounded-lg text-base border border-[#17313A]/20 bg-[#17313A]/5 text-[#17313A] dark:border-[#EAE4DD]/20 dark:bg-white/10 dark:text-[#EAE4DD] transition-all duration-200 hover:scale-105"
+                  aria-label={language === 'es' ? 'Idioma: Español. Cambiar a inglés' : 'Language: English. Switch to Spanish'}
                   title={t('common.language')}
                 >
-                  <span>{langLabel}</span>
+                  <span aria-hidden="true">{languageFlag}</span>
                 </button>
               </div>
 
@@ -277,6 +288,10 @@ export function DynamicHeader() {
                 </Link>
 
                 <div className="flex items-center gap-2">
+                  <button type="button" onClick={changeCurrency} disabled={currencyLoading} aria-label={currencyTitle} title={currencyTitle} className="rounded-full border border-[#17313A]/15 px-2 py-1 text-[10px] font-bold text-[#17313A] disabled:opacity-50 dark:text-white">
+                    {currencyLoading ? '…' : currency}
+                  </button>
+                  <button type="button" onClick={toggleLanguage} aria-label={language === 'es' ? 'Idioma: Español. Cambiar a inglés' : 'Language: English. Switch to Spanish'} className="text-base" title={t('common.language')}><span aria-hidden="true">{languageFlag}</span></button>
                   {/* Divider */}
                   <div className="w-px h-5 bg-[#B0ACA6]/20 flex-shrink-0" />
 
@@ -305,14 +320,15 @@ export function DynamicHeader() {
                   </Link>
                   <div className="flex items-center gap-2">
                     <ModeToggle />
+                    <button type="button" onClick={changeCurrency} disabled={currencyLoading} aria-label={currencyTitle} title={currencyTitle} className="flex h-8 items-center rounded-full border border-[#17313A]/15 px-2 text-xs font-bold text-[#17313A] disabled:opacity-50 dark:text-white">{currencyLoading ? '…' : currency}</button>
                     <button
                       type="button"
                       onClick={toggleLanguage}
-                      className="flex h-8 items-center justify-center rounded-full border border-[#17313A]/15 bg-white/70 px-3 text-[10px] font-black tracking-widest text-[#17313A] shadow-sm transition-all hover:bg-white dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
-                      aria-label={t('common.language')}
+                      className="flex h-8 items-center justify-center rounded-full border border-[#17313A]/15 bg-white/70 px-2 text-base text-[#17313A] shadow-sm transition-all hover:bg-white dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+                      aria-label={language === 'es' ? 'Idioma: Español. Cambiar a inglés' : 'Language: English. Switch to Spanish'}
                       title={t('common.language')}
                     >
-                      {langLabel}
+                      <span aria-hidden="true">{languageFlag}</span>
                     </button>
                     <Button
                       variant="ghost"
