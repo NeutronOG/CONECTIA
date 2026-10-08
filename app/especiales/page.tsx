@@ -36,7 +36,7 @@ export default function EspecialesPage() {
             className="w-full h-full object-cover object-center scale-105 filter brightness-[0.8] saturate-[1.1]"
           />
           {/* Deep elegant overlays combining Conectia colors */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#17313A]/90 via-[#17313A]/60 to-[#0F1114]/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2B1E18]/90 via-[#3A2A22]/60 to-[#1A1310]/80 dark:from-[#17313A]/90 dark:via-[#17313A]/60 dark:to-[#0F1114]/80" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F2EE] dark:to-[#0F1114]" />
           
           {/* Brand subtle grid lines */}
@@ -165,9 +165,9 @@ export default function EspecialesPage() {
             ))}
             
             {propiedades.length === 0 && (
-              <div className="col-span-full py-24 text-center rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-sm">
+              <div className="col-span-full py-24 text-center rounded-3xl bg-white/60 dark:bg-white/[0.02] border border-[#17313A]/10 dark:border-white/5 backdrop-blur-sm">
                 <Crown className="h-16 w-16 text-[var(--conectia-arcilla)]/40 mx-auto mb-4" />
-                <h4 className="font-serif text-xl text-white font-bold mb-2">{t('pages.especiales.emptyTitle')}</h4>
+                <h4 className="font-serif text-xl text-[#17313A] dark:text-white font-bold mb-2">{t('pages.especiales.emptyTitle')}</h4>
                 <p className="text-[#B0ACA6] text-sm max-w-sm mx-auto">
                   {t('pages.especiales.emptySubtitle')}
                 </p>

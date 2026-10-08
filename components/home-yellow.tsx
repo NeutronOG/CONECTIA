@@ -12,6 +12,7 @@ import { useLanguage } from "@/lib/i18n"
 import { useCurrency } from "@/lib/currency-provider"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { translatePropertyTitle } from "@/lib/i18n/property-localization"
+import { isVideoUrl } from "@/lib/property-extra-fields"
 
 export function HomeYellow() {
   const { language, t } = useLanguage()
@@ -47,7 +48,8 @@ export function HomeYellow() {
       .finally(() => setIsLoadingProp(false))
   }, [])
 
-  const gallery = featuredProp?.galeria?.length ? featuredProp.galeria : [featuredProp?.imagen || '/placeholder.svg']
+  const featuredPhotos = (featuredProp?.galeria || []).filter((src: string) => !isVideoUrl(src))
+  const gallery = featuredPhotos.length ? featuredPhotos : [featuredProp?.imagen || '/placeholder.svg']
   return (
     <div className="home-experience min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-300">
 

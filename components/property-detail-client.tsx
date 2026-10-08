@@ -17,6 +17,7 @@ import { usePropertyStatic } from "@/hooks/use-properties-static"
 import { useLanguage } from "@/lib/i18n"
 import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyList, translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
+import { formatPropertyLocation, isVideoUrl } from "@/lib/property-extra-fields"
 
 interface PropertyDetailClientProps {
   propertyData: Propiedad | null
@@ -127,6 +128,13 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
   const localizedDescription = englishContent?.description || propertyData.descripcion
   const localizedFeatures = englishContent?.features || translatePropertyList(propertyData.caracteristicas, language)
   const displayPrice = formatPrice(propertyData.precio, propertyData.precioTexto)
+  const fullLocation = formatPropertyLocation(propertyData)
+  const currentIsVideo = isVideoUrl(images[currentImageIndex])
+  const furnishedLabels: Record<string, [string, string]> = {
+    amueblado: ['Amueblado', 'Furnished'], semiamueblado: ['Semiamueblado', 'Semi-furnished'],
+    sin_amueblar: ['Sin amueblar', 'Unfurnished'], no_aplica: ['No aplica', 'Not applicable'],
+  }
+  const es = language === 'es'
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
@@ -158,7 +166,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#17313A] dark:text-[#EAE4DD] leading-tight">{localizedTitle}</h1>
                 <div className="flex items-center gap-1.5 mt-3 text-[#6B7280] dark:text-[#B0ACA6]">
                   <MapPin className="h-4 w-4 text-[var(--conectia-arcilla)]" />
-                  <span className="text-sm">{propertyData.ubicacion}</span>
+                  <span className="text-sm">{fullLocation}</span>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -183,11 +191,22 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
               className="relative w-full aspect-[16/10] overflow-hidden shadow-2xl bg-[#F3F4F6] dark:bg-[#17313A]/20"
               style={{ borderRadius: '24px 96px 24px 96px' }}
             >
-              <img
-                src={images[currentImageIndex]}
-                alt={localizedTitle}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-              />
+              {currentIsVideo ? (
+                <video
+                  key={images[currentImageIndex]}
+                  src={images[currentImageIndex]}
+                  className="w-full h-full object-contain bg-black"
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={images[currentImageIndex]}
+                  alt={localizedTitle}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+              )}
 
               {images.length > 1 && (
                 <>
@@ -203,12 +222,12 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                   >
                     <ArrowRight className="h-5 w-5" />
                   </button>
-                  <button
+                  {!currentIsVideo && <button
                     onClick={() => setIsImageFullscreen(true)}
                     className="absolute top-4 right-4 w-10 h-10 bg-white/90 dark:bg-[#17313A]/80 border border-[#E5E7EB] dark:border-white/10 rounded-full flex items-center justify-center text-[#17313A] dark:text-white transition-all z-10"
                   >
                     <Maximize className="h-5 w-5" />
-                  </button>
+                  </button>}
                   {propertyData.tourVirtual && (
                     <button
                       onClick={() => window.open(propertyData.tourVirtual, '_blank')}
@@ -236,7 +255,16 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                       i === currentImageIndex ? 'border-[var(--conectia-arcilla)]' : 'border-transparent hover:border-[var(--conectia-arcilla)]/40'
                     }`}
                   >
-                    <img src={src} alt={`${localizedTitle} ${i + 1}`} className="w-full h-full object-cover" />
+                    {isVideoUrl(src) ? (
+                      <>
+                        <video src={src} className="w-full h-full object-cover bg-black" muted playsInline preload="metadata" />
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/25">
+                          <Play className="h-5 w-5 text-white fill-current" />
+                        </span>
+                      </>
+                    ) : (
+                      <img src={src} alt={`${localizedTitle} ${i + 1}`} className="w-full h-full object-cover" />
+                    )}
                   </button>
                 ))}
                 {!showAllThumbnails && remainingCount > 0 && (
@@ -311,14 +339,20 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                     { label: t('propertyDetail.propertyType'), value: translatePropertyValue(propertyData.detalles?.tipoPropiedad || propertyData.tipo, language) },
                     { label: t('propertyDetail.totalArea'), value: propertyData.areaTexto },
                     ...(propertyData.detalles?.areaTerreno ? [{ label: t('propertyDetail.landArea'), value: propertyData.detalles.areaTerreno }] : []),
-                    ...(propertyData.detalles?.antiguedad ? [{ label: t('propertyDetail.age'), value: translatePropertyValue(propertyData.detalles.antiguedad, language) }] : []),
+                    ...((propertyData.antiguedad || propertyData.detalles?.antiguedad) ? [{ label: t('propertyDetail.age'), value: translatePropertyValue(propertyData.antiguedad || propertyData.detalles!.antiguedad, language) }] : []),
+                    ...(propertyData.colonia ? [{ label: es ? 'Colonia / Zona' : 'Neighborhood', value: propertyData.colonia }] : []),
+                    ...(propertyData.ciudad ? [{ label: es ? 'Ciudad' : 'City', value: propertyData.ciudad }] : []),
+                    ...(propertyData.frente ? [{ label: es ? 'Frente' : 'Frontage', value: `${propertyData.frente} m` }] : []),
+                    ...(propertyData.fondo ? [{ label: es ? 'Fondo' : 'Depth', value: `${propertyData.fondo} m` }] : []),
+                    ...(propertyData.amueblado && furnishedLabels[propertyData.amueblado] ? [{ label: es ? 'Amueblado' : 'Furnished', value: furnishedLabels[propertyData.amueblado][es ? 0 : 1] }] : []),
+                    ...(propertyData.amenidades?.length ? [{ label: es ? 'Amenidades' : 'Amenities', value: translatePropertyList(propertyData.amenidades, language).join(', ') }] : []),
                     { label: t('propertyDetail.status'), value: translatePropertyValue(propertyData.status, language) },
                     { label: t('propertyDetail.category'), value: translatePropertyValue(propertyData.categoria.charAt(0).toUpperCase() + propertyData.categoria.slice(1), language) },
                     ...(propertyData.detalles?.publicado ? [{ label: t('propertyDetail.publishedDate'), value: propertyData.detalles.publicado }] : []),
                   ].map((item, i) => (
                     <div key={i} className="flex justify-between items-center py-3 border-b border-[#E5E7EB] dark:border-[#EAE4DD]/10 last:border-0">
                       <span className="text-[#6B7280] dark:text-[#B0ACA6] text-sm">{item.label}</span>
-                      <span className="font-semibold text-[#17313A] dark:text-[#EAE4DD] text-sm">{item.value}</span>
+                      <span className="font-semibold text-[#17313A] dark:text-[#EAE4DD] text-sm text-right">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -343,7 +377,7 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
                 <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#F9FAFB] dark:bg-[#17313A]/20 border border-[#E5E7EB] dark:border-[#EAE4DD]/10">
                   <MapPin className="h-5 w-5 text-[var(--conectia-arcilla)] mt-0.5" />
                   <div>
-                    <p className="font-semibold text-[#17313A] dark:text-[#EAE4DD]">{propertyData.ubicacion}</p>
+                    <p className="font-semibold text-[#17313A] dark:text-[#EAE4DD]">{fullLocation}</p>
                     <p className="text-sm text-[#6B7280] dark:text-[#B0ACA6] mt-1">{t('propertyDetail.locationDesc')}</p>
                   </div>
                 </div>
@@ -410,11 +444,15 @@ export function PropertyDetailClient({ propertyData: initialData, propertyId }: 
           >
             <X className="h-5 w-5" />
           </button>
-          <img
-            src={images[currentImageIndex]}
-            alt={localizedTitle}
-            className="max-w-[95%] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
-          />
+          {currentIsVideo ? (
+            <video src={images[currentImageIndex]} className="max-w-[95%] max-h-[90vh] rounded-2xl shadow-2xl" controls autoPlay playsInline />
+          ) : (
+            <img
+              src={images[currentImageIndex]}
+              alt={localizedTitle}
+              className="max-w-[95%] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+            />
+          )}
           {images.length > 1 && (
             <>
               <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 border border-white/20 hover:bg-[var(--conectia-arcilla)]/20 rounded-full flex items-center justify-center text-white transition-all">

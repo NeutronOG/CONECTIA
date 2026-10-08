@@ -43,6 +43,7 @@ import { getUserByEmail } from '@/data/internal-users'
 import { isSuperUser } from '@/lib/super-users'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 import { reservationNotice } from '@/lib/property-reservation'
+import { extraFieldsFromRow, isVideoUrl } from '@/lib/property-extra-fields'
 
 export default function PropiedadesAsesorPage() {
   const { language, t } = useLanguage()
@@ -162,6 +163,8 @@ export default function PropiedadesAsesorPage() {
             comisionAsesorPct: p.comision_asesor_pct || undefined,
             unidadSuperficie: p.unidad_superficie || undefined,
             detalles: p.detalles || undefined,
+            tipoCredito: p.tipo_credito || undefined,
+            ...extraFieldsFromRow(p),
             agente: asesorEmail ? {
               email: asesorEmail,
               nombre: asesorInfo?.nombre || asesorEmail,
@@ -551,7 +554,7 @@ export default function PropiedadesAsesorPage() {
                       title={propiedad.titulo}
                       url={`/propiedades/${propiedad.id}`}
                       allowMediaShare
-                      images={[propiedad.imagen, ...(propiedad.galeria || [])]}
+                      images={[propiedad.imagen, ...(propiedad.galeria || []).filter(src => !isVideoUrl(src))]}
                       propertyId={propiedad.id}
                       variant="ghost"
                       size="sm"

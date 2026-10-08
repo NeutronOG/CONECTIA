@@ -8,6 +8,8 @@ export interface OwnerSubmission {
   bathrooms: string
   area: string
   areaConstruccion?: string
+  frente?: string
+  fondo?: string
   // Ubicación
   address: string
   city: string

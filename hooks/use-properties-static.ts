@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { supabase } from '@/lib/supabase/client'
 import type { Propiedad } from '@/data/propiedades'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
+import { extraFieldsFromRow } from '@/lib/property-extra-fields'
 import { uniqueProperties } from '@/lib/property-deduplication'
 
 // Fetcher via API route (bypasses RLS using service role key on server)
@@ -96,6 +97,7 @@ export function usePropertiesStatic() {
           comisionAsesorPct: newProp.comision_asesor_pct || undefined,
           fechaApartado: newProp.fecha_apartado || undefined,
           fechaTerminoContrato: newProp.fecha_termino_contrato || undefined,
+          ...extraFieldsFromRow(newProp),
         }
 
         setRealtimeUpdates((prev) => {

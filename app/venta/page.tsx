@@ -60,8 +60,8 @@ export default function VentaPage() {
           </div>
         </div>
 
-        <div className="relative flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
-          <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative flex flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
+          <div className="relative flex-1 min-h-[calc(40vh-2rem)] lg:min-h-0 rounded-3xl overflow-hidden shadow-2xl">
             <img src={HERO_IMAGE} alt={t('pages.venta.title')} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
 

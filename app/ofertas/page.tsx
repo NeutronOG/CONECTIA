@@ -35,7 +35,7 @@ export default function OfertasPage() {
     <div className="min-h-screen bg-[#F6F2EE] [--conectia-arcilla:#E7B29A] [--conectia-arcilla-hover:#F0C2AE] [--conectia-on-accent:#0F2027] dark:bg-[#0F2027]">
 
       {/* HERO — Creative dark with glow effects */}
-      <section className="relative isolate overflow-hidden bg-[#0B1C23] [--offer-accent:#E7B29A]">
+      <section className="relative isolate overflow-hidden bg-[#241914] dark:bg-[#0B1C23] [--offer-accent:#E7B29A]">
         {/* Background image */}
         <Image
           src={HERO_IMAGE}
@@ -46,10 +46,10 @@ export default function OfertasPage() {
           className="scale-105 object-cover object-[62%_center] opacity-45 sm:object-center sm:opacity-50"
         />
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,16,21,0.80)_0%,rgba(9,26,33,0.70)_42%,rgba(7,22,28,0.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,16,21,0.96)_0%,rgba(7,22,28,0.84)_48%,rgba(7,22,28,0.50)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(26,18,14,0.80)_0%,rgba(36,25,20,0.70)_42%,rgba(30,21,17,0.96)_100%)] lg:bg-[linear-gradient(90deg,rgba(26,18,14,0.96)_0%,rgba(30,21,17,0.84)_48%,rgba(30,21,17,0.50)_100%)] dark:bg-[linear-gradient(180deg,rgba(5,16,21,0.80)_0%,rgba(9,26,33,0.70)_42%,rgba(7,22,28,0.96)_100%)] dark:lg:bg-[linear-gradient(90deg,rgba(5,16,21,0.96)_0%,rgba(7,22,28,0.84)_48%,rgba(7,22,28,0.50)_100%)]" />
         {/* Accent gradient orbs */}
         <div className="absolute -right-24 top-24 h-72 w-72 rounded-full bg-[var(--offer-accent)]/20 blur-[110px]" />
-        <div className="absolute -left-16 bottom-8 h-64 w-64 rounded-full bg-[#315D68]/30 blur-[90px]" />
+        <div className="absolute -left-16 bottom-8 h-64 w-64 rounded-full bg-[#8A5A44]/30 dark:bg-[#315D68]/30 blur-[90px]" />
         <div className="absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(115deg,transparent_0,transparent_46px,rgba(255,255,255,0.45)_47px,transparent_48px)]" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-5 pb-32 pt-14 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
@@ -101,7 +101,7 @@ export default function OfertasPage() {
             {/* Right: glowing glass cards */}
             <div className="-mx-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:-mx-10 sm:gap-4 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
               {CARDS.map((item, index) => (
-                <div key={item.label} className="group relative min-h-36 min-w-[10.5rem] snap-start overflow-hidden rounded-[22px] border border-white/12 bg-[#17313A]/55 p-4 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-[var(--offer-accent)]/40 hover:bg-[#17313A]/75 sm:min-h-44 sm:min-w-52 sm:rounded-[28px] sm:p-5 lg:min-w-0">
+                <div key={item.label} className="group relative min-h-36 min-w-[10.5rem] snap-start overflow-hidden rounded-[22px] border border-white/12 bg-[#3A2A22]/55 dark:bg-[#17313A]/55 p-4 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-[var(--offer-accent)]/40 hover:bg-[#3A2A22]/75 dark:hover:bg-[#17313A]/75 sm:min-h-44 sm:min-w-52 sm:rounded-[28px] sm:p-5 lg:min-w-0">
                   <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-br from-[var(--offer-accent)]/10 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
                   <span className="absolute right-4 top-3 text-[10px] font-bold tracking-[0.2em] text-white/20">0{index + 1}</span>
                   <div className="relative flex h-full flex-col justify-between gap-5">
@@ -125,16 +125,16 @@ export default function OfertasPage() {
       </section>
 
       {/* GRID */}
-      <section id="propiedades-en-oferta" className="scroll-mt-8 bg-[#0F2027] px-4 py-14 sm:px-8 sm:py-20 lg:px-16">
+      <section id="propiedades-en-oferta" className="scroll-mt-8 bg-[#F6F2EE] dark:bg-[#0F2027] px-4 py-14 sm:px-8 sm:py-20 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end gap-8 mb-6">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--conectia-arcilla)] font-bold">{t('pages.ofertas.active')}</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">{t('properties.availableTitle')}</h2>
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#A8614A] dark:text-[var(--conectia-arcilla)] font-bold">{t('pages.ofertas.active')}</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#17313A] dark:text-white mt-1">{t('properties.availableTitle')}</h2>
             </div>
             <div className="h-px flex-1 bg-[var(--conectia-arcilla)]/20 hidden sm:block" />
           </div>
-          <SubcategoryFilter onChange={setTipoFilter} variant="dark" resultCount={propiedades.length} />
+          <SubcategoryFilter onChange={setTipoFilter} variant="light" resultCount={propiedades.length} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {propiedades.map((p) => (<PropertyCard key={p.id} propiedad={p} badgeLabel={t('properties.cards.forOffer')} />))}
             {propiedades.length === 0 && (<EmptyProperties label={t('properties.empty.subtitle')} />)}

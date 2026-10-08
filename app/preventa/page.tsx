@@ -71,8 +71,8 @@ export default function PreventaPage() {
           </div>
         </div>
 
-        <div className="relative flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
-          <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative flex flex-1 min-h-[40vh] lg:min-h-0 p-4 lg:p-6 lg:pl-0">
+          <div className="relative flex-1 min-h-[calc(40vh-2rem)] lg:min-h-0 rounded-3xl overflow-hidden shadow-2xl">
             <img src={HERO_IMAGE} alt={t('pages.preventa.title')} className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#17313A]/30 via-transparent to-transparent" />
             <div className="absolute bottom-6 right-6 bg-white/95 dark:bg-[#17313A]/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-[#17313A]/5 dark:border-[#EAE4DD]/10">

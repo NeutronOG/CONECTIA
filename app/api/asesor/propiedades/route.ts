@@ -10,6 +10,7 @@ import {
   withLegacyBonusFallback,
   withLegacyCategoryFallback,
 } from '@/lib/property-persistence-compat'
+import { EXTRA_PROPERTY_COLUMNS, isMissingExtraColumnError, withoutExtraColumns } from '@/lib/property-extra-fields'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -25,7 +26,7 @@ const propertyFields = [
   'area_texto', 'imagen', 'descripcion', 'caracteristicas', 'status',
   'categoria', 'fecha_publicacion', 'tour_virtual', 'galeria', 'bono',
   'comision_asesor_pct', 'unidad_superficie', 'tipo_credito', 'fecha_apartado',
-  'fecha_termino_contrato',
+  'fecha_termino_contrato', ...EXTRA_PROPERTY_COLUMNS,
 ] as const
 
 function pickPropertyFields(property: unknown) {
@@ -69,9 +70,10 @@ async function persistWithSchemaCompatibility(
   let candidate = sanitizePropertyPersistenceInput(initialData)
   let categoryFallbackApplied = false
   let bonusFallbackApplied = false
+  let extraColumnsFallbackApplied = false
 
-  // Máximo tres intentos: normal, compatibilidad de categoría y compatibilidad de bono.
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  // Máximo cuatro intentos: normal y compatibilidad de categoría, bono y columnas nuevas.
+  for (let attempt = 0; attempt < 4; attempt += 1) {
     const result = await mutation(candidate)
     if (!result.error) {
       return {
@@ -100,6 +102,14 @@ async function persistWithSchemaCompatibility(
       continue
     }
 
+    // Instalaciones sin la migración de ciudad, colonia, frente, fondo, etc.
+    if (!extraColumnsFallbackApplied && isMissingExtraColumnError(result.error)) {
+      console.warn('Faltan columnas de detalle en propiedades; ejecuta 20261008_add_property_detail_fields.sql')
+      candidate = withoutExtraColumns(candidate)
+      extraColumnsFallbackApplied = true
+      continue
+    }
+
     return result
   }
 
@@ -117,7 +127,7 @@ export async function POST(request: Request) {
     if (!isPropertyCategory(data.categoria)) {
       return NextResponse.json({ error: 'Selecciona una categoría pública válida' }, { status: 400 })
     }
-    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status)
+    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status, data.categoria)
     if (reservationError) return NextResponse.json({ error: reservationError }, { status: 400 })
 
     const ownerId = await resolveUserId(usuarioId, asesorEmail)
@@ -188,7 +198,7 @@ export async function PATCH(request: Request) {
       ...pickPropertyFields(normalizedCurrent),
       ...requestedChanges,
     }
-    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status)
+    const reservationError = validateReservation(data.fecha_apartado, data.fecha_termino_contrato, data.status, data.categoria)
     if (reservationError) return NextResponse.json({ error: reservationError }, { status: 400 })
 
     const { data: updated, error } = await persistWithSchemaCompatibility(

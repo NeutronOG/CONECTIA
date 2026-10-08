@@ -68,6 +68,8 @@ export default function PropietariosPage() {
     bathrooms: '',
     area: '',
     areaConstruccion: '',
+    frente: '',
+    fondo: '',
     address: '',
     city: '',
     neighborhood: '',
@@ -305,6 +307,8 @@ export default function PropietariosPage() {
         bathrooms: formData.bathrooms,
         area: formData.area,
         areaConstruccion: formData.areaConstruccion || undefined,
+        frente: formData.frente || undefined,
+        fondo: formData.fondo || undefined,
         address: formData.address,
         city: formData.city,
         neighborhood: formData.neighborhood,
@@ -527,7 +531,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <Home className="h-6 w-6 text-[#17313A]" />
+                  <Home className="h-6 w-6 text-white dark:text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
@@ -618,6 +622,40 @@ export default function PropietariosPage() {
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="frente" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                    {l('Frente (m)', 'Frontage (m)')}
+                  </Label>
+                  <Input
+                    id="frente"
+                    type="number"
+                    inputMode="decimal"
+                    step="0.01"
+                    min="0"
+                    placeholder={l('Ej: 12 (opcional)', 'e.g. 12 (optional)')}
+                    value={formData.frente}
+                    onChange={(e) => setFormData(prev => ({ ...prev, frente: e.target.value }))}
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)] focus:ring-[var(--conectia-arcilla)]/20"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="fondo" className="text-sm font-medium text-[#17313A] dark:text-[#EAE4DD]">
+                    {l('Fondo (m)', 'Depth (m)')}
+                  </Label>
+                  <Input
+                    id="fondo"
+                    type="number"
+                    inputMode="decimal"
+                    step="0.01"
+                    min="0"
+                    placeholder={l('Ej: 12 (opcional)', 'e.g. 12 (optional)')}
+                    value={formData.fondo}
+                    onChange={(e) => setFormData(prev => ({ ...prev, fondo: e.target.value }))}
+                    className="bg-[#17313A]/5 dark:bg-[#17313A]/5 dark:bg-white/5 border-[#17313A]/20 dark:border-[#17313A]/20 dark:border-white/20 text-[#17313A] dark:text-[#17313A] dark:text-white placeholder:text-[#4A4F57] focus:border-[var(--conectia-arcilla)] focus:ring-[var(--conectia-arcilla)]/20"
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <Label htmlFor="bedrooms" className="text-sm font-medium text-[#17313A] dark:text-[#17313A] dark:text-[#EAE4DD]">
                     {l('Habitaciones *', 'Bedrooms *')}
                   </Label>
@@ -679,7 +717,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <MapPin className="h-6 w-6 text-[#17313A]" />
+                  <MapPin className="h-6 w-6 text-white dark:text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
@@ -822,7 +860,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <DollarSign className="h-6 w-6 text-[#17313A]" />
+                  <DollarSign className="h-6 w-6 text-white dark:text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
@@ -950,8 +988,8 @@ export default function PropietariosPage() {
                           onClick={() => handleCaracteristicaToggle(caracteristica)}
                           className={`p-2 rounded-lg border cursor-pointer transition-all ${
                             formData.caracteristicasEspeciales?.includes(caracteristica)
-                              ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/10 text-white'
-                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
+                              ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/15 text-[#17313A] dark:text-white font-semibold'
+                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 text-[#17313A] dark:text-[#EAE4DD] hover:bg-[#17313A]/5 dark:hover:bg-white/5'
                           }`}
                         >
                           <div className="flex items-center space-x-2">
@@ -959,11 +997,11 @@ export default function PropietariosPage() {
                               className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
                                 formData.caracteristicasEspeciales?.includes(caracteristica)
                                   ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]'
-                                  : 'border-white/30'
+                                  : 'border-[#17313A]/30 dark:border-white/30'
                               }`}
                             >
                               {formData.caracteristicasEspeciales?.includes(caracteristica) && (
-                                <CheckCircle className="h-3 w-3 text-[#0F2027]" />
+                                <CheckCircle className="h-3 w-3 text-white dark:text-[#0F2027]" />
                               )}
                             </div>
                             <span className="text-sm">{translatePropertyValue(caracteristica, language)}</span>
@@ -985,8 +1023,8 @@ export default function PropietariosPage() {
                           onClick={() => handleActividadRecreativaToggle(actividad)}
                           className={`p-2 rounded-lg border cursor-pointer transition-all ${
                             formData.actividadesRecreativas.includes(actividad)
-                              ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/10 text-white'
-                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
+                              ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/15 text-[#17313A] dark:text-white font-semibold'
+                              : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 text-[#17313A] dark:text-[#EAE4DD] hover:bg-[#17313A]/5 dark:hover:bg-white/5'
                           }`}
                         >
                           <div className="flex items-center space-x-2">
@@ -994,11 +1032,11 @@ export default function PropietariosPage() {
                               className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
                                 formData.actividadesRecreativas.includes(actividad)
                                   ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]'
-                                  : 'border-white/30'
+                                  : 'border-[#17313A]/30 dark:border-white/30'
                               }`}
                             >
                               {formData.actividadesRecreativas.includes(actividad) && (
-                                <CheckCircle className="h-3 w-3 text-[#0F2027]" />
+                                <CheckCircle className="h-3 w-3 text-white dark:text-[#0F2027]" />
                               )}
                             </div>
                             <span className="text-sm">{translatePropertyValue(actividad, language)}</span>
@@ -1019,8 +1057,8 @@ export default function PropietariosPage() {
                     onClick={() => handleAmenityToggle(amenity)}
                     className={`p-3 rounded-lg border cursor-pointer transition-all ${
                       formData.amenities.includes(amenity)
-                        ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/10 text-white'
-                        : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 hover:bg-[#17313A]/5 dark:bg-white/5'
+                        ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]/15 text-[#17313A] dark:text-white font-semibold'
+                        : 'border-[#17313A]/10 dark:border-white/10 hover:border-[var(--conectia-arcilla)]/50 text-[#17313A] dark:text-[#EAE4DD] hover:bg-[#17313A]/5 dark:hover:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center space-x-2">
@@ -1028,11 +1066,11 @@ export default function PropietariosPage() {
                         className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
                           formData.amenities.includes(amenity)
                             ? 'border-[var(--conectia-arcilla)] bg-[var(--conectia-arcilla)]'
-                            : 'border-white/30'
+                            : 'border-[#17313A]/30 dark:border-white/30'
                         }`}
                       >
                         {formData.amenities.includes(amenity) && (
-                          <CheckCircle className="h-3 w-3 text-[#0F2027]" />
+                          <CheckCircle className="h-3 w-3 text-white dark:text-[#0F2027]" />
                         )}
                       </div>
                       <span className="text-sm">{translatePropertyValue(amenity, language)}</span>
@@ -1046,7 +1084,7 @@ export default function PropietariosPage() {
                 <div className="mt-8 p-6 bg-[#EAE4DD]/50 dark:bg-[#17313A]/50 rounded-xl border border-[var(--conectia-arcilla)]/30">
                   <div className="flex items-center mb-4">
                     <div className="w-10 h-10 bg-conectia-gold rounded-full flex items-center justify-center mr-3">
-                      <Star className="h-5 w-5 text-[#17313A]" />
+                      <Star className="h-5 w-5 text-white dark:text-[#17313A]" />
                     </div>
                     <div>
                       <h3 className="font-serif text-lg font-semibold text-[#17313A] dark:text-white">
@@ -1131,7 +1169,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <Camera className="h-6 w-6 text-[#17313A]" />
+                  <Camera className="h-6 w-6 text-white dark:text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
@@ -1226,7 +1264,7 @@ export default function PropietariosPage() {
             <div className="p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-conectia-gold rounded-full flex items-center justify-center mr-4">
-                  <User className="h-6 w-6 text-[#17313A]" />
+                  <User className="h-6 w-6 text-white dark:text-[#17313A]" />
                 </div>
                 <div>
                   <h2 className="font-serif text-2xl font-semibold text-[#17313A] dark:text-white">
@@ -1312,7 +1350,7 @@ export default function PropietariosPage() {
                         onCheckedChange={(checked) => {
                           setFormData(prev => ({...prev, exclusivity: checked as boolean, nonExclusivity: false}))
                         }}
-                        className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
+                        className="mt-1 border-[#17313A]/40 dark:border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="exclusivity" className="text-sm leading-relaxed">
                         <strong>{l('CON exclusividad (6 meses)', 'EXCLUSIVE representation (6 months)')}</strong> — {l('Maximiza el valor de tu propiedad con atención personalizada, marketing exclusivo y mejores resultados.', 'Maximize your property’s value through personal service, exclusive marketing, and stronger results.')}
@@ -1325,7 +1363,7 @@ export default function PropietariosPage() {
                         onCheckedChange={(checked) => {
                           setFormData(prev => ({...prev, nonExclusivity: checked as boolean, exclusivity: false}))
                         }}
-                        className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
+                        className="mt-1 border-[#17313A]/40 dark:border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="nonExclusivity" className="text-sm leading-relaxed">
                         <strong>{l('SIN exclusividad', 'NON-EXCLUSIVE representation')}</strong> — {l('Flexibilidad total para trabajar con múltiples agentes.', 'Full flexibility to work with multiple agents.')}
@@ -1336,7 +1374,7 @@ export default function PropietariosPage() {
                         id="terms"
                         checked={formData.terms}
                         onCheckedChange={(checked) => setFormData(prev => ({...prev, terms: checked as boolean}))}
-                        className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
+                        className="mt-1 border-[#17313A]/40 dark:border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="terms" className="text-sm leading-relaxed">
                         {l('Acepto los', 'I accept the')}{' '}
@@ -1349,7 +1387,7 @@ export default function PropietariosPage() {
                         id="privacy"
                         checked={formData.privacy}
                         onCheckedChange={(checked) => setFormData(prev => ({...prev, privacy: checked as boolean}))}
-                        className="mt-1 border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
+                        className="mt-1 border-[#17313A]/40 dark:border-white/30 data-[state=checked]:bg-[var(--conectia-arcilla)] data-[state=checked]:border-[var(--conectia-arcilla)]"
                       />
                       <Label htmlFor="privacy" className="text-sm leading-relaxed">
                         {l('Autorizo el tratamiento de mis datos conforme al', 'I authorize the processing of my personal data in accordance with CONECTIA’s')}{' '}
@@ -1391,7 +1429,7 @@ export default function PropietariosPage() {
                   <Button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={!formData.exclusivity || !formData.terms || !formData.privacy || isSubmitting}
+                    disabled={(!formData.exclusivity && !formData.nonExclusivity) || !formData.terms || !formData.privacy || isSubmitting}
                     className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#17313A] px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (

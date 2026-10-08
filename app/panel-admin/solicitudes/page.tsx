@@ -280,6 +280,12 @@ export default function SolicitudesPropietariosPage() {
                           <p className="font-semibold text-white">{submission.areaConstruccion} m²</p>
                         </div>
                       )}
+                      {(submission.frente || submission.fondo) && (
+                        <div>
+                          <p className="text-[#8A8F97] text-xs mb-0.5">Frente × Fondo</p>
+                          <p className="font-semibold text-white">{submission.frente || '—'} m × {submission.fondo || '—'} m</p>
+                        </div>
+                      )}
                       <div>
                         <p className="text-[#8A8F97] text-xs mb-0.5">Habitaciones</p>
                         <p className="font-semibold text-white">{submission.bedrooms}</p>

@@ -10,12 +10,15 @@ import Link from "next/link"
 import { useLanguage } from "@/lib/i18n"
 import { useCurrency } from "@/lib/currency-provider"
 import { translatePropertyTitle, translatePropertyValue } from "@/lib/i18n/property-localization"
+import { formatPropertyLocation } from "@/lib/property-extra-fields"
 
 interface PropertyCardProps {
   propiedad: {
     id: number | string
     titulo: string
     ubicacion: string
+    colonia?: string
+    ciudad?: string
     precioTexto: string
     precio?: number
     tipo: string
@@ -145,7 +148,7 @@ export function PropertyCard({ propiedad, badgeLabel, onAgendarVisita }: Propert
         {/* Ubicación */}
         <div className="flex items-center text-[#4A4F57] dark:text-[#B0ACA6] mt-2">
           <MapPin className="h-3.5 w-3.5 mr-1.5 flex-shrink-0" weight="duotone" />
-          <span className="text-xs line-clamp-1">{propiedad.ubicacion}</span>
+          <span className="text-xs line-clamp-1">{formatPropertyLocation(propiedad)}</span>
         </div>
 
         {/* Contenido expandido */}

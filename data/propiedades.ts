@@ -23,6 +23,13 @@ export interface Propiedad {
   categoria: PropertyCategory
   frente?: number
   fondo?: number
+  colonia?: string
+  ciudad?: string
+  antiguedad?: string
+  gravamen?: string
+  observaciones?: string
+  amenidades?: string[]
+  tipoCredito?: string
   comisionAsesorPct?: number
   fechaApartado?: string
   fechaTerminoContrato?: string

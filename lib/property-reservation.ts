@@ -6,8 +6,10 @@ function dateValue(value: unknown): number | null {
   return Number.isFinite(time) && new Date(time).toISOString().slice(0, 10) === value ? time : null
 }
 
-export function validateReservation(start: unknown, end: unknown, status?: unknown): string | null {
-  if (!start && !end && status !== 'Reservada') return null
+/** El calendario de apartado sólo aplica a renta; sin categoría se conserva la regla general. */
+export function validateReservation(start: unknown, end: unknown, status?: unknown, categoria?: unknown): string | null {
+  const requiresDates = status === 'Reservada' && (categoria === undefined || categoria === 'renta')
+  if (!start && !end && !requiresDates) return null
   if (dateValue(start) === null || dateValue(end) === null) return 'Selecciona fechas válidas de apartado y término del contrato.'
   if (String(end) < String(start)) return 'El término del contrato no puede ser anterior al apartado.'
   return null

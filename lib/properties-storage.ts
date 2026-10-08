@@ -3,6 +3,7 @@ import { getUserByEmail } from '@/data/internal-users'
 import type { Database } from './supabase/database.types'
 import { supabase } from './supabase/client'
 import { normalizePersistedProperty } from './property-persistence-compat'
+import { extraFieldsFromRow, extraFieldsToRow } from './property-extra-fields'
 
 type PropiedadRow = Database['public']['Tables']['propiedades']['Row']
 
@@ -46,6 +47,8 @@ export class PropertiesStorage {
       unidadSuperficie: (dbProp as any).unidad_superficie || undefined,
       fechaApartado: (dbProp as any).fecha_apartado || undefined,
       fechaTerminoContrato: (dbProp as any).fecha_termino_contrato || undefined,
+      tipoCredito: (dbProp as any).tipo_credito || undefined,
+      ...extraFieldsFromRow(dbProp),
       agente: asesorEmail ? {
         email: asesorEmail,
         nombre: asesorInfo?.nombre || asesorEmail,
@@ -181,6 +184,8 @@ export class PropertiesStorage {
       dbData.cochera = appProp.cochera
     }
 
+    Object.assign(dbData, extraFieldsToRow(appProp))
+
     // Asegurar que no se incluya el id
     delete dbData.id
 
@@ -221,6 +226,7 @@ export class PropertiesStorage {
     if (Object.prototype.hasOwnProperty.call(updates, 'tipoCredito')) {
       dbData.tipo_credito = (updates as any).tipoCredito || null
     }
+    Object.assign(dbData, extraFieldsToRow(updates))
 
     return dbData
   }

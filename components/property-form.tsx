@@ -9,19 +9,23 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Propiedad } from "@/data/propiedades"
-import { Upload, X, Plus, Loader2, Check } from "lucide-react"
+import { Upload, X, Plus, Loader2, Check, Pencil, ShieldCheck } from "lucide-react"
 import { uploadImage, uploadMultipleImages } from "@/lib/supabase/storage"
 import { getComisionAsesorTexto, usaComisionPorcentual } from "@/lib/commission"
 import { validateReservation } from "@/lib/property-reservation"
 import { PUBLIC_PROPERTY_CATEGORIES } from "@/lib/property-categories"
 import { useLanguage } from "@/lib/i18n"
+import { formatPropertyLocation, isVideoUrl } from "@/lib/property-extra-fields"
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024
 
 const FORM_COPY = {
   es: {
-    basicTitle: "Información Básica", basicSubtitle: "Datos principales de la propiedad", title: "Título", location: "Ubicación / Dirección", neighborhood: "Colonia / Zona", city: "Ciudad", propertyType: "Tipo de Propiedad", surfaceUnit: "Unidad de Superficie", bedrooms: "Habitaciones", fullBathrooms: "Baños Completos", halfBathrooms: "Medios Baños", landArea: "Área Terreno (m²)", furnished: "Amueblado", constructionArea: "Área Construcción (m²)", frontage: "Frente (m)", depth: "Fondo (m)", garage: "Cochera (Coches)", status: "Estado", publicCategory: "Categoría pública", creditType: "Tipo de Crédito", age: "Antigüedad", lien: "¿Tiene Gravamen?", description: "Descripción", observations: "Observaciones de la Propiedad", selectOption: "Selecciona una opción", notApplicable: "No aplica", furnishedOption: "Amueblado", semiFurnished: "Semiamueblado", unfurnished: "Sin amueblar", selectAge: "Selecciona antigüedad", newProperty: "Nueva (Estrenar)", characteristics: "Características", characteristicsSubtitle: "Agrega las características destacadas", amenities: "Amenidades", amenitiesSubtitle: "Selecciona las amenidades disponibles en la propiedad", addCharacteristic: "Agregar otra característica...", selectedCharacteristics: "característica(s) seleccionada(s)", selectedAmenities: "amenidad(es) seleccionada(s)", mainImage: "Imagen Principal", mainImageSubtitle: "Sube la imagen principal de la propiedad", gallery: "Galería de Imágenes", gallerySubtitle: "Sube hasta 30 imágenes adicionales", change: "Cambiar", remove: "Eliminar", bonus: "Bono o Descuento", cancel: "Cancelar", processing: "Procesando...", update: "Actualizar", publish: "Publicar", property: "Propiedad"
+    basicTitle: "Información Básica", basicSubtitle: "Datos principales de la propiedad", title: "Título", location: "Ubicación / Dirección", neighborhood: "Colonia / Zona", city: "Ciudad", propertyType: "Tipo de Propiedad", surfaceUnit: "Unidad de Superficie", bedrooms: "Habitaciones", fullBathrooms: "Baños Completos", halfBathrooms: "Medios Baños", landArea: "Área Terreno (m²)", furnished: "Amueblado", constructionArea: "Área Construcción (m²)", frontage: "Frente (m)", depth: "Fondo (m)", garage: "Cochera (Coches)", status: "Estado", publicCategory: "Categoría pública", creditType: "Tipo de Crédito", age: "Antigüedad", lien: "¿Tiene Gravamen?", description: "Descripción", observations: "Observaciones de la Propiedad", selectOption: "Selecciona una opción", notApplicable: "No aplica", furnishedOption: "Amueblado", semiFurnished: "Semiamueblado", unfurnished: "Sin amueblar", selectAge: "Selecciona antigüedad", newProperty: "Nueva (Estrenar)", characteristics: "Características", characteristicsSubtitle: "Agrega las características destacadas", amenities: "Amenidades", amenitiesSubtitle: "Selecciona las amenidades disponibles en la propiedad", addCharacteristic: "Agregar otra característica...", selectedCharacteristics: "característica(s) seleccionada(s)", selectedAmenities: "amenidad(es) seleccionada(s)", mainImage: "Imagen Principal", mainImageSubtitle: "Sube la imagen principal de la propiedad", gallery: "Galería de imágenes y videos", gallerySubtitle: "Sube hasta 30 fotos o videos adicionales", change: "Cambiar", remove: "Eliminar", bonus: "Bono o Descuento", cancel: "Cancelar", processing: "Procesando...", update: "Actualizar", publish: "Publicar", property: "Propiedad"
   },
   en: {
-    basicTitle: "Basic Information", basicSubtitle: "Main property details", title: "Title", location: "Location / Address", neighborhood: "Neighborhood / Area", city: "City", propertyType: "Property Type", surfaceUnit: "Surface Unit", bedrooms: "Bedrooms", fullBathrooms: "Full Bathrooms", halfBathrooms: "Half Bathrooms", landArea: "Land Area (m²)", furnished: "Furnished", constructionArea: "Construction Area (m²)", frontage: "Frontage (m)", depth: "Depth (m)", garage: "Garage (Cars)", status: "Status", publicCategory: "Public Category", creditType: "Credit Type", age: "Property Age", lien: "Does it have a lien?", description: "Description", observations: "Property Notes", selectOption: "Select an option", notApplicable: "Not applicable", furnishedOption: "Furnished", semiFurnished: "Semi-furnished", unfurnished: "Unfurnished", selectAge: "Select property age", newProperty: "New (Never occupied)", characteristics: "Features", characteristicsSubtitle: "Add the property's standout features", amenities: "Amenities", amenitiesSubtitle: "Select the amenities available at the property", addCharacteristic: "Add another feature...", selectedCharacteristics: "feature(s) selected", selectedAmenities: "amenity/amenities selected", mainImage: "Main Image", mainImageSubtitle: "Upload the property's main image", gallery: "Image Gallery", gallerySubtitle: "Upload up to 30 additional images", change: "Change", remove: "Remove", bonus: "Bonus or Discount", cancel: "Cancel", processing: "Processing...", update: "Update", publish: "Publish", property: "Property"
+    basicTitle: "Basic Information", basicSubtitle: "Main property details", title: "Title", location: "Location / Address", neighborhood: "Neighborhood / Area", city: "City", propertyType: "Property Type", surfaceUnit: "Surface Unit", bedrooms: "Bedrooms", fullBathrooms: "Full Bathrooms", halfBathrooms: "Half Bathrooms", landArea: "Land Area (m²)", furnished: "Furnished", constructionArea: "Construction Area (m²)", frontage: "Frontage (m)", depth: "Depth (m)", garage: "Garage (Cars)", status: "Status", publicCategory: "Public Category", creditType: "Credit Type", age: "Property Age", lien: "Does it have a lien?", description: "Description", observations: "Property Notes", selectOption: "Select an option", notApplicable: "Not applicable", furnishedOption: "Furnished", semiFurnished: "Semi-furnished", unfurnished: "Unfurnished", selectAge: "Select property age", newProperty: "New (Never occupied)", characteristics: "Features", characteristicsSubtitle: "Add the property's standout features", amenities: "Amenities", amenitiesSubtitle: "Select the amenities available at the property", addCharacteristic: "Add another feature...", selectedCharacteristics: "feature(s) selected", selectedAmenities: "amenity/amenities selected", mainImage: "Main Image", mainImageSubtitle: "Upload the property's main image", gallery: "Photo & Video Gallery", gallerySubtitle: "Upload up to 30 additional photos or videos", change: "Change", remove: "Remove", bonus: "Bonus or Discount", cancel: "Cancel", processing: "Processing...", update: "Update", publish: "Publish", property: "Property"
   }
 } as const
 
@@ -67,6 +71,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
     comisionAsesorPct: ((initialData as Propiedad | undefined)?.comisionAsesorPct) || 4
   })
 
+  const isRenta = formData.categoria === 'renta'
+
   const [actividadesRecreativasSeleccionadas, setActividadesRecreativasSeleccionadas] = useState<string[]>(
     (() => {
       const desc = String(initialData?.descripcion || '')
@@ -99,11 +105,16 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   const [amenidadesSeleccionadas, setAmenidadesSeleccionadas] = useState<string[]>(
-    (initialData?.detalles as any)?.amenidades || []
+    initialData?.amenidades || (initialData?.detalles as any)?.amenidades || []
   )
   const [caracteristicaPersonalizada, setCaracteristicaPersonalizada] = useState("")
   const [imagePreview, setImagePreview] = useState<string>(initialData?.imagen || "")
   const [galleryPreviews, setGalleryPreviews] = useState<string[]>(initialData?.galeria || [])
+  // Los videos no se convierten a base64: se guardan como archivo y se previsualizan con una URL blob:
+  const [pendingVideos, setPendingVideos] = useState<Record<string, File>>({})
+  const isGalleryVideo = (src: string) => Boolean(pendingVideos[src]) || isVideoUrl(src)
+  const [isReviewing, setIsReviewing] = useState(false)
+  const [reviewConfirmed, setReviewConfirmed] = useState(false)
   const [observaciones, setObservaciones] = useState<string>((initialData as any)?.observaciones || "")
   const [bono, setBono] = useState<string>((initialData as any)?.bono || "")
   const [isDraggingMain, setIsDraggingMain] = useState(false)
@@ -214,7 +225,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const reservationError = validateReservation(formData.fechaApartado, formData.fechaTerminoContrato, formData.status)
+    const reservationError = isRenta
+      ? validateReservation(formData.fechaApartado, formData.fechaTerminoContrato, formData.status, formData.categoria)
+      : null
     if (reservationError) { alert(reservationError); return }
 
     // Validar campos requeridos
@@ -249,6 +262,13 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       return
     }
 
+    // Penúltimo paso: verificar toda la información antes de guardar
+    setReviewConfirmed(false)
+    setIsReviewing(true)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const publishProperty = async () => {
     setIsUploading(true)
     setUploadProgress("Subiendo imágenes...")
 
@@ -266,24 +286,26 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         imagenUrl = result.url
       }
 
-      // Subir galería a Storage si hay imágenes base64
-      let galeriaUrls = galleryPreviews
-      const base64Images = galleryPreviews.filter(img => img.startsWith('data:'))
-      const urlImages = galleryPreviews.filter(img => !img.startsWith('data:'))
-
-      if (base64Images.length > 0) {
-        setUploadProgress(`Subiendo galería (0/${base64Images.length})...`)
-        const uploadedUrls: string[] = []
-
-        for (let i = 0; i < base64Images.length; i++) {
-          setUploadProgress(`Subiendo galería (${i + 1}/${base64Images.length})...`)
-          const result = await uploadImage(base64Images[i], 'galeria')
-          if (result.url) {
-            uploadedUrls.push(result.url)
-          }
+      // Subir a Storage las fotos (base64) y videos (blob:) nuevos, conservando el orden
+      const pendingCount = galleryPreviews.filter(item => item.startsWith('data:') || pendingVideos[item]).length
+      const galeriaUrls: string[] = []
+      let uploaded = 0
+      for (const item of galleryPreviews) {
+        const videoFile: File | undefined = pendingVideos[item]
+        if (!videoFile && !item.startsWith('data:')) {
+          galeriaUrls.push(item)
+          continue
         }
-
-        galeriaUrls = [...urlImages, ...uploadedUrls]
+        const source: File | string = videoFile || item
+        uploaded += 1
+        setUploadProgress(`Subiendo galería (${uploaded}/${pendingCount})...`)
+        const result = await uploadImage(source, 'galeria')
+        if (!result.url) {
+          const kind = pendingVideos[item] ? 'el video' : 'una imagen'
+          alert(`No se pudo subir ${kind} de la galería: ${result.error || 'error desconocido'}`)
+          return
+        }
+        galeriaUrls.push(result.url)
       }
 
       setUploadProgress("Guardando propiedad...")
@@ -315,8 +337,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         caracteristicas: formData.caracteristicas || [],
         status: formData.status as any,
         categoria: formData.categoria === "compra" ? "venta" : formData.categoria || "venta",
-        fechaApartado: formData.fechaApartado || "",
-        fechaTerminoContrato: formData.fechaTerminoContrato || "",
+        // El calendario sólo aplica a renta
+        fechaApartado: isRenta ? formData.fechaApartado || "" : "",
+        fechaTerminoContrato: isRenta ? formData.fechaTerminoContrato || "" : "",
         fechaPublicacion: new Date().toISOString().split('T')[0],
         agente: {
           nombre: asesorNombre,
@@ -329,7 +352,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         detalles: {
           tipoPropiedad: formData.tipo || "Departamento",
           areaTerreno: `${formData.area ?? 0} m²`,
-          antiguedad: "Nueva",
+          antiguedad: formData.antiguedad || "Nueva",
           vistas: 0,
           favoritos: 0,
           publicado: new Date().toLocaleDateString('es-MX'),
@@ -342,13 +365,15 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         tipoCredito: (formData as any).tipoCredito || undefined,
         observaciones: observaciones || undefined,
         bono: bono.trim() || undefined,
-        frente: (formData as any).frente ? Number((formData as any).frente) : undefined,
-        fondo: (formData as any).fondo ? Number((formData as any).fondo) : undefined,
-        colonia: (formData as any).colonia || undefined,
-        ciudad: (formData as any).ciudad || undefined
+        frente: formData.frente || undefined,
+        fondo: formData.fondo || undefined,
+        colonia: formData.colonia?.trim() || undefined,
+        ciudad: formData.ciudad?.trim() || undefined,
+        antiguedad: formData.antiguedad || undefined,
+        gravamen: formData.gravamen || undefined,
+        amenidades: amenidadesSeleccionadas,
       } as any
 
-      console.log('Enviando propiedad:', propertyData)
       await onSubmit(propertyData)
     } catch (error) {
       console.error('Error al guardar propiedad:', error)
@@ -386,38 +411,8 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   const handleGalleryUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    if (!files) return
-
-    const fileArray = Array.from(files)
-
-    // Validar que no sean más de 10 imágenes en total
-    if (galleryPreviews.length + fileArray.length > 30) {
-      alert('Máximo 30 imágenes en la galería')
-      return
-    }
-
-    fileArray.forEach(file => {
-      // Validar tipo de archivo
-      if (!file.type.startsWith('image/')) {
-        alert(`${file.name} no es una imagen válida`)
-        return
-      }
-
-      // Validar tamaño (máximo 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert(`${file.name} no debe superar 5MB`)
-        return
-      }
-
-      // Crear preview
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        const base64String = reader.result as string
-        setGalleryPreviews(prev => [...prev, base64String])
-      }
-      reader.readAsDataURL(file)
-    })
+    if (e.target.files) processGalleryImages(Array.from(e.target.files))
+    e.target.value = ''
   }
 
   const removeImage = () => {
@@ -426,6 +421,14 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
   }
 
   const removeGalleryImage = (index: number) => {
+    const removed = galleryPreviews[index]
+    if (pendingVideos[removed]) {
+      URL.revokeObjectURL(removed)
+      setPendingVideos(prev => {
+        const { [removed]: _, ...rest } = prev
+        return rest
+      })
+    }
     setGalleryPreviews(prev => prev.filter((_, i) => i !== index))
   }
 
@@ -485,16 +488,23 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
 
   const processGalleryImages = (files: File[]) => {
     if (galleryPreviews.length + files.length > 30) {
-      alert('Máximo 30 imágenes en la galería')
+      alert('Máximo 30 fotos o videos en la galería')
       return
     }
     files.forEach(file => {
-      if (!file.type.startsWith('image/')) {
-        alert(`${file.name} no es una imagen válida`)
+      const isVideo = file.type.startsWith('video/')
+      if (!isVideo && !file.type.startsWith('image/')) {
+        alert(`${file.name} no es una imagen ni un video válido`)
         return
       }
-      if (file.size > 5 * 1024 * 1024) {
-        alert(`${file.name} no debe superar 5MB`)
+      if (file.size > (isVideo ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES)) {
+        alert(`${file.name} no debe superar ${isVideo ? '50MB' : '5MB'}`)
+        return
+      }
+      if (isVideo) {
+        const objectUrl = URL.createObjectURL(file)
+        setPendingVideos(prev => ({ ...prev, [objectUrl]: file }))
+        setGalleryPreviews(prev => [...prev, objectUrl])
         return
       }
       const reader = new FileReader()
@@ -506,8 +516,179 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
     })
   }
 
+  const amuebladoLabel: Record<string, string> = {
+    amueblado: copy.furnishedOption, semiamueblado: copy.semiFurnished, sin_amueblar: copy.unfurnished, no_aplica: copy.notApplicable,
+  }
+  const gravamenLabel: Record<string, string> = {
+    no: 'No tiene gravamen', si: 'Sí tiene gravamen', en_proceso: 'En proceso de liberación', desconocido: 'Desconocido',
+  }
+  const categoriaLabel = PUBLIC_PROPERTY_CATEGORIES.find(c => c.value === (formData.categoria === 'compra' ? 'venta' : formData.categoria))?.label
+  const withUnit = (value: string, unit: string) => value ? `${value} ${unit}` : ''
+  const galleryVideoCount = galleryPreviews.filter(isGalleryVideo).length
+
+  const reviewSections: { title: string; rows: [string, string | number | undefined][] }[] = [
+    {
+      title: copy.basicTitle,
+      rows: [
+        [copy.title, formData.titulo],
+        [copy.propertyType, formData.tipo],
+        [copy.publicCategory, categoriaLabel],
+        [copy.status, formData.status],
+        [formData.unidadSuperficie === 'Hectáreas' ? 'Precio por m² (MXN)' : 'Precio (MXN)', formData.precio ? `$${formData.precio.toLocaleString('es-MX')}` : ''],
+        [copy.location, formatPropertyLocation({ ubicacion: formData.ubicacion || '', colonia: formData.colonia, ciudad: formData.ciudad })],
+      ],
+    },
+    {
+      title: 'Medidas y distribución',
+      rows: [
+        [copy.landArea, withUnit(surfaceInputs.area, formData.unidadSuperficie || 'm²')],
+        [copy.constructionArea, withUnit(surfaceInputs.areaConstruccion, 'm²')],
+        [copy.frontage, withUnit(surfaceInputs.frente, 'm')],
+        [copy.depth, withUnit(surfaceInputs.fondo, 'm')],
+        [copy.bedrooms, formData.habitaciones],
+        [copy.fullBathrooms, formData.banos],
+        [copy.halfBathrooms, formData.mediosBanos],
+        [copy.garage, formData.cochera],
+        [copy.furnished, formData.amueblado ? amuebladoLabel[formData.amueblado] : ''],
+      ],
+    },
+    {
+      title: 'Condiciones',
+      rows: [
+        [copy.creditType, formData.tipoCredito],
+        [copy.age, formData.antiguedad],
+        [copy.lien, formData.gravamen ? gravamenLabel[formData.gravamen] : ''],
+        ...(usaComisionPorcentual(formData) ? [['Comisión', `${formData.comisionAsesorPct || 4}%`] as [string, string]] : []),
+        ...(isRenta ? [
+          ['Fecha de apartado', formData.fechaApartado],
+          ['Término del contrato', formData.fechaTerminoContrato],
+        ] as [string, string | undefined][] : []),
+        [copy.bonus, bono.trim()],
+      ],
+    },
+  ]
+
+  const reviewLists: [string, string[]][] = [
+    [copy.characteristics, formData.caracteristicas || []],
+    [copy.amenities, amenidadesSeleccionadas],
+    ['Actividades recreativas', actividadesRecreativasSeleccionadas],
+  ]
+
+  const reviewCard = "rounded-[24px] border border-[#17313A]/10 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] p-5 sm:p-6"
+  const reviewTitle = "text-base font-bold text-[#17313A] dark:text-white mb-3"
+  const emptyValue = <span className="text-[#4A4F57]/60 dark:text-white/35">Sin capturar</span>
+
   return (
-    <form onSubmit={handleSubmit} className="property-form space-y-6">
+    <>
+    {isReviewing && (
+      <div className="space-y-5">
+        <div className={`${reviewCard} flex items-start gap-3`}>
+          <ShieldCheck className="h-6 w-6 shrink-0 text-[var(--conectia-arcilla)]" aria-hidden="true" />
+          <div>
+            <h3 className="text-lg font-bold text-[#17313A] dark:text-white">Verifica la información</h3>
+            <p className="text-sm text-[#4A4F57] dark:text-white/65">Revisa que todo esté correcto antes de {initialData ? 'actualizar' : 'publicar'}. Si algo falta o está mal, regresa a editar.</p>
+          </div>
+        </div>
+
+        {reviewSections.map(section => (
+          <div key={section.title} className={reviewCard}>
+            <h4 className={reviewTitle}>{section.title}</h4>
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+              {section.rows.map(([label, value]) => (
+                <div key={label} className="flex justify-between gap-4 border-b border-[#17313A]/8 dark:border-white/10 py-2.5 text-sm">
+                  <dt className="text-[#4A4F57] dark:text-white/60">{label}</dt>
+                  <dd className="text-right font-semibold text-[#17313A] dark:text-white break-words min-w-0">
+                    {value === undefined || value === null || value === '' ? emptyValue : value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+
+        <div className={reviewCard}>
+          {reviewLists.map(([title, items]) => (
+            <div key={title} className="mb-4 last:mb-0">
+              <h4 className={reviewTitle}>{title} <span className="font-normal text-sm text-[#4A4F57] dark:text-white/50">({items.length})</span></h4>
+              {items.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {items.map(item => (
+                    <span key={item} className="inline-flex items-center gap-1 rounded-full bg-[#17313A] px-3 py-1 text-xs font-semibold text-white">
+                      <Check className="h-3 w-3" aria-hidden="true" /> {item}
+                    </span>
+                  ))}
+                </div>
+              ) : <p className="text-sm">{emptyValue}</p>}
+            </div>
+          ))}
+        </div>
+
+        <div className={reviewCard}>
+          <h4 className={reviewTitle}>{copy.description}</h4>
+          <p className="whitespace-pre-line text-sm text-[#17313A] dark:text-white/85">{formData.descripcion || emptyValue}</p>
+          <h4 className={`${reviewTitle} mt-5`}>{copy.observations}</h4>
+          <p className="whitespace-pre-line text-sm text-[#17313A] dark:text-white/85">{observaciones || emptyValue}</p>
+        </div>
+
+        <div className={reviewCard}>
+          <h4 className={reviewTitle}>
+            Fotos y videos <span className="font-normal text-sm text-[#4A4F57] dark:text-white/50">
+              (portada + {galleryPreviews.length - galleryVideoCount} foto(s) y {galleryVideoCount} video(s) en galería)
+            </span>
+          </h4>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            {imagePreview && (
+              <div className="relative aspect-square overflow-hidden rounded-lg ring-2 ring-[var(--conectia-arcilla)]">
+                <img src={imagePreview} alt="Portada" className="h-full w-full object-cover" />
+                <span className="absolute bottom-1 left-1 rounded bg-[#17313A] px-1.5 py-0.5 text-[10px] font-bold text-white">Portada</span>
+              </div>
+            )}
+            {galleryPreviews.map((preview, index) => (
+              <div key={preview.slice(0, 64) + index} className="aspect-square overflow-hidden rounded-lg bg-black">
+                {isGalleryVideo(preview)
+                  ? <video src={preview} className="h-full w-full object-cover" muted playsInline preload="metadata" />
+                  : <img src={preview} alt={`Galería ${index + 1}`} className="h-full w-full object-cover" />}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <label className={`${reviewCard} flex cursor-pointer items-start gap-3 ${reviewConfirmed ? 'ring-2 ring-[var(--conectia-arcilla)]' : ''}`}>
+          <input
+            type="checkbox"
+            checked={reviewConfirmed}
+            onChange={(e) => setReviewConfirmed(e.target.checked)}
+            className="mt-0.5 h-5 w-5 shrink-0 accent-[#17313A]"
+          />
+          <span className="text-sm text-[#17313A] dark:text-white">
+            <strong>✓ Verifiqué que toda la información es correcta.</strong> Al {initialData ? 'actualizar' : 'publicar'} confirmo que la información es veraz, que cuento con autorización y que acepto la{' '}
+            <Link href="/legal/publicacion-inmuebles" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Política de Publicación de Inmuebles</Link>.
+          </span>
+        </label>
+
+        <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
+          <Button type="button" variant="outline" onClick={() => setIsReviewing(false)} disabled={isUploading}>
+            <Pencil className="h-4 w-4 mr-2" /> Editar información
+          </Button>
+          <Button
+            type="button"
+            onClick={publishProperty}
+            disabled={!reviewConfirmed || isUploading}
+            className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold sm:min-w-[220px]"
+          >
+            {isUploading ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                {uploadProgress || copy.processing}
+              </>
+            ) : (
+              <><Check className="h-4 w-4 mr-2" />{submitLabel || `${initialData ? copy.update : copy.publish} ${copy.property}`}</>
+            )}
+          </Button>
+        </div>
+      </div>
+    )}
+    <form onSubmit={handleSubmit} className={`property-form space-y-6 ${isReviewing ? 'hidden' : ''}`}>
       <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden">
         <div className="px-6 pt-6 pb-2">
           <h3 className="text-lg font-bold text-white">{copy.basicTitle}</h3>
@@ -889,6 +1070,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
             )}
 
+            {isRenta && (
             <div className="space-y-3 md:col-span-2 rounded-xl border border-[var(--conectia-arcilla)]/30 p-4">
               <h3 className={labelClass}>Calendario de apartado y contrato</h3>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -907,6 +1089,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               </div>
               <p className="text-sm text-[#4A4F57] dark:text-white/60">Verás avisos en Mis propiedades desde 7 días antes del término, el día del vencimiento y cuando haya vencido.</p>
             </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="tipoCredito" className={labelClass}>{copy.creditType}</Label>
@@ -1232,7 +1415,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <input
                 type="file"
                 id="galeria"
-                accept="image/*"
+                accept="image/*,video/mp4,video/quicktime,video/webm"
                 multiple
                 onChange={handleGalleryUpload}
                 className="hidden"
@@ -1243,14 +1426,14 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
                   <Plus className={`h-6 w-6 text-[var(--conectia-arcilla)] mt-6 -ml-4 transition-transform ${isDraggingGallery ? 'scale-125' : ''}`} />
                 </div>
                 <p className="text-sm font-medium text-white mb-1">
-                  {isDraggingGallery ? '¡Suelta las imágenes aquí!' : 'Arrastra imágenes o haz click'}
+                  {isDraggingGallery ? '¡Suelta los archivos aquí!' : 'Arrastra fotos o videos, o haz click'}
                 </p>
                 <p className="text-xs text-gray-500">
-                  JPG, PNG o WEBP (máx. 5MB cada una) • Hasta 30 imágenes
+                  Fotos JPG, PNG o WEBP (máx. 5MB) • Videos MP4, MOV o WEBM (máx. 50MB) • Hasta 30 archivos
                 </p>
                 {galleryPreviews.length > 0 && (
                   <p className="text-xs text-[var(--conectia-arcilla)] mt-2 font-medium">
-                    {galleryPreviews.length}/30 imágenes subidas
+                    {galleryPreviews.length}/30 archivos agregados
                   </p>
                 )}
               </label>
@@ -1260,15 +1443,20 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 {galleryPreviews.map((preview, index) => (
                   <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-[var(--conectia-arcilla)]/20 group">
-                    <img
-                      src={preview}
-                      alt={`Galería ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[#0F2027]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    {isGalleryVideo(preview) ? (
+                      <video src={preview} className="w-full h-full object-cover bg-black" muted playsInline controls preload="metadata" />
+                    ) : (
+                      <img
+                        src={preview}
+                        alt={`Galería ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    <div className="absolute top-2 right-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                       <Button
                         type="button"
                         size="sm"
+                        aria-label="Eliminar de la galería"
                         onClick={() => removeGalleryImage(index)}
                         className="bg-red-500 hover:bg-red-600 text-white h-8 w-8 p-0 rounded-full"
                       >
@@ -1327,12 +1515,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         </div>
       </div>
 
-      <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] leading-6 text-right">
-        Al {initialData ? 'actualizar' : 'publicar'} confirmas que la información es veraz, que cuentas con autorización y que aceptas la{' '}
-        <Link href="/legal/publicacion-inmuebles" target="_blank" className="font-bold text-[var(--conectia-arcilla)] hover:underline">Política de Publicación de Inmuebles</Link>.
-      </p>
-
-      <div className="flex gap-4 justify-end">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 sm:justify-end">
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel}>
             {copy.cancel}
@@ -1340,19 +1523,12 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
         )}
         <Button
           type="submit"
-          className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold min-w-[200px]"
-          disabled={isUploading}
+          className="bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] font-semibold sm:min-w-[200px]"
         >
-          {isUploading ? (
-            <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              {uploadProgress || copy.processing}
-            </>
-          ) : (
-            <>{submitLabel || `${initialData ? copy.update : copy.publish} ${copy.property}`}</>
-          )}
+          <ShieldCheck className="h-4 w-4 mr-2" /> Verificar información
         </Button>
       </div>
     </form>
+    </>
   )
 }
