@@ -1,0 +1,111 @@
+import { NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
+import { users as internalUsers } from '@/data/internal-users'
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  { auth: { persistSession: false, autoRefreshToken: false } },
+)
+
+const DOCUMENTOS_VENDEDOR = ['Escrituras', 'Predial', 'Recibo de Agua', 'Planos', 'N° Cuenta Vendedor', 'Generales Vendedor']
+const TEXT_FIELDS = ['cliente_nombre', 'cliente_email', 'cliente_telefono', 'propiedad', 'monto_credito', 'tipo_credito', 'notas', 'notaria'] as const
+
+function readEmail(value: unknown) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : ''
+}
+
+// Cada broker solo ve y modifica sus propios clientes
+function isBroker(email: string) {
+  return internalUsers.some(u => u.email.toLowerCase() === email && u.role === 'broker')
+}
+
+function pickUpdates(body: Record<string, unknown>) {
+  const updates: Record<string, unknown> = {}
+  for (const field of TEXT_FIELDS) {
+    if (typeof body[field] === 'string') updates[field] = (body[field] as string).trim()
+  }
+  if (Number.isInteger(body.paso_actual) && (body.paso_actual as number) >= 1 && (body.paso_actual as number) <= 7) {
+    updates.paso_actual = body.paso_actual
+  }
+  if (Array.isArray(body.documentos_vendedor)) {
+    updates.documentos_vendedor = body.documentos_vendedor
+      .filter((d: any) => d && typeof d.nombre === 'string')
+      .map((d: any) => ({ nombre: d.nombre, entregado: Boolean(d.entregado) }))
+  }
+  if (body.fecha_firma === null || body.fecha_firma === '') updates.fecha_firma = null
+  else if (typeof body.fecha_firma === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.fecha_firma)) updates.fecha_firma = body.fecha_firma
+  return updates
+}
+
+export async function GET(request: Request) {
+  const email = readEmail(new URL(request.url).searchParams.get('email'))
+  if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+
+  const { data, error } = await supabaseAdmin
+    .from('broker_clientes')
+    .select('*')
+    .eq('broker_email', email)
+    .order('updated_at', { ascending: false })
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ clientes: data || [] })
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const email = readEmail(body.email)
+    if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+
+    const updates = pickUpdates(body)
+    if (!updates.cliente_nombre) return NextResponse.json({ error: 'El nombre del cliente es obligatorio.' }, { status: 400 })
+
+    const { data, error } = await supabaseAdmin
+      .from('broker_clientes')
+      .insert({
+        documentos_vendedor: DOCUMENTOS_VENDEDOR.map(nombre => ({ nombre, entregado: false })),
+        ...updates,
+        broker_email: email,
+      })
+      .select()
+      .single()
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ cliente: data }, { status: 201 })
+  } catch {
+    return NextResponse.json({ error: 'No se pudo crear el cliente.' }, { status: 400 })
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json()
+    const email = readEmail(body.email)
+    const id = Number(body.id)
+    if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+    if (!Number.isInteger(id)) return NextResponse.json({ error: 'Cliente inválido.' }, { status: 400 })
+
+    const { data, error } = await supabaseAdmin
+      .from('broker_clientes')
+      .update({ ...pickUpdates(body), updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .eq('broker_email', email)
+      .select()
+      .single()
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ cliente: data })
+  } catch {
+    return NextResponse.json({ error: 'No se pudo actualizar el cliente.' }, { status: 400 })
+  }
+}
+
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const id = Number(searchParams.get('id'))
+  const email = readEmail(searchParams.get('email'))
+  if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+  if (!Number.isInteger(id)) return NextResponse.json({ error: 'Cliente inválido.' }, { status: 400 })
+
+  const { error } = await supabaseAdmin.from('broker_clientes').delete().eq('id', id).eq('broker_email', email)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ success: true })
+}

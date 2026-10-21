@@ -7,7 +7,7 @@ import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { PropertyCard } from "@/components/property-card"
 import { useLanguage } from "@/lib/i18n"
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80"
+const HERO_IMAGE = "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1920&q=80"
 
 export default function EspecialesPage() {
   const { t } = useLanguage()
@@ -24,23 +24,23 @@ export default function EspecialesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#F6F2EE] dark:bg-[#0F1114] transition-colors duration-500 overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0F1114] transition-colors duration-500 overflow-hidden">
 
-      {/* HERO — Cinematic Editorial Split Layout */}
-      <section className="relative min-h-[92dvh] flex items-center pt-24 pb-16 px-4 sm:px-8 lg:px-16 overflow-hidden [--conectia-arcilla:#F0B49F] [--conectia-arcilla-hover:#F7C7B5]">
+      {/* HERO — Portada blanca (modo claro) / cinematográfica (modo oscuro) */}
+      <section className="relative min-h-[92dvh] flex items-center pt-24 pb-16 px-4 sm:px-8 lg:px-16 overflow-hidden bg-white dark:bg-transparent [--conectia-arcilla:#A8614A] [--conectia-arcilla-hover:#8F4F3B] dark:[--conectia-arcilla:#F0B49F] dark:[--conectia-arcilla-hover:#F7C7B5]">
         {/* Cinematic Backdrop Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={HERO_IMAGE}
             alt={t('pages.especiales.title')}
-            className="w-full h-full object-cover object-center scale-105 filter brightness-[0.8] saturate-[1.1]"
+            className="w-full h-full object-cover object-center scale-105 dark:brightness-[0.8] dark:saturate-[1.1]"
           />
           {/* Deep elegant overlays combining Conectia colors */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2B1E18]/90 via-[#3A2A22]/60 to-[#1A1310]/80 dark:from-[#17313A]/90 dark:via-[#17313A]/60 dark:to-[#0F1114]/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F2EE] dark:to-[#0F1114]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/35 dark:from-[#17313A]/90 dark:via-[#17313A]/60 dark:to-[#0F1114]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white dark:to-[#0F1114]" />
           
           {/* Brand subtle grid lines */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
+          <div className="absolute inset-0 dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
@@ -53,10 +53,10 @@ export default function EspecialesPage() {
             </div>
 
             <div className="space-y-3">
-              <h1 className="text-sm uppercase tracking-[0.5em] text-[#EAE4DD] font-semibold flex items-center gap-3">
+              <h1 className="text-sm uppercase tracking-[0.5em] text-[#4A4F57] dark:text-[#EAE4DD] font-semibold flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-[var(--conectia-arcilla)]" /> {t('pages.especiales.eyebrow')}
               </h1>
-              <p className="font-serif text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter">
+              <p className="font-serif text-5xl sm:text-7xl lg:text-8xl font-black text-[#17313A] dark:text-white leading-[0.9] tracking-tighter">
                 {t('pages.especiales.title')}
                 <span className="block font-serif font-light italic text-[var(--conectia-arcilla)] leading-[1] mt-2">
                   {t('pages.especiales.titleHighlight')}
@@ -64,50 +64,50 @@ export default function EspecialesPage() {
               </p>
             </div>
 
-            <p className="text-[#B0ACA6] text-base sm:text-lg leading-relaxed max-w-xl font-light">
+            <p className="text-[#4A4F57] dark:text-[#B0ACA6] text-base sm:text-lg leading-relaxed max-w-xl font-light">
               {t('pages.especiales.subtitle')}
             </p>
 
             {/* Premium feature pills */}
             <div className="flex flex-wrap gap-4 pt-2">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 border border-[#17313A]/10 dark:bg-white/5 dark:border-white/10 backdrop-blur-sm">
                 <Star className="h-4 w-4 text-[var(--conectia-arcilla)]" />
-                <span className="text-xs text-white/90 font-medium">{t('pages.especiales.primeLocation')}</span>
+                <span className="text-xs text-[#17313A] dark:text-white/90 font-medium">{t('pages.especiales.primeLocation')}</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 border border-[#17313A]/10 dark:bg-white/5 dark:border-white/10 backdrop-blur-sm">
                 <Diamond className="h-4 w-4 text-[var(--conectia-arcilla)]" />
-                <span className="text-xs text-white/90 font-medium">{t('pages.especiales.signatureArchitecture')}</span>
+                <span className="text-xs text-[#17313A] dark:text-white/90 font-medium">{t('pages.especiales.signatureArchitecture')}</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: Premium Glowing Floating Glass Card */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[400px] rounded-3xl p-8 liquid-glass-dark border border-[var(--conectia-arcilla)]/20 shadow-2xl transition-all duration-500 hover:border-[var(--conectia-arcilla)]/40 group overflow-hidden">
+            <div className="relative w-full max-w-[400px] rounded-3xl p-8 bg-white/90 backdrop-blur-xl dark:bg-[#0F1114]/85 border border-[var(--conectia-arcilla)]/20 shadow-2xl transition-all duration-500 hover:border-[var(--conectia-arcilla)]/40 group overflow-hidden">
               {/* Internal abstract gold light flare */}
               <div className="absolute -top-24 -right-24 w-48 h-44 bg-[var(--conectia-arcilla)]/15 rounded-full blur-[60px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
               
               <div className="relative z-10 space-y-6">
-                <div className="flex items-center justify-between border-b border-[#EAE4DD]/10 pb-4">
+                <div className="flex items-center justify-between border-b border-[#17313A]/10 dark:border-[#EAE4DD]/10 pb-4">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--conectia-arcilla)] font-bold">{t('pages.especiales.blackLabel')}</span>
-                  <Badge className="bg-[var(--conectia-arcilla)] text-[#0F1114] border-0 text-[10px] font-bold px-3">
+                  <Badge className="bg-[var(--conectia-arcilla)] text-white dark:text-[#0F1114] border-0 text-[10px] font-bold px-3">
                     {propiedades.length} {t('properties.cards.forSpecial')}
                   </Badge>
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="font-serif text-2xl text-white font-bold leading-tight">{t('pages.especiales.guarantee')}</h3>
-                  <p className="text-xs text-[#B0ACA6] leading-relaxed">
+                  <h3 className="font-serif text-2xl text-[#17313A] dark:text-white font-bold leading-tight">{t('pages.especiales.guarantee')}</h3>
+                  <p className="text-xs text-[#4A4F57] dark:text-[#B0ACA6] leading-relaxed">
                     {t('pages.especiales.guaranteeDesc')}
                   </p>
                 </div>
 
                 <div className="space-y-3 pt-2">
-                  <div className="flex items-center gap-3 text-xs text-white/80">
+                  <div className="flex items-center gap-3 text-xs text-[#17313A]/80 dark:text-white/80">
                     <ShieldCheck className="h-4 w-4 text-[var(--conectia-arcilla)] flex-shrink-0" />
                     <span>{t('pages.especiales.legalStudy')}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-white/80">
+                  <div className="flex items-center gap-3 text-xs text-[#17313A]/80 dark:text-white/80">
                     <Landmark className="h-4 w-4 text-[var(--conectia-arcilla)] flex-shrink-0" />
                     <span>{t('pages.especiales.notary')}</span>
                   </div>
@@ -138,7 +138,7 @@ export default function EspecialesPage() {
       </section>
 
       {/* PROPERTIES PORTFOLIO GRID */}
-      <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-16 bg-[#F6F2EE] dark:bg-[#0A0C0E]">
+      <section className="py-20 sm:py-28 px-4 sm:px-8 lg:px-16 bg-[#FAF9F7] dark:bg-[#0A0C0E]">
         <div className="max-w-7xl mx-auto">
           
           {/* Elegant Left Aligned Header */}

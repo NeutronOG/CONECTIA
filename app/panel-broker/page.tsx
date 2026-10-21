@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { useAuth } from '@/contexts/auth-context'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -24,29 +25,41 @@ import {
   Eye
 } from 'lucide-react'
 
-// Tipos para el proceso de crédito hipotecario
+// Tipos para el proceso de crédito hipotecario (tabla broker_clientes)
 interface DocumentoVendedor {
   nombre: string
   entregado: boolean
-  archivo?: string
 }
 
 interface CreditoHipotecario {
-  id: string
-  clienteNombre: string
-  clienteEmail: string
-  clienteTelefono: string
+  id: number
+  cliente_nombre: string
+  cliente_email: string
+  cliente_telefono: string
   propiedad: string
-  montoCredito: string
-  tipoCredito: string
-  pasoActual: number
-  fechaInicio: string
-  fechaUltimaActualizacion: string
+  monto_credito: string
+  tipo_credito: string
+  paso_actual: number
+  fecha_inicio: string
+  updated_at: string
   notas: string
-  documentosVendedor: DocumentoVendedor[]
-  notaria?: string
-  fechaFirma?: string
+  documentos_vendedor: DocumentoVendedor[]
+  notaria: string
+  fecha_firma: string | null
 }
+
+const NUEVO_CLIENTE = {
+  cliente_nombre: '',
+  cliente_email: '',
+  cliente_telefono: '',
+  propiedad: '',
+  monto_credito: '',
+  tipo_credito: '',
+  notas: '',
+}
+
+const formatFecha = (value: string, options: Intl.DateTimeFormatOptions) =>
+  new Date(value.length === 10 ? `${value}T12:00:00` : value).toLocaleDateString('es-MX', options)
 
 // Pasos del proceso
 const PASOS_CREDITO = [
@@ -106,124 +119,20 @@ const PASOS_CREDITO = [
   }
 ]
 
-// Datos mock de clientes en proceso
-const MOCK_CLIENTES: CreditoHipotecario[] = [
-  {
-    id: 'cred-1',
-    clienteNombre: 'Juan Pérez Rodríguez',
-    clienteEmail: 'juan.perez@email.com',
-    clienteTelefono: '563-157-2468',
-    propiedad: 'Residencia en La Valenciana Residencial',
-    montoCredito: '$3,500,000',
-    tipoCredito: 'INFONAVIT + Crédito Bancario',
-    pasoActual: 4,
-    fechaInicio: '2026-01-15',
-    fechaUltimaActualizacion: '2026-02-04',
-    notas: 'Avalúo programado para el 10 de febrero',
-    documentosVendedor: [
-      { nombre: 'Escrituras', entregado: true },
-      { nombre: 'Predial', entregado: true },
-      { nombre: 'Recibo de Agua', entregado: true },
-      { nombre: 'Planos', entregado: true },
-      { nombre: 'N° Cuenta Vendedor', entregado: true },
-      { nombre: 'Generales Vendedor', entregado: true }
-    ]
-  },
-  {
-    id: 'cred-2',
-    clienteNombre: 'María González López',
-    clienteEmail: 'maria.gonzalez@email.com',
-    clienteTelefono: '563-157-2468',
-    propiedad: 'Casa en Villas La Valenciana',
-    montoCredito: '$2,800,000',
-    tipoCredito: 'Crédito Bancario',
-    pasoActual: 2,
-    fechaInicio: '2026-01-28',
-    fechaUltimaActualizacion: '2026-02-05',
-    notas: 'Pendiente recibo de agua y planos del vendedor',
-    documentosVendedor: [
-      { nombre: 'Escrituras', entregado: true },
-      { nombre: 'Predial', entregado: true },
-      { nombre: 'Recibo de Agua', entregado: false },
-      { nombre: 'Planos', entregado: false },
-      { nombre: 'N° Cuenta Vendedor', entregado: true },
-      { nombre: 'Generales Vendedor', entregado: false }
-    ]
-  },
-  {
-    id: 'cred-3',
-    clienteNombre: 'Roberto Sánchez Martínez',
-    clienteEmail: 'roberto.sanchez@email.com',
-    clienteTelefono: '563-157-2468',
-    propiedad: 'Departamento en Zona Centro',
-    montoCredito: '$1,950,000',
-    tipoCredito: 'FOVISSSTE',
-    pasoActual: 6,
-    fechaInicio: '2025-12-10',
-    fechaUltimaActualizacion: '2026-02-06',
-    notas: 'Firma programada para el 12 de febrero en Notaría 15',
-    documentosVendedor: [
-      { nombre: 'Escrituras', entregado: true },
-      { nombre: 'Predial', entregado: true },
-      { nombre: 'Recibo de Agua', entregado: true },
-      { nombre: 'Planos', entregado: true },
-      { nombre: 'N° Cuenta Vendedor', entregado: true },
-      { nombre: 'Generales Vendedor', entregado: true }
-    ],
-    notaria: 'Notaría 15 - Lic. Fernando Ramírez',
-    fechaFirma: '2026-02-12'
-  },
-  {
-    id: 'cred-4',
-    clienteNombre: 'Ana Lucía Torres',
-    clienteEmail: 'ana.torres@email.com',
-    clienteTelefono: '563-157-2468',
-    propiedad: 'Casa en Fraccionamiento El Refugio',
-    montoCredito: '$4,200,000',
-    tipoCredito: 'Crédito Bancario HSBC',
-    pasoActual: 1,
-    fechaInicio: '2026-02-03',
-    fechaUltimaActualizacion: '2026-02-05',
-    notas: 'Expediente en proceso de integración, faltan estados de cuenta',
-    documentosVendedor: [
-      { nombre: 'Escrituras', entregado: false },
-      { nombre: 'Predial', entregado: false },
-      { nombre: 'Recibo de Agua', entregado: false },
-      { nombre: 'Planos', entregado: false },
-      { nombre: 'N° Cuenta Vendedor', entregado: false },
-      { nombre: 'Generales Vendedor', entregado: false }
-    ]
-  },
-  {
-    id: 'cred-5',
-    clienteNombre: 'Carlos Mendoza Ruiz',
-    clienteEmail: 'carlos.mendoza@email.com',
-    clienteTelefono: '563-157-2468',
-    propiedad: 'Terreno en Gran Jardín',
-    montoCredito: '$5,100,000',
-    tipoCredito: 'INFONAVIT Total',
-    pasoActual: 5,
-    fechaInicio: '2025-12-20',
-    fechaUltimaActualizacion: '2026-02-06',
-    notas: 'Asignado a Notaría 8, pendiente programar firma',
-    documentosVendedor: [
-      { nombre: 'Escrituras', entregado: true },
-      { nombre: 'Predial', entregado: true },
-      { nombre: 'Recibo de Agua', entregado: true },
-      { nombre: 'Planos', entregado: true },
-      { nombre: 'N° Cuenta Vendedor', entregado: true },
-      { nombre: 'Generales Vendedor', entregado: true }
-    ],
-    notaria: 'Notaría 8 - Lic. Patricia Vega'
-  }
-]
-
 export default function PanelBrokerPage() {
   const { user, logout, isAuthenticated, loading } = useAuth()
   const router = useRouter()
-  const [clientes, setClientes] = useState<CreditoHipotecario[]>(MOCK_CLIENTES)
-  const [clienteSeleccionado, setClienteSeleccionado] = useState<CreditoHipotecario | null>(null)
+  const [clientes, setClientes] = useState<CreditoHipotecario[]>([])
+  const [cargando, setCargando] = useState(true)
+  const [clienteId, setClienteId] = useState<number | null>(null)
   const [vistaDetalle, setVistaDetalle] = useState(false)
+  const [mostrarFormulario, setMostrarFormulario] = useState(false)
+  const [nuevoCliente, setNuevoCliente] = useState(NUEVO_CLIENTE)
+  const [guardando, setGuardando] = useState(false)
+  const [borrador, setBorrador] = useState({ notas: '', notaria: '', fecha_firma: '' })
+
+  const email = user?.email?.toLowerCase() || ''
+  const clienteSeleccionado = clientes.find(c => c.id === clienteId) || null
 
   useEffect(() => {
     if (loading) return
@@ -231,15 +140,96 @@ export default function PanelBrokerPage() {
       router.push('/login')
       return
     }
+    cargarClientes()
   }, [user, isAuthenticated, loading, router])
+
+  useEffect(() => {
+    if (clienteSeleccionado) {
+      setBorrador({
+        notas: clienteSeleccionado.notas || '',
+        notaria: clienteSeleccionado.notaria || '',
+        fecha_firma: clienteSeleccionado.fecha_firma || '',
+      })
+    }
+  }, [clienteId])
+
+  const cargarClientes = async () => {
+    setCargando(true)
+    try {
+      const res = await fetch(`/api/broker/clientes?email=${encodeURIComponent(email)}`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      setClientes(data.clientes || [])
+    } catch (error: any) {
+      toast.error(error?.message ? `Error cargando clientes: ${error.message}` : 'Error cargando clientes')
+    } finally {
+      setCargando(false)
+    }
+  }
+
+  const crearCliente = async () => {
+    if (!nuevoCliente.cliente_nombre.trim()) { toast.error('El nombre del cliente es obligatorio'); return }
+    setGuardando(true)
+    try {
+      const res = await fetch('/api/broker/clientes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, ...nuevoCliente }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      setClientes(prev => [data.cliente, ...prev])
+      setNuevoCliente(NUEVO_CLIENTE)
+      setMostrarFormulario(false)
+      toast.success('Cliente agregado')
+    } catch (error: any) {
+      toast.error(error?.message || 'No se pudo crear el cliente')
+    } finally {
+      setGuardando(false)
+    }
+  }
+
+  const actualizarCliente = async (id: number, cambios: Partial<CreditoHipotecario>, mensaje?: string) => {
+    try {
+      const res = await fetch('/api/broker/clientes', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, id, ...cambios }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      setClientes(prev => prev.map(c => c.id === id ? data.cliente : c))
+      if (mensaje) toast.success(mensaje)
+    } catch (error: any) {
+      toast.error(error?.message || 'No se pudo guardar el cambio')
+    }
+  }
+
+  const eliminarCliente = async (cliente: CreditoHipotecario) => {
+    if (!confirm(`¿Eliminar a ${cliente.cliente_nombre} de tus clientes?`)) return
+    try {
+      const res = await fetch(`/api/broker/clientes?id=${cliente.id}&email=${encodeURIComponent(email)}`, { method: 'DELETE' })
+      if (!res.ok) throw new Error((await res.json()).error)
+      setClientes(prev => prev.filter(c => c.id !== cliente.id))
+      cerrarDetalle()
+      toast.success('Cliente eliminado')
+    } catch {
+      toast.error('No se pudo eliminar el cliente')
+    }
+  }
+
+  const abrirDetalle = (cliente: CreditoHipotecario) => { setClienteId(cliente.id); setVistaDetalle(true) }
+  const cerrarDetalle = () => { setVistaDetalle(false); setClienteId(null) }
 
   if (loading || !user) return null
 
+  const inputClass = 'w-full rounded-xl bg-white dark:bg-[#17313A] border border-[#17313A]/15 dark:border-white/10 px-3 py-2 text-sm text-[#17313A] dark:text-white placeholder:text-gray-500 focus:outline-none focus:border-conectia-gold/50'
+
   // Estadísticas
   const totalClientes = clientes.length
-  const enProceso = clientes.filter(c => c.pasoActual < 6).length
-  const porFirmar = clientes.filter(c => c.pasoActual === 6).length
-  const completados = clientes.filter(c => c.pasoActual > 6).length
+  const enProceso = clientes.filter(c => c.paso_actual < PASOS_CREDITO.length).length
+  const porFirmar = clientes.filter(c => c.paso_actual === PASOS_CREDITO.length).length
+  const completados = clientes.filter(c => c.paso_actual > PASOS_CREDITO.length).length
 
   const getEstadoPaso = (pasoActual: number, pasoId: number) => {
     if (pasoId < pasoActual) return 'completado'
@@ -264,10 +254,10 @@ export default function PanelBrokerPage() {
             </div>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => { setVistaDetalle(false); setClienteSeleccionado(null) }}
+                onClick={cerrarDetalle}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                   !vistaDetalle
-                    ? 'bg-conectia-gold text-[#17313A] shadow-lg'
+                    ? 'bg-conectia-gold text-white shadow-lg'
                     : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -346,7 +336,7 @@ export default function PanelBrokerPage() {
         {vistaDetalle && clienteSeleccionado ? (
           <div className="space-y-6">
             <button
-              onClick={() => { setVistaDetalle(false); setClienteSeleccionado(null) }}
+              onClick={cerrarDetalle}
               className="flex items-center gap-2 text-sm text-gray-400 hover:text-conectia-gold transition-colors mb-4"
             >
               <ChevronRight className="h-4 w-4 rotate-180" />
@@ -358,19 +348,19 @@ export default function PanelBrokerPage() {
               <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-blue-500/10 to-transparent">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
-                    <h2 className="text-xl font-bold text-white">{clienteSeleccionado.clienteNombre}</h2>
-                    <p className="text-sm text-gray-400">{clienteSeleccionado.clienteEmail} · {clienteSeleccionado.clienteTelefono}</p>
+                    <h2 className="text-xl font-bold text-white">{clienteSeleccionado.cliente_nombre}</h2>
+                    <p className="text-sm text-gray-400">{[clienteSeleccionado.cliente_email, clienteSeleccionado.cliente_telefono].filter(Boolean).join(' · ') || 'Sin datos de contacto'}</p>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
-                      <span className="text-sm text-gray-300"><span className="text-gray-500">Propiedad:</span> {clienteSeleccionado.propiedad}</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-300"><span className="text-gray-500">Propiedad:</span> {clienteSeleccionado.propiedad}</span>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
-                      <span className="text-sm text-conectia-gold font-semibold">{clienteSeleccionado.montoCredito}</span>
-                      <span className="text-sm text-gray-400">{clienteSeleccionado.tipoCredito}</span>
+                      <span className="text-sm text-conectia-gold font-semibold">{clienteSeleccionado.monto_credito}</span>
+                      <span className="text-sm text-gray-400">{clienteSeleccionado.tipo_credito}</span>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
                     <p className="text-xs text-gray-500">Inicio del proceso</p>
-                    <p className="text-sm font-semibold text-white">{new Date(clienteSeleccionado.fechaInicio).toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    <p className="text-sm font-semibold text-white">{formatFecha(clienteSeleccionado.fecha_inicio, { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                   </div>
                 </div>
               </div>
@@ -394,11 +384,11 @@ export default function PanelBrokerPage() {
                     <div className="absolute top-6 left-0 right-0 h-1 bg-gray-700 rounded-full" />
                     <div
                       className="absolute top-6 left-0 h-1 bg-conectia-gold rounded-full transition-all duration-500"
-                      style={{ width: `${((clienteSeleccionado.pasoActual - 1) / (PASOS_CREDITO.length - 1)) * 100}%` }}
+                      style={{ width: `${Math.min((clienteSeleccionado.paso_actual - 1) / (PASOS_CREDITO.length - 1), 1) * 100}%` }}
                     />
                     <div className="relative flex justify-between">
                       {PASOS_CREDITO.map((paso) => {
-                        const estado = getEstadoPaso(clienteSeleccionado.pasoActual, paso.id)
+                        const estado = getEstadoPaso(clienteSeleccionado.paso_actual, paso.id)
                         const Icono = paso.icono
                         return (
                           <div key={paso.id} className="flex flex-col items-center w-40">
@@ -435,7 +425,7 @@ export default function PanelBrokerPage() {
                 {/* Timeline vertical en mobile */}
                 <div className="lg:hidden space-y-0">
                   {PASOS_CREDITO.map((paso, index) => {
-                    const estado = getEstadoPaso(clienteSeleccionado.pasoActual, paso.id)
+                    const estado = getEstadoPaso(clienteSeleccionado.paso_actual, paso.id)
                     const Icono = paso.icono
                     return (
                       <div key={paso.id} className="flex gap-4">
@@ -476,6 +466,35 @@ export default function PanelBrokerPage() {
               </div>
             </div>
 
+            {/* Controles del proceso */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#1A3540] rounded-2xl border border-gray-700/60 p-4 shadow-xl">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {clienteSeleccionado.paso_actual > PASOS_CREDITO.length
+                  ? <span className="font-semibold text-green-400">Operación cerrada</span>
+                  : <>Paso {clienteSeleccionado.paso_actual} de {PASOS_CREDITO.length}: <span className="font-semibold text-white">{PASOS_CREDITO[clienteSeleccionado.paso_actual - 1]?.titulo}</span></>}
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => actualizarCliente(clienteSeleccionado.id, { paso_actual: clienteSeleccionado.paso_actual - 1 })}
+                  disabled={clienteSeleccionado.paso_actual <= 1}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border border-white/15 text-gray-600 dark:text-gray-300 hover:text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                >
+                  <ChevronRight className="h-4 w-4 rotate-180" /> Paso anterior
+                </button>
+                <button
+                  onClick={() => actualizarCliente(
+                    clienteSeleccionado.id,
+                    { paso_actual: clienteSeleccionado.paso_actual + 1 },
+                    clienteSeleccionado.paso_actual === PASOS_CREDITO.length ? 'Operación cerrada' : 'Paso actualizado',
+                  )}
+                  disabled={clienteSeleccionado.paso_actual > PASOS_CREDITO.length}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-conectia-gold text-white hover:bg-conectia-gold/80 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                >
+                  {clienteSeleccionado.paso_actual === PASOS_CREDITO.length ? 'Cerrar operación' : 'Avanzar paso'} <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
             {/* Documentos del Vendedor */}
             <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 overflow-hidden shadow-xl">
               <div className="p-5 border-b border-gray-700/60 bg-gradient-to-r from-purple-500/10 to-transparent">
@@ -488,10 +507,16 @@ export default function PanelBrokerPage() {
               </div>
               <div className="p-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {clienteSeleccionado.documentosVendedor.map((doc, i) => (
-                    <div
-                      key={i}
-                      className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${
+                  {clienteSeleccionado.documentos_vendedor.map((doc, i) => (
+                    <button
+                      key={doc.nombre}
+                      type="button"
+                      aria-pressed={doc.entregado}
+                      title={doc.entregado ? 'Marcar como pendiente' : 'Marcar como entregado'}
+                      onClick={() => actualizarCliente(clienteSeleccionado.id, {
+                        documentos_vendedor: clienteSeleccionado.documentos_vendedor.map((d, j) => j === i ? { ...d, entregado: !d.entregado } : d),
+                      })}
+                      className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all hover:brightness-125 ${
                         doc.entregado
                           ? 'bg-green-500/10 border-green-500/30'
                           : 'bg-red-500/10 border-red-500/20'
@@ -503,60 +528,83 @@ export default function PanelBrokerPage() {
                         <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0" />
                       )}
                       <span className={`text-sm font-medium ${
-                        doc.entregado ? 'text-green-300' : 'text-red-300'
+                        doc.entregado ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
                       }`}>
                         {doc.nombre}
                       </span>
-                    </div>
+                    </button>
                   ))}
                 </div>
                 <div className="mt-4 flex items-center gap-3">
                   <div className="h-2.5 flex-1 bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all"
-                      style={{ width: `${(clienteSeleccionado.documentosVendedor.filter(d => d.entregado).length / clienteSeleccionado.documentosVendedor.length) * 100}%` }}
+                      style={{ width: `${(clienteSeleccionado.documentos_vendedor.filter(d => d.entregado).length / Math.max(clienteSeleccionado.documentos_vendedor.length, 1)) * 100}%` }}
                     />
                   </div>
-                  <span className="text-sm font-bold text-gray-300">
-                    {clienteSeleccionado.documentosVendedor.filter(d => d.entregado).length}/{clienteSeleccionado.documentosVendedor.length}
+                  <span className="text-sm font-bold text-gray-600 dark:text-gray-300">
+                    {clienteSeleccionado.documentos_vendedor.filter(d => d.entregado).length}/{clienteSeleccionado.documentos_vendedor.length}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Notas y detalles adicionales */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {clienteSeleccionado.notaria && (
-                <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 p-5 shadow-xl">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                      <Landmark className="h-4 w-4 text-indigo-400" />
-                    </div>
-                    <h3 className="font-bold text-white">Notaría Asignada</h3>
-                  </div>
-                  <p className="text-sm text-gray-300">{clienteSeleccionado.notaria}</p>
-                  {clienteSeleccionado.fechaFirma && (
-                    <div className="mt-3 p-3 bg-conectia-gold/10 rounded-xl border border-conectia-gold/30">
-                      <p className="text-xs text-conectia-gold font-semibold uppercase tracking-wider">Fecha de Firma</p>
-                      <p className="text-sm font-bold text-white mt-1">
-                        {new Date(clienteSeleccionado.fechaFirma).toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-                      </p>
-                    </div>
-                  )}
+            {/* Notaría, firma y notas (editables) */}
+            <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 p-5 shadow-xl space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                  <Landmark className="h-4 w-4 text-indigo-400" />
                 </div>
-              )}
-
-              <div className="bg-[#1A3540] rounded-2xl border border-gray-700/60 p-5 shadow-xl">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <FileText className="h-4 w-4 text-blue-400" />
-                  </div>
-                  <h3 className="font-bold text-white">Notas</h3>
-                </div>
-                <p className="text-sm text-gray-300">{clienteSeleccionado.notas}</p>
-                <p className="text-xs text-gray-600 mt-3">
-                  Última actualización: {new Date(clienteSeleccionado.fechaUltimaActualizacion).toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}
+                <h3 className="font-bold text-white">Notaría, firma y notas</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label className="space-y-1.5">
+                  <span className="text-xs text-gray-400">Notaría asignada</span>
+                  <input
+                    value={borrador.notaria}
+                    onChange={(e) => setBorrador(prev => ({ ...prev, notaria: e.target.value }))}
+                    placeholder="Ej: Notaría 15 - Lic. Fernando Ramírez"
+                    className={inputClass}
+                  />
+                </label>
+                <label className="space-y-1.5">
+                  <span className="text-xs text-gray-400">Fecha de firma</span>
+                  <input
+                    type="date"
+                    value={borrador.fecha_firma}
+                    onChange={(e) => setBorrador(prev => ({ ...prev, fecha_firma: e.target.value }))}
+                    className={inputClass}
+                  />
+                </label>
+              </div>
+              <label className="block space-y-1.5">
+                <span className="text-xs text-gray-400">Notas</span>
+                <textarea
+                  rows={3}
+                  value={borrador.notas}
+                  onChange={(e) => setBorrador(prev => ({ ...prev, notas: e.target.value }))}
+                  placeholder="Pendientes, acuerdos, próximos pasos..."
+                  className={inputClass}
+                />
+              </label>
+              <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3">
+                <p className="text-xs text-gray-500">
+                  Última actualización: {formatFecha(clienteSeleccionado.updated_at, { day: 'numeric', month: 'long', year: 'numeric' })}
                 </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => eliminarCliente(clienteSeleccionado)}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold text-red-400 border border-red-500/30 hover:bg-red-500/10 transition-all"
+                  >
+                    <Trash2 className="h-4 w-4" /> Eliminar
+                  </button>
+                  <button
+                    onClick={() => actualizarCliente(clienteSeleccionado.id, borrador, 'Cambios guardados')}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-conectia-gold text-white hover:bg-conectia-gold/80 transition-all"
+                  >
+                    <CheckCircle2 className="h-4 w-4" /> Guardar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -565,29 +613,91 @@ export default function PanelBrokerPage() {
           <div className="space-y-5">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">Mis Clientes en Proceso</h2>
-              <button className="flex items-center gap-2 px-5 py-2.5 bg-conectia-gold hover:bg-conectia-gold/80 text-[#17313A] rounded-xl font-semibold text-sm transition-all shadow-lg">
+              <button
+                onClick={() => setMostrarFormulario(v => !v)}
+                className="flex items-center gap-2 px-5 py-2.5 bg-conectia-gold hover:bg-conectia-gold/80 text-white rounded-xl font-semibold text-sm transition-all shadow-lg"
+              >
                 <Plus className="h-4 w-4" />
                 Nuevo Cliente
               </button>
             </div>
 
+            {mostrarFormulario && (
+              <div className="bg-[#1A3540] rounded-2xl border border-conectia-gold/30 p-5 shadow-xl space-y-4">
+                <h3 className="font-bold text-white">Nuevo cliente</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {([
+                    ['cliente_nombre', 'Nombre del cliente *', 'Ej: Juan Pérez Rodríguez'],
+                    ['propiedad', 'Propiedad', 'Ej: Casa en Villas La Valenciana'],
+                    ['cliente_email', 'Correo', 'cliente@correo.com'],
+                    ['cliente_telefono', 'Teléfono', '477 000 0000'],
+                    ['monto_credito', 'Monto del crédito', 'Ej: $3,500,000'],
+                    ['tipo_credito', 'Tipo de crédito', 'Ej: INFONAVIT + Bancario'],
+                  ] as const).map(([campo, etiqueta, placeholder]) => (
+                    <label key={campo} className="space-y-1.5">
+                      <span className="text-xs text-gray-400">{etiqueta}</span>
+                      <input
+                        value={nuevoCliente[campo]}
+                        onChange={(e) => setNuevoCliente(prev => ({ ...prev, [campo]: e.target.value }))}
+                        placeholder={placeholder}
+                        className={inputClass}
+                      />
+                    </label>
+                  ))}
+                </div>
+                <label className="block space-y-1.5">
+                  <span className="text-xs text-gray-400">Notas</span>
+                  <textarea
+                    rows={2}
+                    value={nuevoCliente.notas}
+                    onChange={(e) => setNuevoCliente(prev => ({ ...prev, notas: e.target.value }))}
+                    className={inputClass}
+                  />
+                </label>
+                <div className="flex justify-end gap-2">
+                  <button
+                    onClick={() => { setMostrarFormulario(false); setNuevoCliente(NUEVO_CLIENTE) }}
+                    className="px-4 py-2 rounded-xl text-sm font-semibold text-gray-600 dark:text-gray-300 border border-white/15 hover:bg-white/10 transition-all"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={crearCliente}
+                    disabled={guardando}
+                    className="px-5 py-2 rounded-xl text-sm font-semibold bg-conectia-gold text-white hover:bg-conectia-gold/80 disabled:opacity-50 transition-all"
+                  >
+                    {guardando ? 'Guardando...' : 'Agregar cliente'}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {cargando ? (
+              <p className="text-center text-sm text-gray-400 py-12">Cargando clientes...</p>
+            ) : clientes.length === 0 ? (
+              <div className="text-center py-14 bg-[#1A3540] rounded-2xl border border-gray-700/60">
+                <Users className="h-10 w-10 mx-auto text-gray-600 mb-3" />
+                <p className="font-semibold text-white">Aún no tienes clientes en proceso</p>
+                <p className="text-sm text-gray-400 mt-1">Agrega el primero con el botón &quot;Nuevo Cliente&quot;.</p>
+              </div>
+            ) : (
             <div className="space-y-3">
               {clientes.map((cliente) => {
-                const pasoActualInfo = PASOS_CREDITO.find(p => p.id === cliente.pasoActual)
+                const pasoActualInfo = PASOS_CREDITO.find(p => p.id === cliente.paso_actual)
                 const PasoIcono = pasoActualInfo?.icono || Clock
-                const docsEntregados = cliente.documentosVendedor.filter(d => d.entregado).length
-                const totalDocs = cliente.documentosVendedor.length
+                const docsEntregados = cliente.documentos_vendedor.filter(d => d.entregado).length
+                const totalDocs = cliente.documentos_vendedor.length
 
                 return (
                   <div
                     key={cliente.id}
                     className="bg-[#1A3540] rounded-2xl border border-gray-700/60 hover:border-conectia-gold/30 shadow-xl hover:shadow-conectia-gold/5 transition-all duration-300 cursor-pointer group overflow-hidden"
-                    onClick={() => { setClienteSeleccionado(cliente); setVistaDetalle(true) }}
+                    onClick={() => abrirDetalle(cliente)}
                   >
                     {/* Mini timeline top bar */}
                     <div className="flex h-1">
                       {PASOS_CREDITO.map((paso) => {
-                        const estado = getEstadoPaso(cliente.pasoActual, paso.id)
+                        const estado = getEstadoPaso(cliente.paso_actual, paso.id)
                         return (
                           <div key={paso.id} className={`flex-1 ${
                             estado === 'completado' ? 'bg-green-500' :
@@ -602,15 +712,15 @@ export default function PanelBrokerPage() {
                         {/* Info del cliente */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-1">
-                            <h3 className="text-base font-bold text-white truncate">{cliente.clienteNombre}</h3>
+                            <h3 className="text-base font-bold text-white truncate">{cliente.cliente_nombre}</h3>
                             <span className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                              cliente.pasoActual >= 6
+                              cliente.paso_actual >= 6
                                 ? 'bg-conectia-gold/20 text-conectia-gold border border-conectia-gold/40'
-                                : cliente.pasoActual >= 4
+                                : cliente.paso_actual >= 4
                                 ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                                 : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
                             }`}>
-                              Paso {cliente.pasoActual}/6
+                              {cliente.paso_actual > PASOS_CREDITO.length ? 'Cerrada' : `Paso ${cliente.paso_actual}/${PASOS_CREDITO.length}`}
                             </span>
                           </div>
                           <p className="text-sm text-gray-400 truncate mb-1">
@@ -618,9 +728,9 @@ export default function PanelBrokerPage() {
                             {cliente.propiedad}
                           </p>
                           <div className="flex items-center gap-3 text-xs text-gray-500">
-                            <span className="text-conectia-gold font-semibold">{cliente.montoCredito}</span>
+                            <span className="text-conectia-gold font-semibold">{cliente.monto_credito}</span>
                             <span>·</span>
-                            <span>{cliente.tipoCredito}</span>
+                            <span>{cliente.tipo_credito}</span>
                           </div>
                         </div>
 
@@ -634,7 +744,7 @@ export default function PanelBrokerPage() {
                               Paso actual
                             </p>
                             <p className="text-sm font-medium text-white truncate">
-                              {pasoActualInfo?.titulo}
+                              {pasoActualInfo?.titulo || 'Operación cerrada'}
                             </p>
                           </div>
                         </div>
@@ -646,7 +756,7 @@ export default function PanelBrokerPage() {
                             <div className="h-2 flex-1 bg-gray-700 rounded-full overflow-hidden">
                               <div
                                 className="h-full bg-green-500 rounded-full transition-all"
-                                style={{ width: `${(docsEntregados / totalDocs) * 100}%` }}
+                                style={{ width: `${(docsEntregados / Math.max(totalDocs, 1)) * 100}%` }}
                               />
                             </div>
                             <span className="text-xs font-semibold text-gray-400">{docsEntregados}/{totalDocs}</span>
@@ -660,6 +770,7 @@ export default function PanelBrokerPage() {
                 )
               })}
             </div>
+            )}
           </div>
         )}
       </div>

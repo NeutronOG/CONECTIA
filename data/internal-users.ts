@@ -183,6 +183,26 @@ export const users: User[] = [
     password: 'broker_conectia2025',
     plan: 'elite'
   },
+  {
+    id: 'broker-gabriel',
+    nombre: 'Gabriel',
+    email: 'gabriel@conectia.mx',
+    role: 'broker',
+    telefono: '563-157-2468',
+    avatar: '/avatars/broker.jpg',
+    password: 'gabriel_conectia2025',
+    plan: 'elite'
+  },
+  {
+    id: 'broker-armando',
+    nombre: 'Armando',
+    email: 'armando@conectia.mx',
+    role: 'broker',
+    telefono: '563-157-2468',
+    avatar: '/avatars/broker.jpg',
+    password: 'armando_conectia2025',
+    plan: 'elite'
+  },
   // Fotógrafo
   {
     id: 'fotografo-1',

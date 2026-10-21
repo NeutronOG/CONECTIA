@@ -129,7 +129,7 @@ export default function PropiedadesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0F2027] transition-colors duration-500 relative overflow-hidden">
 
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[320px] sm:min-h-[400px] pt-16">
@@ -137,8 +137,8 @@ export default function PropiedadesPage() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
           style={{ backgroundImage: "url('/propiedades-hero-conectia.png')" }}
         />
-        <div className="absolute inset-0 bg-[#F6F2EE]/55 dark:bg-[#0F2027]/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F6F2EE]/95 via-[#F6F2EE]/62 to-transparent dark:from-[#0F2027]/95 dark:via-[#0F2027]/68 dark:to-transparent" />
+        <div className="absolute inset-0 bg-white/55 dark:bg-[#0F2027]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/65 to-transparent dark:from-[#0F2027]/95 dark:via-[#0F2027]/68 dark:to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-20 flex items-center">
           <div className="max-w-xl">

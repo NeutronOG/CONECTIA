@@ -312,7 +312,8 @@ html:not(.dark) .dashboard-shell [class*="bg-[#17313A]"] {
   background-color: var(--dashboard-background) !important;
 }
 
-html:not(.dark) .dashboard-shell [class*="bg-white/"] {
+html:not(.dark) .dashboard-shell [class*="bg-white/"],
+html:not(.dark) .dashboard-shell [class*="bg-[#1A3540]"] {
   background-color: var(--dashboard-surface) !important;
 }
 

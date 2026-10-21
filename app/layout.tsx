@@ -81,7 +81,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} ${cormorant.variable} font-sans m-0 p-0`}>
         <LanguageProvider>
           <CurrencyProvider>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="conectia-theme" disableTransitionOnChange>
             <SWRProvider>
               <AuthProvider>
                 <WishlistProvider>

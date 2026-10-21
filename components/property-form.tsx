@@ -243,16 +243,9 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       alert('Por favor ingresa un precio válido')
       return
     }
-    if (!formData.area || formData.area <= 0) {
+    // 0 es válido (p. ej. terrenos sin construcción); solo se exige capturar el campo
+    if (formData.area === undefined || formData.area === null || formData.area < 0) {
       alert('Por favor ingresa el área del terreno')
-      return
-    }
-    if (formData.habitaciones === undefined || formData.habitaciones === null) {
-      alert('Por favor selecciona el número de habitaciones')
-      return
-    }
-    if (formData.banos === undefined || formData.banos === null) {
-      alert('Por favor selecciona el número de baños')
       return
     }
 
@@ -839,7 +832,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>{copy.bedrooms} *</Label>
+              <Label className={labelClass}>{copy.bedrooms}</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button
@@ -862,7 +855,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
             </div>
 
             <div className="space-y-2">
-              <Label className={labelClass}>{copy.fullBathrooms} *</Label>
+              <Label className={labelClass}>{copy.fullBathrooms}</Label>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((num) => (
                   <button

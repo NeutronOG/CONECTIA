@@ -22,7 +22,8 @@ import {
   Shield,
   TrendingUp,
   Share2,
-  Diamond
+  Diamond,
+  Receipt
 } from 'lucide-react'
 import { OwnerSubmissionsStorage } from '@/lib/owner-submissions-storage'
 
@@ -180,6 +181,9 @@ export default function PanelAdminPage() {
                 </button>
                 <button onClick={() => router.push('/panel-admin/publicidad')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
                   <Megaphone className="w-3.5 h-3.5" /> Publicidad
+                </button>
+                <button onClick={() => router.push('/panel-admin/comprobantes')} className="flex items-center gap-2 px-3 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-xs font-semibold border border-white/10">
+                  <Receipt className="w-3.5 h-3.5" /> Comprobantes
                 </button>
               </div>
               <button onClick={async () => { await logout(); router.push('/login') }} className="flex items-center gap-2 px-4 py-2 text-[#B0ACA6] hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm border border-white/10 hover:border-[var(--conectia-arcilla)]/30">

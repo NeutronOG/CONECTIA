@@ -28,6 +28,7 @@ import {
   Diamond,
   Zap,
   Megaphone,
+  Receipt,
   MapPin,
   CalendarDays
 } from 'lucide-react'
@@ -219,6 +220,11 @@ export default function PanelAsesorPage() {
                 {user.email === 'lizzie@conectia.mx' && (
                   <button onClick={() => handleNavigation('/panel-admin/publicidad')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
                     <Megaphone className="w-4 h-4 text-[var(--conectia-arcilla)]" /> {t('panelAsesor.advertising')}
+                  </button>
+                )}
+                {user.email === 'lizzie@conectia.mx' && (
+                  <button onClick={() => handleNavigation('/panel-admin/comprobantes')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
+                    <Receipt className="w-4 h-4 text-[var(--conectia-arcilla)]" /> Comprobantes
                   </button>
                 )}
                 <button onClick={() => handleNavigation('/panel-asesor/calendario')} className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/15 hover:border-[var(--conectia-arcilla)]/30 hover:bg-white/10 text-white rounded-xl transition-all text-sm font-semibold">
