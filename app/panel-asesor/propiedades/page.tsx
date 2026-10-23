@@ -31,7 +31,9 @@ import {
   MousePointerClick,
   Camera,
   FileSpreadsheet,
-  Loader2
+  Loader2,
+  Search,
+  X
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { logAudit } from '@/lib/audit-log'
@@ -43,11 +45,27 @@ import { getUserByEmail } from '@/data/internal-users'
 import { isSuperUser } from '@/lib/super-users'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 import { reservationNotice } from '@/lib/property-reservation'
-import { extraFieldsFromRow, isVideoUrl } from '@/lib/property-extra-fields'
+import { extraFieldsFromRow, formatPropertyLocation, isVideoUrl } from '@/lib/property-extra-fields'
+import { PUBLIC_PROPERTY_CATEGORIES } from '@/lib/property-categories'
+
+const PAGE_SIZE = 24
+const normalizar = (texto: string) => texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+const categoriaLabel = (categoria?: string) =>
+  PUBLIC_PROPERTY_CATEGORIES.find(c => c.value === (categoria === 'compra' ? 'venta' : categoria))?.label || categoria || ''
+
+// Texto en el que busca el buscador: todo lo que un asesor podría recordar de la propiedad
+const textoBusqueda = (p: Propiedad) => normalizar([
+  `#${p.id}`, p.titulo, p.ubicacion, p.colonia, p.ciudad, p.tipo, p.status, categoriaLabel(p.categoria),
+  p.precioTexto, String(p.precio || ''), p.areaTexto, `${p.habitaciones} recamaras ${p.habitaciones} habitaciones`,
+  `${p.banos} banos`, p.tipoCredito, p.agente?.nombre, p.bono, p.descripcion,
+  ...(p.caracteristicas || []), ...(p.amenidades || []),
+].filter(Boolean).join(' '))
+
+type OrdenPropiedades = 'recientes' | 'precio-asc' | 'precio-desc' | 'titulo'
 
 export default function PropiedadesAsesorPage() {
   const { language, t } = useLanguage()
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [propiedades, setPropiedades] = useState<Propiedad[]>([])
@@ -58,6 +76,12 @@ export default function PropiedadesAsesorPage() {
   const [motivoBaja, setMotivoBaja] = useState('')
   const [analyticsLoaded, setAnalyticsLoaded] = useState(false)
   const [isExportingExcel, setIsExportingExcel] = useState(false)
+  const [busqueda, setBusqueda] = useState('')
+  const [filtroStatus, setFiltroStatus] = useState('todos')
+  const [filtroTipo, setFiltroTipo] = useState('todos')
+  const [filtroCategoria, setFiltroCategoria] = useState('todas')
+  const [orden, setOrden] = useState<OrdenPropiedades>('recientes')
+  const [visibles, setVisibles] = useState(PAGE_SIZE)
   const canExportAllProperties = user?.email?.toLowerCase() === 'lizzie@conectia.mx'
 
   const handleNavigation = (path: string) => {
@@ -82,6 +106,37 @@ export default function PropiedadesAsesorPage() {
   }
 
   const propertyIds = useMemo(() => propiedades.map(p => p.id), [propiedades])
+
+  // Buscador y filtros del listado
+  const tiposDisponibles = useMemo(() => [...new Set(propiedades.map(p => p.tipo).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es')), [propiedades])
+  const categoriasDisponibles = useMemo(() => [...new Set(propiedades.map(p => categoriaLabel(p.categoria)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es')), [propiedades])
+  const propiedadesFiltradas = useMemo(() => {
+    const terminos = normalizar(busqueda).split(/\s+/).filter(Boolean)
+    const resultado = propiedades.filter(p =>
+      (filtroStatus === 'todos' || p.status === filtroStatus) &&
+      (filtroTipo === 'todos' || p.tipo === filtroTipo) &&
+      (filtroCategoria === 'todas' || categoriaLabel(p.categoria) === filtroCategoria) &&
+      (terminos.length === 0 || (() => { const texto = textoBusqueda(p); return terminos.every(t => texto.includes(t)) })())
+    )
+    const ordenar: Record<OrdenPropiedades, (a: Propiedad, b: Propiedad) => number> = {
+      'recientes': (a, b) => (b.fechaPublicacion || '').localeCompare(a.fechaPublicacion || '') || b.id - a.id,
+      'precio-asc': (a, b) => (a.precio || 0) - (b.precio || 0),
+      'precio-desc': (a, b) => (b.precio || 0) - (a.precio || 0),
+      'titulo': (a, b) => a.titulo.localeCompare(b.titulo, 'es'),
+    }
+    return [...resultado].sort(ordenar[orden])
+  }, [propiedades, busqueda, filtroStatus, filtroTipo, filtroCategoria, orden])
+  const propiedadesVisibles = propiedadesFiltradas.slice(0, visibles)
+  const hayFiltros = Boolean(busqueda.trim()) || filtroStatus !== 'todos' || filtroTipo !== 'todos' || filtroCategoria !== 'todas'
+
+  useEffect(() => { setVisibles(PAGE_SIZE) }, [busqueda, filtroStatus, filtroTipo, filtroCategoria, orden])
+
+  const limpiarFiltros = () => {
+    setBusqueda('')
+    setFiltroStatus('todos')
+    setFiltroTipo('todos')
+    setFiltroCategoria('todas')
+  }
   const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(analyticsLoaded ? propertyIds : [])
 
   const getAnalyticsForProperty = (id: number) => {
@@ -89,6 +144,7 @@ export default function PropiedadesAsesorPage() {
   }
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'asesor') {
       router.push('/login')
       return
@@ -99,7 +155,7 @@ export default function PropiedadesAsesorPage() {
 
     // Cargar propiedades del asesor
     loadProperties()
-  }, [user, isAuthenticated, router])
+  }, [user, isAuthenticated, authLoading, router])
 
   // Load analytics after propiedades are loaded (lazy, non-blocking)
   useEffect(() => {
@@ -336,6 +392,8 @@ export default function PropiedadesAsesorPage() {
 
   if (!user) return null
 
+  const filtroInputClass = 'rounded-xl border border-[#17313A]/15 bg-white text-[#17313A] placeholder:text-[#8A8F97] focus:outline-none focus:border-[var(--conectia-arcilla)] dark:border-white/10 dark:bg-[#0F2027] dark:text-white'
+
   if (showForm) {
     return (
       <div className="min-h-screen bg-[#0F2027] relative overflow-hidden">
@@ -439,12 +497,18 @@ export default function PropiedadesAsesorPage() {
         {/* Stats — Glassmorphism */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {[
-            { label: t('panelAsesor.propiedades.stats.total'), value: propiedades.length, accent: 'var(--conectia-arcilla)', icon: Building2 },
-            { label: t('panelAsesor.propiedades.stats.available'), value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye },
-            { label: t('panelAsesor.propiedades.stats.exclusive'), value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: 'var(--conectia-arcilla)', icon: Building2 },
-            { label: t('panelAsesor.propiedades.stats.reserved'), value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2 },
+            { label: t('panelAsesor.propiedades.stats.total'), value: propiedades.length, accent: 'var(--conectia-arcilla)', icon: Building2, status: 'todos' },
+            { label: t('panelAsesor.propiedades.stats.available'), value: propiedades.filter(p => p.status === 'Disponible').length, accent: '#22c55e', icon: Eye, status: 'Disponible' },
+            { label: t('panelAsesor.propiedades.stats.exclusive'), value: propiedades.filter(p => p.status === 'Exclusiva').length, accent: 'var(--conectia-arcilla)', icon: Building2, status: 'Exclusiva' },
+            { label: t('panelAsesor.propiedades.stats.reserved'), value: propiedades.filter(p => p.status === 'Reservada').length, accent: '#3b82f6', icon: Building2, status: 'Reservada' },
           ].map((stat, i) => (
-            <div key={i} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-5 overflow-hidden group hover:border-white/20 transition-all duration-300">
+            <button
+              key={i}
+              type="button"
+              onClick={() => setFiltroStatus(stat.status)}
+              aria-pressed={filtroStatus === stat.status}
+              className={`relative text-left bg-white/[0.03] backdrop-blur-md border rounded-[24px] p-5 overflow-hidden group transition-all duration-300 ${filtroStatus === stat.status ? 'border-[var(--conectia-arcilla)]/60 ring-1 ring-[var(--conectia-arcilla)]/40' : 'border-white/10 hover:border-white/20'}`}
+            >
               <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full pointer-events-none opacity-30" style={{ background: `${stat.accent}20` }} />
               <div className="flex items-center justify-between">
                 <div>
@@ -455,12 +519,77 @@ export default function PropiedadesAsesorPage() {
                   <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: stat.accent }} />
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
+        {/* Buscador y filtros */}
+        {propiedades.length > 0 && (
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] p-4 sm:p-5 mb-6 space-y-3">
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A8F97]" aria-hidden="true" />
+              <input
+                type="text"
+                inputMode="search"
+                enterKeyHint="search"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                placeholder={language === 'en' ? 'Search by title, area, neighborhood, type, price, features, ID…' : 'Buscar por título, zona, colonia, tipo, precio, características, ID…'}
+                aria-label={language === 'en' ? 'Search properties' : 'Buscar propiedades'}
+                className={`${filtroInputClass} h-12 w-full pl-11 pr-10 text-sm`}
+              />
+              {busqueda && (
+                <button type="button" onClick={() => setBusqueda('')} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#8A8F97] hover:text-[var(--conectia-arcilla)]" aria-label={language === 'en' ? 'Clear search' : 'Borrar búsqueda'}>
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+              <select value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value)} className={`${filtroInputClass} h-10 px-3 text-sm`} aria-label="Estado">
+                <option value="todos">{language === 'en' ? 'All statuses' : 'Todos los estados'}</option>
+                {['Disponible', 'Exclusiva', 'Reservada'].map(status => <option key={status} value={status}>{status}</option>)}
+              </select>
+              <select value={filtroTipo} onChange={(e) => setFiltroTipo(e.target.value)} className={`${filtroInputClass} h-10 px-3 text-sm`} aria-label="Tipo">
+                <option value="todos">{language === 'en' ? 'All types' : 'Todos los tipos'}</option>
+                {tiposDisponibles.map(tipo => <option key={tipo} value={tipo}>{tipo}</option>)}
+              </select>
+              <select value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)} className={`${filtroInputClass} h-10 px-3 text-sm`} aria-label="Categoría">
+                <option value="todas">{language === 'en' ? 'All categories' : 'Todas las categorías'}</option>
+                {categoriasDisponibles.map(categoria => <option key={categoria} value={categoria}>{categoria}</option>)}
+              </select>
+              <select value={orden} onChange={(e) => setOrden(e.target.value as OrdenPropiedades)} className={`${filtroInputClass} h-10 px-3 text-sm`} aria-label="Ordenar">
+                <option value="recientes">{language === 'en' ? 'Newest first' : 'Más recientes'}</option>
+                <option value="precio-desc">{language === 'en' ? 'Price: high to low' : 'Precio: mayor a menor'}</option>
+                <option value="precio-asc">{language === 'en' ? 'Price: low to high' : 'Precio: menor a mayor'}</option>
+                <option value="titulo">{language === 'en' ? 'Title A–Z' : 'Título A–Z'}</option>
+              </select>
+            </div>
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="font-semibold text-[#8A8F97]">
+                {language === 'en'
+                  ? `${propiedadesFiltradas.length} of ${propiedades.length} properties`
+                  : `${propiedadesFiltradas.length} de ${propiedades.length} propiedades`}
+              </span>
+              {hayFiltros && (
+                <button type="button" onClick={limpiarFiltros} className="font-bold text-[var(--conectia-arcilla)] hover:underline">
+                  {language === 'en' ? 'Clear filters' : 'Limpiar filtros'}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Lista de Propiedades */}
-        {propiedades.length === 0 ? (
+        {propiedades.length > 0 && propiedadesFiltradas.length === 0 ? (
+          <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-12 text-center">
+            <Search className="h-10 w-10 mx-auto mb-3 text-[var(--conectia-arcilla)]/60" />
+            <h3 className="text-lg font-bold text-white mb-1">{language === 'en' ? 'No properties match your search' : 'Ninguna propiedad coincide con tu búsqueda'}</h3>
+            <p className="text-sm text-[#B0ACA6] mb-5">{language === 'en' ? 'Try other words or clear the filters.' : 'Prueba con otras palabras o limpia los filtros.'}</p>
+            <button onClick={limpiarFiltros} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--conectia-arcilla)] hover:bg-[var(--conectia-arcilla-hover)] text-[#0F2027] rounded-xl transition-all text-sm font-bold">
+              {language === 'en' ? 'Clear filters' : 'Limpiar filtros'}
+            </button>
+          </div>
+        ) : propiedades.length === 0 ? (
           <div className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[28px] p-12 text-center">
             <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--conectia-arcilla)]/10 rounded-full blur-[60px] pointer-events-none" />
             <div className="relative">
@@ -474,7 +603,7 @@ export default function PropiedadesAsesorPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {propiedades.map((propiedad) => (
+            {propiedadesVisibles.map((propiedad) => (
               <div key={propiedad.id} className="relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[24px] overflow-hidden group hover:border-white/20 transition-all duration-300 hover:-translate-y-1 flex flex-col">
                 <div className="relative h-48 overflow-hidden flex-shrink-0">
                   <img src={propiedad.imagen} alt={propiedad.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -490,7 +619,7 @@ export default function PropiedadesAsesorPage() {
                 <div className="p-5 flex flex-col flex-1">
                   <div className="mb-3">
                     <h3 className="text-lg font-bold text-white leading-tight">{propiedad.titulo}</h3>
-                    <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 text-[var(--conectia-arcilla)]" /> {propiedad.ubicacion}</div>
+                    <div className="flex items-center text-[#B0ACA6] text-xs mt-1"><MapPin className="h-3 w-3 mr-1 shrink-0 text-[var(--conectia-arcilla)]" /> {formatPropertyLocation(propiedad)}</div>
                   </div>
 
                   {propiedad.agente && (
@@ -578,6 +707,23 @@ export default function PropiedadesAsesorPage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {propiedadesFiltradas.length > visibles && (
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setVisibles(v => v + PAGE_SIZE)}
+              className="px-6 py-2.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-sm font-semibold text-white transition-all"
+            >
+              {language === 'en' ? 'Show more' : 'Ver más'}
+            </button>
+            <span className="text-xs text-[#8A8F97]">
+              {language === 'en'
+                ? `Showing ${visibles} of ${propiedadesFiltradas.length}`
+                : `Mostrando ${visibles} de ${propiedadesFiltradas.length}`}
+            </span>
           </div>
         )}
 

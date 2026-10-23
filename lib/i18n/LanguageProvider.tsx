@@ -81,7 +81,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
       if (params) {
         return Object.entries(params).reduce((acc, [paramKey, paramValue]) => {
-          return acc.replace(new RegExp(`\\{${paramKey}\\}`, "g"), String(paramValue))
+          return acc.replace(new RegExp(`\\{\\{?${paramKey}\\}?\\}`, "g"), String(paramValue))
         }, value)
       }
 
@@ -105,7 +105,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             const value = getNestedValue(dict, key) ?? key
             if (params) {
               return Object.entries(params).reduce((acc, [paramKey, paramValue]) => {
-                return acc.replace(new RegExp(`\\{${paramKey}\\}`, "g"), String(paramValue))
+                return acc.replace(new RegExp(`\\{\\{?${paramKey}\\}?\\}`, "g"), String(paramValue))
               }, value)
             }
             return value

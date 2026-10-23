@@ -239,6 +239,10 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
       alert('Por favor ingresa la ubicación de la propiedad')
       return
     }
+    if (!formData.ciudad?.trim()) {
+      alert('Por favor ingresa la ciudad de la propiedad')
+      return
+    }
     if (!formData.precio || formData.precio <= 0) {
       alert('Por favor ingresa un precio válido')
       return
@@ -728,6 +732,7 @@ export function PropertyForm({ initialData, asesorEmail, asesorNombre, onSubmit,
               <Label htmlFor="ciudad" className={labelClass}>{copy.city} *</Label>
               <Input
                 id="ciudad"
+                required
                 value={(formData as any).ciudad || ''}
                 onChange={(e) => setFormData({ ...formData, ciudad: e.target.value } as any)}
                 placeholder="Ej: León, Guanajuato"

@@ -330,6 +330,11 @@ html:not(.dark) .dashboard-shell :is(h1, h2, h3, h4, h5, h6, p, span)[class*="te
   color: var(--dashboard-text) !important;
 }
 
+/* Campos de formulario con texto blanco sobre fondos que el tema claro aclara */
+html:not(.dark) .dashboard-shell :is(input, textarea, select, [role="combobox"]).text-white {
+  color: var(--dashboard-text) !important;
+}
+
 html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"].text-white,
 html:not(.dark) .dashboard-shell :is(button, a)[class*="bg-white/"][class*="text-[#EAE4DD]"] {
   color: var(--dashboard-text) !important;

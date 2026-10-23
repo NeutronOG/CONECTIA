@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, MapPin, Bed, Bath, Square, Eye, Video } from "lucide-react"
+import { formatPropertyLocation } from "@/lib/property-extra-fields"
 import Link from "next/link"
 import { usePropertiesStatic } from "@/hooks/use-properties-static"
 import { useLanguage } from "@/lib/i18n"
@@ -124,7 +125,7 @@ export function FeaturedPropertiesCarousel() {
 
             <div className="flex items-center gap-2 text-[#17313A]/70 dark:text-[#B0ACA6]">
               <MapPin className="h-4 w-4 shrink-0 text-[var(--conectia-arcilla)]" />
-              <span className="truncate text-sm">{currentProperty.ubicacion}</span>
+              <span className="truncate text-sm">{formatPropertyLocation(currentProperty)}</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5 text-[#17313A]/70 dark:text-[#B0ACA6]">

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { users as internalUsers } from '@/data/internal-users'
+import { CHECKLIST_KEYS } from '@/lib/broker-checklist'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -8,7 +9,6 @@ const supabaseAdmin = createClient(
   { auth: { persistSession: false, autoRefreshToken: false } },
 )
 
-const DOCUMENTOS_VENDEDOR = ['Escrituras', 'Predial', 'Recibo de Agua', 'Planos', 'N° Cuenta Vendedor', 'Generales Vendedor']
 const TEXT_FIELDS = ['cliente_nombre', 'cliente_email', 'cliente_telefono', 'propiedad', 'monto_credito', 'tipo_credito', 'notas', 'notaria'] as const
 
 function readEmail(value: unknown) {
@@ -25,13 +25,13 @@ function pickUpdates(body: Record<string, unknown>) {
   for (const field of TEXT_FIELDS) {
     if (typeof body[field] === 'string') updates[field] = (body[field] as string).trim()
   }
-  if (Number.isInteger(body.paso_actual) && (body.paso_actual as number) >= 1 && (body.paso_actual as number) <= 7) {
-    updates.paso_actual = body.paso_actual
-  }
-  if (Array.isArray(body.documentos_vendedor)) {
-    updates.documentos_vendedor = body.documentos_vendedor
-      .filter((d: any) => d && typeof d.nombre === 'string')
-      .map((d: any) => ({ nombre: d.nombre, entregado: Boolean(d.entregado) }))
+  if (body.checklist && typeof body.checklist === 'object' && !Array.isArray(body.checklist)) {
+    const checklist = body.checklist as Record<string, unknown>
+    updates.checklist = Object.fromEntries(
+      CHECKLIST_KEYS
+        .filter(id => typeof checklist[id] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(checklist[id] as string))
+        .map(id => [id, checklist[id]]),
+    )
   }
   if (body.fecha_firma === null || body.fecha_firma === '') updates.fecha_firma = null
   else if (typeof body.fecha_firma === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.fecha_firma)) updates.fecha_firma = body.fecha_firma
@@ -62,11 +62,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabaseAdmin
       .from('broker_clientes')
-      .insert({
-        documentos_vendedor: DOCUMENTOS_VENDEDOR.map(nombre => ({ nombre, entregado: false })),
-        ...updates,
-        broker_email: email,
-      })
+      .insert({ ...updates, broker_email: email })
       .select()
       .single()
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })

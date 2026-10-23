@@ -26,6 +26,7 @@ import {
   Receipt
 } from 'lucide-react'
 import { OwnerSubmissionsStorage } from '@/lib/owner-submissions-storage'
+import { formatPropertyLocation } from '@/lib/property-extra-fields'
 
 interface Asesor {
   id: string
@@ -38,6 +39,8 @@ interface PropiedadDB {
   id: number
   titulo: string
   ubicacion: string
+  colonia?: string
+  ciudad?: string
   precio: number
   precio_texto?: string
   precioTexto?: string
@@ -334,7 +337,7 @@ export default function PanelAdminPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-white truncate">{propiedad.titulo}</p>
-                          <p className="text-xs text-[#B0ACA6] mt-0.5">{propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}</p>
+                          <p className="text-xs text-[#B0ACA6] mt-0.5">{formatPropertyLocation(propiedad)} • {propiedad.precioTexto || propiedad.precio_texto}</p>
                           <p className="text-[10px] text-[#4A4F57] mt-0.5">Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}</p>
                         </div>
                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-1 shrink-0 ${getStatusColor(propiedad.status)}`}>
@@ -426,7 +429,7 @@ export default function PanelAdminPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-white">{propiedad.titulo}</p>
-                        <p className="text-xs text-[#B0ACA6] mt-0.5">{propiedad.ubicacion} • {propiedad.precioTexto || propiedad.precio_texto}</p>
+                        <p className="text-xs text-[#B0ACA6] mt-0.5">{formatPropertyLocation(propiedad)} • {propiedad.precioTexto || propiedad.precio_texto}</p>
                         <p className="text-[10px] text-[#4A4F57] mt-0.5">Asesor: {getAsesorName(getPropAsesor(propiedad) || undefined)}</p>
                       </div>
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-1 shrink-0 ${getStatusColor(propiedad.status)}`}>

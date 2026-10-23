@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowUp, Bot, X } from "lucide-react"
+import { formatPropertyLocation } from "@/lib/property-extra-fields"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/i18n"
 import { useCurrency } from "@/lib/currency-provider"
@@ -37,7 +38,7 @@ function localSearch(properties: AssistantProperty[], query: string) {
   const terms = query.toLocaleLowerCase("es-MX").split(/\s+/).filter(term => term.length > 3)
   return properties
     .filter(property => {
-      const text = `${property.titulo} ${property.ubicacion} ${property.tipo} ${property.descripcion} ${(property.caracteristicas || []).join(" ")}`.toLocaleLowerCase("es-MX")
+      const text = `${property.titulo} ${formatPropertyLocation(property)} ${property.tipo} ${property.descripcion} ${(property.caracteristicas || []).join(" ")}`.toLocaleLowerCase("es-MX")
       return terms.some(term => text.includes(term))
     })
     .slice(0, 6)
@@ -189,7 +190,7 @@ export function AISearchChat({ isOpen, onClose, properties = [] }: AISearchChatP
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9a7062]">{translatePropertyValue(property.tipo, language)}</p>
                           <h3 className="truncate font-serif text-lg leading-tight text-[#17313A]">{translatePropertyTitle(property.titulo, language)}</h3>
-                          <p className="mt-1 truncate text-xs text-[#64767b]">{property.ubicacion}</p>
+                          <p className="mt-1 truncate text-xs text-[#64767b]">{formatPropertyLocation(property)}</p>
                           <div className="mt-2 flex items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-[#17313A]">{formatPrice(property.precio, property.precioTexto)}</p>
                             <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#80594d] group-hover:underline">{copy.view} <span aria-hidden>→</span></span>

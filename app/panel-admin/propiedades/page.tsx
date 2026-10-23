@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/auth-context'
 import { Button } from '@/components/ui/button'
 import { Building2, Trash2, ArrowLeft, AlertTriangle, Save, Home, Diamond, Shield, MapPin, Bed, Bath, Ruler } from 'lucide-react'
+import { formatPropertyLocation } from '@/lib/property-extra-fields'
 import { PropertiesStorage } from '@/lib/properties-storage'
 import { SocialShareFormats } from '@/components/social-share-formats'
 import { Propiedad } from '@/data/propiedades'
@@ -255,8 +256,8 @@ export default function AdminPropiedadesPage() {
                                                 <div className="min-w-0">
                                                     <h3 className="text-lg font-bold text-white truncate">{propiedad.titulo}</h3>
                                                     <div className="flex items-center gap-1.5 text-xs text-[#B0ACA6] mt-1">
-                                                        <MapPin className="h-3.5 w-3.5 text-[var(--conectia-arcilla)]" />
-                                                        {propiedad.ubicacion}
+                                                        <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--conectia-arcilla)]" />
+                                                        {formatPropertyLocation(propiedad)}
                                                     </div>
                                                 </div>
                                                 <span className={`px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${

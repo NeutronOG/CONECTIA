@@ -121,7 +121,7 @@ export async function POST(request: Request) {
     const { property, usuarioId, asesorEmail } = await request.json()
     const data = pickPropertyFields(property)
 
-    if (!data.titulo || !data.ubicacion || !data.precio || !data.tipo || !data.area) {
+    if (!data.titulo || !data.ubicacion || !data.precio || !data.tipo || data.area === undefined || data.area === null || Number(data.area) < 0) {
       return NextResponse.json({ error: 'Faltan campos obligatorios de la propiedad' }, { status: 400 })
     }
     if (!isPropertyCategory(data.categoria)) {

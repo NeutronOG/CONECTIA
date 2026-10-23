@@ -27,6 +27,8 @@ export async function GET() {
       asesorEmail: p.asesor_email,
       titulo: p.titulo,
       ubicacion: p.ubicacion,
+      colonia: p.colonia || undefined,
+      ciudad: p.ciudad || undefined,
       precio: p.precio,
       precioTexto: p.precio_texto,
       tipo: p.tipo,
