@@ -1,3 +1,11 @@
+export type BrokerPipeline = 'infonavit' | 'bancario'
+
+// Gabriel lleva trámites Infonavit; Armando usa el pipeline bancario de Ara Brokers.
+const PIPELINE_POR_BROKER: Record<string, BrokerPipeline> = { 'armando@conectia.mx': 'bancario' }
+
+export const brokerPipeline = (email?: string | null): BrokerPipeline =>
+  PIPELINE_POR_BROKER[email?.toLowerCase() ?? ''] ?? 'infonavit'
+
 // Checklist del expediente de crédito hipotecario (hoja física que usan los brokers).
 // Los ids se guardan en BD: no cambiarlos; para renombrar un documento cambia solo `nombre`.
 export interface ChecklistGrupo {
@@ -82,10 +90,29 @@ export const ETAPAS_INFONAVIT = [
   { id: 'ejercido', titulo: 'Crédito ejercido', descripcion: 'Pago al vendedor y entrega de vivienda' },
 ] as const
 
+// Etapas del pipeline bancario (Armando). Mismo mecanismo `etapa_<id>`; ids distintos a Infonavit.
+export const ETAPAS_BANCARIO = [
+  { id: 'autorizacion', titulo: 'Autorización', descripcion: 'Crédito autorizado por el banco' },
+  { id: 'avaluo_bancario', titulo: 'Avalúo', descripcion: 'Avalúo del inmueble' },
+  { id: 'notaria', titulo: 'Notaría', descripcion: 'Expediente en notaría' },
+  { id: 'programacion_firma', titulo: 'Programación de firma', descripcion: 'Fecha de firma agendada' },
+] as const
+
+type DefinicionEtapa = { readonly id: string; readonly titulo: string; readonly descripcion: string }
+
+// Columnas de la hoja de Armando: en qué bandeja está cada cliente.
+export const ESTATUS_BANCARIO = [
+  { id: 'pipeline', titulo: 'Pipeline' },
+  { id: 'pendiente_formato', titulo: 'Pendiente formato' },
+  { id: 'pendiente', titulo: 'Pendiente' },
+] as const
+
+export type EstatusBancario = typeof ESTATUS_BANCARIO[number]['id']
+
 export const etapaKey = (id: string) => `etapa_${id}`
 
-/** Llaves válidas en `checklist`: documentos de la hoja + etapas Infonavit */
-export const CHECKLIST_KEYS = [...CHECKLIST_IDS, ...ETAPAS_INFONAVIT.map(e => etapaKey(e.id))]
+/** Llaves válidas en `checklist`: documentos de la hoja + etapas Infonavit y bancarias */
+export const CHECKLIST_KEYS = [...CHECKLIST_IDS, ...[...ETAPAS_INFONAVIT, ...ETAPAS_BANCARIO].map(e => etapaKey(e.id))]
 
 export interface Etapa {
   id: string
@@ -96,9 +123,9 @@ export interface Etapa {
 }
 
 /** La etapa actual es la primera que no está marcada como hecha. */
-export function etapasInfonavit(estado: ChecklistEstado | null | undefined): Etapa[] {
+export function etapasInfonavit(estado: ChecklistEstado | null | undefined, lista: readonly DefinicionEtapa[] = ETAPAS_INFONAVIT): Etapa[] {
   let actualAsignada = false
-  return ETAPAS_INFONAVIT.map(etapa => {
+  return lista.map(etapa => {
     const fecha = estado?.[etapaKey(etapa.id)]
     const esActual = !fecha && !actualAsignada
     if (esActual) actualAsignada = true
@@ -106,18 +133,20 @@ export function etapasInfonavit(estado: ChecklistEstado | null | undefined): Eta
   })
 }
 
+export const etapasBancario = (estado: ChecklistEstado | null | undefined) => etapasInfonavit(estado, ETAPAS_BANCARIO)
+
 /**
  * Avanza la línea de tiempo hasta `id` (marca esa etapa y las anteriores) o,
  * si ya estaba hecha, regresa a ella (desmarca esa etapa y las siguientes).
  */
-export function moverEtapa(estado: ChecklistEstado, id: string, hoy: string): ChecklistEstado {
+export function moverEtapa(estado: ChecklistEstado, id: string, hoy: string, lista: readonly DefinicionEtapa[] = ETAPAS_INFONAVIT): ChecklistEstado {
   const siguiente = { ...estado }
-  const indice = ETAPAS_INFONAVIT.findIndex(e => e.id === id)
+  const indice = lista.findIndex(e => e.id === id)
   if (indice === -1) return siguiente
   if (siguiente[etapaKey(id)]) {
-    ETAPAS_INFONAVIT.slice(indice).forEach(e => { delete siguiente[etapaKey(e.id)] })
+    lista.slice(indice).forEach(e => { delete siguiente[etapaKey(e.id)] })
   } else {
-    ETAPAS_INFONAVIT.slice(0, indice + 1).forEach(e => { siguiente[etapaKey(e.id)] ??= hoy })
+    lista.slice(0, indice + 1).forEach(e => { siguiente[etapaKey(e.id)] ??= hoy })
   }
   return siguiente
 }

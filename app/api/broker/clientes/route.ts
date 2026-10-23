@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { users as internalUsers } from '@/data/internal-users'
-import { CHECKLIST_KEYS } from '@/lib/broker-checklist'
+import { CHECKLIST_KEYS, ESTATUS_BANCARIO } from '@/lib/broker-checklist'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -9,7 +9,8 @@ const supabaseAdmin = createClient(
   { auth: { persistSession: false, autoRefreshToken: false } },
 )
 
-const TEXT_FIELDS = ['cliente_nombre', 'cliente_email', 'cliente_telefono', 'propiedad', 'monto_credito', 'tipo_credito', 'notas', 'notaria'] as const
+const TEXT_FIELDS = ['cliente_nombre', 'cliente_email', 'cliente_telefono', 'propiedad', 'monto_credito', 'tipo_credito', 'notas', 'notaria', 'banco', 'avaluo'] as const
+const DATE_FIELDS = ['fecha_firma', 'vencimiento'] as const
 
 function readEmail(value: unknown) {
   return typeof value === 'string' ? value.trim().toLowerCase() : ''
@@ -33,8 +34,12 @@ function pickUpdates(body: Record<string, unknown>) {
         .map(id => [id, checklist[id]]),
     )
   }
-  if (body.fecha_firma === null || body.fecha_firma === '') updates.fecha_firma = null
-  else if (typeof body.fecha_firma === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.fecha_firma)) updates.fecha_firma = body.fecha_firma
+  if (ESTATUS_BANCARIO.some(e => e.id === body.estatus)) updates.estatus = body.estatus
+  for (const field of DATE_FIELDS) {
+    const value = body[field]
+    if (value === null || value === '') updates[field] = null
+    else if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) updates[field] = value
+  }
   return updates
 }
 

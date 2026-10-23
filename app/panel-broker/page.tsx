@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { useAuth } from '@/contexts/auth-context'
-import { BROKER_CHECKLIST, checklistAvance, etapasInfonavit, moverEtapa, type ChecklistEstado, type Etapa } from '@/lib/broker-checklist'
+import { BROKER_CHECKLIST, brokerPipeline, checklistAvance, etapasInfonavit, moverEtapa, type ChecklistEstado, type Etapa } from '@/lib/broker-checklist'
+import { BrokerPipelineBancario } from '@/components/broker-pipeline-bancario'
 import {
   LogOut,
   Plus,
@@ -77,6 +78,7 @@ export default function PanelBrokerPage() {
   const [borrador, setBorrador] = useState({ notas: '', notaria: '', fecha_firma: '' })
 
   const email = user?.email?.toLowerCase() || ''
+  const pipeline = brokerPipeline(email)
   const clienteSeleccionado = clientes.find(c => c.id === clienteId) || null
 
   useEffect(() => {
@@ -85,7 +87,8 @@ export default function PanelBrokerPage() {
       router.push('/login')
       return
     }
-    cargarClientes()
+    // El pipeline bancario carga sus propios datos
+    if (pipeline === 'infonavit') cargarClientes()
   }, [user, isAuthenticated, loading, router])
 
   useEffect(() => {
@@ -235,7 +238,7 @@ export default function PanelBrokerPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Panel de Broker</h1>
-                <p className="text-sm text-gray-400">{user.nombre} · Crédito Hipotecario</p>
+                <p className="text-sm text-gray-400">{user.nombre} · {pipeline === 'bancario' ? 'Pipeline bancario' : 'Crédito Hipotecario'}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -263,6 +266,7 @@ export default function PanelBrokerPage() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {pipeline === 'bancario' ? <BrokerPipelineBancario email={email} /> : <>
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {STATS.map(stat => {
@@ -630,6 +634,7 @@ export default function PanelBrokerPage() {
             )}
           </div>
         )}
+        </>}
       </div>
     </div>
   )
