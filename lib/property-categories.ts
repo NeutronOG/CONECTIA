@@ -4,7 +4,7 @@
  * las que ve el cliente en el menú Explorar.
  */
 export const PUBLIC_PROPERTY_CATEGORIES = [
-  { value: 'venta', label: 'Vender', href: '/venta' },
+  { value: 'venta', label: 'Venta', href: '/venta' },
   { value: 'renta', label: 'Renta', href: '/renta' },
   { value: 'oferta', label: 'Ofertas', href: '/ofertas' },
   { value: 'especiales', label: 'Especiales', href: '/especiales' },
