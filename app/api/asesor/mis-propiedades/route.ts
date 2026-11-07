@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { isSuperUser as esSuperUsuario } from '@/lib/super-users'
+import { sesionActual } from '@/lib/sesion'
 import { createClient } from '@supabase/supabase-js'
 import { normalizePersistedProperty } from '@/lib/property-persistence-compat'
 import { uniqueProperties } from '@/lib/property-deduplication'
@@ -13,7 +15,8 @@ const supabaseAdmin = createClient(
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const sesion = await sesionActual()
+    const email = sesion?.email ?? null
     const nombre = searchParams.get('nombre')
     const userId = searchParams.get('userId')
 
@@ -21,11 +24,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Se requiere email, nombre o userId' }, { status: 400 })
     }
 
-    console.log('API mis-propiedades:', { email, nombre, userId })
-
     // Usuarios con acceso a todas las propiedades
-    const SUPER_USERS = ['lizzie@conectia.mx', 'admin@conectia.mx']
-    const isSuperUser = email && SUPER_USERS.includes(email.toLowerCase())
+    const isSuperUser = esSuperUsuario(sesion)
 
     // Obtener todas las propiedades
     const { data, error } = await supabaseAdmin

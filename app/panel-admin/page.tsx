@@ -94,8 +94,6 @@ export default function PanelAdminPage() {
     }
   }
 
-  if (!user) return null
-
   const totalPropiedades = propiedades.length
   const totalAsesores = asesores.length
   const submissionsStats = OwnerSubmissionsStorage.getStats()
@@ -106,6 +104,9 @@ export default function PanelAdminPage() {
   const propiedadesVendidas = propiedades.filter(p => p.status === 'Vendida').length
 
   const { totalViews, totalShares, topProperties } = useAllPropertyAnalytics()
+
+  // Después de todos los hooks: React exige el mismo orden en cada render
+  if (!user) return null
 
   // Helper para obtener el email/id del asesor asignado a una propiedad
   const getPropAsesor = (p: PropiedadDB) => (p.asesorEmail || p.usuarioId || p.usuario_id || '').toLowerCase()

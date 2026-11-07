@@ -46,13 +46,19 @@ export async function uploadImage(
     }
 
     const filePath = `${folder}/${fileName}`
+    // El bucket solo acepta subidas con URL firmada por la API
+    const firma = await fetch('/api/storage/upload-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: filePath }),
+    })
+    const firmada = await firma.json()
+    if (!firma.ok) return { url: '', path: '', error: firmada.error }
+
     // Subir archivo
     const { data, error } = await supabase.storage
       .from(BUCKET_NAME)
-      .upload(filePath, fileToUpload, {
-        cacheControl: '3600',
-        upsert: false
-      })
+      .uploadToSignedUrl(firmada.path, firmada.token, fileToUpload, { cacheControl: '3600' })
 
     if (error) {
       console.error('Error uploading image:', error)

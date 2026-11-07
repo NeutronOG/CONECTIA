@@ -102,6 +102,7 @@ type DefinicionEtapa = { readonly id: string; readonly titulo: string; readonly 
 
 // Columnas de la hoja de Armando: en qué bandeja está cada cliente.
 export const ESTATUS_BANCARIO = [
+  { id: 'previa', titulo: 'Previa a autorización' },
   { id: 'pipeline', titulo: 'Pipeline' },
   { id: 'pendiente_formato', titulo: 'Pendiente formato' },
   { id: 'pendiente', titulo: 'Pendiente' },

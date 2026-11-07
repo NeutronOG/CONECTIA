@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/select'
 
 export default function AdminPropiedadesPage() {
-    const { user, isAuthenticated } = useAuth()
+    const { user, isAuthenticated, loading: authLoading } = useAuth()
     const router = useRouter()
     const [propiedades, setPropiedades] = useState<Propiedad[]>([])
     const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
@@ -29,6 +29,7 @@ export default function AdminPropiedadesPage() {
     const [pendingChanges, setPendingChanges] = useState<Record<number, string | null>>({})
 
     useEffect(() => {
+        if (authLoading) return
         if (!isAuthenticated || user?.role !== 'admin') {
             router.push('/login')
             return
@@ -36,7 +37,7 @@ export default function AdminPropiedadesPage() {
 
         loadAsesores()
         loadProperties()
-    }, [user, isAuthenticated, router])
+    }, [user, isAuthenticated, authLoading, router])
 
     const loadAsesores = async () => {
         try {

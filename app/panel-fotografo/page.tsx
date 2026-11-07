@@ -276,8 +276,6 @@ export default function PanelFotografoPage() {
     }
   }
 
-  if (!user) return null
-
   const solicitudesPendientes = solicitudes.filter(s => s.status === 'pendiente')
   const solicitudesEnProceso = solicitudes.filter(s => s.status === 'en_proceso')
   const totalPropiedades = propiedades.length
@@ -294,6 +292,9 @@ export default function PanelFotografoPage() {
   const propertyIds = useMemo(() => propiedades.map(p => p.id), [propiedades])
   const { totalViews, totalShares, topProperties } = useAllPropertyAnalytics()
   const { analytics: propiedadesAnalytics } = usePropertiesAnalyticsList(propertyIds)
+
+  // Después de todos los hooks: React exige el mismo orden en cada render
+  if (!user) return null
 
   const totalVistasPropiedades = propiedadesAnalytics.reduce((sum, a) => sum + a.views, 0)
   const totalCompartidosPropiedades = propiedadesAnalytics.reduce((sum, a) => sum + a.shares, 0)

@@ -29,6 +29,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const MOCK_USER_STORAGE_KEY = 'conectia_mock_user'
 
+// Las cuentas de Supabase Auth también necesitan la cookie que valida la API
+const abrirSesionServidor = (accessToken?: string) => accessToken
+  ? fetch('/api/auth/sesion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accessToken }),
+    }).catch(() => undefined)
+  : undefined
+
 interface AuthUserFallback {
   id: string
   email?: string | null
@@ -106,6 +115,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const parsedUser = JSON.parse(savedMockUser) as User
           setUser(parsedUser)
           setLoading(false)
+          // Sin cookie válida en el servidor el usuario debe volver a entrar.
+          // La API ya rechaza sin cookie; esto solo regresa la pantalla al login.
+          fetch('/api/auth/sesion').then(sesion => {
+            if (sesion.status !== 401 || !mountedRef.current) return
+            localStorage.removeItem(MOCK_USER_STORAGE_KEY)
+            setUser(null)
+          }).catch(() => {})
           return
         } catch {
           localStorage.removeItem(MOCK_USER_STORAGE_KEY)
@@ -115,6 +131,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Si no hay mock user, verificar sesión de Supabase
       const { data: { session } } = await supabase.auth.getSession()
       if (session?.user) {
+        await abrirSesionServidor(session.access_token)
         await loadUserProfile(session.user.id, {
           id: session.user.id,
           email: session.user.email,
@@ -233,25 +250,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       if (mockUser) {
         // Verificar contraseña mock
-        const expectedPassword = mockUser.password || 
-          (mockUser.role === 'admin' ? 'conectia2025' : `${email.split('@')[0]}_conectia2025`)
-        
-        console.log('Mock user found:', email, 'Expected password:', expectedPassword)
-        
-        if (password === expectedPassword) {
-          // Intentar obtener el UUID real de Supabase por email via API (evita RLS)
-          let realUserId = mockUser.id
-          try {
-            const res = await fetch(`/api/auth/user-id?email=${encodeURIComponent(email)}`)
-            if (res.ok) {
-              const { userId } = await res.json()
-              if (userId) {
-                realUserId = userId
-              }
-            }
-          } catch {
-            // Si falla, usar el ID mock
-          }
+        const res = await fetch('/api/auth/sesion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        })
+
+        if (res.ok) {
+          const { userId } = await res.json()
+          const realUserId = userId || mockUser.id
 
           const userData: User = {
             id: realUserId,
@@ -290,8 +297,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return userData
         } else {
           // Si es usuario mock pero contraseña incorrecta, NO intentar con Supabase
-          console.error('Mock user password mismatch')
-          throw new Error('Contraseña incorrecta')
+          throw new Error(res.status === 429 ? 'Demasiados intentos. Espera un minuto.' : 'Contraseña incorrecta')
         }
       }
 
@@ -309,6 +315,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (!data.user) {
         throw new Error('No se pudo iniciar sesión')
       }
+
+      await abrirSesionServidor(data.session?.access_token)
 
       // Cargar perfil del usuario desde Supabase
       await loadUserProfile(data.user.id, {
@@ -337,6 +345,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         )
       }
       
+      await fetch('/api/auth/sesion', { method: 'DELETE' }).catch(() => {})
+
       // Limpiar mock user de localStorage
       localStorage.removeItem(MOCK_USER_STORAGE_KEY)
       setUser(null)

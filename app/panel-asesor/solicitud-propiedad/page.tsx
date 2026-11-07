@@ -12,16 +12,17 @@ import { useLanguage } from '@/lib/i18n'
 
 export default function SolicitudPropiedadPage() {
   const { t } = useLanguage()
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [enviada, setEnviada] = useState(false)
   const [tituloEnviado, setTituloEnviado] = useState('')
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'asesor') {
       router.replace('/login')
     }
-  }, [isAuthenticated, router, user?.role])
+  }, [authLoading, isAuthenticated, router, user?.role])
 
   if (!isAuthenticated || user?.role !== 'asesor') {
     return null

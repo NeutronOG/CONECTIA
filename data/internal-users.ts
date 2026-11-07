@@ -17,7 +17,6 @@ export const users: User[] = [
     role: 'admin',
     telefono: '563-157-2468',
     avatar: '/avatars/ari.jpg',
-    password: 'ari_conectia2025',
     permisos: ['editar_propiedades', 'subir_propiedades', 'bajar_propiedades', 'ver_logs'],
     esEditorPrincipal: true
   },
@@ -28,7 +27,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/ana.jpg',
-    password: 'ana_conectia2025',
     plan: 'elite'
   },
   {
@@ -38,7 +36,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/roberto.jpg',
-    password: 'roberto_conectia2025',
     plan: 'elite'
   },
   {
@@ -48,7 +45,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/maria.jpg',
-    password: 'maria_conectia2025',
     plan: 'elite'
   },
   {
@@ -58,7 +54,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/daniela.jpg',
-    password: 'daniela_conectia2025',
     plan: 'elite'
   },
   {
@@ -68,7 +63,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/subje.jpg',
-    password: 'subje_conectia2025',
     plan: 'elite'
   },
   {
@@ -78,7 +72,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/gris.jpg',
-    password: 'gris_conectia2025',
     plan: 'elite'
   },
   {
@@ -88,7 +81,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/lizzie.jpg',
-    password: 'lizzie_conectia2025',
     plan: 'elite'
   },
   {
@@ -98,7 +90,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/ingrid.jpg',
-    password: 'ingrid_conectia2025',
     plan: 'elite'
   },
   {
@@ -108,7 +99,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/sofia.jpg',
-    password: 'sofia_conectia2025',
     plan: 'elite'
   },
   {
@@ -118,7 +108,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/elizabeth.jpg',
-    password: 'elizabeth_conectia2025',
     plan: 'elite'
   },
   {
@@ -128,7 +117,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/alexandra.jpg',
-    password: 'alexandra_2025',
     plan: 'elite'
   },
   {
@@ -138,7 +126,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/claraliz.jpg',
-    password: 'liz_2025',
     plan: 'elite'
   },
   {
@@ -148,7 +135,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/pamela.jpg',
-    password: 'pamela_conectia2025',
     plan: 'elite'
   },
   {
@@ -158,7 +144,6 @@ export const users: User[] = [
     role: 'asesor',
     telefono: '563-157-2468',
     avatar: '/avatars/juanbecerra.jpg',
-    password: 'juan_conectia2025',
     plan: 'elite'
   },
   // Empresa Demo
@@ -169,7 +154,6 @@ export const users: User[] = [
     role: 'empresa' as any,
     telefono: '563-157-2468',
     avatar: '/avatars/empresa.jpg',
-    password: 'empresa_conectia2025',
     plan: 'team-elite' as any
   },
   // Brokers
@@ -180,7 +164,6 @@ export const users: User[] = [
     role: 'broker',
     telefono: '563-157-2468',
     avatar: '/avatars/broker.jpg',
-    password: 'broker_conectia2025',
     plan: 'elite'
   },
   {
@@ -190,17 +173,15 @@ export const users: User[] = [
     role: 'broker',
     telefono: '563-157-2468',
     avatar: '/avatars/broker.jpg',
-    password: 'gabriel_conectia2025',
     plan: 'elite'
   },
   {
     id: 'broker-armando',
-    nombre: 'Armando',
+    nombre: 'Armando Araiza',
     email: 'armando@conectia.mx',
     role: 'broker',
     telefono: '563-157-2468',
     avatar: '/avatars/broker.jpg',
-    password: 'armando_conectia2025',
     plan: 'elite'
   },
   // Fotógrafo
@@ -211,7 +192,6 @@ export const users: User[] = [
     role: 'fotografo',
     telefono: '563-157-2468',
     avatar: '/avatars/santiago.jpg',
-    password: 'santiago_conectia2025'
   },
   // Propietarios
   {
@@ -222,7 +202,6 @@ export const users: User[] = [
     telefono: '563-157-2468',
     avatar: '/avatars/propietario1.jpg',
     propiedadId: 1,
-    password: 'propietario2025'
   },
   {
     id: 'propietario-2',
@@ -232,7 +211,6 @@ export const users: User[] = [
     telefono: '563-157-2468',
     avatar: '/avatars/propietario2.jpg',
     propiedadId: 2,
-    password: 'propietario2025'
   },
   {
     id: 'propietario-3',
@@ -242,7 +220,6 @@ export const users: User[] = [
     telefono: '563-157-2468',
     avatar: '/avatars/propietario3.jpg',
     propiedadId: 4,
-    password: 'propietario2025'
   }
 ]
 
@@ -770,15 +747,6 @@ export function getUserByEmail(email: string): User | undefined {
   return users.find(u => u.email.toLowerCase() === email.toLowerCase())
 }
 
-export function authenticateUser(email: string, password: string): User | null {
-  const user = users.find(u => u.email === email)
-  if (!user) return null
-  // Prioriza contraseña personalizada si existe; mantiene compatibilidad con la global
-  if (user.password) {
-    return user.password === password ? user : null
-  }
-  return password === 'conectia2025' ? user : null
-}
 
 // Resolver ID real (UUID de Supabase) al mock ID del asesor usando email
 function resolveMockAsesorId(idOrEmail: string, email?: string): string {

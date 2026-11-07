@@ -82,19 +82,20 @@ const entityColors: Record<string, string> = {
 }
 
 export default function AuditoriaPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [logs, setLogs] = useState<AuditLog[]>([])
   const [filter, setFilter] = useState<'all' | 'ari' | 'mine'>('all')
   const [actionFilter, setActionFilter] = useState<string>('all')
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'admin') {
       router.push('/login')
       return
     }
     loadLogs()
-  }, [isAuthenticated, user, router])
+  }, [isAuthenticated, user, authLoading, router])
 
   const loadLogs = async () => {
     let filteredLogs: AuditLog[] = []

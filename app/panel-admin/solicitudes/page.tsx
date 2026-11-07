@@ -25,7 +25,7 @@ import {
 } from 'lucide-react'
 
 export default function SolicitudesPropietariosPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [submissions, setSubmissions] = useState<OwnerSubmission[]>([])
   const [stats, setStats] = useState({
@@ -37,13 +37,14 @@ export default function SolicitudesPropietariosPage() {
   })
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'admin') {
       router.push('/login')
       return
     }
 
     loadSubmissions()
-  }, [user, isAuthenticated, router])
+  }, [user, isAuthenticated, authLoading, router])
 
   const loadSubmissions = () => {
     const allSubmissions = OwnerSubmissionsStorage.getAll()

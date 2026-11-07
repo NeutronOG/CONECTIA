@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { AlertTriangle, CalendarClock, Check, Landmark, PenTool, Plus, Trash2, Users, Wallet } from 'lucide-react'
 import { ESTATUS_BANCARIO, ETAPAS_BANCARIO, etapasBancario, moverEtapa, type ChecklistEstado, type Etapa, type EstatusBancario } from '@/lib/broker-checklist'
+import { fechaHoy, monto, pesos, resumenPrevia, type PreviaAutorizacion } from '@/lib/broker-previa'
+import { BrokerPreviaAutorizacion } from '@/components/broker-previa-autorizacion'
 
 // Pipeline bancario de Ara Brokers: mismas columnas que la hoja de Excel.
 interface ClientePipeline {
@@ -17,9 +19,10 @@ interface ClientePipeline {
   fecha_firma: string | null
   estatus: EstatusBancario
   checklist: ChecklistEstado | null
+  pre_autorizacion: Partial<PreviaAutorizacion> | null
 }
 
-type Campo = Exclude<keyof ClientePipeline, 'id' | 'estatus' | 'checklist'>
+type Campo = Exclude<keyof ClientePipeline, 'id' | 'estatus' | 'checklist' | 'pre_autorizacion'>
 
 const COLUMNAS: { campo: Campo; titulo: string; placeholder: string; fecha?: boolean }[] = [
   { campo: 'cliente_nombre', titulo: 'Cliente', placeholder: 'Nombre del cliente' },
@@ -41,24 +44,22 @@ const hoy = () => {
   return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())
 }
 const diasPara = (fecha: string) => Math.round((Date.parse(`${fecha}T00:00:00Z`) - hoy()) / DIA)
-const monto = (texto: string) => Number(texto.replace(/[^\d.]/g, '')) || 0
-const fechaHoy = () => new Date().toLocaleDateString('en-CA')
-const pesos = (valor: number) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(valor)
 
 const celdaClass = 'w-full min-w-0 rounded-lg bg-transparent px-2 py-1.5 text-sm text-white placeholder:text-gray-500 border border-transparent hover:border-white/10 focus:border-conectia-gold/60 focus:bg-white/5 focus:outline-none [color-scheme:dark]'
 
-export function BrokerPipelineBancario({ email }: { email: string }) {
+export function BrokerPipelineBancario() {
   const [clientes, setClientes] = useState<ClientePipeline[]>([])
   const [cargando, setCargando] = useState(true)
   const [nuevo, setNuevo] = useState(FILA_VACIA)
   const [guardando, setGuardando] = useState(false)
   const [bandeja, setBandeja] = useState<EstatusBancario>('pipeline')
+  const [previaId, setPreviaId] = useState<number | null>(null)
 
   const mes = new Date().toLocaleDateString('es-MX', { month: 'long', year: 'numeric' })
 
   useEffect(() => {
     let activo = true
-    fetch(`/api/broker/clientes?email=${encodeURIComponent(email)}`)
+    fetch('/api/broker/clientes')
       .then(async res => {
         const data = await res.json()
         if (!res.ok) throw new Error(data.error)
@@ -67,7 +68,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
       .catch((error: Error) => toast.error(`Error cargando el pipeline: ${error.message}`))
       .finally(() => activo && setCargando(false))
     return () => { activo = false }
-  }, [email])
+  }, [])
 
   const actualizar = async (cliente: ClientePipeline, cambios: Partial<ClientePipeline>, exito?: string) => {
     setClientes(prev => prev.map(c => c.id === cliente.id ? { ...c, ...cambios } : c))
@@ -75,7 +76,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
       const res = await fetch('/api/broker/clientes', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, id: cliente.id, ...cambios }),
+        body: JSON.stringify({ id: cliente.id, ...cambios }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -115,7 +116,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
       const res = await fetch('/api/broker/clientes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, ...nuevo, estatus: bandeja }),
+        body: JSON.stringify({ ...nuevo, estatus: bandeja }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -132,7 +133,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
   const eliminarCliente = async (cliente: ClientePipeline) => {
     if (!confirm(`¿Eliminar a ${cliente.cliente_nombre} del pipeline?`)) return
     try {
-      const res = await fetch(`/api/broker/clientes?id=${cliente.id}&email=${encodeURIComponent(email)}`, { method: 'DELETE' })
+      const res = await fetch(`/api/broker/clientes?id=${cliente.id}`, { method: 'DELETE' })
       if (!res.ok) throw new Error((await res.json()).error)
       setClientes(prev => prev.filter(c => c.id !== cliente.id))
       toast.success('Cliente eliminado')
@@ -149,6 +150,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
   const porVencer = todos.filter(c => c.vencimiento && diasPara(c.vencimiento) <= 15).length
   const conEtapas = bandeja === 'pipeline'
   const totalColumnas = COLUMNAS.length + (conEtapas ? 3 : 2)
+  const clientePrevia = clientes.find(c => c.id === previaId)
 
   const STATS = [
     { label: 'Clientes en pipeline', value: enPipeline.length, icon: Users, tone: 'text-blue-400 bg-blue-500/15' },
@@ -211,7 +213,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
           })}
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className={`w-full text-left ${conEtapas ? 'min-w-[1320px]' : 'min-w-[1080px]'}`}>
             <thead>
               <tr className="border-b border-gray-700/60 text-[11px] uppercase tracking-wider text-gray-400">
@@ -241,6 +243,7 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
                         className={`${celdaClass} ${col.campo === 'cliente_nombre' ? 'font-semibold' : ''} ${col.campo === 'monto_credito' ? 'text-conectia-gold font-semibold' : ''}`}
                       />
                       {col.campo === 'vencimiento' && avisoVencimiento(cliente.vencimiento)}
+                      {col.campo === 'cliente_nombre' && <BotonPrevia cliente={cliente} onAbrir={() => setPreviaId(cliente.id)} />}
                     </td>
                   ))}
                   {conEtapas && (
@@ -304,7 +307,40 @@ export function BrokerPipelineBancario({ email }: { email: string }) {
           </table>
         </div>
       </div>
+
+      {clientePrevia && (
+        <BrokerPreviaAutorizacion
+          key={clientePrevia.id}
+          nombre={clientePrevia.cliente_nombre}
+          guardada={clientePrevia.pre_autorizacion}
+          onCerrar={() => setPreviaId(null)}
+          onGuardar={(previa) => {
+            actualizar(clientePrevia, { pre_autorizacion: previa }, 'Etapa previa guardada')
+            setPreviaId(null)
+          }}
+        />
+      )}
     </div>
+  )
+}
+
+function BotonPrevia({ cliente, onAbrir }: { cliente: ClientePipeline; onAbrir: () => void }) {
+  const resumen = resumenPrevia(cliente.pre_autorizacion)
+  const texto = resumen.pendientes > 0
+    ? `${resumen.pendientes} pendiente${resumen.pendientes === 1 ? '' : 's'}`
+    : resumen.capturada ? 'Al corriente' : 'Sin capturar'
+  const tono = resumen.pendientes > 0
+    ? 'border-orange-500/40 text-orange-400 hover:bg-orange-500/10'
+    : resumen.capturada ? 'border-green-500/30 text-green-400 hover:bg-green-500/10' : 'border-gray-700 text-gray-400 hover:text-white'
+  return (
+    <button
+      type="button"
+      onClick={onAbrir}
+      aria-label={`Previa a la autorización de ${cliente.cliente_nombre}: ${texto}`}
+      className={`mx-2 mb-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[11px] font-semibold transition-colors ${tono}`}
+    >
+      Previa: {texto}
+    </button>
   )
 }
 

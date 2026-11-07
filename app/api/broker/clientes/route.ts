@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { users as internalUsers } from '@/data/internal-users'
 import { CHECKLIST_KEYS, ESTATUS_BANCARIO } from '@/lib/broker-checklist'
+import { previaSchema } from '@/lib/broker-previa'
+import { brokerDeSesion } from '@/lib/sesion'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,15 +12,6 @@ const supabaseAdmin = createClient(
 
 const TEXT_FIELDS = ['cliente_nombre', 'cliente_email', 'cliente_telefono', 'propiedad', 'monto_credito', 'tipo_credito', 'notas', 'notaria', 'banco', 'avaluo'] as const
 const DATE_FIELDS = ['fecha_firma', 'vencimiento'] as const
-
-function readEmail(value: unknown) {
-  return typeof value === 'string' ? value.trim().toLowerCase() : ''
-}
-
-// Cada broker solo ve y modifica sus propios clientes
-function isBroker(email: string) {
-  return internalUsers.some(u => u.email.toLowerCase() === email && u.role === 'broker')
-}
 
 function pickUpdates(body: Record<string, unknown>) {
   const updates: Record<string, unknown> = {}
@@ -35,6 +27,8 @@ function pickUpdates(body: Record<string, unknown>) {
     )
   }
   if (ESTATUS_BANCARIO.some(e => e.id === body.estatus)) updates.estatus = body.estatus
+  const previa = previaSchema.safeParse(body.pre_autorizacion)
+  if (previa.success) updates.pre_autorizacion = previa.data
   for (const field of DATE_FIELDS) {
     const value = body[field]
     if (value === null || value === '') updates[field] = null
@@ -43,9 +37,10 @@ function pickUpdates(body: Record<string, unknown>) {
   return updates
 }
 
-export async function GET(request: Request) {
-  const email = readEmail(new URL(request.url).searchParams.get('email'))
-  if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+// Cada broker solo ve y modifica sus propios clientes: el correo sale de la sesión
+export async function GET() {
+  const email = await brokerDeSesion()
+  if (!email) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
   const { data, error } = await supabaseAdmin
     .from('broker_clientes')
@@ -59,8 +54,8 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const email = readEmail(body.email)
-    if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+    const email = await brokerDeSesion()
+    if (!email) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
 
     const updates = pickUpdates(body)
     if (!updates.cliente_nombre) return NextResponse.json({ error: 'El nombre del cliente es obligatorio.' }, { status: 400 })
@@ -80,9 +75,9 @@ export async function POST(request: Request) {
 export async function PATCH(request: Request) {
   try {
     const body = await request.json()
-    const email = readEmail(body.email)
+    const email = await brokerDeSesion()
     const id = Number(body.id)
-    if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+    if (!email) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     if (!Number.isInteger(id)) return NextResponse.json({ error: 'Cliente inválido.' }, { status: 400 })
 
     const { data, error } = await supabaseAdmin
@@ -102,8 +97,8 @@ export async function PATCH(request: Request) {
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url)
   const id = Number(searchParams.get('id'))
-  const email = readEmail(searchParams.get('email'))
-  if (!isBroker(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+  const email = await brokerDeSesion()
+  if (!email) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   if (!Number.isInteger(id)) return NextResponse.json({ error: 'Cliente inválido.' }, { status: 400 })
 
   const { error } = await supabaseAdmin.from('broker_clientes').delete().eq('id', id).eq('broker_email', email)

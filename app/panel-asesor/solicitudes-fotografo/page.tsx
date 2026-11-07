@@ -39,7 +39,7 @@ const ASESORES_AUTORIZADOS = ['lizzie@conectia.mx']
 
 export default function SolicitudesFotografoAsesorPage() {
   const { t } = useLanguage()
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [solicitudes, setSolicitudes] = useState<SolicitudFotografo[]>([])
   const [loading, setLoading] = useState(true)
@@ -48,6 +48,7 @@ export default function SolicitudesFotografoAsesorPage() {
   const [notasAsesor, setNotasAsesor] = useState("")
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'asesor') {
       router.push('/login')
       return
@@ -60,7 +61,7 @@ export default function SolicitudesFotografoAsesorPage() {
     }
 
     loadSolicitudes()
-  }, [user, isAuthenticated, router])
+  }, [user, isAuthenticated, authLoading, router])
 
   const loadSolicitudes = async () => {
     setLoading(true)

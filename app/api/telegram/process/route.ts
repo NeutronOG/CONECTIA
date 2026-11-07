@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { randomBytes } from 'crypto'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
 
@@ -208,7 +209,7 @@ async function processUpdate(update: any) {
       const email = crearAsesorMatch[2].trim()
       const telMatch = text.match(/tel(?:[eé]fono)?[:\s]*([\d\s+()-]{7,})/i)
       const telefono = telMatch ? telMatch[1].trim() : ''
-      const password = `${nombre.split(' ')[0].toLowerCase()}_conectia${new Date().getFullYear()}`
+      const password = randomBytes(12).toString('base64url')
       await executeAdminAction(chatId, { accion: 'crear_asesor', nombre, email, telefono, password })
       return
     }
@@ -413,7 +414,7 @@ async function executeAdminAction(chatId: number, action: any) {
   const supabase = getSupabase()
 
   if (action.accion === 'crear_asesor') {
-    const password = action.password || `${action.nombre?.split(' ')[0]?.toLowerCase()}_conectia2025`
+    const password = action.password || randomBytes(12).toString('base64url')
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({ email: action.email, password, email_confirm: true })
     if (authError) { await sendTelegramMessage(chatId, `❌ Error al crear asesor: ${authError.message}`); return }
     await supabase.from('usuarios').insert({ id: authData.user.id, email: action.email, nombre: action.nombre, telefono: action.telefono || '', role: action.role || 'asesor' })

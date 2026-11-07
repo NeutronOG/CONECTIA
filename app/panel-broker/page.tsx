@@ -6,6 +6,8 @@ import { toast } from 'sonner'
 import { useAuth } from '@/contexts/auth-context'
 import { BROKER_CHECKLIST, brokerPipeline, checklistAvance, etapasInfonavit, moverEtapa, type ChecklistEstado, type Etapa } from '@/lib/broker-checklist'
 import { BrokerPipelineBancario } from '@/components/broker-pipeline-bancario'
+import { BrokerModuloPrivado } from '@/components/broker-modulo-privado'
+import { BrokerPerfil, PERFIL_VACIO, type PerfilBroker } from '@/components/broker-perfil'
 import {
   LogOut,
   Plus,
@@ -17,8 +19,10 @@ import {
   Users,
   Landmark,
   ClipboardCheck,
+  FolderLock,
   PenTool,
   Trash2,
+  UserRound,
 } from 'lucide-react'
 
 // Cliente en proceso de crédito hipotecario (tabla broker_clientes)
@@ -48,6 +52,14 @@ const NUEVO_CLIENTE = {
   notas: '',
 }
 
+const SECCIONES_BANCARIO = [
+  { id: 'clientes', titulo: 'Mis Clientes', icono: Users },
+  { id: 'recursos', titulo: 'Módulo privado', icono: FolderLock },
+  { id: 'perfil', titulo: 'Mi perfil', icono: UserRound },
+] as const
+
+type SeccionBancario = typeof SECCIONES_BANCARIO[number]['id']
+
 const formatFecha = (value: string, options: Intl.DateTimeFormatOptions) =>
   new Date(value.length === 10 ? `${value}T12:00:00` : value).toLocaleDateString('es-MX', options)
 
@@ -76,6 +88,9 @@ export default function PanelBrokerPage() {
   const [nuevoCliente, setNuevoCliente] = useState(NUEVO_CLIENTE)
   const [guardando, setGuardando] = useState(false)
   const [borrador, setBorrador] = useState({ notas: '', notaria: '', fecha_firma: '' })
+  const [seccion, setSeccion] = useState<SeccionBancario>('clientes')
+  const [perfil, setPerfil] = useState<PerfilBroker>(PERFIL_VACIO)
+  const [perfilCargado, setPerfilCargado] = useState(false)
 
   const email = user?.email?.toLowerCase() || ''
   const pipeline = brokerPipeline(email)
@@ -89,6 +104,7 @@ export default function PanelBrokerPage() {
     }
     // El pipeline bancario carga sus propios datos
     if (pipeline === 'infonavit') cargarClientes()
+    else cargarPerfil()
   }, [user, isAuthenticated, loading, router])
 
   useEffect(() => {
@@ -101,10 +117,23 @@ export default function PanelBrokerPage() {
     }
   }, [clienteId])
 
+  const cargarPerfil = async () => {
+    try {
+      const res = await fetch('/api/broker/perfil')
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      setPerfil({ ...PERFIL_VACIO, nombre_completo: user?.nombre || '', ...data.perfil })
+    } catch (error) {
+      toast.error(error instanceof Error ? `Error cargando el perfil: ${error.message}` : 'Error cargando el perfil')
+    } finally {
+      setPerfilCargado(true)
+    }
+  }
+
   const cargarClientes = async () => {
     setCargando(true)
     try {
-      const res = await fetch(`/api/broker/clientes?email=${encodeURIComponent(email)}`)
+      const res = await fetch('/api/broker/clientes')
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setClientes(data.clientes || [])
@@ -122,7 +151,7 @@ export default function PanelBrokerPage() {
       const res = await fetch('/api/broker/clientes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, ...nuevoCliente }),
+        body: JSON.stringify(nuevoCliente),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -141,7 +170,7 @@ export default function PanelBrokerPage() {
     const res = await fetch('/api/broker/clientes', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, id, ...cambios }),
+      body: JSON.stringify({ id, ...cambios }),
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error)
@@ -188,7 +217,7 @@ export default function PanelBrokerPage() {
   const eliminarCliente = async (cliente: CreditoHipotecario) => {
     if (!confirm(`¿Eliminar a ${cliente.cliente_nombre} de tus clientes?`)) return
     try {
-      const res = await fetch(`/api/broker/clientes?id=${cliente.id}&email=${encodeURIComponent(email)}`, { method: 'DELETE' })
+      const res = await fetch(`/api/broker/clientes?id=${cliente.id}`, { method: 'DELETE' })
       if (!res.ok) throw new Error((await res.json()).error)
       setClientes(prev => prev.filter(c => c.id !== cliente.id))
       cerrarDetalle()
@@ -231,28 +260,47 @@ export default function PanelBrokerPage() {
       {/* Header */}
       <header className="bg-[#1A3540] border-b border-gray-700/60 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-conectia-gold/20 rounded-xl flex items-center justify-center">
-                <Landmark className="w-6 h-6 text-conectia-gold" />
+              <div className="w-12 h-12 shrink-0 bg-conectia-gold/20 rounded-xl overflow-hidden flex items-center justify-center">
+                {perfil.foto_url
+                  ? <img src={perfil.foto_url} alt="" className="w-full h-full object-cover" />
+                  : <Landmark className="w-6 h-6 text-conectia-gold" />}
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Panel de Broker</h1>
-                <p className="text-sm text-gray-400">{user.nombre} · {pipeline === 'bancario' ? 'Pipeline bancario' : 'Crédito Hipotecario'}</p>
+                <p className="text-sm text-gray-400">{perfil.nombre_completo || user.nombre} · {pipeline === 'bancario' ? 'Pipeline bancario' : 'Crédito Hipotecario'}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                onClick={cerrarDetalle}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                  !vistaDetalle
-                    ? 'bg-conectia-gold text-white shadow-lg'
-                    : 'text-gray-400 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                <Users className="h-4 w-4" />
-                <span className="hidden sm:inline">Mis Clientes</span>
-              </button>
+              {pipeline === 'bancario' ? SECCIONES_BANCARIO.map(item => (
+                <button
+                  key={item.id}
+                  onClick={() => setSeccion(item.id)}
+                  aria-label={item.titulo}
+                  aria-current={seccion === item.id ? 'page' : undefined}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                    seccion === item.id
+                      ? 'bg-conectia-gold text-white shadow-lg'
+                      : 'text-gray-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <item.icono className="h-4 w-4" />
+                  <span className="hidden lg:inline">{item.titulo}</span>
+                </button>
+              )) : (
+                <button
+                  onClick={cerrarDetalle}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                    !vistaDetalle
+                      ? 'bg-conectia-gold text-white shadow-lg'
+                      : 'text-gray-400 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Users className="h-4 w-4" />
+                  <span className="hidden sm:inline">Mis Clientes</span>
+                </button>
+              )}
               <button
                 onClick={async () => { await logout(); router.replace('/login') }}
                 className="flex items-center gap-2 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all"
@@ -266,7 +314,11 @@ export default function PanelBrokerPage() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {pipeline === 'bancario' ? <BrokerPipelineBancario email={email} /> : <>
+        {pipeline === 'bancario' ? (
+          seccion === 'recursos' ? <BrokerModuloPrivado />
+            : seccion === 'perfil' ? perfilCargado && <BrokerPerfil key={perfil.foto_url ?? 'sin-foto'} perfil={perfil} onGuardado={setPerfil} />
+            : <BrokerPipelineBancario />
+        ) : <>
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {STATS.map(stat => {

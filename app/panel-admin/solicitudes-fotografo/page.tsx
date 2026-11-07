@@ -34,7 +34,7 @@ interface SolicitudFotografo {
 }
 
 export default function SolicitudesFotografoPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [solicitudes, setSolicitudes] = useState<SolicitudFotografo[]>([])
   const [loading, setLoading] = useState(true)
@@ -43,12 +43,13 @@ export default function SolicitudesFotografoPage() {
   const [notasAdmin, setNotasAdmin] = useState("")
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || user?.role !== 'admin') {
       router.push('/login')
       return
     }
     loadSolicitudes()
-  }, [user, isAuthenticated, router])
+  }, [user, isAuthenticated, authLoading, router])
 
   const loadSolicitudes = async () => {
     setLoading(true)

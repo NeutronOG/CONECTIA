@@ -13,15 +13,15 @@ import { useLanguage } from '@/lib/i18n'
 
 export default function PlanesPage() {
   const { t } = useLanguage()
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!loading && (!isAuthenticated || user?.role !== 'asesor')) {
+    if (!authLoading && (!isAuthenticated || user?.role !== 'asesor')) {
       router.replace('/login')
     }
-  }, [isAuthenticated, loading, router, user?.role])
+  }, [isAuthenticated, authLoading, router, user?.role])
 
   if (loading || !isAuthenticated || user?.role !== 'asesor') {
     return null

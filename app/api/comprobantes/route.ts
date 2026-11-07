@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { SUPER_USER_EMAILS } from '@/lib/super-users'
-import { users as internalUsers } from '@/data/internal-users'
+import { isSuperUser } from '@/lib/super-users'
+import { sesionActual } from '@/lib/sesion'
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,13 +14,9 @@ const TIPOS = ['ingreso', 'egreso', 'comision', 'transferencia', 'otro'] as cons
 const SIGNED_URL_SECONDS = 60 * 60
 
 // Comprobantes: solo administradores y Lizzie
-function canManage(email: string) {
-  if (SUPER_USER_EMAILS.includes(email)) return true
-  return internalUsers.some(u => u.email.toLowerCase() === email && u.role === 'admin')
-}
-
-function readEmail(value: unknown) {
-  return typeof value === 'string' ? value.trim().toLowerCase() : ''
+async function gestor() {
+  const sesion = await sesionActual()
+  return isSuperUser(sesion) ? sesion!.email : null
 }
 
 function safeFileName(name: string) {
@@ -28,9 +24,8 @@ function safeFileName(name: string) {
   return clean.slice(-80) || 'archivo'
 }
 
-export async function GET(request: Request) {
-  const email = readEmail(new URL(request.url).searchParams.get('email'))
-  if (!canManage(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+export async function GET() {
+  if (!await gestor()) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
 
   const { data, error } = await supabaseAdmin
     .from('comprobantes')
@@ -55,9 +50,9 @@ export async function GET(request: Request) {
 // POST { email, nombre, concepto, tipo, monto, fecha, notas, archivoPath, archivoNombre, archivoTipo } → registra el comprobante
 export async function POST(request: Request) {
   try {
+    const email = await gestor()
+    if (!email) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
     const body = await request.json()
-    const email = readEmail(body.email)
-    if (!canManage(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
 
     if (body.action === 'upload-url') {
       const fileName = typeof body.fileName === 'string' ? body.fileName : 'archivo'
@@ -106,8 +101,7 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url)
   const id = Number(searchParams.get('id'))
-  const email = readEmail(searchParams.get('email'))
-  if (!canManage(email)) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
+  if (!await gestor()) return NextResponse.json({ error: 'No autorizado' }, { status: 403 })
   if (!Number.isInteger(id)) return NextResponse.json({ error: 'Comprobante inválido.' }, { status: 400 })
 
   const { data, error } = await supabaseAdmin.from('comprobantes').delete().eq('id', id).select('archivo_path').single()

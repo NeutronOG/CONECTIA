@@ -50,7 +50,7 @@ interface Ad {
 const ALLOWED_EMAILS = ['admin@conectia.mx', 'lizzie@conectia.mx']
 
 export default function PublicidadPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, loading: authLoading } = useAuth()
   const router = useRouter()
   const [ads, setAds] = useState<Ad[]>([])
   const [loading, setLoading] = useState(true)
@@ -73,12 +73,13 @@ export default function PublicidadPage() {
   })
 
   useEffect(() => {
+    if (authLoading) return
     if (!isAuthenticated || !user?.email || !ALLOWED_EMAILS.includes(user.email)) {
       router.push('/login')
       return
     }
     loadAds()
-  }, [user, isAuthenticated, router])
+  }, [user, isAuthenticated, authLoading, router])
 
   const loadAds = async () => {
     setLoading(true)

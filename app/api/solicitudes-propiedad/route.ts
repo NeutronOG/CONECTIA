@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { isSuperUser } from '@/lib/super-users'
+import { sesionActual } from '@/lib/sesion'
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseAdmin = createClient(
@@ -10,9 +12,7 @@ const supabaseAdmin = createClient(
 // GET - Obtener solicitudes (para fotógrafo: todas, para asesor: solo las suyas)
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
-    const role = searchParams.get('role')
+    const sesion = await sesionActual()
 
     let query = supabaseAdmin
       .from('solicitudes_propiedad')
@@ -20,8 +20,8 @@ export async function GET(request: Request) {
       .order('created_at', { ascending: false })
 
     // Si es asesor, solo ver las suyas
-    if (role === 'asesor' && email) {
-      query = query.eq('asesor_email', email)
+    if (sesion?.role === 'asesor' && !isSuperUser(sesion)) {
+      query = query.eq('asesor_email', sesion.email)
     }
 
     const { data, error } = await query
